@@ -1,0 +1,19 @@
+* Untuk Done List
+^ Waiting List
+# Untuk Catatan
+
+
+
+^^^
+Buat database
+Sheet Data Barang Mentah pada kolom harga dan harga/gram apa bedanya ?
+Tabel N-N dan rumus untuk estimasi stok barang jadi. (kolom stok tidak dibuat pada tabel barang jadi)
+Tabel Sheet Barang Masuk
+
+
+***
+Done Buat Note
+Done Masukkan Analisis kedalam folder
+
+###
+Semua kode bertipe data varchar dengan jumlah 8
