@@ -1,6 +1,10 @@
 <?php
 
+
 defined('BASEPATH') or exit('No direct script access allowed');
+
+
+
 
 class Dashboard extends CI_Controller
 {
@@ -20,6 +24,14 @@ class Dashboard extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+
+    public function __construct()
+    {
+        parent::__construct();
+        if ($_SESSION['is_logged'] !== 'TRUE') {
+            redirect('Auth');
+        }
+    }
     public function index()
     {
         // $this->load->view('template_dashboard/template_header.php');
@@ -27,6 +39,7 @@ class Dashboard extends CI_Controller
         // $this->load->view('template_dashboard/template_sidebar.php');
         // $this->load->view('v_dashboard');
         // $this->load->view('template_dashboard/template_footer.php');
+
         $data = [
             'title'     => 'Dashboard',
             'content'   => 'v_dashboard.php'
