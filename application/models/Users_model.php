@@ -12,7 +12,7 @@ class Users_model extends CI_Model
     {
         parent::__construct();
     }
-    protected $table      = 'user';
+    protected $table      = 'employee';
     protected $table2      = 'test';
     protected $primaryKey = 'id';
     protected $returnType     = 'array';
