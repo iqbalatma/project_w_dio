@@ -243,6 +243,7 @@
                         <span class="badge badge-success">4</span>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#submenu">
                         <i class="fas fa-bars"></i>
@@ -294,8 +295,13 @@
                         </ul>
                     </div>
                 </li>
-                <li class="mx-4 mt-2">
-                    <a href="http://themekita.com/atlantis-bootstrap-dashboard.html" class="btn btn-primary btn-block"><span class="btn-label mr-2"> <i class="fa fa-heart"></i> </span>Buy Pro</a>
+
+                <!-- Logout -->
+                <li class="nav-item">
+                    <a href="<?= base_url('Auth/logout'); ?>">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>
                 </li>
             </ul>
         </div>
