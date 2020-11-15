@@ -5,7 +5,7 @@
             <ul class="nav nav-primary">
             
                 <li class="nav-item">
-                    <a href="<?= base_url() ?>dashboard">
+                    <a href=<?= base_url("dashboard") ?>>
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
@@ -19,35 +19,37 @@
                         <p>Data Gudang</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="data-gudang">
+                    <!-- kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif -->
+                    <div class="collapse show" id="data-gudang">
                         <ul class="nav nav-collapse">
+                            <!-- kelas ACTIVE menjadi indikator submenu mana yg sedang aktif -->
                             <li class='active'>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Barang Kimia</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Barang Kemasan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Setting Harga Barang Kimia</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Setting Harga Barang Kemasan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Barang Masuk</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Barang Keluar</span>
                                 </a>
                             </li>
@@ -64,12 +66,12 @@
                     <div class="collapse" id="data-pelanggan">
                         <ul class="nav nav-collapse">
                             <li class=''>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Master Pelanggan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Setting Harga Penjualan</span>
                                 </a>
                             </li>
@@ -86,17 +88,17 @@
                     <div class="collapse" id="data-produksi">
                         <ul class="nav nav-collapse">
                             <li class=''>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Produk (Barang Jadi)</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Komposisi Produk</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Setting Harga Produk</span>
                                 </a>
                             </li>
@@ -113,12 +115,12 @@
                     <div class="collapse" id="data-penjualan">
                         <ul class="nav nav-collapse">
                             <li class=''>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Master Penjualan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Penjualan per Cabang</span>
                                 </a>
                             </li>
@@ -135,22 +137,22 @@
                     <div class="collapse" id="data-keuangan">
                         <ul class="nav nav-collapse">
                             <li class=''>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Hutang Piutang</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Pengeluaran</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Laba / Rugi</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url() ?>">
+                                <a href=<?= base_url("") ?>>
                                     <span class="sub-item">Data Kas Perusahaan</span>
                                 </a>
                             </li>
@@ -159,7 +161,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href=<?= base_url(); ?>>
+                    <a href=<?= base_url("informasi-perusahaan") ?>>
                         <i class="fas fa-info-circle"></i>
                         <p>Informasi Perusahaan</p>
                     </a>
