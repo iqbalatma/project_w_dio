@@ -170,3 +170,6 @@
     </div>
 </div>
 <!-- End Sidebar -->
+
+<!-- Start Content page -->
+<div class="main-panel">

@@ -1,4 +1,37 @@
+    <!-- Start footer -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="copyright ml-auto">
+                © 2020 <a href="http://sabun-aryanz.com">Sabun-aryanz</a> — <a href="#">@Galaxxdev</a>
+            </div>
+        </div>
+    </footer>
 </div>
+
+<!-- sweetalert modal notification -->
+<?php if ($this->session->userdata('success_message')): ?>
+    <script>
+    swal({
+      title: "<?php echo $this->session->userdata('title'); ?>",
+      text: "<?php echo $this->session->userdata('text'); ?>",
+      timer: 3000,
+      button: false,
+      icon: 'success'
+    });
+    </script>
+  <?php endif; ?>
+  <?php if ($this->session->userdata('failed_message')): ?>
+    <script>
+      swal({
+         title: "<?php echo $this->session->title; ?>",
+         text: "<?php echo $this->session->text; ?>",
+         timer: 3000,
+         button: false,
+         icon: 'error'
+      });
+    </script>
+  <?php endif; ?>
+  <!-- sweetalert end -->
 
 <!--   Core JS Files   -->
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
@@ -39,7 +72,7 @@
 <?php } ?>
 
 <!-- jQuery Vector Maps -->
-<?php if ($vectormaps) { ?>
+<?php if ( isset($vectormaps) ) { ?>
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
 <?php } ?>
