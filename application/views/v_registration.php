@@ -22,9 +22,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form action="<?= base_url('Auth/registration_progress'); ?>" method="POST">
+                            <form action="<?= base_url('Auth/registration'); ?>" method="POST">
                                 <div class="card-header">
-                                    <div class="card-title">Form Elements</div>
+                                    <div class="card-title">Form Registration</div>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -33,32 +33,39 @@
                                             <div class="form-group">
                                                 <label for="username">Username</label>
                                                 <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username">
+                                                <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>
                                                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
+                                                <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
                                                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
+                                                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="firstname">First Name</label>
                                                 <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter Firstname">
+                                                <?= form_error('firstname', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="lastname">Last Name</label>
                                                 <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter Lastname">
+                                                <?= form_error('lastname', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="phone">Phone Number</label>
                                                 <input type="number" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number">
+                                                <?= form_error('phone', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group">
-                                                <label for="comment">Address</label>
+                                                <label for="address">Address</label>
                                                 <textarea class="form-control" name="address" id="address" rows="5">
 
-												</textarea>
+                                                </textarea>
+                                                <?= form_error('address', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
 
                                             <div class="form-group">
@@ -95,7 +102,7 @@
                                     </div>
                                 </div>
                                 <div class="card-action">
-                                    <button class="btn btn-success" type="submit">Submit</button>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>
                             </form>
                         </div>

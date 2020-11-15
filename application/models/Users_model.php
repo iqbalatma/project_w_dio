@@ -42,7 +42,7 @@ class Users_model extends CI_Model
         // $this->password = $data['password'];
         // $this->email = $data['email'];
 
-        $this->db->insert($this->table, $data);
+        return $this->db->insert($this->table, $data);
     }
 
     public function update()
