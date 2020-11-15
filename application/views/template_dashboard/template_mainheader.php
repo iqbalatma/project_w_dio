@@ -107,8 +107,8 @@
                         </a>
                         <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
                             <div class="quick-actions-header">
-                                <span class="title mb-1">Quick Actions</span>
-                                <span class="subtitle op-8">Shortcuts</span>
+                                <span class="title mb-1">COMING SOON</span>
+                                <span class="subtitle op-8">Development in progress</span>
                             </div>
                             <div class="quick-actions-scroll scrollbar-outer">
                                 <div class="quick-actions-items">
