@@ -3,7 +3,7 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
-            
+
                 <li class="nav-item">
                     <a href=<?= base_url("dashboard") ?>>
                         <i class="fas fa-home"></i>
@@ -24,7 +24,7 @@
                         <ul class="nav nav-collapse">
                             <!-- kelas ACTIVE menjadi indikator submenu mana yg sedang aktif -->
                             <li class='active'>
-                                <a href=<?= base_url("") ?>>
+                                <a href=<?= base_url("DataGudang/BarangKimia") ?>>
                                     <span class="sub-item">Data Barang Kimia</span>
                                 </a>
                             </li>
