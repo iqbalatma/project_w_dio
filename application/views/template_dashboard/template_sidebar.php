@@ -2,301 +2,169 @@
 <div class="sidebar sidebar-style-2">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
-            <div class="user">
-                <div class="avatar-sm float-left mr-2">
-                    <img src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-                </div>
-                <div class="info">
-                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-                        <span>
-                            Hizrian
-                            <span class="user-level">Administrator</span>
-                            <span class="caret"></span>
-                        </span>
-                    </a>
-                    <div class="clearfix"></div>
-
-                    <div class="collapse in" id="collapseExample">
-                        <ul class="nav">
-                            <li>
-                                <a href="#profile">
-                                    <span class="link-collapse">My Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#edit">
-                                    <span class="link-collapse">Edit Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#settings">
-                                    <span class="link-collapse">Settings</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <ul class="nav nav-primary">
-                <li class="nav-item active">
-                    <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+            
+                <li class="nav-item">
+                    <a href="<?= base_url() ?>dashboard">
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
-                        <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="dashboard">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="../demo1/index.html">
-                                    <span class="sub-item">Dashboard 1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../demo2/index.html">
-                                    <span class="sub-item">Dashboard 2</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
-                <li class="nav-section">
-                    <span class="sidebar-mini-icon">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </span>
-                    <h4 class="text-section">Components</h4>
-                </li>
-                <li class="nav-item">
-                    <a data-toggle="collapse" href="#base">
+
+                <hr width=90%>
+
+                <li class="nav-item active">
+                    <a data-toggle="collapse" href="#data-gudang">
                         <i class="fas fa-layer-group"></i>
-                        <p>Base</p>
+                        <p>Data Gudang</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="base">
+                    <div class="collapse" id="data-gudang">
                         <ul class="nav nav-collapse">
-                            <li>
-                                <a href="components/avatars.html">
-                                    <span class="sub-item">Avatars</span>
+                            <li class='active'>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Barang Kimia</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/buttons.html">
-                                    <span class="sub-item">Buttons</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Barang Kemasan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Setting Harga Barang Kimia</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/panels.html">
-                                    <span class="sub-item">Panels</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Setting Harga Barang Kemasan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/notifications.html">
-                                    <span class="sub-item">Notifications</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Barang Masuk</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/sweetalert.html">
-                                    <span class="sub-item">Sweet Alert</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/font-awesome-icons.html">
-                                    <span class="sub-item">Font Awesome Icons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/simple-line-icons.html">
-                                    <span class="sub-item">Simple Line Icons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/flaticons.html">
-                                    <span class="sub-item">Flaticons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/typography.html">
-                                    <span class="sub-item">Typography</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Barang Keluar</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a data-toggle="collapse" href="#sidebarLayouts">
-                        <i class="fas fa-th-list"></i>
-                        <p>Sidebar Layouts</p>
+                    <a data-toggle="collapse" href="#data-pelanggan">
+                        <i class="fas fa-users"></i>
+                        <p>Data Pelanggan</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="sidebarLayouts">
+                    <div class="collapse" id="data-pelanggan">
                         <ul class="nav nav-collapse">
-                            <li>
-                                <a href="sidebar-style-1.html">
-                                    <span class="sub-item">Sidebar Style 1</span>
+                            <li class=''>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Master Pelanggan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="overlay-sidebar.html">
-                                    <span class="sub-item">Overlay Sidebar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="compact-sidebar.html">
-                                    <span class="sub-item">Compact Sidebar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="static-sidebar.html">
-                                    <span class="sub-item">Static Sidebar</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="icon-menu.html">
-                                    <span class="sub-item">Icon Menu</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Setting Harga Penjualan</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a data-toggle="collapse" href="#forms">
-                        <i class="fas fa-pen-square"></i>
-                        <p>Forms</p>
+                    <a data-toggle="collapse" href="#data-produksi">
+                        <i class="fas fa-shapes"></i>
+                        <p>Data Produksi</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="forms">
+                    <div class="collapse" id="data-produksi">
                         <ul class="nav nav-collapse">
+                            <li class=''>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Produk (Barang Jadi)</span>
+                                </a>
+                            </li>
                             <li>
-                                <a href="forms/forms.html">
-                                    <span class="sub-item">Basic Form</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Komposisi Produk</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Setting Harga Produk</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a data-toggle="collapse" href="#tables">
-                        <i class="fas fa-table"></i>
-                        <p>Tables</p>
+                    <a data-toggle="collapse" href="#data-penjualan">
+                        <i class="fas fa-signal"></i>
+                        <p>Data Penjualan</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="tables">
+                    <div class="collapse" id="data-penjualan">
                         <ul class="nav nav-collapse">
-                            <li>
-                                <a href="tables/tables.html">
-                                    <span class="sub-item">Basic Table</span>
+                            <li class=''>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Master Penjualan</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tables/datatables.html">
-                                    <span class="sub-item">Datatables</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Penjualan per Cabang</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a data-toggle="collapse" href="#maps">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>Maps</p>
+                    <a data-toggle="collapse" href="#data-keuangan">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <p>Data Keuangan</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="maps">
+                    <div class="collapse" id="data-keuangan">
                         <ul class="nav nav-collapse">
+                            <li class=''>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Hutang Piutang</span>
+                                </a>
+                            </li>
                             <li>
-                                <a href="maps/jqvmap.html">
-                                    <span class="sub-item">JQVMap</span>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Pengeluaran</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Laba / Rugi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url() ?>">
+                                    <span class="sub-item">Data Kas Perusahaan</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a data-toggle="collapse" href="#charts">
-                        <i class="far fa-chart-bar"></i>
-                        <p>Charts</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="charts">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="charts/charts.html">
-                                    <span class="sub-item">Chart Js</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="charts/sparkline.html">
-                                    <span class="sub-item">Sparkline</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="widgets.html">
-                        <i class="fas fa-desktop"></i>
-                        <p>Widgets</p>
-                        <span class="badge badge-success">4</span>
+                    <a href=<?= base_url(); ?>>
+                        <i class="fas fa-info-circle"></i>
+                        <p>Informasi Perusahaan</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a data-toggle="collapse" href="#submenu">
-                        <i class="fas fa-bars"></i>
-                        <p>Menu Levels</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="submenu">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a data-toggle="collapse" href="#subnav1">
-                                    <span class="sub-item">Level 1</span>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="subnav1">
-                                    <ul class="nav nav-collapse subnav">
-                                        <li>
-                                            <a href="#">
-                                                <span class="sub-item">Level 2</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="sub-item">Level 2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a data-toggle="collapse" href="#subnav2">
-                                    <span class="sub-item">Level 1</span>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="subnav2">
-                                    <ul class="nav nav-collapse subnav">
-                                        <li>
-                                            <a href="#">
-                                                <span class="sub-item">Level 2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="sub-item">Level 1</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="mx-4 mt-2">
-                    <a href="http://themekita.com/atlantis-bootstrap-dashboard.html" class="btn btn-primary btn-block"><span class="btn-label mr-2"> <i class="fa fa-heart"></i> </span>Buy Pro</a>
-                </li>
+
             </ul>
         </div>
     </div>

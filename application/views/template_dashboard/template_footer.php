@@ -1,4 +1,5 @@
 </div>
+
 <!--   Core JS Files   -->
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
@@ -13,23 +14,35 @@
 
 
 <!-- Chart JS -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/chart.js/chart.min.js"></script>
+<?php if ( isset($chartjs) ) { ?>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/chart.js/chart.min.js"></script>
+<?php } ?>
 
 <!-- jQuery Sparkline -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+<?php if ( isset($sparkline) ) { ?>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+<?php } ?>
 
 <!-- Chart Circle -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/chart-circle/circles.min.js"></script>
+<?php if ( isset($chartcircle) ) { ?>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/chart-circle/circles.min.js"></script>
+<?php } ?>
 
 <!-- Datatables -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+<?php if ( isset($datatables) ) { ?>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+<?php } ?>
 
 <!-- Bootstrap Notify -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<?php if ( isset($bsnotify) ) { ?>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<?php } ?>
 
 <!-- jQuery Vector Maps -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+<?php if ($vectormaps) { ?>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+<?php } ?>
 
 <!-- Sweet Alert -->
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
@@ -37,10 +50,15 @@
 <!-- Atlantis JS -->
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
 
+<?php
+/**
+ * ! yang di bawah bisa dihapus nanti, cuma bawaan default buat contoh
+ */
+?>
 <!-- Atlantis DEMO methods, don't include it in your project! -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
-<script>
+<!-- <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
+<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script> -->
+<!-- <script>
     Circles.create({
         id: 'circles-1',
         radius: 45,
@@ -133,7 +151,7 @@
         lineColor: '#ffa534',
         fillColor: 'rgba(255, 165, 52, .14)'
     });
-</script>
+</script> -->
 </body>
 
 </html>
