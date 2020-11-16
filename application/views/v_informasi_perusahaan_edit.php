@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="card-action row justify-content-center">
-                          <a href=<?= base_url("informasi-perusahaan") ?> class="btn btn-light col-3 mx-1">
+                          <a href=<?= base_url("informasi-perusahaan") ?> class="btn btn-light btn-border col-3 mx-1">
                             Batal
                           </a>
                           <button type="submit" class="btn btn-secondary col-3 mx-1">

@@ -25,14 +25,6 @@ $mainMenu = array(
         'slug'  => 'data-barang-kemasan',
         'url'   => "{$_data_gudang}/data-barang-kemasan",
       ],[
-        'name'  => 'Setting Harga Barang Kimia',
-        'slug'  => 'setting-harga-barang-kimia',
-        'url'   => "{$_data_gudang}/setting-harga-barang-kimia",
-      ],[
-        'name'  => 'Setting Harga Barang Kemasan',
-        'slug'  => 'setting-harga-barang-kemasan',
-        'url'   => "{$_data_gudang}/setting-harga-barang-kemasan",
-      ],[
         'name'  => 'Barang Masuk',
         'slug'  => 'barang-masuk',
         'url'   => "{$_data_gudang}/barang-masuk",
