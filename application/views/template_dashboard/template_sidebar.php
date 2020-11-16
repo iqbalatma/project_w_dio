@@ -3,8 +3,13 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
+<<<<<<< HEAD
             
                 <li class="nav-item <?php if ($menuActive == 'dashboard') { echo 'active'; } ?>">
+=======
+
+                <li class="nav-item">
+>>>>>>> e30b1b0ee8c938eff5baee317a34601751d4bcfc
                     <a href=<?= base_url("dashboard") ?>>
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
@@ -24,8 +29,13 @@
                     <div class="collapse <?php if ($menuActive == 'data-gudang') { echo 'show'; } ?>" id="data-gudang">
                         <ul class="nav nav-collapse">
                             <!-- kelas ACTIVE menjadi indikator submenu mana yg sedang aktif -->
+<<<<<<< HEAD
                             <li class="<?php if ($submenuActive == 'data-barang-kimia') { echo 'active'; } ?>">
                                 <a href=<?= base_url("") ?>>
+=======
+                            <li class='active'>
+                                <a href=<?= base_url("DataGudang/BarangKimia") ?>>
+>>>>>>> e30b1b0ee8c938eff5baee317a34601751d4bcfc
                                     <span class="sub-item">Data Barang Kimia</span>
                                 </a>
                             </li>

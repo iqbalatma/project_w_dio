@@ -10,28 +10,31 @@
 
 <!-- sweetalert modal notification -->
 <?php if ($this->session->flashdata('success_message')): ?>
-    <script>
-      swal({
+  <script>
+    swal({
+      title: "<?= $this->session->title; ?>",
+      text: "<?= $this->session->text; ?>",
+      timer: 2000,
+      button: false,
+      icon: 'success'
+    });
+  </script>
+<?php endif; ?>
+<?php if ($this->session->flashdata('failed_message')): ?>
+  <script>
+    swal({
         title: "<?= $this->session->title; ?>",
         text: "<?= $this->session->text; ?>",
         timer: 2000,
         button: false,
-        icon: 'success'
-      });
-    </script>
-  <?php endif; ?>
-  <?php if ($this->session->flashdata('failed_message')): ?>
-    <script>
-      swal({
-         title: "<?= $this->session->title; ?>",
-         text: "<?= $this->session->text; ?>",
-         timer: 2000,
-         button: false,
-         icon: 'error'
-      });
-    </script>
-  <?php endif; ?>
-  <!-- sweetalert end -->
+        icon: 'error'
+    });
+  </script>
+<?php endif; ?>
+<!-- sweetalert end -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <!--   Core JS Files   -->
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
@@ -88,7 +91,7 @@
 <!-- Atlantis DEMO methods, don't include it in your project! -->
 <!-- <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script> -->
-<!-- <script>
+    <!-- <script>
     Circles.create({
         id: 'circles-1',
         radius: 45,
@@ -182,6 +185,46 @@
         fillColor: 'rgba(255, 165, 52, .14)'
     });
 </script> -->
-</body>
 
-</html>
+
+    <script>
+        $(document).ready(function() {
+
+            // get Edit Product
+            $('.btn-edit').on('click', function() {
+                // get data from button edit
+                var id = $(this).data('id');
+                var material_code = $(this).data('material_code');
+                var full_name = $(this).data('full_name');
+                var unit = $(this).data('unit');
+                var volume = $(this).data('volume');
+                var price_base = $(this).data('price_base');
+                var image = $(this).data('image');
+                // Set data to Form Edit
+                $('.id').val(id).trigger('change');
+                $('.material_code').val(material_code);
+                $('.full_name').val(full_name);
+                $('.unit').val(unit);
+                $('.volume').val(volume);
+                $('.price_base').val(price_base);
+                $('.image').val(image);
+
+                // Call Modal Edit
+                $('#modalUpdate').modal('show');
+            });
+
+            $('.btn-delete').on('click', function() {
+                var id = $(this).data('id');
+
+                $('.id').val(id);
+
+
+
+            });
+
+
+        });
+    </script>
+    </body>
+
+    </html>
