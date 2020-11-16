@@ -8,7 +8,6 @@ class Informasi_perusahaan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Meta_model', 'meta_m');
-        $this->module = 'informasi-perusahaan';
     }
 
     public function index()
