@@ -1,3 +1,139 @@
+<?php
+
+// initialize main menu segment for url
+$_data_gudang           = 'data-gudang';
+$_data_pelanggan        = 'data-pelanggan';
+$_data_produksi         = 'data-produksi';
+$_data_penjualan        = 'data-penjualan';
+$_data_keuangan         = 'data-keuangan';
+$_informasi_perusahaan  = 'informasi-perusahaan';
+
+$mainMenu = array(
+  [
+    'no'      => 1,
+    'name'    => 'Data Gudang',
+    'slug'    => $_data_gudang,
+    'url'     => $_data_gudang,
+    'icon'    => 'fas fa-layer-group',
+    'submenu' => array(
+      [
+        'name'  => 'Data Barang Kimia',
+        'slug'  => 'data-barang-kimia',
+        'url'   => "{$_data_gudang}/data-barang-kimia",
+      ],[
+        'name'  => 'Data Barang Kemasan',
+        'slug'  => 'data-barang-kemasan',
+        'url'   => "{$_data_gudang}/data-barang-kemasan",
+      ],[
+        'name'  => 'Setting Harga Barang Kimia',
+        'slug'  => 'setting-harga-barang-kimia',
+        'url'   => "{$_data_gudang}/setting-harga-barang-kimia",
+      ],[
+        'name'  => 'Setting Harga Barang Kemasan',
+        'slug'  => 'setting-harga-barang-kemasan',
+        'url'   => "{$_data_gudang}/setting-harga-barang-kemasan",
+      ],[
+        'name'  => 'Barang Masuk',
+        'slug'  => 'barang-masuk',
+        'url'   => "{$_data_gudang}/barang-masuk",
+      ],[
+        'name'  => 'Barang Keluar',
+        'slug'  => 'barang-keluar',
+        'url'   => "{$_data_gudang}/barang-keluar",
+      ],
+    )
+  ],[
+    'no'      => 2,
+    'name'    => 'Data Pelanggan',
+    'slug'    => $_data_pelanggan,
+    'url'     => $_data_pelanggan,
+    'icon'    => 'fas fa-users',
+    'submenu' => array(
+      [
+        'name'  => 'Data Master Pelanggan',
+        'slug'  => 'data-master-pelanggan',
+        'url'   => "{$_data_pelanggan}/data-master-pelanggan",
+      ],[
+        'name'  => 'Setting Harga Penjualan',
+        'slug'  => 'setting-harga-penjualan',
+        'url'   => "{$_data_pelanggan}/setting-harga-penjualan",
+      ],
+    )
+  ],[
+    'no'      => 3,
+    'name'    => 'Data Produksi',
+    'slug'    => $_data_produksi,
+    'url'     => $_data_produksi,
+    'icon'    => 'fas fa-shapes',
+    'submenu' => array(
+      [
+        'name'  => 'Data Produk (Barang Jadi)',
+        'slug'  => 'data-produk',
+        'url'   => "{$_data_produksi}/data-produk",
+      ],[
+        'name'  => 'Komposisi Produk',
+        'slug'  => 'komposisi-produk',
+        'url'   => "{$_data_produksi}/komposisi-produk",
+      ],[
+        'name'  => 'Setting Harga Produk',
+        'slug'  => 'setting-harga-produk',
+        'url'   => "{$_data_produksi}/setting-harga-produk",
+      ],
+    )
+  ],[
+    'no'      => 4,
+    'name'    => 'Data Penjualan',
+    'slug'    => $_data_penjualan,
+    'url'     => $_data_penjualan,
+    'icon'    => 'fas fa-signal',
+    'submenu' => array(
+      [
+        'name'  => 'Data Master Penjualan',
+        'slug'  => 'data-penjualan',
+        'url'   => "{$_data_penjualan}/data-penjualan",
+      ],[
+        'name'  => 'Data Penjualan per Cabang',
+        'slug'  => 'data-penjualan#per-cabang',
+        'url'   => "{$_data_penjualan}/data-penjualan#per-cabang",
+      ],
+    )
+  ],[
+    'no'      => 5,
+    'name'    => 'Data Keuangan',
+    'slug'    => $_data_keuangan,
+    'url'     => $_data_keuangan,
+    'icon'    => 'fas fa-money-bill-wave',
+    'submenu' => array(
+      [
+        'name'  => 'Data Hutang Piutang',
+        'slug'  => 'data-hutang-piutang',
+        'url'   => "{$_data_keuangan}/data-hutang-piutang",
+      ],[
+        'name'  => 'Data Pengeluaran',
+        'slug'  => 'data-pengeluaran',
+        'url'   => "{$_data_keuangan}/data-pengeluaran",
+      ],[
+        'name'  => 'Data Laba / Rugi',
+        'slug'  => 'data-laba-rugi',
+        'url'   => "{$_data_keuangan}/data-laba-rugi",
+      ],[
+        'name'  => 'Data Kas Perusahaan',
+        'slug'  => 'data-kas-perusahaan',
+        'url'   => "{$_data_keuangan}/data-kas-perusahaan",
+      ],
+    )
+  ],[
+    'no'      => 6,
+    'name'    => 'Informasi Perusahaan',
+    'slug'    => $_informasi_perusahaan,
+    'url'     => $_informasi_perusahaan,
+    'icon'    => 'fas fa-info-circle',
+    'submenu' => FALSE
+  ],
+);
+
+?>
+
 <!-- Sidebar -->
 <div class="sidebar sidebar-style-2">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
@@ -13,160 +149,47 @@
 
                 <hr width=90%>
 
+                <?php
+                foreach ($mainMenu as $mm) : ?>
                 <!-- kelas ACTIVE untuk indikator menu yg aktif -->
-                <li class="nav-item <?php if ($menuActive == 'data-gudang') { echo 'active'; } ?>">
-                    <a data-toggle="collapse" href="#data-gudang">
-                        <i class="fas fa-layer-group"></i>
-                        <p>Data Gudang</p>
+                <li class="nav-item <?php if ($menuActive == $mm['slug']) { echo 'active'; } ?>">
+                    <?php
+                    if ($mm['submenu'] !== FALSE) { 
+                    ?>
+                    <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
+                        <i class="<?= $mm['icon'] ?>"></i>
+                        <p><?= $mm['name'] ?></p>
                         <span class="caret"></span>
                     </a>
+                    <?php 
+                    } else { 
+                    ?>
+                    <a href="<?= "{$mm['url']}" ?>">
+                        <i class="<?= $mm['icon'] ?>"></i>
+                        <p><?= $mm['name'] ?></p>
+                    </a>
+                    <?php 
+                    }
+                    if ($mm['submenu'] !== FALSE) : 
+                    ?>
                     <!-- kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif -->
-                    <div class="collapse <?php if ($menuActive == 'data-gudang') { echo 'show'; } ?>" id="data-gudang">
+                    <div class="collapse <?php if ($menuActive == $mm['slug']) { echo 'show'; } ?>" id="<?= $mm['url'] ?>">
                         <ul class="nav nav-collapse">
                             <!-- kelas ACTIVE menjadi indikator submenu mana yg sedang aktif -->
-                            <li class="<?php if ($submenuActive == 'data-barang-kimia') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Barang Kimia</span>
+                            <?php
+                            foreach ($mm['submenu'] as $sm) : 
+                            ?>
+                            <li class="<?php if ($submenuActive == $sm['slug']) { echo 'active'; } ?>">
+                                <a href=<?= base_url("{$sm['url']}") ?>>
+                                    <span class="sub-item"><?= $sm['name'] ?></span>
                                 </a>
                             </li>
-                            <li class="<?php if ($submenuActive == 'data-barang-kemasan') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Barang Kemasan</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'setting-harga-barang-kimia') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Setting Harga Barang Kimia</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'setting-harga-barang-kimia') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Setting Harga Barang Kemasan</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'barang-masuk') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Barang Masuk</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'barang-keluar') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Barang Keluar</span>
-                                </a>
-                            </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
+                    <?php endif; ?>
                 </li>
-
-                <li class="nav-item <?php if ($menuActive == 'data-pelanggan') { echo 'active'; } ?>">
-                    <a data-toggle="collapse" href="#data-pelanggan">
-                        <i class="fas fa-users"></i>
-                        <p>Data Pelanggan</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse <?php if ($menuActive == 'data-pelanggan') { echo 'show'; } ?>" id="data-pelanggan">
-                        <ul class="nav nav-collapse">
-                            <li class="<?php if ($submenuActive == 'data-master-pelanggan') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Master Pelanggan</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'setting-harga-penjualan') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Setting Harga Penjualan</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item <?php if ($menuActive == 'data-produksi') { echo 'active'; } ?>">
-                    <a data-toggle="collapse" href="#data-produksi">
-                        <i class="fas fa-shapes"></i>
-                        <p>Data Produksi</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse <?php if ($menuActive == 'data-produksi') { echo 'show'; } ?>" id="data-produksi">
-                        <ul class="nav nav-collapse">
-                            <li class="<?php if ($submenuActive == 'data-produk') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Produk (Barang Jadi)</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'komposisi-produk') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Komposisi Produk</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'setting-harga-produk') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Setting Harga Produk</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item <?php if ($menuActive == 'data-penjualan') { echo 'active'; } ?>">
-                    <a data-toggle="collapse" href="#data-penjualan">
-                        <i class="fas fa-signal"></i>
-                        <p>Data Penjualan</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse <?php if ($menuActive == 'data-penjualan') { echo 'show'; } ?>" id="data-penjualan">
-                        <ul class="nav nav-collapse">
-                            <li class="<?php if ($submenuActive == 'data-master-penjualan') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Master Penjualan</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'data-penjualan-per-cabang') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Penjualan per Cabang</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item <?php if ($menuActive == 'data-keuangan') { echo 'active'; } ?>">
-                    <a data-toggle="collapse" href="#data-keuangan">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <p>Data Keuangan</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse <?php if ($menuActive == 'data-keuangan') { echo 'show'; } ?>" id="data-keuangan">
-                        <ul class="nav nav-collapse">
-                            <li class="<?php if ($submenuActive == 'data-hutang-piutang') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Hutang Piutang</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'data-pengeluaran') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Pengeluaran</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'data-laba-rugi') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Laba / Rugi</span>
-                                </a>
-                            </li>
-                            <li class="<?php if ($submenuActive == 'data-kas-perusahaan') { echo 'active'; } ?>">
-                                <a href=<?= base_url("") ?>>
-                                    <span class="sub-item">Data Kas Perusahaan</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item <?php if ($menuActive == 'informasi-perusahaan') { echo 'active'; } ?>">
-                    <a href=<?= base_url("informasi-perusahaan") ?>>
-                        <i class="fas fa-info-circle"></i>
-                        <p>Informasi Perusahaan</p>
-                    </a>
-                </li>
+                <?php endforeach; ?>
 
             </ul>
         </div>
