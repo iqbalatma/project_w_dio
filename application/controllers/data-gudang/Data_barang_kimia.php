@@ -5,24 +5,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
-class BarangKimia extends CI_Controller
+class Data_barang_kimia extends CI_Controller
 {
-
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     *	- or -
-     * 		http://example.com/index.php/welcome/index
-     *	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/user_guide/general/urls.html
-     */
 
     public function __construct()
     {
@@ -36,8 +20,10 @@ class BarangKimia extends CI_Controller
     public function index()
     {
         $data = [
-            'title'     => 'Data Barang Kimia',
-            'content'   => 'v_barang_kimia.php',
+            'title'             => 'Data Barang Kimia',
+            'content'           => 'v_barang_kimia.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-kimia', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_kimia' => $this->Material_model->getAll()
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);

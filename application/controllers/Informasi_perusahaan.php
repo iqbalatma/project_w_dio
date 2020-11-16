@@ -15,8 +15,8 @@ class Informasi_perusahaan extends CI_Controller
         $data = [
           'title'           => 'Informasi Perusahaan',
           'content'         => 'v_informasi_perusahaan.php',
-          'menuActive'      => 'informasi-perusahaan',
-          'submenuActive'   => 'informasi-perusahaan',
+          'menuActive'      => 'informasi-perusahaan', // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => 'informasi-perusahaan', // harus selalu ada, buat indikator sidebar menu yg aktif
           'meta'            => $this->meta_m->get_meta_by_id(1),
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
