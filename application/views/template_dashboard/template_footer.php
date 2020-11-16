@@ -9,23 +9,23 @@
 </div>
 
 <!-- sweetalert modal notification -->
-<?php if ($this->session->userdata('success_message')): ?>
-    <script>
-    swal({
-      title: "<?php echo $this->session->userdata('title'); ?>",
-      text: "<?php echo $this->session->userdata('text'); ?>",
-      timer: 3000,
-      button: false,
-      icon: 'success'
-    });
-    </script>
-  <?php endif; ?>
-  <?php if ($this->session->userdata('failed_message')): ?>
+<?php if ($this->session->flashdata('success_message')): ?>
     <script>
       swal({
-         title: "<?php echo $this->session->title; ?>",
-         text: "<?php echo $this->session->text; ?>",
-         timer: 3000,
+        title: "<?= $this->session->title; ?>",
+        text: "<?= $this->session->text; ?>",
+        timer: 2000,
+        button: false,
+        icon: 'success'
+      });
+    </script>
+  <?php endif; ?>
+  <?php if ($this->session->flashdata('failed_message')): ?>
+    <script>
+      swal({
+         title: "<?= $this->session->title; ?>",
+         text: "<?= $this->session->text; ?>",
+         timer: 2000,
          button: false,
          icon: 'error'
       });
@@ -76,9 +76,6 @@
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
 <?php } ?>
-
-<!-- Sweet Alert -->
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
 <!-- Atlantis JS -->
 <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>

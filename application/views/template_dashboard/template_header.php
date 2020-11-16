@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
 
+    <!-- Sweet Alert -->
+    <script src="<?= base_url('assets/js/sweetalert/sweetalert.min.js') ?>"></script>
+
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <!-- <link rel="stylesheet" href="../assets/css/demo.css"> -->
 </head>

@@ -41,8 +41,10 @@ class Dashboard extends CI_Controller
         // $this->load->view('template_dashboard/template_footer.php');
 
         $data = [
-            'title'     => 'Dashboard',
-            'content'   => 'v_dashboard.php'
+            'title'             => 'Dashboard',
+            'content'           => 'v_dashboard.php',
+            'menuActive'        => 'dashboard',
+            'submenuActive'     => 'dashboard',
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
