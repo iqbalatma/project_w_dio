@@ -214,6 +214,15 @@
                 $('#modalUpdate').modal('show');
             });
 
+            $('.btn-delete').on('click', function() {
+                var id = $(this).data('id');
+
+                $('.id').val(id);
+
+
+
+            });
+
 
         });
     </script>

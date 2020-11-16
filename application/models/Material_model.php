@@ -19,7 +19,7 @@ class Material_model extends CI_Model
 
     public function getAll()
     {
-        return $this->db->get($this->table)->result();
+        return $this->db->get_where($this->table, array('is_deleted' => 0))->result();
     }
 
     public function insert($data)
@@ -42,5 +42,12 @@ class Material_model extends CI_Model
     public function update($data)
     {
         return $this->db->update($this->table, $data, array('id' => $_POST['id']));
+    }
+
+    public function delete($id)
+    {
+
+        $this->is_deleted = 1;
+        return $this->db->update($this->table, $this, array('id' => $id));
     }
 }

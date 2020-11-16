@@ -218,4 +218,26 @@ class BarangKimia extends CI_Controller
             }
         }
     }
+
+    public function delete()
+    {
+        $id = $this->input->post('id');
+        $delete = $this->Material_model->delete($id);
+
+        if ($delete == 1) {
+            // $this->session->set_flashdata('success_message', 1);
+            // $this->session->set_flashdata('title', 'Registration complete !');
+            // $this->session->set_flashdata('text', 'Please activate your account via email');
+            // redirect(base_url('login'));
+            $this->session->set_flashdata('message_berhasil', 'Berhasil Menghapus data');
+            redirect(base_url('DataGudang/BarangKimia'));
+        } else {
+            // $this->session->set_flashdata('failed_message', 1);
+            // $this->session->set_flashdata('title', 'Registration failed !');
+            // $this->session->set_flashdata('text', 'Please check again your information');
+            // redirect(base_url('register'));
+            $this->session->set_flashdata('message_gagal', 'Gagal Menghapus data');
+            redirect(base_url('DataGudang/BarangKimia'));
+        }
+    }
 }

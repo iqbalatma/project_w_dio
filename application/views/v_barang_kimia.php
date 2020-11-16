@@ -73,7 +73,7 @@
                                     <td><?= $row->image ?></td>
                                     <td>
                                         <a href="#modalUpdate" type="button" data-toggle="modal" data-target="#modalUpdate" id="id" data-id="<?= $row->id; ?>" data-material_code="<?= $row->material_code; ?>" data-full_name="<?= $row->full_name; ?>" data-unit="<?= $row->unit; ?>" data-volume="<?= $row->volume; ?>" data-price_base="<?= $row->price_base; ?>" data-image="<?= $row->image; ?>" class="btn btn-primary btn-sm btn-edit">Ubah</a>
-                                        <button class="btn btn-danger btn-sm">Hapus</button>
+                                        <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-danger btn-sm btn-delete" data-id="<?= $row->id; ?>">Hapus</a>
                                     </td>
                                 </tr>
 
@@ -203,6 +203,34 @@
                                         <button type="submit" class="btn btn-primary">Tambah Data</button>
                                     </div>
                                 </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modalKonfirmasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi Hapus Data</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <h4>Yakin Ingin Menghapus Data ?</h4>
+                                </div>
+
+                                <form action="<?= base_url('DataGudang/BarangKimia/delete'); ?>" method="POST">
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="id" class="id"></input>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                                        <button class="btn btn-primary">Hapus Data</button>
+                                    </div>
+                                </form>
+
 
 
                             </div>
