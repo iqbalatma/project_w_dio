@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2020 at 09:13 AM
+-- Generation Time: Nov 16, 2020 at 07:05 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -47,32 +47,7 @@ CREATE TABLE `basic_info_meta` (
 --
 
 INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contact_2`, `email`, `website`, `logo`, `created_at`, `updated_at`, `updated_by`) VALUES
-(1, 'Sabun Aryanzssssss', 'Jabar, Indonesia', '0812398123', '1231231232', 'halo@nerochrono.cyou', 'http://sabun-aryanz.coms', 'logo-hd.png', '2020-11-16 03:02:30', '2020-11-16 14:55:10', 'gudang');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `basic_info_meta2`
---
-
-CREATE TABLE `basic_info_meta2` (
-  `meta_id` tinyint(10) NOT NULL,
-  `meta_key` varchar(255) NOT NULL,
-  `meta_value` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `basic_info_meta2`
---
-
-INSERT INTO `basic_info_meta2` (`meta_id`, `meta_key`, `meta_value`, `created_at`) VALUES
-(1, 'Nama Perusahaan', 'Sabun Aryanz', '2020-11-11 01:06:24'),
-(2, 'Alamat Perusahaan', 'Jabar, Indonesia', '2020-11-11 01:06:24'),
-(3, 'Kontak 1', '012345678', '2020-11-11 01:06:24'),
-(4, 'Kontak 2', '098754321', '2020-11-11 01:06:24'),
-(5, 'Email', 'halo@sabun-aryanz.com', '2020-11-11 01:06:24'),
-(6, 'Logo', 'logo.png\r\n', '2020-11-15 20:15:10');
+(1, 'Sabun Aryanzssssss', 'Jabar, Indonesia', '0812398123', '1231231232', 'hal@sasd.jh', 'http://sabun-aryanz.coms', 'logo-hd.png', '2020-11-16 03:02:30', '2020-11-16 22:31:19', 'gudang');
 
 -- --------------------------------------------------------
 
@@ -86,7 +61,7 @@ CREATE TABLE `customer` (
   `address` varchar(250) NOT NULL,
   `phone` varchar(16) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_deleted` tinyint(2) NOT NULL
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -94,8 +69,16 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `created_at`, `is_deleted`) VALUES
-(1, 'Joe Bidan', 'Kepulauan seribu', '0877262621', '2020-11-11 00:25:50', 0),
-(2, 'Tori Obama', 'Timoer Timoer', '0877216126', '2020-11-11 00:25:50', 0);
+(1, 'Joe Bidan', 'Menara', '0877213176782', '2020-11-11 00:25:50', 1),
+(2, 'Tori Obama', 'Timoer Timoer', '0877216126', '2020-11-11 00:25:50', 0),
+(3, 'Pawer Renjer', 'Imajinasi', '0856213125', '2020-11-16 21:47:20', 0),
+(4, 'Bruce lee', 'York New', '0854465478', '2020-11-16 21:47:20', 0),
+(5, 'Jake Separow', 'Going Merry', '0845111487', '2020-11-16 21:50:32', 0),
+(6, 'tester', 'Tempat makan', '04567182332', '2020-11-16 23:57:06', 0),
+(7, 'tester2', 'Tempat makan 2', '0888888888', '2020-11-16 23:59:53', 0),
+(8, 'tester3', 'Tempat makan 3', '0888888889', '2020-11-17 00:01:03', 0),
+(9, 'tester4', 'Tempat makan 4', '0888888890', '2020-11-17 00:02:13', 0),
+(10, 'Jackpot', 'Jendela', '085677839992', '2020-11-17 00:45:27', 0);
 
 -- --------------------------------------------------------
 
@@ -195,6 +178,14 @@ CREATE TABLE `material` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `material`
+--
+
+INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `created_at`, `is_deleted`) VALUES
+(1, 'BM001', 'Barang mentah 1', 'mililiter', 1000, 'default.png', 10000, '2020-11-16 17:40:30', 0),
+(2, 'BM002', 'Barang mentah 2', 'mililiter', 233, 'default.png', 20000, '2020-11-16 17:40:30', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -209,7 +200,7 @@ CREATE TABLE `material_inventory` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` varchar(100) DEFAULT NULL,
-  `is_deleted` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -263,7 +254,7 @@ CREATE TABLE `product_inventory` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` varchar(100) DEFAULT NULL,
-  `is_deleted` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -321,12 +312,6 @@ INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) 
 --
 ALTER TABLE `basic_info_meta`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `basic_info_meta2`
---
-ALTER TABLE `basic_info_meta2`
-  ADD PRIMARY KEY (`meta_id`);
 
 --
 -- Indexes for table `customer`
@@ -435,16 +420,10 @@ ALTER TABLE `basic_info_meta`
   MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `basic_info_meta2`
---
-ALTER TABLE `basic_info_meta2`
-  MODIFY `meta_id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -474,7 +453,7 @@ ALTER TABLE `invoice_payment`
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `material_inventory`

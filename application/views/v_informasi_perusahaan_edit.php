@@ -33,7 +33,7 @@
                                   id          = "edit-nama-perusahaan" 
                                   name        = "edit-nama-perusahaan" 
                                   placeholder = "Nama perusahaan" 
-                                  value       = "<?= $meta->fullname ?>" 
+                                  value       = "<?= (set_value('edit-nama-perusahaan') !== '') ? set_value('edit-nama-perusahaan') : $meta->fullname ; ?>"
                                   class       = "form-control <?php if(form_error('edit-nama-perusahaan') !== ''){ echo 'is-invalid'; } ?>"
                                 >
                                 <?= form_error('edit-nama-perusahaan') ?>
@@ -47,7 +47,7 @@
                                   id          = "edit-alamat-perusahaan" 
                                   name        = "edit-alamat-perusahaan" 
                                   placeholder = "Alamat perusahaan" 
-                                  value       = "<?= $meta->address ?>" 
+                                  value       = "<?= (set_value('edit-alamat-perusahaan') !== '') ? set_value('edit-alamat-perusahaan') : $meta->address ; ?>"
                                   class       = "form-control <?php if(form_error('edit-alamat-perusahaan') !== ''){ echo 'is-invalid'; } ?>"
                                 >
                                 <?= form_error('edit-alamat-perusahaan') ?>
@@ -61,7 +61,7 @@
                                   id          = "edit-website" 
                                   name        = "edit-website" 
                                   placeholder = "Alamat website" 
-                                  value       = "<?= $meta->website ?>" 
+                                  value       = "<?= (set_value('edit-website') !== '') ? set_value('edit-website') : $meta->website ; ?>"
                                   class       = "form-control <?php if(form_error('edit-website') !== ''){ echo 'is-invalid'; } ?>"
                                 >
                                 <?= form_error('edit-website') ?>
@@ -80,7 +80,7 @@
                                   id          = "edit-kontak-1" 
                                   name        = "edit-kontak-1" 
                                   placeholder = "Kontak 1" 
-                                  value       = "<?= $meta->contact_1 ?>" 
+                                  value       = "<?= (set_value('edit-kontak-1') !== '') ? set_value('edit-kontak-1') : $meta->contact_1 ; ?>"
                                   class       = "form-control <?php if(form_error('edit-kontak-1') !== ''){ echo 'is-invalid'; } ?>"
                                 >
                                 <?= form_error('edit-kontak-1') ?>
@@ -96,7 +96,7 @@
                                   id          = "edit-kontak-2" 
                                   name        = "edit-kontak-2" 
                                   placeholder = "Kontak 2" 
-                                  value       = "<?= $meta->contact_2 ?>" 
+                                  value       = "<?= (set_value('edit-kontak-2') !== '') ? set_value('edit-kontak-2') : $meta->contact_2 ; ?>"
                                   class       = "form-control <?php if(form_error('edit-kontak-2') !== ''){ echo 'is-invalid'; } ?>"
                                 >
                                 <?= form_error('edit-kontak-2') ?>
@@ -110,20 +110,21 @@
                                   id          = "edit-email" 
                                   name        = "edit-email" 
                                   placeholder = "E-mail" 
-                                  value       = "<?= $meta->email ?>" 
+                                  value       = "<?= (set_value('edit-email') !== '') ? set_value('edit-email') : $meta->email ; ?>"
                                   class       = "form-control <?php if(form_error('edit-email') !== ''){ echo 'is-invalid'; } ?>"
                                 >
                                 <?= form_error('edit-email') ?>
                               </div>
                             </div>
                           </div>
+
                         </div>
 
                         <div class="card-action row justify-content-center">
-                          <a href=<?= base_url("informasi-perusahaan") ?> class="btn btn-light btn-border col-3 mx-1">
+                          <a href="<?= base_url( getBeforeLastSegment() ) ?>" class="btn btn-light btn-border col-3 mx-1">
                             Batal
                           </a>
-                          <button type="submit" class="btn btn-secondary col-3 mx-1">
+                          <button type="submit" class="btn btn-success col-3 mx-1">
                             Simpan
                           </button>
                         </div>

@@ -6,6 +6,7 @@
     <title><?= $title; ?></title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/img/icon.ico" type="image/x-icon" />
+    <!-- <link rel="icon" href="<?= base_url('assets/img/default.png') ?>" type="image/x-icon" /> -->
 
     <!-- Fonts and icons -->
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/webfont/webfont.min.js"></script>

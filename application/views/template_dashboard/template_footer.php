@@ -64,6 +64,14 @@
 <!-- Datatables -->
 <?php if ( isset($datatables) ) { ?>
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+    <script >
+		$(document).ready(function() {
+			// Add Row
+			$('#add-row').DataTable({
+				"pageLength": 50,
+			});
+		});
+	</script>
 <?php } ?>
 
 <!-- Bootstrap Notify -->
