@@ -41,8 +41,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="col-md-4">
-                        <a class="btn btn-primary" href="#modalInsert" type="button" data-toggle="modal" data-target="#modalInsert">Tambah Data</a>
+                    <div class="col-md-4 pt-3">
+                        <a class="btn btn-primary rounded" href="#modalInsert" type="button" data-toggle="modal" data-target="#modalInsert">Tambah Data</a>
                     </div>
                     <br>
                     <table class=" table">
@@ -95,52 +95,51 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('DataGudang/BarangKimia/update'); ?>" method="POST">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="material_code">Kode Bahan</label>
-                                            <input type="text" class="form-control material_code" id="material_code" placeholder="Masukkan Kode Bahan" name="material_code">
-                                            <?= form_error('material_code', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="full_name">Nama Bahan</label>
-                                            <input type="text" class="form-control full_name" id="full_name" placeholder="Masukkan Nama Bahan" name="full_name">
-                                            <?= form_error('full_name', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="unit">Satuan Bahan</label>
-                                            <select class="form-control unit" id="unit" name="unit">
-                                                <option value="gram">Gram</option>
-                                                <option value="milimeter">Milimeter</option>
-                                            </select>
-                                        </div>
-                                        <?= form_error('unit', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        <div class="form-group">
-                                            <label for="volume">Stok</label>
-                                            <input type="text" class="form-control volume" id="volume" placeholder="Masukkan Satuan Stok Bahan" name="volume">
-                                            <?= form_error('volume', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="price_base">Harga</label>
-                                            <input type="text" class="form-control price_base" id="price_base" placeholder="Masukkan Harga Bahan" name="price_base">
-                                            <?= form_error('price_base', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
 
-
-
-                                        <div class="form-group">
-                                            <label for="image">Gambar</label>
-                                            <input type="text" class="form-control image" id="image" placeholder="Masukkan Satuan Stok Bahan" name="image">
-                                            <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
+                                <?php echo form_open_multipart('DataGudang/BarangKimia/update'); ?>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="material_code">Kode Bahan</label>
+                                        <input type="text" class="form-control material_code" id="material_code" placeholder="Masukkan Kode Bahan" name="material_code">
+                                        <?= form_error('material_code', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="full_name">Nama Bahan</label>
+                                        <input type="text" class="form-control full_name" id="full_name" placeholder="Masukkan Nama Bahan" name="full_name">
+                                        <?= form_error('full_name', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="unit">Satuan Bahan</label>
+                                        <select class="form-control unit" id="unit" name="unit">
+                                            <option value="gram">Gram</option>
+                                            <option value="milimeter">Milimeter</option>
+                                        </select>
+                                    </div>
+                                    <?= form_error('unit', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <div class="form-group">
+                                        <label for="volume">Stok</label>
+                                        <input type="text" class="form-control volume" id="volume" placeholder="Masukkan Satuan Stok Bahan" name="volume">
+                                        <?= form_error('volume', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price_base">Harga</label>
+                                        <input type="text" class="form-control price_base" id="price_base" placeholder="Masukkan Harga Bahan" name="price_base">
+                                        <?= form_error('price_base', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <input type="hidden" name="id" class="id"></input>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
-                                        <button type="submit" class="btn btn-primary">Simpat Perubahan</button>
+                                    <div class="form-group">
+                                        <label for="image" class="col-form-label">Gambar</label>
+                                        <input type="file" class="form-control" id="image" name="image">
+                                        <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
-                                </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <input type="hidden" name="id" class="id"></input>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                                    <button type="submit" class="btn btn-primary">Simpat Perubahan</button>
+                                </div>
+                                <?= form_close(); ?>
 
 
                             </div>
@@ -157,52 +156,52 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('DataGudang/BarangKimia/insert'); ?>" method="POST">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="material_code">Kode Bahan</label>
-                                            <input type="text" class="form-control material_code" id="material_code" placeholder="Masukkan Kode Bahan" name="material_code" required>
-                                            <?= form_error('material_code', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="full_name">Nama Bahan</label>
-                                            <input type="text" class="form-control full_name" id="full_name" placeholder="Masukkan Nama Bahan" name="full_name" required>
-                                            <?= form_error('full_name', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="unit">Satuan Bahan</label>
-                                            <select class="form-control unit" id="unit" name="unit">
-                                                <option value="gram">Gram</option>
-                                                <option value="milimeter">Milimeter</option>
-                                            </select>
-                                        </div>
-                                        <?= form_error('unit', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        <div class="form-group">
-                                            <label for="volume">Stok</label>
-                                            <input type="text" class="form-control volume" id="volume" placeholder="Masukkan Satuan Stok Bahan" name="volume" required>
-                                            <?= form_error('volume', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="price_base">Harga</label>
-                                            <input type="text" class="form-control price_base" id="price_base" placeholder="Masukkan Harga Bahan" name="price_base" required>
-                                            <?= form_error('price_base', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <label for="image">Gambar</label>
-                                            <input type="text" class="form-control image" id="image" placeholder="Masukkan Satuan Stok Bahan" name="image">
-                                            <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
+                                <?php echo form_open_multipart('DataGudang/BarangKimia/insert'); ?>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="material_code">Kode Bahan</label>
+                                        <input type="text" class="form-control material_code" id="material_code" placeholder="Masukkan Kode Bahan" name="material_code" required>
+                                        <?= form_error('material_code', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="full_name">Nama Bahan</label>
+                                        <input type="text" class="form-control full_name" id="full_name" placeholder="Masukkan Nama Bahan" name="full_name" required>
+                                        <?= form_error('full_name', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="unit">Satuan Bahan</label>
+                                        <select class="form-control unit" id="unit" name="unit">
+                                            <option value="gram">Gram</option>
+                                            <option value="milimeter">Milimeter</option>
+                                        </select>
+                                    </div>
+                                    <?= form_error('unit', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <div class="form-group">
+                                        <label for="volume">Stok</label>
+                                        <input type="text" class="form-control volume" id="volume" placeholder="Masukkan Satuan Stok Bahan" name="volume" required>
+                                        <?= form_error('volume', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price_base">Harga</label>
+                                        <input type="text" class="form-control price_base" id="price_base" placeholder="Masukkan Harga Bahan" name="price_base" required>
+                                        <?= form_error('price_base', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <input type="hidden" name="id" class="id"></input>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
-                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
+
+
+                                    <div class="form-group">
+                                        <label for="image" class="col-form-label">Gambar</label>
+                                        <input type="file" class="form-control" id="image" name="image">
+                                        <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
-                                </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <input type="hidden" name="id" class="id"></input>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                                    <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                </div>
+                                <?= form_close(); ?>
 
 
                             </div>
