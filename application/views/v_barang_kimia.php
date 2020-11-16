@@ -34,7 +34,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('DataGudang/BarangKimia'); ?>">Data Barang Kimia</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>">Data Barang Kimia</a>
                 </li>
             </ul>
         </div>
@@ -96,7 +96,7 @@
                                     </button>
                                 </div>
 
-                                <?php echo form_open_multipart('DataGudang/BarangKimia/update'); ?>
+                                <?php echo form_open_multipart('data-gudang/Data_barang_kimia/update'); ?>
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="material_code">Kode Bahan</label>
@@ -156,7 +156,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <?php echo form_open_multipart('DataGudang/BarangKimia/insert'); ?>
+                                <?php echo form_open_multipart('data-gudang/Data_barang_kimia/insert'); ?>
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="material_code">Kode Bahan</label>
@@ -222,7 +222,7 @@
                                     <h4>Yakin Ingin Menghapus Data ?</h4>
                                 </div>
 
-                                <form action="<?= base_url('DataGudang/BarangKimia/delete'); ?>" method="POST">
+                                <form action="<?= base_url('data-gudang/Data_barang_kimia/delete'); ?>" method="POST">
                                     <div class="modal-footer">
                                         <input type="hidden" name="id" class="id"></input>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
