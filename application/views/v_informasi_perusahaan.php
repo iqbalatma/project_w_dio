@@ -95,7 +95,7 @@
                         </div>
                       </div>
                       <div class="card-action row justify-content-center">
-                        <a href=<?= base_url("informasi-perusahaan/edit") ?> class="btn btn-secondary col-6 mx-1">Edit profil</a>
+                        <a href=<?= current_url() . '/edit' ?> class="btn btn-default col-6 mx-1">Edit profil</a>
                       </div>
                     </div>
                   </div>

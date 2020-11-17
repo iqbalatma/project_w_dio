@@ -11,9 +11,11 @@ if ( ! function_exists('loginValidation'))
   * @param string session login status value
   * @return location go to home
   */
-  function loginValidation($key='isLogin', $val=1){
+  function loginValidation($key='isLogin', $val=1)
+  {
     $ci=&get_instance();
-    if ( ! $ci->session->userdata($key) == $val) {
+    if ( ! $ci->session->userdata($key) == $val)
+    {
       redirect(base_url(), 'refresh');
     }
   }
@@ -29,9 +31,11 @@ if ( ! function_exists('roleValidation'))
   * @param string role name
   * @return location go to home
   */
-  function roleValidation($role=NULL){
+  function roleValidation($role=NULL)
+  {
     $ci=&get_instance();
-    if ( ! $ci->session->userdata('role') == $role) {
+    if ( ! $ci->session->userdata('role') == $role)
+    {
       redirect(base_url(), 'refresh');
     }
   }
@@ -58,14 +62,39 @@ if ( ! function_exists('getBeforeLastSegment'))
   /**
   * Get segment for redirecting
   *
+  * @param string pre segment for building full uri
   * @param int backward number sequence of the segment you want to use
   * @return string segment name
   */
-  function getBeforeLastSegment($n=1){
+  function getBeforeLastSegment($url='', $n=1)
+  {
+    if ($url !== '')
+    {
+      $url = $url . '/';
+    }
     $ci=&get_instance();
     $i = $ci->uri->total_segments() - $n;
-    return $ci->uri->segment($i, 0);
-    
+    $uri = $url . $ci->uri->segment($i, 0);
+    return $uri;
+  }
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('getLastSegment'))
+{
+  /**
+  * Get segment for redirecting
+  *
+  * @param string pre segment for building full uri
+  * @param int backward number sequence of the segment you want to use
+  * @return string segment name
+  */
+  function getLastSegment()
+  {
+    $ci=&get_instance();
+    $last = $ci->uri->total_segments();
+    return $ci->uri->segment($last);
   }
 }
 

@@ -2,10 +2,11 @@
 
 // initialize main menu segment for url
 $_data_gudang           = 'data-gudang';
-$_data_pelanggan        = 'data-pelanggan';
 $_data_produksi         = 'data-produksi';
 $_data_penjualan        = 'data-penjualan';
 $_data_keuangan         = 'data-keuangan';
+$_data_pelanggan        = 'data-pelanggan';
+$_data_pegawai          = 'data-pegawai';
 $_informasi_perusahaan  = 'informasi-perusahaan';
 
 $mainMenu = array(
@@ -36,23 +37,6 @@ $mainMenu = array(
     )
   ], [
     'no'      => 2,
-    'name'    => 'Data Pelanggan',
-    'slug'    => $_data_pelanggan,
-    'url'     => $_data_pelanggan,
-    'icon'    => 'fas fa-users',
-    'submenu' => array(
-      [
-        'name'  => 'Data Master Pelanggan',
-        'slug'  => 'data-master-pelanggan',
-        'url'   => "{$_data_pelanggan}/data-master-pelanggan",
-      ], [
-        'name'  => 'Setting Harga Penjualan',
-        'slug'  => 'setting-harga-penjualan',
-        'url'   => "{$_data_pelanggan}/setting-harga-penjualan",
-      ],
-    )
-  ], [
-    'no'      => 3,
     'name'    => 'Data Produksi',
     'slug'    => $_data_produksi,
     'url'     => $_data_produksi,
@@ -73,7 +57,7 @@ $mainMenu = array(
       ],
     )
   ], [
-    'no'      => 4,
+    'no'      => 3,
     'name'    => 'Data Penjualan',
     'slug'    => $_data_penjualan,
     'url'     => $_data_penjualan,
@@ -90,7 +74,7 @@ $mainMenu = array(
       ],
     )
   ], [
-    'no'      => 5,
+    'no'      => 4,
     'name'    => 'Data Keuangan',
     'slug'    => $_data_keuangan,
     'url'     => $_data_keuangan,
@@ -115,7 +99,37 @@ $mainMenu = array(
       ],
     )
   ], [
+    'no'      => 5,
+    'name'    => 'Data Pelanggan',
+    'slug'    => $_data_pelanggan,
+    'url'     => $_data_pelanggan,
+    'icon'    => 'fas fa-users',
+    'submenu' => array(
+      [
+        'name'  => 'Data Master Pelanggan',
+        'slug'  => 'data-master-pelanggan',
+        'url'   => "{$_data_pelanggan}/data-master-pelanggan",
+      ], [
+        'name'  => 'Setting Harga Penjualan',
+        'slug'  => 'setting-harga-penjualan',
+        'url'   => "{$_data_pelanggan}/setting-harga-penjualan",
+      ],
+    )
+  ], [
     'no'      => 6,
+    'name'    => 'Data Pegawai',
+    'slug'    => $_data_pegawai,
+    'url'     => $_data_pegawai,
+    'icon'    => 'fas fa-user-tie',
+    'submenu' => array(
+      [
+        'name'  => 'Data Master Pegawai',
+        'slug'  => 'data-master-pegawai',
+        'url'   => "{$_data_pegawai}/data-master-pegawai",
+      ],
+    )
+  ], [
+    'no'      => 7,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
     'url'     => $_informasi_perusahaan,
@@ -141,7 +155,53 @@ $mainMenu = array(
           </a>
         </li>
 
-        <hr width=90%>
+        <?php
+        foreach ($mainMenu as $mm) : ?>
+          <!-- kelas ACTIVE untuk indikator menu yg aktif -->
+          <li class="nav-item <?php if ($menuActive == $mm['slug']) {
+                                echo 'active';
+                              } ?>">
+            <?php
+            if ($mm['submenu'] !== FALSE) {
+            ?>
+              <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
+                <i class="<?= $mm['icon'] ?>"></i>
+                <p><?= $mm['name'] ?></p>
+                <span class="caret"></span>
+              </a>
+            <?php
+            } else {
+            ?>
+              <a href="<?= base_url("{$mm['url']}") ?>">
+                <i class="<?= $mm['icon'] ?>"></i>
+                <p><?= $mm['name'] ?></p>
+              </a>
+            <?php
+            }
+            if ($mm['submenu'] !== FALSE) :
+            ?>
+              <!-- kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif -->
+              <div class="collapse <?php if ($menuActive == $mm['slug']) {
+                                      echo 'show';
+                                    } ?>" id="<?= $mm['url'] ?>">
+                <ul class="nav nav-collapse">
+                  <!-- kelas ACTIVE menjadi indikator submenu mana yg sedang aktif -->
+                  <?php
+                  foreach ($mm['submenu'] as $sm) :
+                  ?>
+                    <li class="<?php if ($submenuActive == $sm['slug']) {
+                                  echo 'active';
+                                } ?>">
+                      <a href=<?= base_url("{$sm['url']}") ?>>
+                        <span class="sub-item"><?= $sm['name'] ?></span>
+                      </a>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+            <?php endif; ?>
+          </li>
+        <?php endforeach; ?>
 
         <?php
         foreach ($mainMenu as $mm) : ?>
