@@ -34,7 +34,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>">Barang Masuk</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Barang Masuk</a>
                 </li>
             </ul>
         </div>
@@ -43,7 +43,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="col-md-4 pt-3">
-                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_masuk/v_insert'); ?>">Masukkan Barang</a>
+                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Masukkan Barang</a>
                         </div>
                     </div>
 
@@ -108,14 +108,8 @@
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <!-- <a href="<?= base_url('data-gudang/Data_barang_kimia/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Hapus" data-original-title="Hapus"><i class="fa fa-edit"></i></a>
-
-
-                                            <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-danger btn-sm btn-delete" data-id="<?= $row->id; ?>">Hapus</a> -->
-
-
-
-
+                                                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-link btn-danger btn-delete" data-id="<?= $row->id; ?>"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -216,7 +210,7 @@
                                     <h4>Yakin Ingin Menghapus Data ?</h4>
                                 </div>
 
-                                <form action="<?= base_url('data-gudang/Data_barang_kimia/delete'); ?>" method="POST">
+                                <form action="<?= base_url('data-gudang/Data_barang_mentah/delete'); ?>" method="POST">
                                     <div class="modal-footer">
                                         <input type="hidden" name="id" class="id"></input>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>

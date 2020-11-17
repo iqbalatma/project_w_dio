@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
-class Data_barang_masuk extends CI_Controller
+class Data_inventory_barang_mentah extends CI_Controller
 {
 
     public function __construct()
@@ -22,7 +22,7 @@ class Data_barang_masuk extends CI_Controller
     {
         $data = [
             'title'             => 'Data Barang Masuk',
-            'content'           => 'v_barang_masuk.php',
+            'content'           => 'v_inventory_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
@@ -101,11 +101,11 @@ class Data_barang_masuk extends CI_Controller
 
             if ($insert == 1) {
                 $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
-                redirect(base_url('data-gudang/Data_barang_masuk'));
+                redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
                 // echo 'berhasil';
             } else {
                 $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
-                redirect(base_url('data-gudang/Data_barang_masuk'));
+                redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
                 // echo 'gagal';
             }
         }

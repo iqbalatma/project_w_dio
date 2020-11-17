@@ -43,7 +43,7 @@
 
                     <div class="card-header">
                         <div class="col-md-4 pt-3">
-                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_kimia/v_insert'); ?>" type="button">Tambah Data</a>
+                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_mentah/v_insert'); ?>" type="button">Tambah Data</a>
                         </div>
                     </div>
 
@@ -105,7 +105,7 @@
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <a href="<?= base_url('data-gudang/Data_barang_kimia/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Hapus" data-original-title="Hapus"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?= base_url('data-gudang/Data_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
 
 
                                                     <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-link btn-danger btn-delete" data-id="<?= $row->id; ?>"><i class="fa fa-times"></i></a>
@@ -144,7 +144,7 @@
                 <h4>Yakin Ingin Menghapus Data ?</h4>
             </div>
 
-            <form action="<?= base_url('data-gudang/Data_barang_kimia/delete'); ?>" method="POST">
+            <form action="<?= base_url('data-gudang/Data_barang_mentah/delete'); ?>" method="POST">
                 <div class="modal-footer">
                     <input type="hidden" name="id" class="id"></input>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>

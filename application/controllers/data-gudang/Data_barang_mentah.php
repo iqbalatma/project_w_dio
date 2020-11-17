@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
-class Data_barang_kimia extends CI_Controller
+class Data_barang_mentah extends CI_Controller
 {
 
     public function __construct()
@@ -18,10 +18,10 @@ class Data_barang_kimia extends CI_Controller
     public function index()
     {
         $data = [
-            'title'             => 'Data Barang Kimia',
-            'content'           => 'v_barang_kimia.php',
+            'title'             => 'Data Barang Mentah',
+            'content'           => 'v_barang_mentah.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-barang-kimia', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_kimia' => $this->Material_model->getAll(),
             'datatables' => 1
         ];

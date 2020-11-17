@@ -20,7 +20,7 @@ class Inventory_material_model extends CI_Model
 
     public function getAll()
     {
-        $this->db->select('material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material.full_name, store.store_name, material_inventory.quantity, material_inventory.updated_by');
+        $this->db->select('material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material.full_name, store.store_name, material_inventory.quantity, material_inventory.updated_by');
         $this->db->from('material_inventory');
         $this->db->join('material', 'material_inventory.material_id = material.id');
         // $this->db->join('material', 'material_inventory.material_id = material.material_code');
