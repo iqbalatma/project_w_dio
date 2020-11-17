@@ -29,53 +29,77 @@ class Data_barang_kimia extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
+    public function v_insert()
+    {
+        $data = [
+            'title'             => 'Tambah Barang Kimia',
+            'content'           => 'v_tambah_barang_kimia.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-kimia', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'data_barang_kimia' => $this->Material_model->getAll()
+        ];
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+    public function v_update($id)
+    {
+        $data = [
+            'title'             => 'Ubah Barang Kimia',
+            'content'           => 'v_ubah_barang_kimia.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-kimia', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'data_barang_kimia' => $this->Material_model->getAll(),
+            'data_form' => $this->Material_model->getById($id),
+
+        ];
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
 
 
     public function insert()
     {
-
         $this->form_validation->set_rules(
-            'material_code',
+            'material',
             'Kode Bahan',
-            'trim|required|max_length[100]|is_unique[material.material_code]',
+            'trim|required|max_length[11]|is_unique[material.material_code]',
             array(
-                'required' => 'Kode Bahan tidak boleh kosong',
-                'max_length'     => 'Kode Bahan maksimal 100 karakter',
-                'is_unique'     => 'Kode Bahan sudah terdaftar.',
+                'required' => '%s tidak boleh kosong',
+                'max_length'     => '%s maksimal 11 karakter',
+                'is_unique' => '%s kode bahan sudah terdaftar'
             )
         );
+
         $this->form_validation->set_rules(
-            'full_name',
+            'fullname',
             'Nama Bahan',
             'trim|required|max_length[100]',
             array(
-                'required' => 'Nama Bahan tidak boleh kosong',
-                'max_length'     => 'Nama Bahan maksimal 100 karakter',
+                'required' => '%s tidak boleh kosong',
+                'max_length'     => '%s maksimal 100 karakter',
             )
         );
 
         $this->form_validation->set_rules(
-            'volume',
-            'Stok',
+            'volumeinput',
+            'Volume',
             'trim|required|max_length[11]|numeric',
             array(
-                'required' => 'Stok Bahan tidak boleh kosong',
-                'max_length'     => 'Stok Bahan maksimal 15 karakter',
-                'numeric'         => 'Stok Bahan hanya terdiri dari angka',
+                'required' => '%s tidak boleh kosong',
+                'max_length'     => '%s maksimal 11 karakter',
+                'numeric'         => '%s hanya terdiri dari angka',
             )
         );
+
         $this->form_validation->set_rules(
-            'price_base',
+            'pricebase',
             'Harga',
             'trim|required|max_length[11]|numeric',
             array(
-                'required' => 'Harga Bahan tidak boleh kosong',
-                'max_length'     => 'Harga Bahan maksimal 15 karakter',
-                'numeric'         => 'Harga Bahan hanya terdiri dari angka',
+                'required' => '%s tidak boleh kosong',
+                'max_length'     => '%s maksimal 15 karakter',
+                'numeric'         => '%s hanya terdiri dari angka',
             )
         );
-
-
 
 
 
@@ -83,68 +107,64 @@ class Data_barang_kimia extends CI_Controller
 
 
         if ($this->form_validation->run() == FALSE) {
-            $this->index();
-            // jika syarat pada form sudah terpenuhi (tombol register sudah ditekan)
+            echo validation_errors();
         } else {
-            $material_code = $this->input->post('material_code');
-            $full_name = $this->input->post('full_name');
-            $unit = $this->input->post('unit');
-            $volume = $this->input->post('volume');
-            $price_base = $this->input->post('price_base');
-            $image = $this->input->post('image');
+
+            echo "validasi berhasil";
+            $material = $this->input->post('material');
+            $fullname = $this->input->post('fullname');
+            $unit = $this->input->post('unitbahan');
+            $volume = $this->input->post('volumeinput');
+            $pricebase = $this->input->post('pricebase');
 
 
+            // proses upload image
             $config['upload_path']          = './assets/img/material';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 100000;
             $this->upload->initialize($config);
             $this->load->library('upload', $config);
             // upload gambar ke server
-            $this->upload->do_upload('image');
+            $x = $this->upload->do_upload('imageinput');
 
-
+            // // cek apakah ada gambar yang di upload
             $image_cek = $this->upload->data('file_name');
-
+            echo $image_cek;
+            var_dump($x);
             if ($image_cek == '') {
                 $data = [
                     'id' => '',
-                    'material_code' => $material_code,
-                    'full_name' => $full_name,
+                    'material_code' => $material,
+                    'full_name' => $fullname,
                     'unit' => $unit,
                     'volume' => $volume,
-                    'price_base' => $price_base,
+                    'price_base' => $pricebase,
                     'is_deleted' => 0
                 ];
+                // var_dump($data);
             } else {
                 $data = [
                     'id' => '',
-                    'material_code' => $material_code,
-                    'full_name' => $full_name,
+                    'material_code' => $material,
+                    'full_name' => $fullname,
                     'unit' => $unit,
                     'volume' => $volume,
-                    'price_base' => $price_base,
+                    'price_base' => $pricebase,
                     'is_deleted' => 0,
                     'image' => $image_cek
                 ];
+                // var_dump($data);
             }
 
 
-
-
-
             $insert = $this->Material_model->insert($data);
+
             if ($insert == 1) {
-                // $this->session->set_flashdata('success_message', 1);
-                // $this->session->set_flashdata('title', 'Registration complete !');
-                // $this->session->set_flashdata('text', 'Please activate your account via email');
-                // redirect(base_url('login'));
+                echo "input berhasil";
                 $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
                 redirect(base_url('data-gudang/Data_barang_kimia'));
             } else {
-                // $this->session->set_flashdata('failed_message', 1);
-                // $this->session->set_flashdata('title', 'Registration failed !');
-                // $this->session->set_flashdata('text', 'Please check again your information');
-                // redirect(base_url('register'));
+                echo "input gagal";
                 $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
                 redirect(base_url('data-gudang/Data_barang_kimia'));
             }
@@ -154,26 +174,26 @@ class Data_barang_kimia extends CI_Controller
     public function update()
     {
         $this->form_validation->set_rules(
-            'material_code',
+            'material',
             'Kode Bahan',
             'trim|required|max_length[100]',
             array(
-                'required' => 'Kode Bahan tidak boleh kosong',
-                'max_length'     => 'Kode Bahan maksimal 100 karakter',
+                'required' => '%s tidak boleh kosong',
+                'max_length'     => '%s maksimal 100 karakter',
             )
         );
         $this->form_validation->set_rules(
-            'full_name',
+            'fullname',
             'Nama Bahan',
             'trim|required|max_length[100]',
             array(
-                'required' => 'Nama Bahan tidak boleh kosong',
-                'max_length'     => 'Nama Bahan maksimal 100 karakter',
+                'required' => '%s tidak boleh kosong',
+                'max_length'     => '%s maksimal 100 karakter',
             )
         );
 
         $this->form_validation->set_rules(
-            'volume',
+            'volumeinput',
             'Stok',
             'trim|required|max_length[11]|numeric',
             array(
@@ -183,7 +203,7 @@ class Data_barang_kimia extends CI_Controller
             )
         );
         $this->form_validation->set_rules(
-            'price_base',
+            'pricebase',
             'Harga',
             'trim|required|max_length[11]|numeric',
             array(
@@ -202,21 +222,24 @@ class Data_barang_kimia extends CI_Controller
         $this->upload->initialize($config);
         $this->load->library('upload', $config);
         // upload gambar ke server
-        $this->upload->do_upload('image');
+        $this->upload->do_upload('imageinput');
 
         if ($this->form_validation->run() == FALSE) {
             $this->index();
+            // echo "gagal";
+            // echo validation_errors();
             // jika syarat pada form sudah terpenuhi (tombol register sudah ditekan)
         } else {
 
 
-            $material_code = $this->input->post('material_code');
-            $full_name = $this->input->post('full_name');
-            $unit = $this->input->post('unit');
-            $volume = $this->input->post('volume');
-            $price_base = $this->input->post('price_base');
+            $material_code = $this->input->post('material');
+            $full_name = $this->input->post('fullname');
+            $unit = $this->input->post('unitbahan');
+            $volume = $this->input->post('volumeinput');
+            $price_base = $this->input->post('pricebase');
             $image_cek = $this->upload->data('file_name');
             $id = $this->input->post('id');
+
             if ($image_cek == '') {
                 $data = [
                     'id' => $id,
@@ -228,7 +251,6 @@ class Data_barang_kimia extends CI_Controller
                     'is_deleted' => 0
                 ];
             } else {
-                $image = $this->upload->data('file_name');
                 $data = [
                     'id' => $id,
                     'material_code' => $material_code,
@@ -286,25 +308,5 @@ class Data_barang_kimia extends CI_Controller
             $this->session->set_flashdata('message_gagal', 'Gagal Menghapus data');
             redirect(base_url('data-gudang/Data_barang_kimia'));
         }
-    }
-
-    public function do_upload()
-    {
-        $config['upload_path']          = './assets/img/material';
-        $config['allowed_types']        = 'gif|jpg|png';
-        $config['max_size']             = 100000;
-        $this->upload->initialize($config);
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('image')) {
-            $error = array('error' => $this->upload->display_errors());
-
-            // $this->load->view('upload_form', $error);
-            var_dump($error);
-        } else {
-            $data = array('upload_data' => $this->upload->data());
-            echo 1;
-            // $this->load->view('upload_success', $data);
-        }
-        var_dump($this->upload->data('file_name'));
     }
 }
