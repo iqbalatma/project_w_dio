@@ -22,6 +22,10 @@ $mainMenu = array(
         'slug'  => 'data-barang-mentah',
         'url'   => "{$_data_gudang}/data-barang-mentah",
       ],[
+        'name'  => 'Data Inventory Barang Mentah',
+        'slug'  => 'data-inventory-barang-mentah',
+        'url'   => "{$_data_gudang}/data-inventory-barang-mentah",
+      ],[
         'name'  => 'Data Transaksi Barang',
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
