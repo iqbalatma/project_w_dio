@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2020 at 07:05 PM
+-- Generation Time: Nov 17, 2020 at 12:09 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -47,7 +47,7 @@ CREATE TABLE `basic_info_meta` (
 --
 
 INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contact_2`, `email`, `website`, `logo`, `created_at`, `updated_at`, `updated_by`) VALUES
-(1, 'Sabun Aryanzssssss', 'Jabar, Indonesia', '0812398123', '1231231232', 'hal@sasd.jh', 'http://sabun-aryanz.coms', 'logo-hd.png', '2020-11-16 03:02:30', '2020-11-16 22:31:19', 'gudang');
+(1, 'Sabun Aryanz', 'Jabar, Indonesia', '0812398123', '1231231232', 'halo@email.com', 'http://sabun-aryanz.coms', 'logo-hd.png', '2020-11-16 03:02:30', '2020-11-17 12:34:07', 'gudang');
 
 -- --------------------------------------------------------
 
@@ -69,16 +69,18 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `created_at`, `is_deleted`) VALUES
-(1, 'Joe Bidan', 'Menara', '0877213176782', '2020-11-11 00:25:50', 1),
+(1, 'Joe Bidan', 'Menara', '0877213176782', '2020-11-11 00:25:50', 0),
 (2, 'Tori Obama', 'Timoer Timoer', '0877216126', '2020-11-11 00:25:50', 0),
 (3, 'Pawer Renjer', 'Imajinasi', '0856213125', '2020-11-16 21:47:20', 0),
 (4, 'Bruce lee', 'York New', '0854465478', '2020-11-16 21:47:20', 0),
 (5, 'Jake Separow', 'Going Merry', '0845111487', '2020-11-16 21:50:32', 0),
-(6, 'tester', 'Tempat makan', '04567182332', '2020-11-16 23:57:06', 0),
+(6, 'tester', 'Tempat makan', '04567182332', '2020-11-16 23:57:06', 1),
 (7, 'tester2', 'Tempat makan 2', '0888888888', '2020-11-16 23:59:53', 0),
 (8, 'tester3', 'Tempat makan 3', '0888888889', '2020-11-17 00:01:03', 0),
-(9, 'tester4', 'Tempat makan 4', '0888888890', '2020-11-17 00:02:13', 0),
-(10, 'Jackpot', 'Jendela', '085677839992', '2020-11-17 00:45:27', 0);
+(9, 'tester', 'Tempat makan', '0888888890', '2020-11-17 00:02:13', 0),
+(10, 'Jackpot', 'Jendela', '085677839992', '2020-11-17 00:45:27', 1),
+(11, 'custo', 'omerr', '00000000000', '2020-11-17 01:29:31', 0),
+(12, 'tes video', 'internet', '0888888888', '2020-11-17 12:32:45', 1);
 
 -- --------------------------------------------------------
 
@@ -110,7 +112,8 @@ INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `la
 (1, 'pemilik', 'pemilik@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Saya', 'Pemilik', '0871263612', 'Di kantor', 'avatar-1.png', 2, 1, '2020-11-10 22:48:27', 0),
 (2, 'gudang', 'gudang@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang', '087213513441', 'Di gudang', 'avatar-1.png', 3, 1, '2020-11-10 22:52:15', 0),
 (3, 'kasir_cica', 'kasir_cica@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Cica', NULL, '0856123872', 'Di Cicalengka', 'avatar-1.png', 4, 2, '2020-11-10 22:54:23', 0),
-(4, 'kasir_uber', 'kasir_uber@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Uber', NULL, '08571123098', 'Di Ujung Beruang', 'avatar-1.png', 4, 3, '2020-11-10 22:54:23', 0);
+(4, 'kasir_uber', 'kasir_uber@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Uber', NULL, '08571123098', 'Di Ujung Beruang', 'avatar-1.png', 4, 3, '2020-11-10 22:54:23', 0),
+(5, 'admins', 'admin1@jp.com', '$2a$08$HVX6fm.h9nJlfgYJxOlHOuKxvNB8ZJhWdB/qmuksTxaIJuT2RyoCG', 'dio', 'Ilham', '081236137132', 'Dipatiukur', 'avatar-0.png', 2, 1, '2020-11-17 03:19:40', 0);
 
 -- --------------------------------------------------------
 
@@ -183,7 +186,7 @@ CREATE TABLE `material` (
 --
 
 INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `created_at`, `is_deleted`) VALUES
-(1, 'BM001', 'Barang mentah 1', 'mililiter', 1000, 'default.png', 10000, '2020-11-16 17:40:30', 0),
+(1, 'BM001', 'Barang mentah 1', 'mililiter', 1000, 'default.png', 10000, '2020-11-16 17:40:30', 1),
 (2, 'BM002', 'Barang mentah 2', 'mililiter', 233, 'default.png', 20000, '2020-11-16 17:40:30', 0);
 
 -- --------------------------------------------------------
@@ -198,8 +201,9 @@ CREATE TABLE `material_inventory` (
   `store_id` tinyint(10) DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` varchar(100) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` varchar(15) DEFAULT NULL,
+  `updated_by` varchar(15) DEFAULT NULL,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -223,6 +227,15 @@ CREATE TABLE `product` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `product_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `price_retail`, `price_reseller`, `price_wholesale`, `created_at`, `is_deleted`) VALUES
+(1, 'DT001', 'Sabun Dettol 50ml', 'mililiter', 50, 'default.png', 10000, 20000, 19000, 18000, '2020-11-17 13:44:04', 0),
+(2, 'DT002', 'Sabun Dettol 150ml', 'mililiter', 150, 'default.png', 15000, 30000, 27000, 25000, '2020-11-17 13:44:04', 0),
+(3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 25000, 50000, 45000, 40000, '2020-11-17 13:44:04', 0);
 
 -- --------------------------------------------------------
 
@@ -252,10 +265,20 @@ CREATE TABLE `product_inventory` (
   `store_id` tinyint(10) DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` varchar(100) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` varchar(15) DEFAULT NULL,
+  `updated_by` varchar(15) DEFAULT NULL,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_inventory`
+--
+
+INSERT INTO `product_inventory` (`id`, `product_id`, `store_id`, `quantity`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`) VALUES
+(1, 1, 1, 52, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0),
+(2, 2, 1, 33, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0),
+(3, 3, 1, 5, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0);
 
 -- --------------------------------------------------------
 
@@ -423,13 +446,13 @@ ALTER TABLE `basic_info_meta`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -465,7 +488,7 @@ ALTER TABLE `material_inventory`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_composition`
@@ -477,7 +500,7 @@ ALTER TABLE `product_composition`
 -- AUTO_INCREMENT for table `product_inventory`
 --
 ALTER TABLE `product_inventory`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `role`

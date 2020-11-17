@@ -1,10 +1,6 @@
             <div class="content">
               <div class="page-inner">
 
-                <!-- <div class="page-header">
-                  <h4 class="page-title"><?= $title ?></h4>
-                </div> -->
-
                 <div class="row">
                   <div class="col-md-12">
                     <div class="card">
@@ -17,10 +13,6 @@
                             <i class="fa fa-plus mr-2"></i>
                             <span class="h6">Tambah data</span>
                           </a>
-                          <!-- <button class="btn btn-default btn-sm ml-auto" data-toggle="modal" data-target="#addRowModal">
-                            <i class="fa fa-plus mr-2"></i>
-                            <span class="h6">Tambah data</span>
-                          </button> -->
                         </div>
                       </div>
 
@@ -109,48 +101,52 @@
                         <!-- /Modal add new data -->
 
                         <div class="table-responsive">
-                          <table id="add-row" class="display table table-sm  table-hover">
+                          <table id="add-row" class="display table table-sm table-hover">
                             <thead class="thead-light">
                               <tr>
                                 <th class="px-3" width="30px">No</th>
-                                <th class="px-3">Nama lengkap</th>
-                                <th class="px-3">No. Handphone</th>
-                                <th class="px-3">Alamat</th>
-                                <th class="px-3" style="width: 10%"><center>Aksi</center></th>
+                                <th class="px-3" width="100px">Gambar</th>
+                                <th class="px-3" width="100px">Kode produk</th>
+                                <th class="px-3">Nama</th>
+                                <th class="px-3">Volume/unit</th>
+                                <th class="px-3" width="10%"><center>Aksi</center></th>
                               </tr>
                             </thead>
                             <tfoot class="thead-light">
                               <tr>
-                                <th class="px-3">No</th>
-                                <th class="px-3">Nama lengkap</th>
-                                <th class="px-3">No. Handphone</th>
-                                <th class="px-3">Alamat</th>
-                                <th class="px-3"><center>Aksi</center></th>
+                                <th class="px-3" width="30px">No</th>
+                                <th class="px-3" width="100px">Gambar</th>
+                                <th class="px-3" width="100px">Kode produk</th>
+                                <th class="px-3">Nama</th>
+                                <th class="px-3">Volume/unit</th>
+                                <th class="px-3" width="10%"><center>Aksi</center></th>
                               </tr>
                             </tfoot>
                             <tbody>
                               <?php
                               $i = 1;
-                              foreach ($customers as $cust) : ?>
+                              foreach ($products as $row) : ?>
                               <tr>
                                 <td class="px-3">
                                   <?= $i++ ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['full_name'] ?>
+                                <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="" width="100px">
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['phone'] ?>
+                                  <?= $row['product_code'] ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['address'] ?>
+                                  <?= $row['full_name'] ?>
+                                </td>
+                                <td class="px-3">
+                                  <?= "{$row['volume']} {$row['unit']}" ?>
                                 </td>
                                 <td class="px-3">
                                   <div class="form-button-action">
-                                    <a href="<?= current_url() . "/edit/{$cust['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                    <!-- <a href="<?= current_url() . "/hapus/{$cust['id']}" ?>" class="btn btn-link btn-danger" data-toggle="tooltip" title="Hapus" data-original-title="Hapus"><i class="fa fa-times"></i> -->
+                                    <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                     <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $cust['id'] ?>"><i class="fa fa-times"></i></a>
+                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
                                     </span>
                                   </div>
                                 </td>
