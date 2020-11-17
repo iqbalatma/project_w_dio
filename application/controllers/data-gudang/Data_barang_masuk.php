@@ -12,9 +12,7 @@ class Data_barang_masuk extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($_SESSION['is_logged'] !== 'TRUE') {
-            redirect('Auth');
-        }
+        loginValidation();
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
@@ -30,11 +28,26 @@ class Data_barang_masuk extends CI_Controller
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
             'data_barang_kimia' => $this->Material_model->getAll(),
             'data_store' => $this->Store_model->getAll(),
+            'datatables' => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
 
+    public function v_insert()
+    {
+        $data = [
+            'title'             => 'Data Barang Masuk',
+            'content'           => 'v_tambah_barang_masuk.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'data_barang_masuk' => $this->Inventory_material_model->getAll(),
+            'data_barang_kimia' => $this->Material_model->getAll(),
+            'data_store' => $this->Store_model->getAll(),
+            'datatables' => 1
+        ];
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
     public function insert()
     {
 
@@ -50,15 +63,15 @@ class Data_barang_masuk extends CI_Controller
             )
         );
 
-        $this->form_validation->set_rules(
-            'updated_by',
-            'Dimasukkan oleh',
-            'trim|required|max_length[100]',
-            array(
-                'required' => 'Data tidak boleh kosong',
-                'max_length'     => 'Data maksimal 15 karakter',
-            )
-        );
+        // $this->form_validation->set_rules(
+        //     'updated_by',
+        //     'Dimasukkan oleh',
+        //     'trim|required|max_length[100]',
+        //     array(
+        //         'required' => 'Data tidak boleh kosong',
+        //         'max_length'     => 'Data maksimal 15 karakter',
+        //     )
+        // );
 
 
 
@@ -66,15 +79,17 @@ class Data_barang_masuk extends CI_Controller
             echo validation_errors();
         } else {
 
-            $material_code = $this->input->post('material_code');
+            $material_id = $this->input->post('material_id');
             $store_id = $this->input->post('store');
             $quantity = $this->input->post('quantity');
-            $updated_by = $this->input->post('updated_by');
+            $updated_by = $_SESSION['username'];
+            $suplier = $this->input->post('supplier');
 
 
             $data = [
                 'id' => '',
-                'material_code' => $material_code,
+                'material_id' => $material_id,
+                'created_by' => $updated_by,
                 'store_id' => $store_id,
                 'quantity' => $quantity,
                 'updated_by' => $updated_by,

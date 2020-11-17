@@ -20,16 +20,12 @@ class Inventory_material_model extends CI_Model
 
     public function getAll()
     {
-        $this->db->select('material_inventory.created_at, material_inventory.material_code, material.full_name, store.store_name, material_inventory.quantity, material_inventory.updated_by');
+        $this->db->select('material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material.full_name, store.store_name, material_inventory.quantity, material_inventory.updated_by');
         $this->db->from('material_inventory');
-        $this->db->join('material', 'material_inventory.material_code = material.material_code');
+        $this->db->join('material', 'material_inventory.material_id = material.id');
         // $this->db->join('material', 'material_inventory.material_id = material.material_code');
         $this->db->join('store', 'material_inventory.store_id = store.id');
         // // // $this->db->where('material_inventory.is_deleted', 0);
-
-        // $sql = "SELECT material_inventory. FROM `material_inventory` LEFT OUTER JOIN `material` ON material_inventory.material_code = material.material_code LEFT OUTER JOIN `store` ON material_inventory.store_id = store.id";
-        // $sql = "SELECT * FROM `material_inventory` INNER JOIN `material` ON `material_inventory.material_code` = `material.material_code` INNER JOIN `store` ON `material_inventory.store_id` = `store.id`";
-        // $sql = "SELECT * FROM material_inventory";
         $query = $this->db->get();
         return $query->result();
         // return $_SESSION;
@@ -39,6 +35,34 @@ class Inventory_material_model extends CI_Model
 
     public function insert($data)
     {
-        return $this->db->insert($this->table, $data);
+        // $this->db->get_where
+        // $this->db->select('count(id) AS total');
+        // $this->db->from($this->table);
+        // $query = $this->db->get();
+        // if ($query->num_rows() == 1) {
+        //     return $query->row();
+        // }
+        // return FALSE;
+        // return var_dump($data['store_id']);
+        $store_id = $data['store_id'];
+        $material_id = $data['material_id'];
+
+        $cek_data = $this->db->get_where($this->table, array('material_id' => $material_id, 'store_id' => $store_id))->result();
+
+        if ($cek_data) {
+            // var_dump($data);
+            // var_dump($cek_data[0]->id);
+            $id = $cek_data[0]->id;
+            $quantity_form = $data['quantity'];
+            $quantitiy_table = $cek_data[0]->quantity;
+            $quantity_final = $quantity_form + $quantitiy_table;
+            $slq = $this->db->query("UPDATE $this->table SET quantity = $quantity_final WHERE id=$id");
+            return $slq;
+
+            // $sql = 
+        } else {
+            // var_dump($data);
+            return $this->db->insert($this->table, $data);
+        }
     }
 }

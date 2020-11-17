@@ -38,15 +38,9 @@
                                         <label for="add-fullname">
                                           Nama lengkap
                                         </label>
-                                        <input 
-                                          type        = "text" 
-                                          id          = "add-fullname" 
-                                          name        = "add-fullname" 
-                                          placeholder = "Nama lengkap" 
-                                          value       = "" 
-                                          class       = "form-control <?php if(form_error('add-fullname') !== ''){ echo 'is-invalid'; } ?>"
-                                          autofocus
-                                        >
+                                        <input type="text" id="add-fullname" name="add-fullname" placeholder="Nama lengkap" value="" class="form-control <?php if (form_error('add-fullname') !== '') {
+                                                                                                                                                            echo 'is-invalid';
+                                                                                                                                                          } ?>" autofocus>
                                         <?= form_error('add-fullname') ?>
                                       </div>
                                     </div>
@@ -55,16 +49,9 @@
                                         <label for="add-phone">
                                           Nomor handphone
                                         </label>
-                                        <input 
-                                          type        = "tel" 
-                                          minlength   = "10"
-                                          maxlength   = "14"
-                                          id          = "add-phone" 
-                                          name        = "add-phone" 
-                                          placeholder = "cth: 085647329324" 
-                                          value       = "" 
-                                          class       = "form-control <?php if(form_error('add-phone') !== ''){ echo 'is-invalid'; } ?>"
-                                        >
+                                        <input type="tel" minlength="10" maxlength="14" id="add-phone" name="add-phone" placeholder="cth: 085647329324" value="" class="form-control <?php if (form_error('add-phone') !== '') {
+                                                                                                                                                                                        echo 'is-invalid';
+                                                                                                                                                                                      } ?>">
                                         <?= form_error('add-phone') ?>
                                       </div>
                                     </div>
@@ -73,15 +60,9 @@
                                         <label for="add-address">
                                           Alamat
                                         </label>
-                                        <textarea 
-                                          cols        = "30"
-                                          rows        = "3"
-                                          id          = "add-address" 
-                                          name        = "add-address" 
-                                          placeholder = "Alamat lengkap pelanggan" 
-                                          value       = "" 
-                                          class       = "form-control <?php if(form_error('add-address') !== ''){ echo 'is-invalid'; } ?>"
-                                        ></textarea>
+                                        <textarea cols="30" rows="3" id="add-address" name="add-address" placeholder="Alamat lengkap pelanggan" value="" class="form-control <?php if (form_error('add-address') !== '') {
+                                                                                                                                                                                echo 'is-invalid';
+                                                                                                                                                                              } ?>"></textarea>
                                         <?= form_error('add-address') ?>
                                       </div>
                                     </div>
@@ -127,33 +108,33 @@
                               <?php
                               $i = 1;
                               foreach ($employees as $row) : ?>
-                              <tr>
-                                <td class="px-3">
-                                  <?= $i++ ?>
-                                </td>
-                                <td class="px-3">
-                                  <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="" width="50px">
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['first_name'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['last_name'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <a href="tel:<?= $row['phone'] ?>" class="text-muted"><?= $row['phone'] ?></a>
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['address'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <div class="form-button-action">
-                                    <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="btn btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
-                                    <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                    <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
-                                  </div>
-                                </td>
-                              </tr>
+                                <tr>
+                                  <td class="px-3">
+                                    <?= $i++ ?>
+                                  </td>
+                                  <td class="px-3">
+                                    <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="" width="50px">
+                                  </td>
+                                  <td class="px-3">
+                                    <?= $row['first_name'] ?>
+                                  </td>
+                                  <td class="px-3">
+                                    <?= $row['last_name'] ?>
+                                  </td>
+                                  <td class="px-3">
+                                    <a href="tel:<?= $row['phone'] ?>" class="text-muted"><?= $row['phone'] ?></a>
+                                  </td>
+                                  <td class="px-3">
+                                    <?= $row['address'] ?>
+                                  </td>
+                                  <td class="px-3">
+                                    <div class="form-button-action">
+                                      <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="btn btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
+                                      <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                    </div>
+                                  </td>
+                                </tr>
                               <?php endforeach; ?>
                             </tbody>
                           </table>
@@ -167,7 +148,7 @@
 
               </div>
             </div>
-            
+
             <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">

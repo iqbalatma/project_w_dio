@@ -11,9 +11,7 @@ class Data_barang_kimia extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($_SESSION['is_logged'] !== 'TRUE') {
-            redirect('Auth');
-        }
+        loginValidation();
         $this->load->model("Material_model");
     }
 
@@ -24,7 +22,8 @@ class Data_barang_kimia extends CI_Controller
             'content'           => 'v_barang_kimia.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-kimia', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_barang_kimia' => $this->Material_model->getAll()
+            'data_barang_kimia' => $this->Material_model->getAll(),
+            'datatables' => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }

@@ -60,7 +60,6 @@ class Auth extends CI_Controller
                 $is_password_valid = password_verify($password, $password_on_db);
                 if ($is_password_valid) {
                     $session_array = [
-                        'is_logged' => 'TRUE',
                         'id'    => $data_user->id,
                         'username' => $data_user->username,
                         'email' => $data_user->email,
@@ -68,6 +67,8 @@ class Auth extends CI_Controller
                         'last_name' => $data_user->last_name,
                         'phone' => $data_user->phone,
                         'role_id' => $data_user->role_id,
+                        'avatar' => $data_user->avatar,
+                        'isLogin' => 1
                     ];
                     $this->session->set_userdata($session_array);
                     redirect('Dashboard');

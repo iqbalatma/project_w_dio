@@ -54,7 +54,7 @@
                                     <label for="unitbahan">Satuan Bahan</label>
                                     <select class="form-control unitbahan" id="unitbahan" name="unitbahan">
                                         <option value="gram">Gram</option>
-                                        <option value="milimeter">Mililiter</option>
+                                        <option value="mililiter">Mililiter</option>
                                     </select>
                                     <?= form_error('unitbahan', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>

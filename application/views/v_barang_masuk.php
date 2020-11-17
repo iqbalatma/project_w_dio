@@ -41,48 +41,95 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="col-md-4 pt-3">
-                        <a class="btn btn-primary rounded" href="#modalInsert" type="button" data-toggle="modal" data-target="#modalInsert">Masukkan Barang</a>
+                    <div class="card-header">
+                        <div class="col-md-4 pt-3">
+                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_masuk/v_insert'); ?>">Masukkan Barang</a>
+                        </div>
                     </div>
-                    <br>
-                    <table class=" table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Kode Bahan</th>
-                                <th scope="col">Nama Bahan</th>
-                                <th scope="col">Toko</th>
-                                <th scope="col">Jumlah</th>
-                                <th scope="col">Tanggal Masuk</th>
-                                <th scope="col">Dimasukkan Oleh</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $i = 1;
 
-                            foreach ($data_barang_masuk as $row) {
-                            ?>
-                                <tr>
 
-                                    <th scope="row"><?= $i; ?></th>
-                                    <td><?= $row->material_code ?></td>
-                                    <td><?= $row->full_name ?></td>
-                                    <td><?= $row->store_name ?></td>
-                                    <td><?= $row->quantity ?></td>
-                                    <td><?= $row->created_at; ?></td>
-                                    <td><?= $row->updated_by; ?></td>
-                                    <td>
-                                        <!-- <a href="#modalUpdate" type="button" data-toggle="modal" data-target="#modalUpdate" id="id" data-id="<?= $row->id; ?>" data-material_code="<?= $row->material_code; ?>" data-full_name="<?= $row->full_name; ?>" data-unit="<?= $row->unit; ?>" data-volume="<?= $row->volume; ?>" data-price_base="<?= $row->price_base; ?>" data-image="<?= $row->image; ?>" class="btn btn-primary btn-sm btn-edit">Ubah</a>
-                                        <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-danger btn-sm btn-delete" data-id="<?= $row->id; ?>">Hapus</a> -->
-                                    </td>
-                                </tr>
 
-                            <?php $i++;
-                            } ?>
-                        </tbody>
-                    </table>
+
+                    <div class="card-body">
+
+
+                        <div class="table-responsive">
+                            <table id="add-row" class="display table table-sm  table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="px-3" width="20px">No</th>
+                                        <th class="px-3" width="30px">Kode Bahan</th>
+                                        <th class="px-3">Nama Bahan</th>
+                                        <th class="px-3">Toko</th>
+                                        <th class="px-3">Jumlah</th>
+                                        <th class="px-3">Tanggal Masuk</th>
+                                        <th class="px-3">Diinput Oleh</th>
+                                        <th class="px-3" style="width: 10%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tfoot class="thead-light">
+                                    <tr>
+                                        <th class="px-3" width="20px">No</th>
+                                        <th class="px-3" width="30px">Kode Bahan</th>
+                                        <th class="px-3">Nama Bahan</th>
+                                        <th class="px-3">Toko</th>
+                                        <th class="px-3">Jumlah</th>
+                                        <th class="px-3">Tanggal Masuk</th>
+                                        <th class="px-3">Diinput Oleh</th>
+                                        <th class="px-3" style="width: 10%">Aksi</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+
+                                    <?php
+                                    $i = 1;
+                                    foreach ($data_barang_masuk as $row) : ?>
+                                        <tr>
+                                            <td class="px-3">
+                                                <?= $i++ ?>
+                                            </td>
+                                            <td class="px-3">
+                                                <?= $row->material_code ?>
+                                            </td>
+                                            <td class="px-3">
+                                                <?= $row->full_name ?>
+                                            </td>
+                                            <td class="px-3">
+                                                <?= $row->store_name ?>
+                                            </td>
+                                            <td class="px-3">
+                                                <?= $row->quantity ?>
+                                            </td>
+                                            <td class="px-3">
+                                                <?= $row->created_at ?>
+                                            </td>
+                                            <td class="px-3">
+                                                <?= $row->created_by ?>
+                                            </td>
+                                            <td class="px-3">
+                                                <div class="form-button-action">
+                                                    <!-- <a href="<?= base_url('data-gudang/Data_barang_kimia/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Hapus" data-original-title="Hapus"><i class="fa fa-edit"></i></a>
+
+
+                                            <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-danger btn-sm btn-delete" data-id="<?= $row->id; ?>">Hapus</a> -->
+
+
+
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+
+
+
 
 
 
@@ -106,11 +153,11 @@
 
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="material_code">Kode Bahan</label>
-                                        <select class="form-control material_code" id="material_code" name="material_code">
+                                        <label for="material_id">Kode Bahan</label>
+                                        <select class="form-control material_id" id="material_id" name="material_id">
                                             <?php foreach ($data_barang_kimia as $row) {
                                             ?>
-                                                <option value="<?= $row->material_code; ?>"><?= $row->full_name; ?></option>
+                                                <option value="<?= $row->id; ?>"><?= $row->full_name; ?></option>
                                             <?php
                                             }; ?>
 
