@@ -94,9 +94,9 @@
  */
 ?>
 <!-- Atlantis DEMO methods, don't include it in your project! -->
-<!-- <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
-<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script> -->
-    <!-- <script>
+<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
+<script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
+<script>
     Circles.create({
         id: 'circles-1',
         radius: 45,
@@ -189,47 +189,41 @@
         lineColor: '#ffa534',
         fillColor: 'rgba(255, 165, 52, .14)'
     });
-</script> -->
+</script>
 
+<script>
+    $(document).ready(function() {
 
-    <script>
-        $(document).ready(function() {
+        // get Edit Product
+        $('.btn-edit').on('click', function() {
+            // get data from button edit
+            var id = $(this).data('id');
+            var material_code = $(this).data('material_code');
+            var full_name = $(this).data('full_name');
+            var unit = $(this).data('unit');
+            var volume = $(this).data('volume');
+            var price_base = $(this).data('price_base');
+            var image = $(this).data('image');
+            // Set data to Form Edit
+            $('.id').val(id).trigger('change');
+            $('.material_code').val(material_code);
+            $('.full_name').val(full_name);
+            $('.unit').val(unit);
+            $('.volume').val(volume);
+            $('.price_base').val(price_base);
+            $('.image').val(image);
 
-            // get Edit Product
-            $('.btn-edit').on('click', function() {
-                // get data from button edit
-                var id = $(this).data('id');
-                var material_code = $(this).data('material_code');
-                var full_name = $(this).data('full_name');
-                var unit = $(this).data('unit');
-                var volume = $(this).data('volume');
-                var price_base = $(this).data('price_base');
-                var image = $(this).data('image');
-                // Set data to Form Edit
-                $('.id').val(id).trigger('change');
-                $('.material_code').val(material_code);
-                $('.full_name').val(full_name);
-                $('.unit').val(unit);
-                $('.volume').val(volume);
-                $('.price_base').val(price_base);
-                $('.image').val(image);
-
-                // Call Modal Edit
-                $('#modalUpdate').modal('show');
-            });
-
-            $('.btn-delete').on('click', function() {
-                var id = $(this).data('id');
-
-                $('.id').val(id);
-
-
-
-            });
-
-
+            // Call Modal Edit
+            $('#modalUpdate').modal('show');
         });
-    </script>
-    </body>
 
-    </html>
+        $('.btn-delete').on('click', function() {
+            var id = $(this).data('id');
+            $('.id').val(id);
+        });
+
+    });
+</script>
+
+</body>
+</html>

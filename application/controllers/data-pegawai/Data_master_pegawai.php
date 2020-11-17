@@ -25,7 +25,7 @@ class Data_master_pegawai extends CI_Controller
           'employees'       => $this->employee_m->get_all(),
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
-    }
+    } // end method
 
     public function tambah()
     {
@@ -79,7 +79,7 @@ class Data_master_pegawai extends CI_Controller
           redirect(base_url( getBeforeLastSegment($this->modules) ));
         } // end if($query): success or failed
       } // end form_validation->run()
-    }
+    } // end method
 
     public function edit($id=NULL)
     {
@@ -137,7 +137,7 @@ class Data_master_pegawai extends CI_Controller
           redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
         } // end if($query): success or failed
       } // end form_validation->run()
-    }
+    } // end method
 
     public function hapus()
     {
@@ -167,7 +167,28 @@ class Data_master_pegawai extends CI_Controller
         redirect(base_url( getBeforeLastSegment($this->modules) ));
       } // end if($query): success or failed
       
-    }
+    } // end method
+
+    // ============================== DETAL =========================
+    public function detail($id = NULL)
+    {
+      if ($id === NULL)
+      {
+        redirect(base_url( getBeforeLastSegment($this->modules) ));
+      }
+      // set data untuk digunakan pada view
+      $data = [
+        'title'          => 'Detail pegawai',
+        'content'        => 'data-pegawai/v_data_master_pegawai_detail.php',
+        'menuActive'     => 'data-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
+        'submenuActive'  => 'data-master-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
+        'employee'       => $this->employee_m->get_by_id($id),
+        'employeeRole'   => $this->employee_m->get_role_by_id($id),
+        'employeeStore'  => $this->employee_m->get_store_by_id($id)
+      ];
+      $this->load->view('template_dashboard/template_wrapper', $data);
+    } // end method
+
 
 
 

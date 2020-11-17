@@ -45,6 +45,10 @@ class Dashboard extends CI_Controller
             'content'           => 'v_dashboard.php',
             'menuActive'        => 'dashboard',
             'submenuActive'     => 'dashboard',
+            // untuk demo dashboard
+            'chartjs'           => 1,
+            'sparkline'         => 1,
+            'chartcircle'       => 1,
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }

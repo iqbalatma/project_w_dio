@@ -7,6 +7,9 @@ class Employee_model extends CI_Model
 {
 
   var $table = 'employee';
+  var $tb_employee = 'employee';
+  var $tb_role = 'role';
+  var $tb_store = 'store';
 
 //  ===============================================SETTER===============================================
   // insert employee baru
@@ -32,7 +35,7 @@ class Employee_model extends CI_Model
 		return $this->db->insert($this->table, $data);
   }
 
-  // update customer by id
+  // update employee by id
   public function set_update_by_id($id, $data){
     $data = array(
 		  "first_name"    => $data['edit-firstname'],
@@ -46,7 +49,7 @@ class Employee_model extends CI_Model
 		return $this->db->update($this->table, $data);
   }
 
-  // update is_deleted customer by id
+  // update is_deleted employee by id
   public function set_delete_by_id($id){
     // echo '<pre>'; print_r($id); die;
     $data = array(
@@ -59,7 +62,7 @@ class Employee_model extends CI_Model
 
 
 //  ===============================================GETTER===============================================
-  // get total customer
+  // get total employee
   public function get_total(){
     // get from $table
     $this->db->select('count(id) AS total');
@@ -71,7 +74,7 @@ class Employee_model extends CI_Model
     return FALSE;
   }
 
-  // get all customer
+  // get all employee
   // parameter pertama untuk tabel yg akan diquery
   public function get_all($select = '*'){
     // get from table
@@ -86,7 +89,7 @@ class Employee_model extends CI_Model
     return FALSE;
   }
 
-  // get 1 customer berdasarkan id
+  // get 1 employee berdasarkan id
   // parameter pertama untuk id sebagai acuan
   // parameter kedua untuk tabel yg akan diquery
   public function get_by_id($id, $select = '*'){
@@ -100,6 +103,57 @@ class Employee_model extends CI_Model
       return $query->row();
     }
     return FALSE;
+  }
+    
+  // get 1 role berdasarkan id
+  // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
+  public function get_role_by_id($id, $select = '*'){
+    // get from tb_department
+    $this->db->select($select);
+    $this->db->from($this->tb_employee);
+    $this->db->join($this->tb_role, "{$this->tb_role}.id={$this->tb_employee}.role_id");
+    $this->db->where("{$this->tb_employee}.id", $id);
+    $query = $this->db->get();
+    if ( $query->num_rows() == 1) {
+      return $query->row();
+    }
+    return FALSE;
+  }
+    
+  // get 1 role berdasarkan id
+  // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
+  public function get_store_by_id($id, $select = '*'){
+    // get from tb_department
+    $this->db->select($select);
+    $this->db->from($this->tb_employee);
+    $this->db->join($this->tb_store, "{$this->tb_store}.id={$this->tb_employee}.store_id");
+    $this->db->where("{$this->tb_employee}.id", $id);
+    $query = $this->db->get();
+    if ( $query->num_rows() == 1) {
+      return $query->row();
+    }
+    return FALSE;
+  }
+
+
+
+
+
+
+  // get 1 role berdasarkan id
+  // parameter pertama untuk id sebagai acuan
+  // parameter kedua untuk tabel yg akan diquery
+  public function get_by_idzzzzzzzzzzzzzzz($id, $select = '*'){
+      // get from table
+      $this->db->select($select);
+      $this->db->from($this->table);
+      $this->db->where('id', $id);
+      $this->db->where('is_deleted', 0);
+      $query = $this->db->get();
+      if ( $query->num_rows() == 1) {
+      return $query->row();
+      }
+      return FALSE;
   }
 
 }
