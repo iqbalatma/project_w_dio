@@ -25,7 +25,7 @@
         <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
 
             <div class="container-fluid">
-                <div class="collapse" id="search-nav">
+                <!-- <div class="collapse" id="search-nav">
                     <form class="navbar-left navbar-form nav-search mr-md-3">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -36,7 +36,7 @@
                             <input type="text" placeholder="Search ..." class="form-control">
                         </div>
                     </form>
-                </div>
+                </div> -->
                 <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                     <li class="nav-item toggle-nav-search hidden-caret">
                         <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
@@ -157,32 +157,28 @@
                     <li class="nav-item dropdown hidden-caret">
                         <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                             <div class="avatar-sm">
-                                <img src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="<?= base_url("assets/img/avatar/avatar-1.png") ?>" alt="avatar" class="avatar-img rounded-circle">
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-user animated fadeIn">
                             <div class="dropdown-user-scroll scrollbar-outer">
                                 <li>
                                     <div class="user-box">
-                                        <div class="avatar-lg"><img src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+                                        <div class="avatar-lg"><img src="<?= base_url("assets/img/avatar/avatar-1.png") ?>" alt="avatar profile" class="avatar-img rounded"></div>
                                         <div class="u-text">
-                                            <span>
-                                                Hi,
-                                                <strong>Nero</strong>
-                                            </span>
-                                            <p class="text-muted">Cashier</p>
+                                            <h3>
+                                                Hi, <strong><?= $this->session->first_name; ?></strong>
+                                            </h3>
+                                            <p class="text-muted text-capitalize"><?= 'admin' ?></p>
                                             <!-- <p class="text-muted">halo@nerochrono.dev</p> -->
                                             <!-- <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a> -->
                                         </div>
                                     </div>
                                 </li>
                                 <li>
-                                    <!-- <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">My Balance</a>
-                                    <a class="dropdown-item" href="#">Inbox</a> -->
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">My Profile</a>
-                                    <a class="dropdown-item" href="<?= base_url('settings'); ?>">Account Settings</a>
+                                    <a class="dropdown-item" href="<?= base_url() ?>">Dashboard</a>
+                                    <a class="dropdown-item" href="<?= base_url('profil') ?>">Profil saya</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">Logout</a>
                                 </li>

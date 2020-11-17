@@ -6,16 +6,16 @@
 class Employee_model extends CI_Model
 {
 
-  var $table = 'employee';
-  var $tb_employee = 'employee';
-  var $tb_role = 'role';
-  var $tb_store = 'store';
+  var $table        = 'employee';
+  var $tb_employee  = 'employee';
+  var $tb_role      = 'role';
+  var $tb_store     = 'store';
 
 //  ===============================================SETTER===============================================
   // insert employee baru
   /**
    * setter untuk menambahkan employee baru
-   * @param array $data [berisi 4 data]
+   * @param array $data [berisi 11 data]
    */
   public function set_new_employee($data){
     $createdAt = unix_to_human(now(), true, 'europe');
@@ -27,7 +27,7 @@ class Employee_model extends CI_Model
 		  "last_name"     => $data['add-lastname'],
 		  "phone"         => $data['add-phone'],
 		  "address"       => $data['add-address'],
-      "avatar"        => 'avatar-'.mt_rand(0,6).'.png',
+      "avatar"        => 'avatar-'.mt_rand(0,7).'.png',
 		  "role_id"       => $data['add-role'],
 		  "store_id"      => $data['add-store'],
 		  "created_at"    => $createdAt,
@@ -120,7 +120,7 @@ class Employee_model extends CI_Model
     return FALSE;
   }
     
-  // get 1 role berdasarkan id
+  // get 1 store berdasarkan id
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
   public function get_store_by_id($id, $select = '*'){
     // get from tb_department
@@ -136,25 +136,6 @@ class Employee_model extends CI_Model
   }
 
 
-
-
-
-
-  // get 1 role berdasarkan id
-  // parameter pertama untuk id sebagai acuan
-  // parameter kedua untuk tabel yg akan diquery
-  public function get_by_idzzzzzzzzzzzzzzz($id, $select = '*'){
-      // get from table
-      $this->db->select($select);
-      $this->db->from($this->table);
-      $this->db->where('id', $id);
-      $this->db->where('is_deleted', 0);
-      $query = $this->db->get();
-      if ( $query->num_rows() == 1) {
-      return $query->row();
-      }
-      return FALSE;
-  }
 
 }
 

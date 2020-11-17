@@ -81,7 +81,7 @@ class Data_master_pegawai extends CI_Controller
       } // end form_validation->run()
     } // end method
 
-    public function edit($id=NULL)
+    public function edit($id = NULL)
     {
       if ($id === NULL)
       {
