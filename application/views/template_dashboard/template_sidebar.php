@@ -203,53 +203,7 @@ $mainMenu = array(
           </li>
         <?php endforeach; ?>
 
-        <?php
-        foreach ($mainMenu as $mm) : ?>
-          <!-- kelas ACTIVE untuk indikator menu yg aktif -->
-          <li class="nav-item <?php if ($menuActive == $mm['slug']) {
-                                echo 'active';
-                              } ?>">
-            <?php
-            if ($mm['submenu'] !== FALSE) {
-            ?>
-              <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
-                <i class="<?= $mm['icon'] ?>"></i>
-                <p><?= $mm['name'] ?></p>
-                <span class="caret"></span>
-              </a>
-            <?php
-            } else {
-            ?>
-              <a href="<?= "{$mm['url']}" ?>">
-                <i class="<?= $mm['icon'] ?>"></i>
-                <p><?= $mm['name'] ?></p>
-              </a>
-            <?php
-            }
-            if ($mm['submenu'] !== FALSE) :
-            ?>
-              <!-- kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif -->
-              <div class="collapse <?php if ($menuActive == $mm['slug']) {
-                                      echo 'show';
-                                    } ?>" id="<?= $mm['url'] ?>">
-                <ul class="nav nav-collapse">
-                  <!-- kelas ACTIVE menjadi indikator submenu mana yg sedang aktif -->
-                  <?php
-                  foreach ($mm['submenu'] as $sm) :
-                  ?>
-                    <li class="<?php if ($submenuActive == $sm['slug']) {
-                                  echo 'active';
-                                } ?>">
-                      <a href=<?= base_url("{$sm['url']}") ?>>
-                        <span class="sub-item"><?= $sm['name'] ?></span>
-                      </a>
-                    </li>
-                  <?php endforeach; ?>
-                </ul>
-              </div>
-            <?php endif; ?>
-          </li>
-        <?php endforeach; ?>
+
 
       </ul>
     </div>
