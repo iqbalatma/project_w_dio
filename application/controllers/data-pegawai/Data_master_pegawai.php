@@ -21,7 +21,7 @@ class Data_master_pegawai extends CI_Controller
     public function index()
     {
         $data = [
-          'title'           => 'Data Master pegawai',
+          'title'           => 'Data master pegawai',
           'content'         => 'data-pegawai/v_data_master_pegawai.php',
           'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif

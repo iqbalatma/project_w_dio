@@ -6,54 +6,65 @@ if ( ! function_exists('loginValidation'))
 {
   /**
   * login status validation
+  * belum login maka lempar
   *
   * @param string session login status key name
   * @param string session login status value
   * @return location go to home
   */
-  function loginValidation($key='isLogin', $val=1)
+  function loginValidation($location='', $key='isLogin', $val=1)
   {
     $ci=&get_instance();
     if ( ! $ci->session->userdata($key) == $val)
     {
-      redirect(base_url(), 'refresh');
+      redirect(base_url($location), 'refresh');
     }
   }
 }
 
 // ------------------------------------------------------------------------
 
-if ( ! function_exists('roleValidation'))
+if ( ! function_exists('must_login'))
 {
   /**
-  * role or user access validation
+  * login status validation
+  * harus login, atau lempar pergi
   *
-  * @param string role name
+  * @param string session login status key name
+  * @param string session login status value
   * @return location go to home
   */
-  function roleValidation($role=NULL)
+  function must_login($location='', $key='isLogin', $val=1)
   {
     $ci=&get_instance();
-    if ( ! $ci->session->userdata('role') == $role)
+    if ( ! $ci->session->userdata($key) == $val)
     {
-      redirect(base_url(), 'refresh');
+      redirect(base_url($location), 'refresh');
     }
   }
 }
 
 // ------------------------------------------------------------------------
 
-// cek username/email di db
-// if (ada) {
-//   cek password input dengan password db
-//   if (betul) {
-//     berhasil login
-//   }else {
-//     suruh ulangi login
-//   }
-// }else {
-//   suruh ulangi login
-// }
+if ( ! function_exists('must_not_login'))
+{
+  /**
+  * login status validation
+  * tidak boleh login, atau lempar pergi
+  *
+  * @param string session login status key name
+  * @param string session login status value
+  * @return location go to home
+  */
+  function must_not_login($location='', $key='isLogin', $val=1)
+  {
+    $ci=&get_instance();
+    if ( $ci->session->userdata($key) == $val)
+    {
+      redirect(base_url($location), 'refresh');
+    }
+  }
+}
 
 // ------------------------------------------------------------------------
 
@@ -95,6 +106,33 @@ if ( ! function_exists('getLastSegment'))
     $ci=&get_instance();
     $last = $ci->uri->total_segments();
     return $ci->uri->segment($last);
+  }
+}
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('roleValidation'))
+{
+  /**
+  * role or user access validation
+  *
+  * @param string role name
+  * @return location go to home
+  */
+  function roleValidation($role=NULL)
+  {
+    $ci=&get_instance();
+    if ( ! $ci->session->userdata('role') == $role)
+    {
+      redirect(base_url(), 'refresh');
+    }
   }
 }
 

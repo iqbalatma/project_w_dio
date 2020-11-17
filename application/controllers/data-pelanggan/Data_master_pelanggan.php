@@ -17,7 +17,7 @@ class Data_master_pelanggan extends CI_Controller
     public function index()
     {
         $data = [
-          'title'           => 'Data Master Pelanggan',
+          'title'           => 'Data master pelanggan',
           'content'         => 'data-pelanggan/v_data_master_pelanggan.php',
           'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
