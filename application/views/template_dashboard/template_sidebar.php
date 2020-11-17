@@ -27,7 +27,7 @@ $mainMenu = array(
         'url'   => "{$_data_gudang}/data-transaksi-barang",
       ],
     )
-  ],[
+  ], [
     'no'      => 2,
     'name'    => 'Data Produksi',
     'slug'    => $_data_produksi,
@@ -40,7 +40,7 @@ $mainMenu = array(
         'url'   => "{$_data_produksi}/data-master-produk",
       ],
     )
-  ],[
+  ], [
     'no'      => 3,
     'name'    => 'Data Penjualan',
     'slug'    => $_data_penjualan,
@@ -51,13 +51,13 @@ $mainMenu = array(
         'name'  => 'Data Master Penjualan',
         'slug'  => 'data-penjualan',
         'url'   => "{$_data_penjualan}/data-penjualan",
-      ],[
+      ], [
         'name'  => 'Data Penjualan per Cabang',
         'slug'  => 'data-penjualan#per-cabang',
         'url'   => "{$_data_penjualan}/data-penjualan#per-cabang",
       ],
     )
-  ],[
+  ], [
     'no'      => 4,
     'name'    => 'Data Keuangan',
     'slug'    => $_data_keuangan,
@@ -68,21 +68,21 @@ $mainMenu = array(
         'name'  => 'Data Hutang Piutang',
         'slug'  => 'data-hutang-piutang',
         'url'   => "{$_data_keuangan}/data-hutang-piutang",
-      ],[
+      ], [
         'name'  => 'Data Pengeluaran',
         'slug'  => 'data-pengeluaran',
         'url'   => "{$_data_keuangan}/data-pengeluaran",
-      ],[
+      ], [
         'name'  => 'Data Laba / Rugi',
         'slug'  => 'data-laba-rugi',
         'url'   => "{$_data_keuangan}/data-laba-rugi",
-      ],[
+      ], [
         'name'  => 'Data Kas Perusahaan',
         'slug'  => 'data-kas-perusahaan',
         'url'   => "{$_data_keuangan}/data-kas-perusahaan",
       ],
     )
-  ],[
+  ], [
     'no'      => 5,
     'name'    => 'Data Pelanggan',
     'slug'    => $_data_pelanggan,
@@ -95,7 +95,7 @@ $mainMenu = array(
         'url'   => "{$_data_pelanggan}/data-master-pelanggan",
       ],
     )
-  ],[
+  ], [
     'no'      => 6,
     'name'    => 'Data Pegawai',
     'slug'    => $_data_pegawai,
@@ -108,7 +108,7 @@ $mainMenu = array(
         'url'   => "{$_data_pegawai}/data-master-pegawai",
       ],
     )
-  ],[
+  ], [
     'no'      => 7,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
@@ -122,18 +122,18 @@ $mainMenu = array(
 
 <!-- Sidebar -->
 <div class="sidebar sidebar-style-2">
-    <div class="sidebar-wrapper scrollbar scrollbar-inner">
-        <div class="sidebar-content">
-            <ul class="nav nav-primary">
-            
-                <li class="nav-item <?php if ($menuActive == 'dashboard') { echo 'active'; } ?>">
-                    <a href=<?= base_url("dashboard") ?>>
-                        <i class="fas fa-home"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
+  <div class="sidebar-wrapper scrollbar scrollbar-inner">
+    <div class="sidebar-content">
+      <ul class="nav nav-primary">
 
-                <hr width=90%>
+        <li class="nav-item <?php if ($menuActive == 'dashboard') {
+                              echo 'active';
+                            } ?>">
+          <a href=<?= base_url("dashboard") ?>>
+            <i class="fas fa-home"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
 
                 <?php
                 foreach ($mainMenu as $mm) : ?>
@@ -177,9 +177,11 @@ $mainMenu = array(
                 </li>
                 <?php endforeach; ?>
 
-            </ul>
-        </div>
+
+
+      </ul>
     </div>
+  </div>
 </div>
 <!-- End Sidebar -->
 

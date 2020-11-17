@@ -22,6 +22,10 @@ class Material_model extends CI_Model
         return $this->db->get_where($this->table, array('is_deleted' => 0))->result();
     }
 
+    public function getById($id)
+    {
+        return $this->db->get_where($this->table, array('id' => $id))->result();
+    }
     public function insert($data)
     {
         // $post = $this->input->post();
@@ -41,7 +45,7 @@ class Material_model extends CI_Model
 
     public function update($data)
     {
-        return $this->db->update($this->table, $data, array('id' => $_POST['id']));
+        return $this->db->update($this->table, $data, array('id' => $data['id']));
     }
 
     public function delete($id)
