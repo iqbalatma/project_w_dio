@@ -18,21 +18,13 @@ $mainMenu = array(
     'icon'    => 'fas fa-layer-group',
     'submenu' => array(
       [
-        'name'  => 'Data Barang Kimia',
-        'slug'  => 'data-barang-kimia',
-        'url'   => "{$_data_gudang}/data-barang-kimia",
-      ], [
-        'name'  => 'Data Barang Kemasan',
-        'slug'  => 'data-barang-kemasan',
-        'url'   => "{$_data_gudang}/data-barang-kemasan",
-      ], [
-        'name'  => 'Barang Masuk',
-        'slug'  => 'data-barang-masuk',
-        'url'   => "{$_data_gudang}/data-barang-masuk",
-      ], [
-        'name'  => 'Barang Keluar',
-        'slug'  => 'barang-keluar',
-        'url'   => "{$_data_gudang}/barang-keluar",
+        'name'  => 'Data Barang Mentah',
+        'slug'  => 'data-barang-mentah',
+        'url'   => "{$_data_gudang}/data-barang-mentah",
+      ],[
+        'name'  => 'Data Transaksi Barang',
+        'slug'  => 'data-transaksi-barang',
+        'url'   => "{$_data_gudang}/data-transaksi-barang",
       ],
     )
   ], [
@@ -43,17 +35,9 @@ $mainMenu = array(
     'icon'    => 'fas fa-shapes',
     'submenu' => array(
       [
-        'name'  => 'Data Produk (Barang Jadi)',
-        'slug'  => 'data-produk',
-        'url'   => "{$_data_produksi}/data-produk",
-      ], [
-        'name'  => 'Komposisi Produk',
-        'slug'  => 'komposisi-produk',
-        'url'   => "{$_data_produksi}/komposisi-produk",
-      ], [
-        'name'  => 'Setting Harga Produk',
-        'slug'  => 'setting-harga-produk',
-        'url'   => "{$_data_produksi}/setting-harga-produk",
+        'name'  => 'Data Master Produk (Barang Jadi)',
+        'slug'  => 'data-master-produk',
+        'url'   => "{$_data_produksi}/data-master-produk",
       ],
     )
   ], [
@@ -109,10 +93,6 @@ $mainMenu = array(
         'name'  => 'Data Master Pelanggan',
         'slug'  => 'data-master-pelanggan',
         'url'   => "{$_data_pelanggan}/data-master-pelanggan",
-      ], [
-        'name'  => 'Setting Harga Penjualan',
-        'slug'  => 'setting-harga-penjualan',
-        'url'   => "{$_data_pelanggan}/setting-harga-penjualan",
       ],
     )
   ], [
@@ -155,53 +135,47 @@ $mainMenu = array(
           </a>
         </li>
 
-        <?php
-        foreach ($mainMenu as $mm) : ?>
-          <!-- kelas ACTIVE untuk indikator menu yg aktif -->
-          <li class="nav-item <?php if ($menuActive == $mm['slug']) {
-                                echo 'active';
-                              } ?>">
-            <?php
-            if ($mm['submenu'] !== FALSE) {
-            ?>
-              <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
-                <i class="<?= $mm['icon'] ?>"></i>
-                <p><?= $mm['name'] ?></p>
-                <span class="caret"></span>
-              </a>
-            <?php
-            } else {
-            ?>
-              <a href="<?= base_url("{$mm['url']}") ?>">
-                <i class="<?= $mm['icon'] ?>"></i>
-                <p><?= $mm['name'] ?></p>
-              </a>
-            <?php
-            }
-            if ($mm['submenu'] !== FALSE) :
-            ?>
-              <!-- kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif -->
-              <div class="collapse <?php if ($menuActive == $mm['slug']) {
-                                      echo 'show';
-                                    } ?>" id="<?= $mm['url'] ?>">
-                <ul class="nav nav-collapse">
-                  <!-- kelas ACTIVE menjadi indikator submenu mana yg sedang aktif -->
-                  <?php
-                  foreach ($mm['submenu'] as $sm) :
-                  ?>
-                    <li class="<?php if ($submenuActive == $sm['slug']) {
-                                  echo 'active';
-                                } ?>">
-                      <a href=<?= base_url("{$sm['url']}") ?>>
-                        <span class="sub-item"><?= $sm['name'] ?></span>
-                      </a>
-                    </li>
-                  <?php endforeach; ?>
-                </ul>
-              </div>
-            <?php endif; ?>
-          </li>
-        <?php endforeach; ?>
+                <?php
+                foreach ($mainMenu as $mm) : ?>
+                <?php // kelas ACTIVE untuk indikator menu yg aktif ?>
+                <li class="nav-item <?php if ($menuActive == $mm['slug']) { echo 'active'; } ?>">
+                    <?php
+                    if ($mm['submenu'] !== FALSE) { 
+                    ?>
+                    <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
+                        <i class="<?= $mm['icon'] ?>"></i>
+                        <p><?= $mm['name'] ?></p>
+                        <span class="caret"></span>
+                    </a>
+                    <?php 
+                    } else { 
+                    ?>
+                    <a href="<?= base_url("{$mm['url']}") ?>">
+                        <i class="<?= $mm['icon'] ?>"></i>
+                        <p><?= $mm['name'] ?></p>
+                    </a>
+                    <?php 
+                    }
+                    if ($mm['submenu'] !== FALSE) : 
+                    ?>
+                    <?php // kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif ?>
+                    <div class="collapse <?php if ($menuActive == $mm['slug']) { echo 'show'; } ?>" id="<?= $mm['url'] ?>">
+                        <ul class="nav nav-collapse">
+                            <?php // kelas ACTIVE menjadi indikator submenu mana yg sedang aktif ?>
+                            <?php
+                            foreach ($mm['submenu'] as $sm) :
+                            ?>
+                            <li class="<?php if ($submenuActive == $sm['slug']) { echo 'active'; } ?>">
+                                <a href=<?= base_url("{$sm['url']}") ?>>
+                                    <span class="sub-item"><?= $sm['name'] ?></span>
+                                </a>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                </li>
+                <?php endforeach; ?>
 
 
 

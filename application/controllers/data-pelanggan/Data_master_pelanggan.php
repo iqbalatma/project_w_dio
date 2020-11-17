@@ -7,8 +7,11 @@ class Data_master_pelanggan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        // load model
         $this->load->model('Customer_model', 'customer_m');
-        $this->modules = "data-pelanggan";
+        // initialize for menuActive and submenuActive
+        $this->modules    = "data-pelanggan";
+        $this->controller = "data-master-pelanggan";
     }
 
     public function index()
@@ -16,8 +19,8 @@ class Data_master_pelanggan extends CI_Controller
         $data = [
           'title'           => 'Data Master Pelanggan',
           'content'         => 'data-pelanggan/v_data_master_pelanggan.php',
-          'menuActive'      => 'data-pelanggan', // harus selalu ada, buat indikator sidebar menu yg aktif
-          'submenuActive'   => 'data-master-pelanggan', // harus selalu ada, buat indikator sidebar menu yg aktif
+          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'datatables'      => 1,
           'customers'       => $this->customer_m->get_all(),
         ];
@@ -38,8 +41,8 @@ class Data_master_pelanggan extends CI_Controller
         $data = [
           'title'           => 'Tambah pelanggan baru',
           'content'         => 'data-pelanggan/v_data_master_pelanggan_tambah.php',
-          'menuActive'      => 'data-pelanggan', // harus selalu ada, buat indikator sidebar menu yg aktif
-          'submenuActive'   => 'data-master-pelanggan', // harus selalu ada, buat indikator sidebar menu yg aktif
+          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
 
@@ -90,8 +93,8 @@ class Data_master_pelanggan extends CI_Controller
         $data = [
           'title'           => 'Ubah data pelanggan',
           'content'         => 'data-pelanggan/v_data_master_pelanggan_edit.php',
-          'menuActive'      => 'data-pelanggan', // harus selalu ada, buat indikator sidebar menu yg aktif
-          'submenuActive'   => 'data-master-pelanggan', // harus selalu ada, buat indikator sidebar menu yg aktif
+          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'customer'        => $result,
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);

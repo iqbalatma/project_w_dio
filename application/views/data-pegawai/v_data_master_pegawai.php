@@ -90,7 +90,9 @@
                                 <th class="px-3">Nama belakang</th>
                                 <th class="px-3">No. Handphone</th>
                                 <th class="px-3">Alamat</th>
-                                <th class="px-3" style="width: 10%">Aksi</th>
+                                <th class="px-3" style="width: 10%">
+                                  <center>Aksi</center>
+                                </th>
                               </tr>
                             </thead>
                             <tfoot class="thead-light">
@@ -101,7 +103,9 @@
                                 <th class="px-3">Nama belakang</th>
                                 <th class="px-3">No. Handphone</th>
                                 <th class="px-3">Alamat</th>
-                                <th class="px-3">Aksi</th>
+                                <th class="px-3">
+                                  <center>Aksi</center>
+                                </th>
                               </tr>
                             </tfoot>
                             <tbody>
@@ -113,7 +117,7 @@
                                     <?= $i++ ?>
                                   </td>
                                   <td class="px-3">
-                                    <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="" width="50px">
+                                    <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="<?= "Avatar {$row['first_name']}" ?>" width="50px">
                                   </td>
                                   <td class="px-3">
                                     <?= $row['first_name'] ?>
@@ -131,7 +135,9 @@
                                     <div class="form-button-action">
                                       <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="btn btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
                                       <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                      <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
+                                        <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                      </span>
                                     </div>
                                   </td>
                                 </tr>

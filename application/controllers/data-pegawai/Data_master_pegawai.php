@@ -7,11 +7,15 @@ class Data_master_pegawai extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        // single page load library
         $this->load->library('bcrypt');
+        // load model
         $this->load->model('Employee_model', 'employee_m');
         $this->load->model('Role_model', 'role_m');
         $this->load->model('Store_model', 'store_m');
-        $this->modules = "data-pegawai";
+        // initialize for menuActive and submenuActive
+        $this->modules    = "data-pegawai";
+        $this->controller = "data-master-pegawai";
     }
 
     public function index()
@@ -19,8 +23,8 @@ class Data_master_pegawai extends CI_Controller
         $data = [
           'title'           => 'Data Master pegawai',
           'content'         => 'data-pegawai/v_data_master_pegawai.php',
-          'menuActive'      => 'data-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
-          'submenuActive'   => 'data-master-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
+          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'datatables'      => 1,
           'employees'       => $this->employee_m->get_all(),
         ];
@@ -48,8 +52,8 @@ class Data_master_pegawai extends CI_Controller
         $data = [
           'title'           => 'Tambah pegawai baru',
           'content'         => 'data-pegawai/v_data_master_pegawai_tambah.php',
-          'menuActive'      => 'data-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
-          'submenuActive'   => 'data-master-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
+          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'employees'       => $this->employee_m->get_all(),
           'roles'           => $this->role_m->getAll(),
           'stores'          => $this->store_m->getAll()
@@ -107,8 +111,8 @@ class Data_master_pegawai extends CI_Controller
         $data = [
           'title'           => 'Ubah data pegawai',
           'content'         => 'data-pegawai/v_data_master_pegawai_edit.php',
-          'menuActive'      => 'data-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
-          'submenuActive'   => 'data-master-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
+          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'employee'        => $result,
           'roles'           => $this->role_m->getAll(),
           'stores'          => $this->store_m->getAll()
@@ -180,8 +184,8 @@ class Data_master_pegawai extends CI_Controller
       $data = [
         'title'          => 'Detail pegawai',
         'content'        => 'data-pegawai/v_data_master_pegawai_detail.php',
-        'menuActive'     => 'data-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
-        'submenuActive'  => 'data-master-pegawai', // harus selalu ada, buat indikator sidebar menu yg aktif
+        'menuActive'     => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+        'submenuActive'  => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
         'employee'       => $this->employee_m->get_by_id($id),
         'employeeRole'   => $this->employee_m->get_role_by_id($id),
         'employeeStore'  => $this->employee_m->get_store_by_id($id)
