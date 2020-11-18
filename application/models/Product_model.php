@@ -141,6 +141,7 @@ class Product_model extends CI_Model
     $this->db->from($this->table);
     $this->db->join($this->tb_product_composition, "{$this->table}.id={$this->tb_product_composition}.product_id");
     $this->db->join($this->tb_material, "{$this->tb_product_composition}.material_id={$this->tb_material}.id");
+    $this->db->where("{$this->tb_product_composition}.product_id", $id);
     $query = $this->db->get();
     if ( $query->num_rows() > 0) {
       return $query->result_array();

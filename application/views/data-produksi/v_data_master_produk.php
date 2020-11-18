@@ -27,7 +27,7 @@
                                 <th class="px-3">Nama produk</th>
                                 <th class="px-3">volume</th>
                                 <th class="px-3">HPP</th>
-                                <th class="px-3">ecer</th>
+                                <th class="px-3">Harga ecer</th>
                                 <th class="" style="width: 10%">
                                   <center>Aksi</center>
                                 </th>
@@ -41,7 +41,7 @@
                                 <th class="px-3">Nama produk</th>
                                 <th class="px-3">volume</th>
                                 <th class="px-3">HPP</th>
-                                <th class="px-3">ecer</th>
+                                <th class="px-3">Harga ecer</th>
                                 <th class="">
                                   <center>Aksi</center>
                                 </th>

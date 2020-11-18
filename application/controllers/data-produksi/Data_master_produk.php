@@ -82,7 +82,6 @@ class Data_master_produk extends CI_Controller
       $this->form_validation->set_rules('edit-fullname', 'nama pelanggan',	        'required|trim|min_length[3]|max_length[100]');
       $this->form_validation->set_rules('edit-unit', 'unit', 						            'required');
       $this->form_validation->set_rules('edit-volume', 'volume', 						        'required');
-
       $this->form_validation->set_rules('edit-hpp', 'HPP',		                      'required|trim|is_numeric');
       $this->form_validation->set_rules('edit-priceretail', 'harga ecer',           'required|trim|is_numeric');
       $this->form_validation->set_rules('edit-pricereseller', 'harga reseller', 		'required|trim|is_numeric');

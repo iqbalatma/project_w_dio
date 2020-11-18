@@ -12,12 +12,12 @@
 
                           <div class="row justify-content-center">
                             <div class="col-md-6 col-lg-8">
-                              <div class="form-group d-flex">
-                                <img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid border" width="300px">
-                                <div class="ml-4">
+                              <div class="form-group d-flex justify-content-center">
+                                <img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid border rounded p-2" width="300px">
+                                <!-- <div class="ml-4 mt-3">
                                   <label for="edit-logo">Upload logo baru</label>
                                   <input type="file" class="form-control-file" id="edit-logo">
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                           </div>
@@ -40,7 +40,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="edit-alamat-perusahaan">
-                                  Alamat perusahaan
+                                  Alamat pusat
                                 </label>
                                 <input 
                                   type        = "text" 

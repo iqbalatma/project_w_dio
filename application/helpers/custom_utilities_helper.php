@@ -46,6 +46,26 @@ if ( ! function_exists('must_not_login'))
 
 // ------------------------------------------------------------------------
 
+if ( ! function_exists('role_validation'))
+{
+  /**
+  * role or user access validation
+  *
+  * @param string role name
+  * @return location go to home
+  */
+  function role_validation($who=[], $role='cashier')
+  {
+    // jika tidak ada, maka tidak cocok dan buang keluar
+    if ( ! in_array($role, $who)) 
+    {
+      redirect(base_url(), 'refresh');
+    }
+  }
+}
+
+// ------------------------------------------------------------------------
+
 if ( ! function_exists('getBeforeLastSegment'))
 {
   /**
@@ -87,31 +107,5 @@ if ( ! function_exists('getLastSegment'))
   }
 }
 
-
-
-
-
-
-
-
-// ------------------------------------------------------------------------
-
-if ( ! function_exists('roleValidation'))
-{
-  /**
-  * role or user access validation
-  *
-  * @param string role name
-  * @return location go to home
-  */
-  function roleValidation($role=NULL)
-  {
-    $ci=&get_instance();
-    if ( ! $ci->session->userdata('role') == $role)
-    {
-      redirect(base_url(), 'refresh');
-    }
-  }
-}
 
 ?>
