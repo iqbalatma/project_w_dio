@@ -28,9 +28,7 @@ class Dashboard extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($_SESSION['is_logged'] !== 'TRUE') {
-            redirect('Auth');
-        }
+        loginValidation();
     }
     public function index()
     {

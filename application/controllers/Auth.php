@@ -43,7 +43,10 @@ class Auth extends CI_Controller
             // jika syarat form belum terpenuhi (tombol login belum ditekan)
             // $this->load->view('template_dashboard/template_wrapper_login.php', $data);
             $this->index();
+            // echo validation_errors();
+            // echo 'error';
         } else {
+            // echo 'valid';
             $username = $this->input->post('username');
             $password = $this->input->post('password');
 
@@ -68,7 +71,8 @@ class Auth extends CI_Controller
                         'phone' => $data_user->phone,
                         'role_id' => $data_user->role_id,
                         'avatar' => $data_user->avatar,
-                        'isLogin' => 1
+                        'isLogin' => 1,
+                        'store_id' => $data_user->store_id
                     ];
                     $this->session->set_userdata($session_array);
                     redirect('Dashboard');
@@ -76,11 +80,13 @@ class Auth extends CI_Controller
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                     Username or Password is incorrect</div>');
                     redirect(base_url('Auth/login'));
+                    // echo 'error';
                 }
             } else { //else ketika username tidak ada atau tidak valid
 
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 Username or Password is incorrect</div>');
+                // echo 'error 2';
                 redirect(base_url('Auth/login'));
             }
         }
