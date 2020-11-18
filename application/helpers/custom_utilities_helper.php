@@ -2,39 +2,17 @@
 
 // ------------------------------------------------------------------------
 
-if ( ! function_exists('loginValidation'))
-{
-  /**
-  * login status validation
-  * belum login maka lempar
-  *
-  * @param string session login status key name
-  * @param string session login status value
-  * @return location go to home
-  */
-  function loginValidation($location='', $key='isLogin', $val=1)
-  {
-    $ci=&get_instance();
-    if ( ! $ci->session->userdata($key) == $val)
-    {
-      redirect(base_url($location), 'refresh');
-    }
-  }
-}
-
-// ------------------------------------------------------------------------
-
 if ( ! function_exists('must_login'))
 {
   /**
-  * login status validation
-  * harus login, atau lempar pergi
+  * must login or throw away
   *
+  * @param string custom destination location
   * @param string session login status key name
   * @param string session login status value
-  * @return location go to home
+  * @return location go to $location
   */
-  function must_login($location='', $key='isLogin', $val=1)
+  function must_login($location='auth/login', $key='isLogin', $val=1)
   {
     $ci=&get_instance();
     if ( ! $ci->session->userdata($key) == $val)
@@ -49,12 +27,12 @@ if ( ! function_exists('must_login'))
 if ( ! function_exists('must_not_login'))
 {
   /**
-  * login status validation
-  * tidak boleh login, atau lempar pergi
+  * not login or throw away
   *
+  * @param string custom destination location
   * @param string session login status key name
   * @param string session login status value
-  * @return location go to home
+  * @return location go to $location
   */
   function must_not_login($location='', $key='isLogin', $val=1)
   {

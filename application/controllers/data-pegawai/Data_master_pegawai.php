@@ -7,6 +7,7 @@ class Data_master_pegawai extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        must_login();
         // single page load library
         $this->load->library('bcrypt');
         // load model

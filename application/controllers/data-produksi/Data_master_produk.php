@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Data_master_pelanggan extends CI_Controller
+class Data_master_produk extends CI_Controller
 {
 
     public function __construct()
@@ -9,21 +9,21 @@ class Data_master_pelanggan extends CI_Controller
         parent::__construct();
         must_login();
         // load model
-        $this->load->model('Customer_model', 'customer_m');
+        $this->load->model('Product_model', 'product_m');
         // initialize for menuActive and submenuActive
-        $this->modules    = "data-pelanggan";
-        $this->controller = "data-master-pelanggan";
+        $this->modules    = "data-produksi";
+        $this->controller = "data-master-produk";
     }
 
     public function index()
     {
         $data = [
-          'title'           => 'Data master pelanggan',
-          'content'         => 'data-pelanggan/v_data_master_pelanggan.php',
+          'title'           => 'Data master produk',
+          'content'         => 'data-produksi/v_data_master_produk.php',
           'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'datatables'      => 1,
-          'customers'       => $this->customer_m->get_all(),
+          'products'        => $this->product_m->get_all(),
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
@@ -40,8 +40,8 @@ class Data_master_pelanggan extends CI_Controller
       if ($this->form_validation->run() == FALSE) {
         // set data untuk digunakan pada view
         $data = [
-          'title'           => 'Tambah pelanggan baru',
-          'content'         => 'data-pelanggan/v_data_master_pelanggan_tambah.php',
+          'title'           => 'Tambah produk baru',
+          'content'         => 'data-produk/v_data_master_produk_tambah.php',
           'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
         ];
@@ -50,13 +50,13 @@ class Data_master_pelanggan extends CI_Controller
       }else {
         // insert data to db
         $post  = $this->input->post();
-        $query = $this->customer_m->set_new_customer($post);
+        $query = $this->product_m->set_new_product($post);
 
         if ($query) {
           // flashdata untuk sweetalert
           $this->session->set_flashdata('success_message', 1);
           $this->session->set_flashdata('title', "Penambahan sukses!");
-          $this->session->set_flashdata('text', 'Data pelanggan telah berhasil ditambah!');
+          $this->session->set_flashdata('text', 'Data produk telah berhasil ditambah!');
           // kembali ke laman sebelumnya sesuai hirarki controller
           redirect(base_url( getBeforeLastSegment($this->modules) ));
 
@@ -64,7 +64,7 @@ class Data_master_pelanggan extends CI_Controller
           // flashdata untuk sweetalert
           $this->session->set_flashdata('failed_message', 1);
           $this->session->set_flashdata('title', "Penambahan gagal!");
-          $this->session->set_flashdata('text', 'Mohon cek kembali data pelanggan.');
+          $this->session->set_flashdata('text', 'Mohon cek kembali data produk.');
           // kembali ke laman sebelumnya sesuai hirarki controller
           redirect(base_url( getBeforeLastSegment($this->modules) ));
         } // end if($query): success or failed
@@ -86,30 +86,30 @@ class Data_master_pelanggan extends CI_Controller
       // run the form validation
       if ($this->form_validation->run() == FALSE) {
         // query data dari database
-        $result = $this->customer_m->get_by_id($id);
+        $result = $this->product_m->get_by_id($id);
         // validasi jika data tidak ada (return FALSE) maka redirect keluar
         ($result !== FALSE) ?: redirect(base_url( getBeforeLastSegment($this->modules, 2) )) ;
 
         // set data untuk digunakan pada view
         $data = [
-          'title'           => 'Ubah data pelanggan',
-          'content'         => 'data-pelanggan/v_data_master_pelanggan_edit.php',
+          'title'           => 'Ubah data produk',
+          'content'         => 'data-produk/v_data_master_produk_edit.php',
           'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
-          'customer'        => $result,
+          'product'         => $result,
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
 
       }else {
         // insert data to db
         $post  = $this->input->post();
-        $query = $this->customer_m->set_update_by_id($id, $post);
+        $query = $this->product_m->set_update_by_id($id, $post);
 
         if ($query) {
           // flashdata untuk sweetalert
           $this->session->set_flashdata('success_message', 1);
           $this->session->set_flashdata('title', "Pembaruan sukses!");
-          $this->session->set_flashdata('text', 'Data pelanggan telah berhasil diperbarui!');
+          $this->session->set_flashdata('text', 'Data produk telah berhasil diperbarui!');
           // kembali ke laman sebelumnya sesuai hirarki controller
           redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
 
@@ -117,7 +117,7 @@ class Data_master_pelanggan extends CI_Controller
           // flashdata untuk sweetalert
           $this->session->set_flashdata('failed_message', 1);
           $this->session->set_flashdata('title', "Pembaruan gagal!");
-          $this->session->set_flashdata('text', 'Mohon cek kembali data pelanggan.');
+          $this->session->set_flashdata('text', 'Mohon cek kembali data produk.');
           // kembali ke laman sebelumnya sesuai hirarki controller
           redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
         } // end if($query): success or failed
@@ -133,13 +133,13 @@ class Data_master_pelanggan extends CI_Controller
       }
       // update data to db
       // echo '<pre>'; print_r($id); die;
-      $query = $this->customer_m->set_delete_by_id($id);
+      $query = $this->product_m->set_delete_by_id($id);
 
       if ($query) {
         // flashdata untuk sweetalert
         $this->session->set_flashdata('success_message', 1);
         $this->session->set_flashdata('title', "Penghapusan sukses!");
-        $this->session->set_flashdata('text', 'Data pelanggan telah berhasil dihapus!');
+        $this->session->set_flashdata('text', 'Data produk telah berhasil dihapus!');
         // kembali ke laman sebelumnya sesuai hirarki controller
         redirect(base_url( getBeforeLastSegment($this->modules) ));
 

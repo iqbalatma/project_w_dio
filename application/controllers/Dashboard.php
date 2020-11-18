@@ -11,7 +11,7 @@ class Dashboard extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        must_login('auth/login');
+        must_login();
     }
     public function index()
     {

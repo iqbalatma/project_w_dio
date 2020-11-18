@@ -22,11 +22,12 @@
                             <thead class="thead-light">
                               <tr>
                                 <th class="px-3" width="20px">No</th>
-                                <th class="px-3" width="30px">Avatar</th>
-                                <th class="px-3">Nama depan</th>
-                                <th class="px-3">Nama belakang</th>
-                                <th class="px-3">No. Handphone</th>
-                                <th class="px-3">Alamat</th>
+                                <th class="px-3" width="30px">Image</th>
+                                <th class="px-3">Kode produk</th>
+                                <th class="px-3">Nama produk</th>
+                                <th class="px-3">volume</th>
+                                <th class="px-3">HPP</th>
+                                <th class="px-3">ecer</th>
                                 <th class="px-3" style="width: 10%">
                                   <center>Aksi</center>
                                 </th>
@@ -35,11 +36,12 @@
                             <tfoot class="thead-light">
                               <tr>
                                 <th class="px-3">No</th>
-                                <th class="px-3">Avatar</th>
-                                <th class="px-3">Nama depan</th>
-                                <th class="px-3">Nama belakang</th>
-                                <th class="px-3">No. Handphone</th>
-                                <th class="px-3">Alamat</th>
+                                <th class="px-3">Image</th>
+                                <th class="px-3">Kode produk</th>
+                                <th class="px-3">Nama produk</th>
+                                <th class="px-3">volume</th>
+                                <th class="px-3">HPP</th>
+                                <th class="px-3">ecer</th>
                                 <th class="px-3">
                                   <center>Aksi</center>
                                 </th>
@@ -48,25 +50,28 @@
                             <tbody>
                               <?php
                               $i = 1;
-                              foreach ($employees as $row) : ?>
+                              foreach ($products as $row) : ?>
                                 <tr>
                                   <td class="px-3">
                                     <?= $i++ ?>
                                   </td>
                                   <td class="px-3">
-                                    <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="<?= "Avatar {$row['first_name']}" ?>" width="50px">
+                                    <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="<?= "Avatar {$row['full_name']}" ?>" width="100px">
                                   </td>
                                   <td class="px-3">
-                                    <?= $row['first_name'] ?>
+                                    <?= $row['product_code'] ?>
                                   </td>
                                   <td class="px-3">
-                                    <?= $row['last_name'] ?>
+                                    <?= $row['full_name'] ?>
                                   </td>
                                   <td class="px-3">
-                                    <a href="tel:<?= $row['phone'] ?>" class="text-muted"><?= $row['phone'] ?></a>
+                                    <?= $row['volume'] ?> <?= $row['unit'] ?>
                                   </td>
                                   <td class="px-3">
-                                    <?= $row['address'] ?>
+                                  Rp. <?= number_format($row['price_base'], 0, '', '.') ?>
+                                  </td>
+                                  <td class="px-3">
+                                    Rp. <?= number_format($row['price_retail'], 0, '', '.') ?>
                                   </td>
                                   <td class="px-3">
                                     <div class="form-button-action">
