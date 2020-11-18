@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2020 at 11:49 AM
+-- Generation Time: Nov 18, 2020 at 05:08 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -47,7 +47,7 @@ CREATE TABLE `basic_info_meta` (
 --
 
 INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contact_2`, `email`, `website`, `logo`, `created_at`, `updated_at`, `updated_by`) VALUES
-(1, 'Sabun Aryanz', 'Jabar, Indonesia', '0812398123', '1231231232', 'halo@email.com', 'http://sabun-aryanz.coms', 'logo-hd.png', '2020-11-16 03:02:30', '2020-11-17 12:34:07', 'gudang');
+(1, 'Sabun Aryanz', 'Jabar, Indonesia', '0812398123', '1231231232', 'halo@sabun-aryanz.com', 'https://sabun-aryanz.com', 'logo-hd.png', '2020-11-16 03:02:30', '2020-11-18 20:15:28', 'admins');
 
 -- --------------------------------------------------------
 
@@ -60,6 +60,7 @@ CREATE TABLE `customer` (
   `full_name` varchar(128) NOT NULL,
   `address` varchar(250) NOT NULL,
   `phone` varchar(16) NOT NULL,
+  `cust_type` enum('retail','reseller','wholesale') NOT NULL DEFAULT 'retail',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -68,19 +69,43 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `created_at`, `is_deleted`) VALUES
-(1, 'Joe Bidan', 'Menara', '0877213176782', '2020-11-11 00:25:50', 0),
-(2, 'Tori Obama', 'Timoer Timoer', '0877216126', '2020-11-11 00:25:50', 0),
-(3, 'Pawer Renjer', 'Imajinasi', '0856213125', '2020-11-16 21:47:20', 0),
-(4, 'Bruce lee', 'York New', '0854465478', '2020-11-16 21:47:20', 0),
-(5, 'Jake Separow', 'Going Merry', '0845111487', '2020-11-16 21:50:32', 0),
-(6, 'tester', 'Tempat makan', '04567182332', '2020-11-16 23:57:06', 1),
-(7, 'tester2', 'Tempat makan 2', '0888888888', '2020-11-16 23:59:53', 0),
-(8, 'tester3', 'Tempat makan 3', '0888888889', '2020-11-17 00:01:03', 0),
-(9, 'tester', 'Tempat makan', '0888888890', '2020-11-17 00:02:13', 0),
-(10, 'Jackpot', 'Jendela', '085677839992', '2020-11-17 00:45:27', 1),
-(11, 'custo', 'omerr', '00000000000', '2020-11-17 01:29:31', 0),
-(12, 'tes video', 'internet', '0888888888', '2020-11-17 12:32:45', 1);
+INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `cust_type`, `created_at`, `is_deleted`) VALUES
+(1, 'Joe Bidan', 'Menara', '0877213176782', 'retail', '2020-11-11 00:25:50', 0),
+(2, 'Tori Obama', 'Timoer Timoer', '0877216126', 'retail', '2020-11-11 00:25:50', 0),
+(3, 'Pawer Renjer', 'Imajinasi', '0856213125', 'retail', '2020-11-16 21:47:20', 0),
+(4, 'Bruce lee', 'York New', '0854465478', 'wholesale', '2020-11-16 21:47:20', 0),
+(5, 'Jake Separow', 'Going Merry', '0845111487', 'retail', '2020-11-16 21:50:32', 0),
+(6, 'tester', 'Tempat makan', '04567182332', 'retail', '2020-11-16 23:57:06', 0),
+(7, 'tester2', 'Tempat makan 2', '0888888888', 'retail', '2020-11-16 23:59:53', 0),
+(8, 'tester3', 'Tempat makan 3', '0888888889', 'reseller', '2020-11-17 00:01:03', 0),
+(9, 'tester', 'Tempat makan', '0888888890', 'reseller', '2020-11-17 00:02:13', 0),
+(10, 'Jackpot', 'Jendela', '085677839992', 'retail', '2020-11-17 00:45:27', 0),
+(11, 'custo', 'omerr', '00000000000', 'reseller', '2020-11-17 01:29:31', 0),
+(12, 'tes video', 'internet', '0888888888', 'retail', '2020-11-17 12:32:45', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `custom_price`
+--
+
+CREATE TABLE `custom_price` (
+  `id` tinyint(10) NOT NULL,
+  `price` int(11) NOT NULL,
+  `customer_id` tinyint(10) NOT NULL,
+  `product_id` tinyint(10) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `custom_price`
+--
+
+INSERT INTO `custom_price` (`id`, `price`, `customer_id`, `product_id`, `created_at`, `is_deleted`) VALUES
+(1, 500000, 3, 1, '2020-11-18 22:24:48', 0),
+(2, 450000, 3, 4, '2020-11-18 22:24:48', 0),
+(3, 125000, 11, 3, '2020-11-18 22:25:25', 0);
 
 -- --------------------------------------------------------
 
@@ -109,6 +134,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `phone`, `address`, `avatar`, `role_id`, `store_id`, `created_at`, `is_deleted`) VALUES
+(0, 'superadmin', 'superadmin@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'super', 'admin', '06969696969', 'langit', 'avatar-7.png', 1, 1, '2020-11-18 22:55:22', 0),
 (1, 'pemilik', 'pemilik@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Saya', 'Pemilik', '0871263612', 'Di kantor', 'avatar-1.png', 2, 1, '2020-11-10 22:48:27', 0),
 (2, 'gudang', 'gudang@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang', '087213513441', 'Di gudang', 'avatar-1.png', 3, 1, '2020-11-10 22:52:15', 0),
 (3, 'kasir_cica', 'kasir_cica@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Cica', NULL, '0856123872', 'Di Cicalengka', 'avatar-1.png', 4, 2, '2020-11-10 22:54:23', 0),
@@ -172,7 +198,10 @@ CREATE TABLE `material` (
 
 INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `category`, `image`, `price_base`, `created_at`, `is_deleted`) VALUES
 (1, 'BM001', 'Barang mentah 1', 'mililiter', 1000, 'bahan', 'default.png', 10000, '2020-11-16 17:40:30', 1),
-(2, 'BM002', 'Barang mentah 2', 'mililiter', 233, 'bahan', 'default.png', 20000, '2020-11-16 17:40:30', 0);
+(2, 'BM002', 'Barang mentah 2', 'mililiter', 233, 'bahan', 'default.png', 20000, '2020-11-16 17:40:30', 0),
+(3, 'BM003', 'Barang Mentah 3', 'gram', 100, 'bahan', 'default.png', 5000, '2020-11-18 19:23:25', 0),
+(4, 'BM004', 'Barang Mentah 4', 'gram', 500, 'bahan', 'default.png', 14000, '2020-11-18 19:24:05', 0),
+(5, 'BM005', 'Barang Mentah 5', 'mililiter', 1500, 'kemasan', 'default.png', 15000, '2020-11-18 19:24:26', 0);
 
 -- --------------------------------------------------------
 
@@ -191,6 +220,22 @@ CREATE TABLE `material_inventory` (
   `updated_by` varchar(15) DEFAULT NULL,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `material_inventory`
+--
+
+INSERT INTO `material_inventory` (`id`, `material_id`, `store_id`, `quantity`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`) VALUES
+(1, 1, 1, 100, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(2, 1, 2, 88, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(3, 2, 1, 92, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(4, 2, 2, 56, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(5, 4, 1, 120, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(6, 4, 2, 80, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(7, 4, 3, 25, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(8, 3, 3, 44, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(9, 5, 1, 12, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(10, 5, 2, 34, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -240,7 +285,7 @@ INSERT INTO `product` (`id`, `product_code`, `full_name`, `unit`, `volume`, `ima
 (2, 'DT002', 'Sabun Dettol 150ml', 'mililiter', 150, 'default.png', 15000, 30000, 27000, 25000, '2020-11-17 13:44:04', 0),
 (3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 25000, 50000, 45000, 40000, '2020-11-17 13:44:04', 0),
 (4, 'DT004', 'Sabun Dettol 1L', 'mililiter', 1000, 'default.png', 0, 0, 0, 0, '2020-11-18 15:37:08', 0),
-(5, 'DT005', 'Sabun Dettol 1.5L', 'gram', 15, 'default.png', 20000, 50000, 45000, 43000, '2020-11-18 16:12:08', 0),
+(5, 'DT005', 'Sabun Dettol 1.5L', 'gram', 15, 'default.png', 20000, 50000, 45000, 43001, '2020-11-18 16:12:08', 0),
 (6, 'DT006', 'Sabun Dettol 10L', 'mililiter', 10000, 'default.png', 0, 0, 0, 0, '2020-11-18 17:33:36', 0);
 
 -- --------------------------------------------------------
@@ -255,7 +300,7 @@ CREATE TABLE `product_composition` (
   `product_id` tinyint(10) DEFAULT NULL,
   `material_id` tinyint(10) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -264,8 +309,13 @@ CREATE TABLE `product_composition` (
 --
 
 INSERT INTO `product_composition` (`id`, `volume`, `product_id`, `material_id`, `created_at`, `updated_at`, `is_deleted`) VALUES
-(1, 10, 1, 2, '2020-11-18 15:56:03', '2020-11-18 15:56:03', 0),
-(2, 50, 1, 1, '2020-11-18 16:40:30', '2020-11-18 16:40:30', 0);
+(1, 10, 1, 2, '2020-11-18 15:56:03', NULL, 0),
+(2, 50, 1, 1, '2020-11-18 16:40:30', NULL, 0),
+(3, 5, 1, 5, '2020-11-18 19:43:37', NULL, 0),
+(4, 10, 6, 1, '2020-11-18 19:43:37', NULL, 0),
+(5, 3, 6, 2, '2020-11-18 19:43:37', NULL, 0),
+(6, 5, 6, 4, '2020-11-18 19:43:37', NULL, 0),
+(7, 3, 2, 5, '2020-11-18 19:43:37', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -292,7 +342,12 @@ CREATE TABLE `product_inventory` (
 INSERT INTO `product_inventory` (`id`, `product_id`, `store_id`, `quantity`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`) VALUES
 (1, 1, 1, 52, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0),
 (2, 2, 1, 33, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0),
-(3, 3, 1, 5, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0);
+(3, 3, 1, 5, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0),
+(4, 6, 1, 500, '2020-11-18 19:27:40', NULL, 'admins', NULL, 0),
+(5, 1, 2, 100, '2020-11-18 19:27:40', NULL, 'admins', NULL, 0),
+(6, 2, 2, 70, '2020-11-18 19:27:40', NULL, 'admins', NULL, 0),
+(7, 5, 1, 300, '2020-11-18 19:27:40', NULL, 'admins', NULL, 0),
+(8, 5, 1, 300, '2020-11-18 19:27:40', NULL, 'admins', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -390,6 +445,14 @@ ALTER TABLE `basic_info_meta`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `custom_price`
+--
+ALTER TABLE `custom_price`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `employee`
@@ -515,6 +578,12 @@ ALTER TABLE `customer`
   MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `custom_price`
+--
+ALTER TABLE `custom_price`
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
@@ -536,13 +605,13 @@ ALTER TABLE `invoice_item`
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `material_inventory`
 --
 ALTER TABLE `material_inventory`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `material_mutation`
@@ -560,13 +629,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_composition`
 --
 ALTER TABLE `product_composition`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product_inventory`
 --
 ALTER TABLE `product_inventory`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `product_mutation`
@@ -595,6 +664,13 @@ ALTER TABLE `transaction`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `custom_price`
+--
+ALTER TABLE `custom_price`
+  ADD CONSTRAINT `custom_price_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `custom_price_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `employee`
@@ -628,7 +704,8 @@ ALTER TABLE `material_inventory`
 -- Constraints for table `material_mutation`
 --
 ALTER TABLE `material_mutation`
-  ADD CONSTRAINT `material_mutation_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `material_mutation_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `material_mutation_ibfk_3` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_composition`
