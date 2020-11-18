@@ -26,9 +26,15 @@
                                   <label for="add-firstname">
                                     Nama depan <span class="text-danger">*</span>
                                   </label>
-                                  <input type="text" id="add-firstname" name="add-firstname" placeholder="Nama depan" value="<?= set_value('add-firstname') ?>" class="form-control <?php if (form_error('add-firstname') !== '') {
-                                                                                                                                                                                      echo 'is-invalid';
-                                                                                                                                                                                    } ?>" autofocus>
+                                  <input 
+                                    type        = "text"
+                                    id          = "add-firstname"
+                                    name        = "add-firstname" 
+                                    placeholder = "Nama depan" 
+                                    value       = "<?= set_value('add-firstname') ?>"
+                                    class       = "form-control <?php if (form_error('add-firstname') !== '') {echo 'is-invalid';} ?>" 
+                                    autofocus
+                                  >
                                   <?= form_error('add-firstname') ?>
                                 </div>
                                 <!-- 2 -->
@@ -36,9 +42,14 @@
                                   <label for="add-lastname">
                                     Nama belakang
                                   </label>
-                                  <input type="text" id="add-lastname" name="add-lastname" placeholder="Nama belakang" value="<?= set_value('add-lastname') ?>" class="form-control <?php if (form_error('add-lastname') !== '') {
-                                                                                                                                                                                      echo 'is-invalid';
-                                                                                                                                                                                    } ?>">
+                                  <input 
+                                    type        = "text"
+                                    id          = "add-lastname"
+                                    name        = "add-lastname" 
+                                    placeholder = "Nama belakang" 
+                                    value       = "<?= set_value('add-lastname') ?>"
+                                    class       = "form-control <?php if (form_error('add-lastname') !== '') {echo 'is-invalid';} ?>"
+                                  >
                                   <?= form_error('add-lastname') ?>
                                 </div>
                               </div>
@@ -47,9 +58,16 @@
                                 <label for="add-phone">
                                   Nomor handphone <span class="text-danger">*</span>
                                 </label>
-                                <input type="tel" minlength="10" maxlength="14" id="add-phone" name="add-phone" placeholder="cth: 085619559999" value="<?= set_value('add-phone') ?>" class="form-control <?php if (form_error('add-phone') !== '') {
-                                                                                                                                                                                                            echo 'is-invalid';
-                                                                                                                                                                                                          } ?>">
+                                <input 
+                                  type        = "tel"
+                                  minlength   = "10" 
+                                  axlength    = "14" 
+                                  id          = "add-phone" 
+                                  name        = "add-phone"
+                                  placeholder = "cth: 085619559999" 
+                                  value       = "<?= set_value('add-phone') ?>"
+                                  class       = "form-control <?php if (form_error('add-phone') !== '') {echo 'is-invalid';} ?>"
+                                >
                                 <?= form_error('add-phone') ?>
                               </div>
                               <!-- 4 -->
@@ -57,9 +75,16 @@
                                 <label for="add-address">
                                   Alamat <span class="text-danger">*</span>
                                 </label>
-                                <textarea cols="30" rows="3" id="add-address" name="add-address" placeholder="Alamat lengkap pegawai" class="form-control <?php if (form_error('add-address') !== '') {
-                                                                                                                                                            echo 'is-invalid';
-                                                                                                                                                          } ?>"><?= set_value('add-address') ?></textarea>
+                                <textarea 
+                                  cols        = "30" 
+                                  rows        = "3" 
+                                  id          = "add-address" 
+                                  name        = "add-address" 
+                                  placeholder = "Alamat lengkap pegawai"
+                                  class       = "form-control <?php if (form_error('add-address') !== '') {echo 'is-invalid';} ?>"
+                                > 
+                                  <?= set_value('add-address') ?>
+                                </textarea>
                                 <?= form_error('add-address') ?>
                               </div>
                               <!-- 5 -->
@@ -101,9 +126,14 @@
                                 <label for="add-username">
                                   username <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" id="add-username" name="add-username" placeholder="Username" value="<?= set_value('add-username') ?>" class="form-control <?php if (form_error('add-username') !== '') {
-                                                                                                                                                                                echo 'is-invalid';
-                                                                                                                                                                              } ?>">
+                                <input 
+                                  type        = "text"
+                                  id          = "add-username"
+                                  name        = "add-username" 
+                                  placeholder = "Username" 
+                                  value       = "<?= set_value('add-username') ?>"
+                                  class       = "form-control <?php if (form_error('add-username') !== '') {echo 'is-invalid';} ?>"
+                                >
                                 <?= form_error('add-username') ?>
                               </div>
                               <!-- 7 -->
@@ -111,9 +141,14 @@
                                 <label for="add-email">
                                   E-mail <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" id="add-email" name="add-email" placeholder="Alamat E-mail" value="<?= set_value('add-email') ?>" class="form-control <?php if (form_error('add-email') !== '') {
-                                                                                                                                                                            echo 'is-invalid';
-                                                                                                                                                                          } ?>">
+                                <input 
+                                  type        = "text"
+                                  id          = "add-email"
+                                  name        = "add-email" 
+                                  placeholder = "Alamat E-mail" 
+                                  value       = "<?= set_value('add-email') ?>"
+                                  class       = "form-control <?php if (form_error('add-email') !== '') {echo 'is-invalid';} ?>"
+                                >
                                 <?= form_error('add-email') ?>
                               </div>
                               <!-- 8 -->
@@ -121,9 +156,14 @@
                                 <label for="add-password">
                                   Password <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" id="add-password" name="add-password" placeholder="Password" value="<?= set_value('add-password') ?>" class="form-control <?php if (form_error('add-password') !== '') {
-                                                                                                                                                                                echo 'is-invalid';
-                                                                                                                                                                              } ?>">
+                                <input 
+                                  type        = "text"
+                                  id          = "add-password"
+                                  name        = "add-password" 
+                                  placeholder = "Password" 
+                                  value       = "<?= set_value('add-password') ?>"
+                                  class       = "form-control <?php if (form_error('add-password') !== '') {echo 'is-invalid';} ?>"
+                                >
                                 <?= form_error('add-password') ?>
                               </div>
                               <!-- 9 -->
@@ -131,9 +171,14 @@
                                 <label for="add-verPassword">
                                   Ulangi password <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" id="add-verPassword" name="add-verPassword" placeholder="Ulangi untuk konfirmasi" value="<?= set_value('add-verPassword') ?>" class="form-control <?php if (form_error('add-verPassword') !== '') {
-                                                                                                                                                                                                        echo 'is-invalid';
-                                                                                                                                                                                                      } ?>">
+                                <input 
+                                  type        = "text"
+                                  id          = "add-verPassword"
+                                  name        = "add-verPassword" 
+                                  placeholder = "Ulangi untuk konfirmasi" 
+                                  value       = "<?= set_value('add-verPassword') ?>"
+                                  class       = "form-control <?php if (form_error('add-verPassword') !== '') {echo 'is-invalid';} ?>"
+                                >
                                 <?= form_error('add-verPassword') ?>
                               </div>
 

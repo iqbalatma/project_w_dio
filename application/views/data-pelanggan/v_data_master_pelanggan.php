@@ -26,88 +26,6 @@
 
                       <div class="card-body">
 
-                        <!-- Modal add new data -->
-                        <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h4 class="modal-title">
-                                  <span>Tambah data pelanggan baru</span>
-                                </h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-
-                              <form method="POST" action="<?= current_url() ?>">
-                                <div class="modal-body">
-                                  <div class="row">
-                                    <div class="col-sm-12">
-                                      <div class="form-group">
-                                        <label for="add-fullname">
-                                          Nama lengkap
-                                        </label>
-                                        <input 
-                                          type        = "text" 
-                                          id          = "add-fullname" 
-                                          name        = "add-fullname" 
-                                          placeholder = "Nama lengkap" 
-                                          value       = "" 
-                                          class       = "form-control <?php if(form_error('add-fullname') !== ''){ echo 'is-invalid'; } ?>"
-                                          autofocus
-                                        >
-                                        <?= form_error('add-fullname') ?>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                      <div class="form-group">
-                                        <label for="add-phone">
-                                          Nomor handphone
-                                        </label>
-                                        <input 
-                                          type        = "tel" 
-                                          minlength   = "10"
-                                          maxlength   = "14"
-                                          id          = "add-phone" 
-                                          name        = "add-phone" 
-                                          placeholder = "cth: 085647329324" 
-                                          value       = "" 
-                                          class       = "form-control <?php if(form_error('add-phone') !== ''){ echo 'is-invalid'; } ?>"
-                                        >
-                                        <?= form_error('add-phone') ?>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                      <div class="form-group">
-                                        <label for="add-address">
-                                          Alamat
-                                        </label>
-                                        <textarea 
-                                          cols        = "30"
-                                          rows        = "3"
-                                          id          = "add-address" 
-                                          name        = "add-address" 
-                                          placeholder = "Alamat lengkap pelanggan" 
-                                          value       = "" 
-                                          class       = "form-control <?php if(form_error('add-address') !== ''){ echo 'is-invalid'; } ?>"
-                                        ></textarea>
-                                        <?= form_error('add-address') ?>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="modal-footer no-bd">
-                                  <button type="button" class="btn btn-light btn-border" data-dismiss="modal">Batal</button>
-                                  <button type="submit" id="addRowButton" class="btn btn-primary">Simpan</button>
-                                </div>
-                              </form>
-
-                            </div>
-                          </div>
-                        </div>
-                        <!-- /Modal add new data -->
-
                         <div class="table-responsive">
                           <table id="add-row" class="display table table-sm  table-hover">
                             <thead class="thead-light">
@@ -131,26 +49,26 @@
                             <tbody>
                               <?php
                               $i = 1;
-                              foreach ($customers as $cust) : ?>
+                              foreach ($customers as $row) : ?>
                               <tr>
                                 <td class="px-3">
                                   <?= $i++ ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['full_name'] ?>
+                                  <?= $row['full_name'] ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['phone'] ?>
+                                  <?= $row['phone'] ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['address'] ?>
+                                  <?= $row['address'] ?>
                                 </td>
+
                                 <td class="px-3">
                                   <div class="form-button-action">
-                                    <a href="<?= current_url() . "/edit/{$cust['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                    <!-- <a href="<?= current_url() . "/hapus/{$cust['id']}" ?>" class="btn btn-link btn-danger" data-toggle="tooltip" title="Hapus" data-original-title="Hapus"><i class="fa fa-times"></i> -->
+                                    <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                     <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $cust['id'] ?>"><i class="fa fa-times"></i></a>
+                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
                                     </span>
                                   </div>
                                 </td>
@@ -169,6 +87,7 @@
               </div>
             </div>
             
+            <?php // modal untuk hapus data ?>
             <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -191,3 +110,4 @@
                 </div>
               </div>
             </div>
+            <?php // /modal untuk hapus data ?>

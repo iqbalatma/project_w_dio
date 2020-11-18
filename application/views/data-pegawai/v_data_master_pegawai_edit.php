@@ -95,8 +95,8 @@
                                   <?php foreach ($roles as $role): ?>
                                     <?php if ($role->role_name === 'superadmin') continue; ?>
                                     <option value=<?php echo "{$role->id}" ?> <?php echo ($employee->role_id == $role->id)?('selected'):('') ?>>
-                                        <?php echo "{$role->role_name}" ?>
-                                      </option>
+                                      <?php echo "{$role->role_name}" ?>
+                                    </option>
                                   <?php endforeach; ?>
                                 </select>
                                 <?= form_error('edit-role') ?>

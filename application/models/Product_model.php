@@ -6,7 +6,9 @@
 class Product_model extends CI_Model
 {
 
-  var $table        = 'product';
+  var $table                    = 'product';
+  var $tb_product_composition   = 'product_composition';
+  var $tb_material              = 'material';
   // var $tb_employee  = 'employee';
   // var $tb_role      = 'role';
   // var $tb_store     = 'store';
@@ -17,19 +19,13 @@ class Product_model extends CI_Model
    * setter untuk menambahkan employee baru
    * @param array $data [berisi 11 data]
    */
-  public function set_new_employee($data){
+  public function set_new_product($data){
     $createdAt = unix_to_human(now(), true, 'europe');
     $data = array(
-		  "username"      => $data['add-username'],
-		  "email"         => $data['add-email'],
-      "password"      => $this->bcrypt->hash_password($data['add-password']),
-		  "first_name"    => $data['add-firstname'],
-		  "last_name"     => $data['add-lastname'],
-		  "phone"         => $data['add-phone'],
-		  "address"       => $data['add-address'],
-      "avatar"        => 'avatar-'.mt_rand(0,7).'.png',
-		  "role_id"       => $data['add-role'],
-		  "store_id"      => $data['add-store'],
+		  "product_code"  => $data['add-kodeproduk'],
+		  "full_name"     => $data['add-fullname'],
+		  "unit"          => $data['add-unit'],
+		  "volume"        => $data['add-volume'],
 		  "created_at"    => $createdAt,
     );
 		return $this->db->insert($this->table, $data);
@@ -38,12 +34,14 @@ class Product_model extends CI_Model
   // update employee by id
   public function set_update_by_id($id, $data){
     $data = array(
-		  "first_name"    => $data['edit-firstname'],
-		  "last_name"     => $data['edit-lastname'],
-		  "phone"         => $data['edit-phone'],
-		  "address"       => $data['edit-address'],
-		  "role_id"       => $data['edit-role'],
-		  "store_id"      => $data['edit-store'],
+		  "product_code"        => $data['edit-kodeproduk'],
+		  "full_name"           => $data['edit-fullname'],
+		  "unit"                => $data['edit-unit'],
+		  "volume"              => $data['edit-volume'],
+		  "price_base"          => $data['edit-hpp'],
+		  "price_retail"        => $data['edit-priceretail'],
+		  "price_reseller"      => $data['edit-pricereseller'],
+		  "price_wholesale"     => $data['edit-pricewholesale'],
     );
     $this->db->where('id', $id);
 		return $this->db->update($this->table, $data);
@@ -110,9 +108,9 @@ class Product_model extends CI_Model
   public function get_role_by_id($id, $select = '*'){
     // get from tb_department
     $this->db->select($select);
-    $this->db->from($this->tb_employee);
-    $this->db->join($this->tb_role, "{$this->tb_role}.id={$this->tb_employee}.role_id");
-    $this->db->where("{$this->tb_employee}.id", $id);
+    $this->db->from($this->table);
+    $this->db->join($this->tb_role, "{$this->tb_role}.id={$this->table}.role_id");
+    $this->db->where("{$this->table}.id", $id);
     $query = $this->db->get();
     if ( $query->num_rows() == 1) {
       return $query->row();
@@ -125,12 +123,28 @@ class Product_model extends CI_Model
   public function get_store_by_id($id, $select = '*'){
     // get from tb_department
     $this->db->select($select);
-    $this->db->from($this->tb_employee);
-    $this->db->join($this->tb_store, "{$this->tb_store}.id={$this->tb_employee}.store_id");
-    $this->db->where("{$this->tb_employee}.id", $id);
+    $this->db->from($this->table);
+    $this->db->join($this->tb_store, "{$this->tb_store}.id={$this->table}.store_id");
+    $this->db->where("{$this->table}.id", $id);
     $query = $this->db->get();
     if ( $query->num_rows() == 1) {
       return $query->row();
+    }
+    return FALSE;
+  }
+    
+  // get 1 product_composition berdasarkan id
+  // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
+  public function get_all_composition_by_id($id, $select = '*'){
+    // get from tb_department
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->join($this->tb_product_composition, "{$this->table}.id={$this->tb_product_composition}.product_id");
+    $this->db->join($this->tb_material, "{$this->tb_product_composition}.material_id={$this->tb_material}.id");
+    $this->db->where("{$this->tb_product_composition}.product_id", $id);
+    $query = $this->db->get();
+    if ( $query->num_rows() > 0) {
+      return $query->result_array();
     }
     return FALSE;
   }

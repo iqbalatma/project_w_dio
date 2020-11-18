@@ -20,9 +20,8 @@ class Auth extends CI_Controller
     }
     public function index()
     {
-        if (isset($_SESSION['is_logged'])) {
-            redirect('Dashboard');
-        }
+        must_not_login();
+        
         $data = [
             'title' => 'Login',
             'content' => 'v_login.php'
@@ -34,7 +33,8 @@ class Auth extends CI_Controller
 
     public function login()
     {
-
+        must_not_login();
+        
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

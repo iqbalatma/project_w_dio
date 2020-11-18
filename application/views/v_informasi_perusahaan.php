@@ -20,7 +20,7 @@
                         </div>
                         <div class="row">
                           <div class="col-md-6 col-lg-4">
-                            <img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid border" width="400px">
+                            <img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid border rounded p-2" width="400px">
                           </div>
                           <div class="col-md-6 col-lg-8">
                             <table>

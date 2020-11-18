@@ -2,28 +2,51 @@
 
 // ------------------------------------------------------------------------
 
-if ( ! function_exists('loginValidation'))
+if ( ! function_exists('must_login'))
 {
   /**
-  * login status validation
+  * must login or throw away
   *
+  * @param string custom destination location
   * @param string session login status key name
   * @param string session login status value
-  * @return location go to home
+  * @return location go to $location
   */
-  function loginValidation($key='isLogin', $val=1)
+  function must_login($location='auth/login', $key='isLogin', $val=1)
   {
     $ci=&get_instance();
     if ( ! $ci->session->userdata($key) == $val)
     {
-      redirect(base_url(), 'refresh');
+      redirect(base_url($location), 'refresh');
     }
   }
 }
 
 // ------------------------------------------------------------------------
 
-if ( ! function_exists('roleValidation'))
+if ( ! function_exists('must_not_login'))
+{
+  /**
+  * not login or throw away
+  *
+  * @param string custom destination location
+  * @param string session login status key name
+  * @param string session login status value
+  * @return location go to $location
+  */
+  function must_not_login($location='', $key='isLogin', $val=1)
+  {
+    $ci=&get_instance();
+    if ( $ci->session->userdata($key) == $val)
+    {
+      redirect(base_url($location), 'refresh');
+    }
+  }
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('role_validation'))
 {
   /**
   * role or user access validation
@@ -31,29 +54,15 @@ if ( ! function_exists('roleValidation'))
   * @param string role name
   * @return location go to home
   */
-  function roleValidation($role=NULL)
+  function role_validation($who=[], $role='cashier')
   {
-    $ci=&get_instance();
-    if ( ! $ci->session->userdata('role') == $role)
+    // jika tidak ada, maka tidak cocok dan buang keluar
+    if ( ! in_array($role, $who)) 
     {
       redirect(base_url(), 'refresh');
     }
   }
 }
-
-// ------------------------------------------------------------------------
-
-// cek username/email di db
-// if (ada) {
-//   cek password input dengan password db
-//   if (betul) {
-//     berhasil login
-//   }else {
-//     suruh ulangi login
-//   }
-// }else {
-//   suruh ulangi login
-// }
 
 // ------------------------------------------------------------------------
 
@@ -97,5 +106,6 @@ if ( ! function_exists('getLastSegment'))
     return $ci->uri->segment($last);
   }
 }
+
 
 ?>

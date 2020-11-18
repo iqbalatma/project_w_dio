@@ -7,6 +7,7 @@ class Informasi_perusahaan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        must_login();
         // load model
         $this->load->model('Meta_model', 'meta_m');
         // initialize for menuActive and submenuActive
