@@ -49,26 +49,26 @@
                             <tbody>
                               <?php
                               $i = 1;
-                              foreach ($customers as $cust) : ?>
+                              foreach ($customers as $row) : ?>
                               <tr>
                                 <td class="px-3">
                                   <?= $i++ ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['full_name'] ?>
+                                  <?= $row['full_name'] ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['phone'] ?>
+                                  <?= $row['phone'] ?>
                                 </td>
                                 <td class="px-3">
-                                  <?= $cust['address'] ?>
+                                  <?= $row['address'] ?>
                                 </td>
+
                                 <td class="px-3">
                                   <div class="form-button-action">
-                                    <a href="<?= current_url() . "/edit/{$cust['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                    <!-- <a href="<?= current_url() . "/hapus/{$cust['id']}" ?>" class="btn btn-link btn-danger" data-toggle="tooltip" title="Hapus" data-original-title="Hapus"><i class="fa fa-times"></i> -->
+                                    <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                     <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $cust['id'] ?>"><i class="fa fa-times"></i></a>
+                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
                                     </span>
                                   </div>
                                 </td>
@@ -87,6 +87,7 @@
               </div>
             </div>
             
+            <?php // modal untuk hapus data ?>
             <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -109,3 +110,4 @@
                 </div>
               </div>
             </div>
+            <?php // /modal untuk hapus data ?>

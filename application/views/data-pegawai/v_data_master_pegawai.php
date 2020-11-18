@@ -68,12 +68,13 @@
                                   <td class="px-3">
                                     <?= $row['address'] ?>
                                   </td>
+
                                   <td class="px-3">
                                     <div class="form-button-action">
-                                      <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="btn btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
-                                      <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                      <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
+                                      <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                       <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                        <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                        <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
                                       </span>
                                     </div>
                                   </td>
@@ -92,6 +93,7 @@
               </div>
             </div>
 
+            <?php // modal untuk hapus data ?>
             <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -114,3 +116,4 @@
                 </div>
               </div>
             </div>
+            <?php // /modal untuk hapus data ?>

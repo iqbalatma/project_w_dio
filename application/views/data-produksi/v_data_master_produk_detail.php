@@ -1,4 +1,4 @@
-<div class="content">
+            <div class="content">
               <div class="page-inner">
 
                 <div class="row">
@@ -23,59 +23,80 @@
                               <div class="col-5 mx-auto">
                                 <!-- 1 -->
                                 <div class="d-flex avatar avatar-xxl mx-auto">
-                                  <img src="<?= base_url("assets/img/avatar/{$employee->avatar}") ?>" alt="" class="avatar-img rounded">
-                                </div>
-                                <div class="d-flex justify-content-center mt-3">
-                                  <span class="h4 text-capitalize">
-                                    <i class="fas fa-user-tie mr-1"></i>
-                                    <?= $employeeRole->role_name ?>
-                                  </span>
-                                  <span class="h4 mx-2">-</span>
-                                  <span class="h4 text-capitalize">
-                                    <i class="fas fa-building mr-1"></i>
-                                    <?= $employeeStore->store_name ?>
-                                  </span>
+                                  <img src="<?= base_url("assets/img/product/{$product->image}") ?>" alt="" class="avatar-img rounded">
                                 </div>
                                 <!-- 2 -->
                                 <div class="mt-3">
-                                  <h5 class="font-weight-bold"> Username </h5>
-                                  <div class="d-flex">
-
-                                    <h5 class="w-100 bg-light pr-2 py-2 rounded">
-                                      <span class="mr-1 p-2 bg-dark text-white rounded" id="basic-addon1">@</span>
-                                      <?= $employee->username ?>
-                                    </h5>
-                                  </div>
+                                  <h5 class="font-weight-bold"> Kode produk </h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->product_code ?></h5>
                                 </div>
                                 <!-- 3 -->
                                 <div class="mt-3">
-                                  <h5 class="font-weight-bold"> E-mail </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $employee->email ?></h5>
+                                  <h5 class="font-weight-bold"> Nama produk </h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->full_name ?></h5>
+                                </div>
+                                <!-- 4 -->
+                                <div class="mt-3">
+                                  <h5 class="font-weight-bold"> Volume / unit </h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= "{$product->volume} {$product->unit}" ?></h5>
                                 </div>
                               </div>
 
                               <div class="col-5 mx-auto">
                                 <!-- 1 -->
-                                <div class="mt-3">
-                                  <h5 class="font-weight-bold"> Nama depan </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $employee->first_name ?></h5>
+                                <div class="">
+                                  <h5 class="font-weight-bold"> HPP </h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_base ?></h5>
                                 </div>
                                 <!-- 2 -->
                                 <div class="mt-3">
-                                  <h5 class="font-weight-bold"> Nama belakang </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $employee->last_name ?></h5>
+                                  <h5 class="font-weight-bold"> Harga jual ecer </h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_retail ?></h5>
                                 </div>
                                 <!-- 3 -->
                                 <div class="mt-3">
-                                  <h5 class="font-weight-bold"> No. Handphone </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $employee->phone ?></h5>
+                                  <h5 class="font-weight-bold"> Harga jual reseller </h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_reseller ?></h5>
                                 </div>
                                 <!-- 4 -->
                                 <div class="mt-3">
-                                  <h5 class="font-weight-bold"> Alamat </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $employee->address ?></h5>
+                                  <h5 class="font-weight-bold"> Harga jual grosir </h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_wholesale ?></h5>
+                                </div>
+                                <?php if ($product->price_base == 0) : ?>
+                                <p class="mt-4 text-danger"><em>Silakan setting HPP untuk produk ini agar bisa melihat harga.</em></p>
+                                <?php endif; ?>
+                              </div>
+                            </div>
+
+                            <hr class="mt-4" width="80%">
+
+                            <div class="row d-flex">
+                              <?php 
+                              $i =1;
+                              foreach ($composition as $row) :?>
+                              <div class="col-11 mx-auto mt-4">
+                                <h4 class="text-muted">Barang mentah <?= $i++ ?></h4>
+                                <div class="d-flex flex-wrap flex-row justify-content-center">
+                                  <div class="col-6">
+                                    <h5 class="font-weight-bold"> Kode </h5>
+                                    <h5 class="bg-light px-2 py-2 rounded"><?= $row['material_code'] ?></h5>
+                                  </div>
+                                  <div class="col-6">
+                                    <h5 class="font-weight-bold"> Nama </h5>
+                                    <h5 class="bg-light px-2 py-2 rounded"><?= $row['full_name'] ?></h5>
+                                  </div>
+                                  <div class="col-6">
+                                    <h5 class="font-weight-bold"> vol / unit </h5>
+                                    <h5 class="bg-light px-2 py-2 rounded"><?= "{$row['volume']} {$row['unit']}" ?></h5>
+                                  </div>
+                                  <div class="col-6">
+                                    <h5 class="font-weight-bold"> HPP </h5>
+                                    <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($row['price_base'], 0, '', '.') ?></h5>
+                                  </div>
                                 </div>
                               </div>
+                              <?php endforeach; ?>
                             </div>
 
                             <!-- button -->

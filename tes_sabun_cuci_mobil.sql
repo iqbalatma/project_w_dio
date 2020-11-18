@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2020 at 12:09 PM
+-- Generation Time: Nov 18, 2020 at 11:49 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -124,14 +124,12 @@ INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `la
 CREATE TABLE `invoice` (
   `id` tinyint(10) NOT NULL,
   `invoice_number` varchar(100) NOT NULL,
-  `price_total` int(11) NOT NULL,
-  `invoice_payment_id` tinyint(10) NOT NULL,
-  `store_id` tinyint(10) NOT NULL,
-  `customer_order_id` tinyint(10) NOT NULL,
-  `customer_id` tinyint(10) NOT NULL,
+  `paid_amount` int(21) NOT NULL,
+  `left_to_paid` int(21) NOT NULL,
+  `paid_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `transaction_id` tinyint(10) NOT NULL,
   `employee_id` tinyint(10) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `due_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -152,20 +150,6 @@ CREATE TABLE `invoice_item` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invoice_payment`
---
-
-CREATE TABLE `invoice_payment` (
-  `id` tinyint(10) NOT NULL,
-  `invoice_id` tinyint(10) NOT NULL,
-  `payment_amount` int(11) NOT NULL DEFAULT '0',
-  `paid_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `material`
 --
 
@@ -175,6 +159,7 @@ CREATE TABLE `material` (
   `full_name` varchar(100) NOT NULL,
   `unit` enum('mililiter','gram') NOT NULL DEFAULT 'mililiter',
   `volume` int(11) NOT NULL DEFAULT '0' COMMENT 'Jumlah dalam ml / gr',
+  `category` enum('bahan','kemasan') NOT NULL DEFAULT 'bahan',
   `image` varchar(250) DEFAULT 'default.png',
   `price_base` int(11) NOT NULL DEFAULT '0' COMMENT 'Harga dasar / Harga beli / HPP per unit(ml/gr)',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -185,9 +170,9 @@ CREATE TABLE `material` (
 -- Dumping data for table `material`
 --
 
-INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `created_at`, `is_deleted`) VALUES
-(1, 'BM001', 'Barang mentah 1', 'mililiter', 1000, 'default.png', 10000, '2020-11-16 17:40:30', 1),
-(2, 'BM002', 'Barang mentah 2', 'mililiter', 233, 'default.png', 20000, '2020-11-16 17:40:30', 0);
+INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `category`, `image`, `price_base`, `created_at`, `is_deleted`) VALUES
+(1, 'BM001', 'Barang mentah 1', 'mililiter', 1000, 'bahan', 'default.png', 10000, '2020-11-16 17:40:30', 1),
+(2, 'BM002', 'Barang mentah 2', 'mililiter', 233, 'bahan', 'default.png', 20000, '2020-11-16 17:40:30', 0);
 
 -- --------------------------------------------------------
 
@@ -204,6 +189,24 @@ CREATE TABLE `material_inventory` (
   `updated_at` datetime DEFAULT NULL,
   `created_by` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `material_mutation`
+--
+
+CREATE TABLE `material_mutation` (
+  `id` tinyint(10) NOT NULL,
+  `material_id` tinyint(10) NOT NULL,
+  `store_id` tinyint(10) NOT NULL,
+  `mutation_code` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `mutation_type` enum('keluar','masuk') DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(15) DEFAULT NULL,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -235,7 +238,10 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `product_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `price_retail`, `price_reseller`, `price_wholesale`, `created_at`, `is_deleted`) VALUES
 (1, 'DT001', 'Sabun Dettol 50ml', 'mililiter', 50, 'default.png', 10000, 20000, 19000, 18000, '2020-11-17 13:44:04', 0),
 (2, 'DT002', 'Sabun Dettol 150ml', 'mililiter', 150, 'default.png', 15000, 30000, 27000, 25000, '2020-11-17 13:44:04', 0),
-(3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 25000, 50000, 45000, 40000, '2020-11-17 13:44:04', 0);
+(3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 25000, 50000, 45000, 40000, '2020-11-17 13:44:04', 0),
+(4, 'DT004', 'Sabun Dettol 1L', 'mililiter', 1000, 'default.png', 0, 0, 0, 0, '2020-11-18 15:37:08', 0),
+(5, 'DT005', 'Sabun Dettol 1.5L', 'gram', 15, 'default.png', 20000, 50000, 45000, 43000, '2020-11-18 16:12:08', 0),
+(6, 'DT006', 'Sabun Dettol 10L', 'mililiter', 10000, 'default.png', 0, 0, 0, 0, '2020-11-18 17:33:36', 0);
 
 -- --------------------------------------------------------
 
@@ -252,6 +258,14 @@ CREATE TABLE `product_composition` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_composition`
+--
+
+INSERT INTO `product_composition` (`id`, `volume`, `product_id`, `material_id`, `created_at`, `updated_at`, `is_deleted`) VALUES
+(1, 10, 1, 2, '2020-11-18 15:56:03', '2020-11-18 15:56:03', 0),
+(2, 50, 1, 1, '2020-11-18 16:40:30', '2020-11-18 16:40:30', 0);
 
 -- --------------------------------------------------------
 
@@ -279,6 +293,24 @@ INSERT INTO `product_inventory` (`id`, `product_id`, `store_id`, `quantity`, `cr
 (1, 1, 1, 52, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0),
 (2, 2, 1, 33, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0),
 (3, 3, 1, 5, '2020-11-17 13:46:37', '2020-11-17 13:46:37', 'pemilik', 'pemilik', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_mutation`
+--
+
+CREATE TABLE `product_mutation` (
+  `id` tinyint(10) NOT NULL,
+  `product_id` tinyint(10) NOT NULL,
+  `store_id` tinyint(10) NOT NULL,
+  `mutation_code` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `mutation_type` enum('keluar','masuk') DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(15) DEFAULT NULL,
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -326,6 +358,23 @@ INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) 
 (2, 'Toko Cabang 1 (Cicalengka)', 'Cicalengka', '2020-11-08 13:07:02', 0),
 (3, 'Toko Cabang 2 (Ujung Berung)', 'Ujung Berung', '2020-11-08 13:07:02', 0);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `id` tinyint(10) NOT NULL,
+  `trans_number` varchar(100) NOT NULL,
+  `price_total` int(11) NOT NULL,
+  `store_id` tinyint(10) NOT NULL,
+  `customer_id` tinyint(10) NOT NULL,
+  `due_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -360,11 +409,8 @@ ALTER TABLE `employee`
 ALTER TABLE `invoice`
   ADD PRIMARY KEY (`invoice_number`),
   ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `store_id` (`store_id`),
-  ADD KEY `customer_order_id` (`customer_order_id`),
-  ADD KEY `customer_id` (`customer_id`),
   ADD KEY `employee_id` (`employee_id`),
-  ADD KEY `invoice_payment_id` (`invoice_payment_id`);
+  ADD KEY `transaction_id` (`transaction_id`);
 
 --
 -- Indexes for table `invoice_item`
@@ -373,13 +419,6 @@ ALTER TABLE `invoice_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `invoice_id` (`invoice_id`),
   ADD KEY `product_id` (`product_id`);
-
---
--- Indexes for table `invoice_payment`
---
-ALTER TABLE `invoice_payment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `invoice_id` (`invoice_id`);
 
 --
 -- Indexes for table `material`
@@ -395,6 +434,15 @@ ALTER TABLE `material_inventory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `store_id` (`store_id`),
   ADD KEY `product_id` (`material_id`);
+
+--
+-- Indexes for table `material_mutation`
+--
+ALTER TABLE `material_mutation`
+  ADD PRIMARY KEY (`mutation_code`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `item_id` (`material_id`),
+  ADD KEY `store_id` (`store_id`);
 
 --
 -- Indexes for table `product`
@@ -420,6 +468,15 @@ ALTER TABLE `product_inventory`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `product_mutation`
+--
+ALTER TABLE `product_mutation`
+  ADD PRIMARY KEY (`mutation_code`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `item_id` (`product_id`),
+  ADD KEY `store_id` (`store_id`);
+
+--
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
@@ -431,6 +488,15 @@ ALTER TABLE `role`
 --
 ALTER TABLE `store`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`trans_number`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `store_id` (`store_id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -467,12 +533,6 @@ ALTER TABLE `invoice_item`
   MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `invoice_payment`
---
-ALTER TABLE `invoice_payment`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
@@ -485,22 +545,34 @@ ALTER TABLE `material_inventory`
   MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `material_mutation`
+--
+ALTER TABLE `material_mutation`
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product_composition`
 --
 ALTER TABLE `product_composition`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_inventory`
 --
 ALTER TABLE `product_inventory`
   MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `product_mutation`
+--
+ALTER TABLE `product_mutation`
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -513,6 +585,12 @@ ALTER TABLE `role`
 --
 ALTER TABLE `store`
   MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -529,22 +607,15 @@ ALTER TABLE `employee`
 -- Constraints for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `invoice_ibfk_3` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `invoice_item`
 --
 ALTER TABLE `invoice_item`
-  ADD CONSTRAINT `invoice_item_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `invoice_item_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `invoice_item_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Constraints for table `invoice_payment`
---
-ALTER TABLE `invoice_payment`
-  ADD CONSTRAINT `invoice_payment_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `material_inventory`
@@ -552,6 +623,12 @@ ALTER TABLE `invoice_payment`
 ALTER TABLE `material_inventory`
   ADD CONSTRAINT `material_inventory_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `material_inventory_ibfk_2` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `material_mutation`
+--
+ALTER TABLE `material_mutation`
+  ADD CONSTRAINT `material_mutation_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_composition`
@@ -566,6 +643,19 @@ ALTER TABLE `product_composition`
 ALTER TABLE `product_inventory`
   ADD CONSTRAINT `product_inventory_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `product_inventory_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_mutation`
+--
+ALTER TABLE `product_mutation`
+  ADD CONSTRAINT `product_mutation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
