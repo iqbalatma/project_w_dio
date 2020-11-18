@@ -28,6 +28,7 @@
                     <div class="card-header">
                         <div class="card-title">Form Elements</div>
                     </div>
+                    <pre><?php var_dump($_SESSION); ?></pre>
                     <?= form_open('Kasir/insert'); ?>
                     <div class="card-body">
                         <div class="row">

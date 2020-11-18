@@ -12,6 +12,7 @@ class Kasir extends CI_Controller
         $this->load->model("Material_model");
         $this->load->model("Store_model");
         $this->load->model("Customer_model");
+        $this->load->model("Kasir_model");
     }
 
     public function index()
@@ -21,9 +22,6 @@ class Kasir extends CI_Controller
             'content'           => 'v_kasir.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
-            // 'data_barang_masuk' => $this->Inventory_material_model->getAll(),
-            // 'data_barang_kimia' => $this->Material_model->getAll(),
-            // 'data_store' => $this->Store_model->getAll(),
             'data_customer' => $this->Customer_model->get_all(),
             'datatables' => 1
         ];
@@ -43,23 +41,25 @@ class Kasir extends CI_Controller
         $employee_id = $_SESSION['id'];
         $due_at = unix_to_human(now() + (86400 * 7), true, 'europe');
         // 86400,
-        $data = [
+        $paid_amount = 109000;
+        $left_to_paid = 9000;
+        // $paid_at = 
+        $transaction_id = 1;
+        $employee_id = $_SESSION['id'];
+        $data_invoice = [
             'id' => '',
             'invoice_number' => $invoice,
-            'price_total' => $price_total,
-            'invoice_payment_id' => $invoice_payment_id,
-            'store_id' => $store_id,
-            'customer_id' => $pelanggan,
+            'paid_amount' => $paid_amount,
+            'left_to_paid' => $left_to_paid,
+            // 'paid_at' => '',
+            'transaction_id' => $transaction_id,
             'employee_id' => $employee_id,
             'created_at' => $createdAt,
-            'due_at' => $due_at,
             'is_deleted' => 0
 
-
         ];
-        // var_dump($data);
-        // echo $createdAt;
-        // echo $due_at;
+
+        $insert = $this->Kasir_model->insert_invoice($data_invoice);
 
 
 

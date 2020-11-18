@@ -12,7 +12,7 @@ class Data_inventory_barang_mentah extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        loginValidation();
+        must_login();
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
