@@ -13,9 +13,11 @@ class Meta_model extends CI_Model
   /**
    * setter untuk membuat meta info baru
    * yang hanya bisa diakses oleh superadmin
+   * 
    * @param array $data [berisi 8 data]
    */
-  public function set_new_meta($data){
+  public function set_new_meta($data)
+  {
     $createdAt = unix_to_human(now(), true, 'europe');
     $data = array(
 		  "fullname"    => $data['add-nama-perusahaan'],
@@ -31,7 +33,8 @@ class Meta_model extends CI_Model
   }
 
   // update meta by id
-  public function set_update_meta_by_id($id, $data){
+  public function set_update_meta_by_id($id, $data)
+  {
     $updatedAt = unix_to_human(now(), true, 'europe');
     $data = array(
 		  "fullname"    => $data['edit-nama-perusahaan'],
@@ -51,22 +54,30 @@ class Meta_model extends CI_Model
 
 
 //  ===============================================GETTER===============================================
-//  echo "<pre>";print_r();die();
-  // get total
-  public function get_total(){
-    // get from $tb_meta
-    $this->db->select('count(id) AS total');
-    $this->db->from($this->tb_meta);
-    $query = $this->db->get();
-    if ( $query->num_rows() == 1) {
-      return $query->row();
+  /**
+   * Get total rows from certain table
+   * 
+   * @param string $keyName 
+   * Default value is NULL, but you can input some string to get array
+   * with $keyName as a key and the total row as a value.
+   * 
+   */
+  public function get_total($keyName = NULL)
+  {
+    $total = $this->db->count_all_results($this->table);
+
+    if ($keyName !== NULL)
+    {
+      if ($keyName === '') $keyName = 'key';
+      $total = [$keyName => $total];
     }
-    return FALSE;
+    return $total;
   }
 
   // get all kelas
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
-  public function get_all($select = '*'){
+  public function get_all($select = '*')
+  {
     // get from tb_meta
     $this->db->select($select);
     $this->db->from($this->tb_meta);
@@ -80,7 +91,8 @@ class Meta_model extends CI_Model
 
   // get 1 kelas berdasarkan id
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
-  public function get_meta_by_id($id, $select = '*'){
+  public function get_meta_by_id($id, $select = '*')
+  {
     // get from tb_meta
     $this->db->select($select);
     $this->db->from($this->tb_meta);
@@ -93,15 +105,5 @@ class Meta_model extends CI_Model
   }
 
 }
-
-// $this->db->trans_start();
-// $this->db->query('AN SQL QUERY...');
-// $this->db->query('ANOTHER QUERY...');
-// $this->db->trans_complete();
-//
-// if ($this->db->trans_status() === FALSE)
-// {
-//         // generate an error... or use the log_message() function to log your error
-// }
 
 ?>

@@ -1,7 +1,5 @@
 <?php
 
-// ------------------------------------------------------------------------
-
 if ( ! function_exists('must_login'))
 {
   /**
@@ -22,8 +20,6 @@ if ( ! function_exists('must_login'))
   }
 }
 
-// ------------------------------------------------------------------------
-
 if ( ! function_exists('must_not_login'))
 {
   /**
@@ -43,8 +39,6 @@ if ( ! function_exists('must_not_login'))
     }
   }
 }
-
-// ------------------------------------------------------------------------
 
 if ( ! function_exists('role_validation'))
 {
@@ -89,8 +83,6 @@ if ( ! function_exists('getBeforeLastSegment'))
   }
 }
 
-// ------------------------------------------------------------------------
-
 if ( ! function_exists('getLastSegment'))
 {
   /**
@@ -108,5 +100,30 @@ if ( ! function_exists('getLastSegment'))
   }
 }
 
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('pprint'))
+{
+	/**
+	 * <Pre> print_r($str); </pre>
+	 *
+	 * @param	string	String/Array/Object
+	*/
+  function pprint($str){
+    echo "<pre>"; print_r($str); echo "</pre>";
+  }
+}
+
+if ( ! function_exists('pprintd'))
+{
+	/**
+	 * <Pre> print_r($str); die;
+	 *
+	 * @param	string	String/Array/Object
+	*/
+  function pprintd($str){
+    echo "<pre>"; print_r($str); die;
+  }
+}
 
 ?>

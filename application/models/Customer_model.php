@@ -10,9 +10,9 @@ class Customer_model extends CI_Model
   var $tb_custom_price = 'custom_price';
 
   //  ===============================================SETTER===============================================
-  // insert customer baru
   /**
    * setter untuk menambahkan customer baru
+   * 
    * @param array $data [berisi 5 data]
    */
   public function set_new_customer($data)
@@ -33,9 +33,9 @@ class Customer_model extends CI_Model
     return $lastId;
   }
   
-  // insert customer baru
   /**
    * setter untuk menambahkan harga kustom pada pelanggan
+   * 
    * @param array $data [berisi 4 data]
    */
   public function set_new_customer_price_by_id($id, $data)
@@ -95,18 +95,25 @@ class Customer_model extends CI_Model
 
 
 
-  //  ===============================================GETTER===============================================
-  // get total customer
-  public function get_total()
+//  ===============================================GETTER===============================================
+  /**
+   * Get total rows from certain table
+   * 
+   * @param string $keyName 
+   * Default value is NULL, but you can input some string to get array
+   * with $keyName as a key and the total row as a value.
+   * 
+   */
+  public function get_total($keyName = NULL)
   {
-    // get from $table
-    $this->db->select('count(id) AS total');
-    $this->db->from($this->table);
-    $query = $this->db->get();
-    if ($query->num_rows() == 1) {
-      return $query->row();
+    $total = $this->db->count_all_results($this->table);
+
+    if ($keyName !== NULL)
+    {
+      if ($keyName === '') $keyName = 'key';
+      $total = [$keyName => $total];
     }
-    return FALSE;
+    return $total;
   }
 
   // get all customer

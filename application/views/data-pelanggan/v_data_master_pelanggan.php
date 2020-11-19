@@ -85,12 +85,12 @@
                                   <?= $row['address'] ?>
                                 </td>
 
-                                <td class="px-3">
+                                <td class="">
                                   <div class="form-button-action">
-                                    <a href="<?= current_url() . "/edit-harga/{$row['id']}" ?>" class="btn btn-link btn-default" data-toggle="tooltip" title="Kustom harga" data-original-title="Kustom harga"><i class="fas fa-dollar-sign"></i></a>
-                                    <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                    <a href="<?= current_url()."/edit-harga/{$row['id']}" ?>" class="p-3 btn btn-link btn-default" data-toggle="tooltip" title="Kustom harga" data-original-title="Kustom harga"><i class="fas fa-dollar-sign"></i></a>
+                                    <a href="<?= current_url()."/edit/{$row['id']}" ?>" class="p-3 btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                     <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                      <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-3 btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
                                     </span>
                                   </div>
                                 </td>

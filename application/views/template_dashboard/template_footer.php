@@ -38,31 +38,35 @@
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/core/bootstrap.min.js"></script>
 
-    <!-- jQuery UI -->
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    <?php if (isset($jqueryui)) { ?>
+        <!-- jQuery UI -->
+        <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+        <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    <?php } ?>
 
-    <!-- jQuery Scrollbar -->
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <?php if (isset($jqueryscrollbar)) { ?>
+        <!-- jQuery Scrollbar -->
+        <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <?php } ?>
 
 
-    <!-- Chart JS -->
     <?php if (isset($chartjs)) { ?>
+        <!-- Chart JS -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/chart.js/chart.min.js"></script>
     <?php } ?>
 
-    <!-- jQuery Sparkline -->
     <?php if (isset($sparkline)) { ?>
+        <!-- jQuery Sparkline -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
     <?php } ?>
 
-    <!-- Chart Circle -->
     <?php if (isset($chartcircle)) { ?>
+        <!-- Chart Circle -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/chart-circle/circles.min.js"></script>
     <?php } ?>
 
-    <!-- Datatables -->
     <?php if (isset($datatables)) { ?>
+        <!-- Datatables -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
         <script>
             $(document).ready(function() {
@@ -74,13 +78,13 @@
         </script>
     <?php } ?>
 
-    <!-- Bootstrap Notify -->
     <?php if (isset($bsnotify)) { ?>
+        <!-- Bootstrap Notify -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
     <?php } ?>
 
-    <!-- jQuery Vector Maps -->
     <?php if (isset($vectormaps)) { ?>
+        <!-- jQuery Vector Maps -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
     <?php } ?>
