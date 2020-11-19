@@ -8,6 +8,7 @@ $_data_keuangan         = 'data-keuangan';
 $_data_pelanggan        = 'data-pelanggan';
 $_data_pegawai          = 'data-pegawai';
 $_informasi_perusahaan  = 'informasi-perusahaan';
+$_kasir                 = 'kasir';
 
 $mainMenu = array(
   [
@@ -39,9 +40,17 @@ $mainMenu = array(
     'icon'    => 'fas fa-shapes',
     'submenu' => array(
       [
-        'name'  => 'Data Master Produk (Barang Jadi)',
+        'name'  => 'Data Master Produk',
         'slug'  => 'data-master-produk',
         'url'   => "{$_data_produksi}/data-master-produk",
+      ],[
+        'name'  => 'Data Inventory Produk',
+        'slug'  => 'data-inventory-produk',
+        'url'   => "{$_data_produksi}/data-inventory-produk",
+      ],[
+        'name'  => 'Data Transaksi Produk',
+        'slug'  => 'data-transaksi-produk',
+        'url'   => "{$_data_produksi}/data-transaksi-produk",
       ],
     )
   ], [
@@ -119,6 +128,13 @@ $mainMenu = array(
     'url'     => $_informasi_perusahaan,
     'icon'    => 'fas fa-info-circle',
     'submenu' => FALSE
+  ], [
+    'no'      => 8,
+    'name'    => 'Kasir',
+    'slug'    => $_kasir,
+    'url'     => $_kasir,
+    'icon'    => 'fas fa-address-card',
+    'submenu' => FALSE
   ],
 );
 
@@ -130,59 +146,55 @@ $mainMenu = array(
     <div class="sidebar-content">
       <ul class="nav nav-primary">
 
-        <li class="nav-item <?php if ($menuActive == 'dashboard') {
-                              echo 'active';
-                            } ?>">
+        <li class="nav-item <?php if ($menuActive == 'dashboard') { echo 'active'; } ?>">
           <a href=<?= base_url("dashboard") ?>>
             <i class="fas fa-home"></i>
             <p>Dashboard</p>
           </a>
         </li>
 
-                <?php
-                foreach ($mainMenu as $mm) : ?>
-                <?php // kelas ACTIVE untuk indikator menu yg aktif ?>
-                <li class="nav-item <?php if ($menuActive == $mm['slug']) { echo 'active'; } ?>">
-                    <?php
-                    if ($mm['submenu'] !== FALSE) { 
-                    ?>
-                    <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
-                        <i class="<?= $mm['icon'] ?>"></i>
-                        <p><?= $mm['name'] ?></p>
-                        <span class="caret"></span>
-                    </a>
-                    <?php 
-                    } else { 
-                    ?>
-                    <a href="<?= base_url("{$mm['url']}") ?>">
-                        <i class="<?= $mm['icon'] ?>"></i>
-                        <p><?= $mm['name'] ?></p>
-                    </a>
-                    <?php 
-                    }
-                    if ($mm['submenu'] !== FALSE) : 
-                    ?>
-                    <?php // kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif ?>
-                    <div class="collapse <?php if ($menuActive == $mm['slug']) { echo 'show'; } ?>" id="<?= $mm['url'] ?>">
-                        <ul class="nav nav-collapse">
-                            <?php // kelas ACTIVE menjadi indikator submenu mana yg sedang aktif ?>
-                            <?php
-                            foreach ($mm['submenu'] as $sm) :
-                            ?>
-                            <li class="<?php if ($submenuActive == $sm['slug']) { echo 'active'; } ?>">
-                                <a href=<?= base_url("{$sm['url']}") ?>>
-                                    <span class="sub-item"><?= $sm['name'] ?></span>
-                                </a>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <?php endif; ?>
-                </li>
-                <?php endforeach; ?>
-
-
-
+        <?php
+        foreach ($mainMenu as $mm) : ?>
+        <?php // kelas ACTIVE untuk indikator menu yg aktif ?>
+        <li class="nav-item <?php if ($menuActive == $mm['slug']) { echo 'active'; } ?>">
+          <?php
+          if ($mm['submenu'] !== FALSE) { 
+          ?>
+          <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
+            <i class="<?= $mm['icon'] ?>"></i>
+            <p><?= $mm['name'] ?></p>
+            <span class="caret"></span>
+          </a>
+          <?php 
+          } else { 
+          ?>
+          <a href="<?= base_url("{$mm['url']}") ?>">
+            <i class="<?= $mm['icon'] ?>"></i>
+            <p><?= $mm['name'] ?></p>
+          </a>
+          <?php 
+          }
+          if ($mm['submenu'] !== FALSE) : 
+          ?>
+          <?php // kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif ?>
+          <div class="collapse <?php if ($menuActive == $mm['slug']) { echo 'show'; } ?>" id="<?= $mm['url'] ?>">
+            <ul class="nav nav-collapse">
+              <?php // kelas ACTIVE menjadi indikator submenu mana yg sedang aktif ?>
+              <?php
+              foreach ($mm['submenu'] as $sm) :
+              ?>
+              <li class="<?php if ($submenuActive == $sm['slug']) { echo 'active'; } ?>">
+                <a href=<?= base_url("{$sm['url']}") ?>>
+                  <span class="sub-item"><?= $sm['name'] ?></span>
+                </a>
+              </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+          <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+        
       </ul>
     </div>
   </div>

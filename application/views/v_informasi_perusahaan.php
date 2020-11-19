@@ -18,11 +18,11 @@
                             Oleh <strong><?= $meta->updated_by ?></strong>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row justify-content-center d-flex">
                           <div class="col-md-6 col-lg-4">
                             <img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid border rounded p-2" width="400px">
                           </div>
-                          <div class="col-md-6 col-lg-8">
+                          <div class="col-md-6 col-lg-6">
                             <table>
                               <tr>
                                 <td>
@@ -87,7 +87,7 @@
                                   :
                                 </td>
                                 <td class="h4">
-                                  <a href="<?= $meta->website ?>"><?= $meta->website ?></a>
+                                  <a href="<?= $meta->website ?>" target="_blank"><?= $meta->website ?></a>
                                 </td>
                               </tr>
                             </table>

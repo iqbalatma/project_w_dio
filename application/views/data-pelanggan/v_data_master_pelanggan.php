@@ -32,6 +32,7 @@
                               <tr>
                                 <th class="px-3" width="30px">No</th>
                                 <th class="px-3">Nama lengkap</th>
+                                <th class="px-3">Tipe</th>
                                 <th class="px-3">No. Handphone</th>
                                 <th class="px-3">Alamat</th>
                                 <th class="px-3" style="width: 10%"><center>Aksi</center></th>
@@ -41,6 +42,7 @@
                               <tr>
                                 <th class="px-3">No</th>
                                 <th class="px-3">Nama lengkap</th>
+                                <th class="px-3">Tipe</th>
                                 <th class="px-3">No. Handphone</th>
                                 <th class="px-3">Alamat</th>
                                 <th class="px-3"><center>Aksi</center></th>
@@ -58,6 +60,25 @@
                                   <?= $row['full_name'] ?>
                                 </td>
                                 <td class="px-3">
+                                  <?php
+                                  switch ($row['cust_type']) 
+                                  {
+                                    case 'wholesale':
+                                      echo 'Grosir';
+                                    break;
+                                    case 'reseller':
+                                      echo 'Reseller';
+                                    break;
+                                    case 'retail':
+                                      echo 'Biasa';
+                                    break;
+                                    default:
+                                      echo 'Ada eror pada salah satu data, silakan hubungi administrator.';
+                                      exit(1); // EXIT_ERROR
+                                  }
+                                  ?>
+                                </td>
+                                <td class="px-3">
                                   <?= $row['phone'] ?>
                                 </td>
                                 <td class="px-3">
@@ -66,6 +87,7 @@
 
                                 <td class="px-3">
                                   <div class="form-button-action">
+                                    <a href="<?= current_url() . "/edit-harga/{$row['id']}" ?>" class="btn btn-link btn-default" data-toggle="tooltip" title="Kustom harga" data-original-title="Kustom harga"><i class="fas fa-dollar-sign"></i></a>
                                     <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="btn btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                     <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
                                       <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="btn btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
