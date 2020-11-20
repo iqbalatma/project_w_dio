@@ -79,7 +79,7 @@ class Product_model extends CI_Model
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);
-    $this->db->order_by('id', 'DESC');
+    $this->db->order_by('id', 'ASC');
     $query = $this->db->get();
     if ( $query->num_rows() > 0) {
       return $query->result_array();
@@ -152,5 +152,3 @@ class Product_model extends CI_Model
 
 
 }
-
-?>
