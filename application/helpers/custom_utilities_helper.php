@@ -43,19 +43,40 @@ if ( ! function_exists('must_not_login'))
 if ( ! function_exists('role_validation'))
 {
   /**
-   * What is the role of the user, and search in array stack
+  * What is the role of the user, and search in array stack
   * who are allowed to access something
   *
   * @param string user role name
   * @param array allowed role
   */
-  function role_validation($role = 'cashier', $who = [])
+  function role_validation($role = '3', $who = [])
   {
     // jika tidak ada, maka tidak cocok dan buang keluar
     if ( ! in_array($role, $who)) 
     {
       redirect(base_url(), 'refresh');
     }
+    return 1;
+  }
+}
+
+if ( ! function_exists('access_menu'))
+{
+  /**
+  * What is the role of the user, and search in array stack
+  * who are allowed to access menu
+  *
+  * @param string user role name
+  * @param array allowed role
+  */
+  function access_menu($role = '3', $who = [])
+  {
+    // jika tidak ada, maka tidak cocok dan buang keluar
+    if ( ! in_array($role, $who)) 
+    {
+      return 0;
+    }
+    return 1;
   }
 }
 

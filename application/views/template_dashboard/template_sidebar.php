@@ -1,6 +1,7 @@
 <?php
 
 // initialize main menu segment for url
+$_dashboard             = 'dashboard';
 $_data_gudang           = 'data-gudang';
 $_data_produksi         = 'data-produksi';
 $_data_penjualan        = 'data-penjualan';
@@ -9,24 +10,52 @@ $_data_pelanggan        = 'data-pelanggan';
 $_data_pegawai          = 'data-pegawai';
 $_informasi_perusahaan  = 'informasi-perusahaan';
 $_kasir                 = 'kasir';
+$_cetak                 = 'cetak';
+
+// Role sesuai dengan masing2 role id
+// {owner=1 ; admin=2 ; cashier=3}
+$_role_0            = '0';
+$_role_1            = '1';
+$_role_2            = '2';
+$_role_3            = '3';
+
+// Every menu and submenu has array key named 'hasAccess' and the value 0 or 1 returned from helper,
+// helper access_menu take 2 params, the first one is the logged in role id and the second is array
+// containing comma seperated value refer to role id that will be matched up with the first params.
+// 
+// 'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+
 
 $mainMenu = array(
   [
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 1,
+    'name'    => 'Dashboard',
+    'slug'    => $_dashboard,
+    'url'     => $_dashboard,
+    'icon'    => 'fas fa-home',
+    'submenu' => FALSE,
+  ],
+  [
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 2,
     'name'    => 'Data Gudang',
     'slug'    => $_data_gudang,
     'url'     => $_data_gudang,
     'icon'    => 'fas fa-layer-group',
     'submenu' => array(
       [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Barang Mentah',
         'slug'  => 'data-barang-mentah',
         'url'   => "{$_data_gudang}/data-barang-mentah",
       ],[
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Inventory Barang Mentah',
         'slug'  => 'data-inventory-barang-mentah',
         'url'   => "{$_data_gudang}/data-inventory-barang-mentah",
       ],[
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Transaksi Barang',
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
@@ -34,21 +63,25 @@ $mainMenu = array(
     )
   ],
   [
-    'no'      => 2,
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 3,
     'name'    => 'Data Produksi',
     'slug'    => $_data_produksi,
     'url'     => $_data_produksi,
     'icon'    => 'fas fa-shapes',
     'submenu' => array(
       [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Master Produk',
         'slug'  => 'data-master-produk',
         'url'   => "{$_data_produksi}/data-master-produk",
       ],[
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Inventory Produk',
         'slug'  => 'data-inventory-produk',
         'url'   => "{$_data_produksi}/data-inventory-produk",
       ],[
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Transaksi Produk',
         'slug'  => 'data-transaksi-produk',
         'url'   => "{$_data_produksi}/data-transaksi-produk",
@@ -56,17 +89,20 @@ $mainMenu = array(
     )
   ],
   [
-    'no'      => 3,
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 4,
     'name'    => 'Data Penjualan',
     'slug'    => $_data_penjualan,
     'url'     => $_data_penjualan,
     'icon'    => 'fas fa-signal',
     'submenu' => array(
       [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Master Penjualan',
         'slug'  => 'data-penjualan',
         'url'   => "{$_data_penjualan}/data-penjualan",
       ], [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Penjualan per Cabang',
         'slug'  => 'data-penjualan#per-cabang',
         'url'   => "{$_data_penjualan}/data-penjualan#per-cabang",
@@ -74,25 +110,30 @@ $mainMenu = array(
     )
   ],
   [
-    'no'      => 4,
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 5,
     'name'    => 'Data Keuangan',
     'slug'    => $_data_keuangan,
     'url'     => $_data_keuangan,
     'icon'    => 'fas fa-money-bill-wave',
     'submenu' => array(
       [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Hutang Piutang',
         'slug'  => 'data-hutang-piutang',
         'url'   => "{$_data_keuangan}/data-hutang-piutang",
       ], [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Pengeluaran',
         'slug'  => 'data-pengeluaran',
         'url'   => "{$_data_keuangan}/data-pengeluaran",
       ], [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Laba / Rugi',
         'slug'  => 'data-laba-rugi',
         'url'   => "{$_data_keuangan}/data-laba-rugi",
       ], [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Kas Perusahaan',
         'slug'  => 'data-kas-perusahaan',
         'url'   => "{$_data_keuangan}/data-kas-perusahaan",
@@ -100,13 +141,15 @@ $mainMenu = array(
     )
   ],
   [
-    'no'      => 5,
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 6,
     'name'    => 'Data Pelanggan',
     'slug'    => $_data_pelanggan,
     'url'     => $_data_pelanggan,
     'icon'    => 'fas fa-users',
     'submenu' => array(
       [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Master Pelanggan',
         'slug'  => 'data-master-pelanggan',
         'url'   => "{$_data_pelanggan}/data-master-pelanggan",
@@ -114,13 +157,15 @@ $mainMenu = array(
     )
   ],
   [
-    'no'      => 6,
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 7,
     'name'    => 'Data Pegawai',
     'slug'    => $_data_pegawai,
     'url'     => $_data_pegawai,
     'icon'    => 'fas fa-user-tie',
     'submenu' => array(
       [
+        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Master Pegawai',
         'slug'  => 'data-master-pegawai',
         'url'   => "{$_data_pegawai}/data-master-pegawai",
@@ -128,7 +173,8 @@ $mainMenu = array(
     )
   ],
   [
-    'no'      => 7,
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 8,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
     'url'     => $_informasi_perusahaan,
@@ -136,12 +182,22 @@ $mainMenu = array(
     'submenu' => FALSE
   ],
   [
-    'no'      => 8,
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 9,
     'name'    => 'Kasir',
     'slug'    => $_kasir,
     'url'     => $_kasir,
     'icon'    => 'fas fa-address-card',
-    'submenu' => FALSE
+    'submenu' => FALSE,
+  ],
+  [
+    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 10,
+    'name'    => 'Cetak',
+    'slug'    => $_cetak,
+    'url'     => $_cetak,
+    'icon'    => 'fas fa-print',
+    'submenu' => FALSE,
   ],
 );
 
@@ -153,53 +209,51 @@ $mainMenu = array(
     <div class="sidebar-content">
       <ul class="nav nav-primary">
 
-        <li class="nav-item <?php if ($menuActive == 'dashboard') { echo 'active'; } ?>">
-          <a href=<?= base_url("dashboard") ?>>
-            <i class="fas fa-home"></i>
-            <p>Dashboard</p>
-          </a>
-        </li>
-
         <?php
-        foreach ($mainMenu as $mm) : ?>
-        <?php // kelas ACTIVE untuk indikator menu yg aktif ?>
-        <li class="nav-item <?php if ($menuActive == $mm['slug']) { echo 'active'; } ?>">
-          <?php
-          if ($mm['submenu'] !== FALSE) { 
+        foreach ($mainMenu as $mm) :
+          // kelas ACTIVE untuk indikator menu yg aktif 
+          if ($mm['hasAccess'] === 1) : 
           ?>
-          <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
-            <i class="<?= $mm['icon'] ?>"></i>
-            <p><?= $mm['name'] ?></p>
-            <span class="caret"></span>
-          </a>
-          <?php 
-          } else { 
-          ?>
-          <a href="<?= base_url("{$mm['url']}") ?>">
-            <i class="<?= $mm['icon'] ?>"></i>
-            <p><?= $mm['name'] ?></p>
-          </a>
-          <?php 
-          }
-          if ($mm['submenu'] !== FALSE) : 
-          ?>
-          <?php // kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif ?>
-          <div class="collapse <?php if ($menuActive == $mm['slug']) { echo 'show'; } ?>" id="<?= $mm['url'] ?>">
-            <ul class="nav nav-collapse">
-              <?php // kelas ACTIVE menjadi indikator submenu mana yg sedang aktif ?>
-              <?php
-              foreach ($mm['submenu'] as $sm) :
-              ?>
-              <li class="<?php if ($submenuActive == $sm['slug']) { echo 'active'; } ?>">
-                <a href=<?= base_url("{$sm['url']}") ?>>
-                  <span class="sub-item"><?= $sm['name'] ?></span>
-                </a>
-              </li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
+          <li class="nav-item <?php if ($menuActive == $mm['slug']) { echo 'active'; } ?>">
+            <?php
+            if ($mm['submenu'] !== FALSE) { 
+            ?>
+            <a data-toggle="collapse" href="<?= "#{$mm['url']}" ?>">
+              <i class="<?= $mm['icon'] ?>"></i>
+              <p><?= $mm['name'] ?></p>
+              <span class="caret"></span>
+            </a>
+            <?php 
+            } else { 
+            ?>
+            <a href="<?= base_url("{$mm['url']}") ?>">
+              <i class="<?= $mm['icon'] ?>"></i>
+              <p><?= $mm['name'] ?></p>
+            </a>
+            <?php 
+            }
+            if ($mm['submenu'] !== FALSE) : 
+            ?>
+            <?php // kelas SHOW untuk membuka seluruh submenu ketika submenu ada yg aktif ?>
+            <div class="collapse <?php if ($menuActive == $mm['slug']) { echo 'show'; } ?>" id="<?= $mm['url'] ?>">
+              <ul class="nav nav-collapse">
+                <?php // kelas ACTIVE menjadi indikator submenu mana yg sedang aktif ?>
+                <?php
+                foreach ($mm['submenu'] as $sm) :
+                  if ($sm['hasAccess'] === 1) :
+                  ?>
+                  <li class="<?php if ($submenuActive == $sm['slug']) { echo 'active'; } ?>">
+                    <a href=<?= base_url("{$sm['url']}") ?>>
+                      <span class="sub-item"><?= $sm['name'] ?></span>
+                    </a>
+                  </li>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+            <?php endif; ?>
+          </li>
           <?php endif; ?>
-        </li>
         <?php endforeach; ?>
         
       </ul>

@@ -80,6 +80,30 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
+    
+    <?php // SCROLLBAR STYLING ?>
+    <style>
+        <?php // The emerging W3C standard that is currently Firefox-only ?>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #444444 #777777;
+        }
+        <?php // Works on Chrome/Edge/Safari ?>
+        *::-webkit-scrollbar {
+            width: 10px;
+        }
+        *::-webkit-scrollbar-track {
+            background: lightgrey;
+        }
+        *::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            border-radius: 10px;
+            border: 3px solid darkgrey;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 
     <!-- Sweet Alert -->
     <script src="<?= base_url('assets/js/sweetalert/sweetalert.min.js') ?>"></script>

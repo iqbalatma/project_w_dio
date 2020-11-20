@@ -12,7 +12,8 @@
                       <div class="card-body my-3">
                         <div class="row">
                           <div class="col-md-6 col-lg-8 mb-3">
-                            <?php $date = explode(" ", $meta->updated_at) ?>
+                            <?php 
+                            $date = explode(" ", $meta->updated_at) ?>
                             Terakhir diupdate pada  <strong><?= $date[0] ?></strong>, pukul <strong><?= $date[1] ?></strong>
                             <br>
                             Oleh <strong><?= $meta->updated_by ?></strong>

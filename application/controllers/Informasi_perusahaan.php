@@ -19,7 +19,7 @@ class Informasi_perusahaan extends CI_Controller
   {
     $data = [
       'title'           => 'Informasi Perusahaan',
-      'content'         => 'v_informasi_perusahaan.php',
+      'content'         => 'informasi-perusahaan/v_informasi_perusahaan.php',
       'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
       'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
       'meta'            => $this->meta_m->get_meta_by_id(1),
@@ -43,7 +43,7 @@ class Informasi_perusahaan extends CI_Controller
       // set data untuk digunakan pada view
       $data = [
         'title'           => 'Ubah Informasi Perusahaan',
-        'content'         => 'v_informasi_perusahaan_edit.php',
+        'content'         => 'informasi-perusahaan/v_informasi_perusahaan_edit.php',
         'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
         'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
         'meta'            => $this->meta_m->get_meta_by_id(1),
