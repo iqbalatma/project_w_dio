@@ -32,7 +32,8 @@ $mainMenu = array(
         'url'   => "{$_data_gudang}/data-transaksi-barang",
       ],
     )
-  ], [
+  ],
+  [
     'no'      => 2,
     'name'    => 'Data Produksi',
     'slug'    => $_data_produksi,
@@ -53,7 +54,8 @@ $mainMenu = array(
         'url'   => "{$_data_produksi}/data-transaksi-produk",
       ],
     )
-  ], [
+  ],
+  [
     'no'      => 3,
     'name'    => 'Data Penjualan',
     'slug'    => $_data_penjualan,
@@ -70,7 +72,8 @@ $mainMenu = array(
         'url'   => "{$_data_penjualan}/data-penjualan#per-cabang",
       ],
     )
-  ], [
+  ],
+  [
     'no'      => 4,
     'name'    => 'Data Keuangan',
     'slug'    => $_data_keuangan,
@@ -95,7 +98,8 @@ $mainMenu = array(
         'url'   => "{$_data_keuangan}/data-kas-perusahaan",
       ],
     )
-  ], [
+  ],
+  [
     'no'      => 5,
     'name'    => 'Data Pelanggan',
     'slug'    => $_data_pelanggan,
@@ -108,7 +112,8 @@ $mainMenu = array(
         'url'   => "{$_data_pelanggan}/data-master-pelanggan",
       ],
     )
-  ], [
+  ],
+  [
     'no'      => 6,
     'name'    => 'Data Pegawai',
     'slug'    => $_data_pegawai,
@@ -121,14 +126,16 @@ $mainMenu = array(
         'url'   => "{$_data_pegawai}/data-master-pegawai",
       ],
     )
-  ], [
+  ],
+  [
     'no'      => 7,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
     'url'     => $_informasi_perusahaan,
     'icon'    => 'fas fa-info-circle',
     'submenu' => FALSE
-  ], [
+  ],
+  [
     'no'      => 8,
     'name'    => 'Kasir',
     'slug'    => $_kasir,
