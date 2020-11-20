@@ -26,7 +26,7 @@
                               <!-- 1 -->
                               <div class="form-group row">
                                 <label for="add-fullname">
-                                  Nama pelanggan
+                                  Nama pelanggan <span class="text-danger">*</span>
                                 </label>
                                 <input 
                                   type        = "text" 
@@ -39,10 +39,23 @@
                                 >
                                 <?= form_error('add-fullname') ?>
                               </div>
+                              <!-- 3 -->
+                              <div class="form-group row">
+                                <label for="add-tipe">
+                                  Tipe pelanggan <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control <?php if (form_error('add-tipe') !== '') {echo 'is-invalid';} ?>" name="add-tipe">
+                                  <option disabled selected>-- pilih tipe --</option>
+                                    <option value="retail"> Biasa / Retail </option>
+                                    <option value="reseller"> Reseller </option>
+                                    <option value="wholesale"> Grosir / Wholesale </option>
+                                </select>
+                                <?= form_error('add-tipe') ?>
+                              </div>
                               <!-- 2 -->
                               <div class="form-group row">
                                 <label for="add-phone">
-                                  Nomor handphone
+                                  Nomor handphone <span class="text-danger">*</span>
                                 </label>
                                 <input 
                                   type        = "tel" 
@@ -59,7 +72,7 @@
                               <!-- 3 -->
                               <div class="form-group row">
                                 <label for="add-address">
-                                  Alamat
+                                  Alamat <span class="text-danger">*</span>
                                 </label>
                                 <textarea 
                                   cols        = "30"
@@ -72,9 +85,24 @@
                                 <?= form_error('add-address') ?>
                               </div>
 
+                              <?php // check for the user will have custom price or not ?>
+                              <div class="form-group row">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" id="show-or-hide" name="show-or-hide" type="checkbox" value="scheckbox">
+                                    <span class="form-check-sign">Pelanggan punya harga custom?</span>
+                                  </label>
+                                </div>
+                              </div>
+                              
+                              <div class="bungkus">
+                                <span class="btn btn-sm btn-border btn-secondary add-customprice-div">Tambah produk</span>
+                                <span class="element" id="div-0"></span>
+                              </div>
+
                               <!-- button -->
                               <div class="form-group row justify-content-center mt-3">
-                                <a href="<?= base_url( 'data-pelanggan/' . getBeforeLastSegment() ) ?>" class="btn btn-light btn-border col-5 mx-1">
+                                <a href="<?= base_url('data-pelanggan/'.getBeforeLastSegment()) ?>" class="btn btn-light btn-border col-5 mx-1">
                                   Batal
                                 </a>
                                 <button type="submit" class="btn btn-success col-5 mx-1">

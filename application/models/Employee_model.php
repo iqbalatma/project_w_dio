@@ -12,12 +12,13 @@ class Employee_model extends CI_Model
   var $tb_store     = 'store';
 
 //  ===============================================SETTER===============================================
-  // insert employee baru
   /**
    * setter untuk menambahkan employee baru
+   * 
    * @param array $data [berisi 11 data]
    */
-  public function set_new_employee($data){
+  public function set_new_employee($data)
+  {
     $createdAt = unix_to_human(now(), true, 'europe');
     $data = array(
 		  "username"      => $data['add-username'],
@@ -36,7 +37,8 @@ class Employee_model extends CI_Model
   }
 
   // update employee by id
-  public function set_update_by_id($id, $data){
+  public function set_update_by_id($id, $data)
+  {
     $data = array(
 		  "first_name"    => $data['edit-firstname'],
 		  "last_name"     => $data['edit-lastname'],
@@ -50,7 +52,8 @@ class Employee_model extends CI_Model
   }
 
   // update is_deleted employee by id
-  public function set_delete_by_id($id){
+  public function set_delete_by_id($id)
+  {
     // echo '<pre>'; print_r($id); die;
     $data = array(
 		  "is_deleted"   => 1,
@@ -62,21 +65,30 @@ class Employee_model extends CI_Model
 
 
 //  ===============================================GETTER===============================================
-  // get total employee
-  public function get_total(){
-    // get from $table
-    $this->db->select('count(id) AS total');
-    $this->db->from($this->table);
-    $query = $this->db->get();
-    if ( $query->num_rows() == 1) {
-      return $query->row();
+  /**
+   * Get total rows from certain table
+   * 
+   * @param string $keyName 
+   * Default value is NULL, but you can input some string to get array
+   * with $keyName as a key and the total row as a value.
+   * 
+   */
+  public function get_total($keyName = NULL)
+  {
+    $total = $this->db->count_all_results($this->table);
+
+    if ($keyName !== NULL)
+    {
+      if ($keyName === '') $keyName = 'key';
+      $total = [$keyName => $total];
     }
-    return FALSE;
+    return $total;
   }
 
   // get all employee
   // parameter pertama untuk tabel yg akan diquery
-  public function get_all($select = '*'){
+  public function get_all($select = '*')
+  {
     // get from table
     $this->db->select($select);
     $this->db->from($this->table);
@@ -92,7 +104,8 @@ class Employee_model extends CI_Model
   // get 1 employee berdasarkan id
   // parameter pertama untuk id sebagai acuan
   // parameter kedua untuk tabel yg akan diquery
-  public function get_by_id($id, $select = '*'){
+  public function get_by_id($id, $select = '*')
+  {
     // get from table
     $this->db->select($select);
     $this->db->from($this->table);
@@ -107,7 +120,8 @@ class Employee_model extends CI_Model
     
   // get 1 role berdasarkan id
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
-  public function get_role_by_id($id, $select = '*'){
+  public function get_role_by_id($id, $select = '*')
+  {
     // get from tb_department
     $this->db->select($select);
     $this->db->from($this->tb_employee);
@@ -122,7 +136,8 @@ class Employee_model extends CI_Model
     
   // get 1 store berdasarkan id
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
-  public function get_store_by_id($id, $select = '*'){
+  public function get_store_by_id($id, $select = '*')
+  {
     // get from tb_department
     $this->db->select($select);
     $this->db->from($this->tb_employee);

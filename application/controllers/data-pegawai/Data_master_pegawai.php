@@ -8,9 +8,7 @@ class Data_master_pegawai extends CI_Controller
     {
         parent::__construct();
         must_login();
-        // echo "<pre>"; print_r($this->session->userdata);die;
-        $_role = ['1'];
-        role_validation($_role, $this->session->role_id);
+        role_validation($this->session->role_id, ['0', '1']);
         // single page load library
         $this->load->library('bcrypt');
         // load model

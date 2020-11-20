@@ -8,10 +8,6 @@
                       <div class="card-header">
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
-                          <!-- <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
-                            <i class="fa fa-plus mr-2"></i>
-                            <span class="h6">Tambah data</span>
-                          </a> -->
                         </div>
                       </div>
 
@@ -21,28 +17,31 @@
                           <table id="add-row" class="display table table-sm  table-hover">
                             <thead class="thead-light">
                               <tr>
-                                <th class="px-3" width="20px">No</th>
-                                <th class="px-3" width="30px">Image</th>
-                                <th class="px-3">Kode produk</th>
-                                <th class="px-3">Nama produk</th>
-                                <th class="px-3">volume</th>
-                                <th class="px-3">HPP</th>
-                                <th class="px-3">Harga ecer</th>
-                                <th class="px-3">Harga reseller</th>
-                                <th class="" style="width: 10%">
+                                <th class="px-3" rowspan="2" width="20px">No</th>
+                                <th class="px-3" rowspan="2" width="30px">Foto</th>
+                                <th class="px-3" rowspan="2">Kode produk</th>
+                                <th class="px-3" rowspan="2">Nama produk</th>
+                                <th class="px-3" rowspan="2">Stok</th>
+                                <th class="px-3" rowspan="2">Toko</th>
+                                <th class="px-3" colspan="2"><center>Update terakhir</center></th>
+                                <th class="" rowspan="2" style="width: 10%">
                                   <center>Aksi</center>
                                 </th>
+                              </tr>
+                              <tr>
+                                <th class="px-3">Tanggal</th>
+                                <th class="px-3">Oleh siapa</th>
                               </tr>
                             </thead>
                             <tfoot class="thead-light">
                               <tr>
                                 <th class="px-3">No</th>
-                                <th class="px-3">Image</th>
+                                <th class="px-3">Foto</th>
                                 <th class="px-3">Kode produk</th>
                                 <th class="px-3">Nama produk</th>
-                                <th class="px-3">volume</th>
-                                <th class="px-3">HPP</th>
-                                <th class="px-3">Harga ecer</th>
+                                <th class="px-3">Stok</th>
+                                <th class="px-3">Toko</th>
+                                <th class="px-3">Update terakhir</th>
                                 <th class="px-3">Harga reseller</th>
                                 <th class="">
                                   <center>Aksi</center>
@@ -81,8 +80,8 @@
 
                                   <td class="">
                                     <div class="form-button-action">
-                                      <a href="<?= current_url()."/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
-                                      <a href="<?= current_url()."/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                      <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
+                                      <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                       <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
                                         <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
                                       </span>

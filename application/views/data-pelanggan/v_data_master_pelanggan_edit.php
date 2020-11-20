@@ -39,6 +39,19 @@
                                 >
                                 <?= form_error('edit-fullname') ?>
                               </div>
+                              <!-- 3 -->
+                              <div class="form-group row">
+                                <label for="edit-tipe">
+                                  Tipe pelanggan <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control <?php if (form_error('edit-tipe') !== '') {echo 'is-invalid';} ?>" name="edit-tipe">
+                                  <option disabled selected>-- pilih tipe --</option>
+                                    <option value="retail" <?php echo ($customer->cust_type == 'retail')?('selected'):('') ?>> Biasa / Retail </option>
+                                    <option value="reseller" <?php echo ($customer->cust_type == 'reseller')?('selected'):('') ?>> Reseller </option>
+                                    <option value="wholesale" <?php echo ($customer->cust_type == 'wholesale')?('selected'):('') ?>> Grosir / Wholesale </option>
+                                </select>
+                                <?= form_error('edit-tipe') ?>
+                              </div>
                               <!-- 2 -->
                               <div class="form-group row">
                                 <label for="edit-phone">
