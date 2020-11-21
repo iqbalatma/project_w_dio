@@ -80,13 +80,8 @@ class Data_inventory_produk extends CI_Controller
         redirect(base_url( getBeforeLastSegment($this->modules) ));
       }
       // set form rules
-      $this->form_validation->set_rules('edit-fullname', 'nama pelanggan',	        'required|trim|min_length[3]|max_length[100]');
-      $this->form_validation->set_rules('edit-unit', 'unit', 						            'required');
-      $this->form_validation->set_rules('edit-volume', 'volume', 						        'required');
-      $this->form_validation->set_rules('edit-hpp', 'HPP',		                      'required|trim|is_numeric');
-      $this->form_validation->set_rules('edit-priceretail', 'harga ecer',           'required|trim|is_numeric');
-      $this->form_validation->set_rules('edit-pricereseller', 'harga reseller', 		'required|trim|is_numeric');
-      $this->form_validation->set_rules('edit-pricewholesale', 'harga grosir', 			'required|trim|is_numeric');
+      $this->form_validation->set_rules('edit-tipeupdate', 'jenis update stok',         'required');
+      $this->form_validation->set_rules('edit-updatestok', 'jumlah update stok',        'required|trim|is_numeric|min_length[1]|max_length[10]');
       $this->form_validation->set_error_delimiters('<small class="form-text text-danger text-nowrap"><em>', '</em></small>');
 
       // run the form validation
@@ -109,13 +104,14 @@ class Data_inventory_produk extends CI_Controller
       }else {
         // insert data to db
         $post  = $this->input->post();
+        // pprintd($post);
         $query = $this->inven_product_m->set_update_by_id($id, $post);
 
         if ($query) {
           // flashdata untuk sweetalert
           $this->session->set_flashdata('success_message', 1);
           $this->session->set_flashdata('title', "Pembaruan sukses!");
-          $this->session->set_flashdata('text', 'Data produk telah berhasil diperbarui!');
+          $this->session->set_flashdata('text', 'Data stok inventory produk telah berhasil diperbarui!');
           // kembali ke laman sebelumnya sesuai hirarki controller
           redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
 
@@ -123,7 +119,7 @@ class Data_inventory_produk extends CI_Controller
           // flashdata untuk sweetalert
           $this->session->set_flashdata('failed_message', 1);
           $this->session->set_flashdata('title', "Pembaruan gagal!");
-          $this->session->set_flashdata('text', 'Mohon cek kembali data produk.');
+          $this->session->set_flashdata('text', 'Mohon cek kembali data stok inventory produk.');
           // kembali ke laman sebelumnya sesuai hirarki controller
           redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
         } // end if($query): success or failed

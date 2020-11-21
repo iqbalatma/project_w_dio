@@ -95,40 +95,37 @@
                                 </div>
                                 <div class="form-group row">
                                   <label class="selectgroup-item ml-5 mr-1 btn-secondary btn-border">
-                                    <input type="radio" name="update-type" value="-" class="selectgroup-input">
+                                    <input type="radio" name="edit-tipeupdate" value="-" class="selectgroup-input">
                                     <span class="selectgroup-button">Kurangi stok</span>
                                   </label>
                                   <label class="selectgroup-item mr-5 ml-1 btn-secondary btn-border">
-                                    <input type="radio" name="update-type" value="+" class="selectgroup-input">
+                                    <input type="radio" name="edit-tipeupdate" value="+" class="selectgroup-input" checked>
                                     <span class="selectgroup-button">Tambah stok</span>
                                   </label>
+                                  <?= form_error('edit-tipeupdate') ?>
                                 </div>
                               </div>
 
                               <div class="">
+                                <!-- 3 -->
                                 <div class="form-group row">
-                                  </div>
-                                  <div class="form-group row">
-                                    <label>Jumlah yang akan diperbarui  12312313<span class="text-danger">*</span></label>
-                                  <label class="selectgroup-item mr-5 ml-1 btn-secondary btn-border">
-                                    <input type="radio" name="update-type" value="+" class="selectgroup-input">
-                                    <span class="selectgroup-button">Tam1231bah stok</span>
-                                  </label>
-                                </div>
-                                <div class="form-group row">
-                                  <label for="edit-volume">
-                                    Volume <span class="text-danger">*</span>
+                                  <label for="edit-updatestok">
+                                    Jumlah update stok <span class="text-danger">*</span></label>
                                   </label>
                                   <input 
-                                    type        = "text" 
-                                    id          = "edit-volume" 
-                                    name        = "edit-volume" 
-                                    placeholder = "Komposisi / berat / ukuran per unit" 
-                                    value       = "<?= (set_value('edit-volume') !== '') ? set_value('edit-volume') : $productInventory->id ; ?>"
-                                    class       = "form-control <?php if(form_error('edit-volume') !== ''){ echo 'is-invalid'; } ?>"
+                                    minlength   = "1"
+                                    maxlength   = "3"
+                                    type        = "tel" 
+                                    id          = "edit-updatestok" 
+                                    name        = "edit-updatestok" 
+                                    placeholder = "Jumlah update stok" 
+                                    value       = "<?= set_value('edit-updatestok') ?>"
+                                    class       = "form-control <?php if(form_error('edit-updatestok') !== ''){ echo 'is-invalid'; } ?>"
+                                    autofocus
                                   >
-                                  <?= form_error('edit-volume') ?>
+                                  <?= form_error('edit-updatestok') ?>
                                 </div>
+                                <input type="hidden" name="edit-username" id="edit-username" value="<?= $this->session->username; ?>">
                               </div>
 
 

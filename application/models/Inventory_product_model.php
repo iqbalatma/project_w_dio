@@ -47,18 +47,43 @@ class Inventory_product_model extends CI_Model
    */
   public function set_update_by_id($id, $data)
   {
-    $data = array(
-		  "product_code"        => $data['edit-kodeproduk'],
-		  "full_name"           => $data['edit-fullname'],
-		  "unit"                => $data['edit-unit'],
-		  "volume"              => $data['edit-volume'],
-		  "price_base"          => $data['edit-hpp'],
-		  "price_retail"        => $data['edit-priceretail'],
-		  "price_reseller"      => $data['edit-pricereseller'],
-		  "price_wholesale"     => $data['edit-pricewholesale'],
-    );
+    if (($data['edit-tipeupdate'] !== '+') && ($data['edit-tipeupdate'] !== '-'))
+    {
+      return FALSE;
+    }
+    $createdAt = unix_to_human(now(), true, 'europe');
+    // ('+' or '-') and (total stok to be inputted)
+    $operand  = $data['edit-tipeupdate'];
+    $total    = $data['edit-updatestok'];
+    $data = [
+		  "updated_at"    => $createdAt,
+      "updated_by"    => $data['edit-username'],
+    ];
+    // pprint($total);
+    // pprintd($operand);
+    // set data to table `quantity`
+    $this->db->set("quantity", "quantity {$operand} {$total}", FALSE);
     $this->db->where('id', $id);
-		return $this->db->update($this->table, $data);
+    return $this->db->update($this->table, $data);
+
+
+
+    // $this->db->trans_start();
+    // $this->db->trans_complete();
+
+    // if ($this->db->trans_status() === FALSE)
+    // {
+    //   // flashdata untuk sweetalert
+    //   $this->session->set_flashdata('failed_message', 1);
+    //   $this->session->set_flashdata('title', "Input gagal!");
+    //   $this->session->set_flashdata('text', 'Data gagal diproses! Hubungi administrator segera.');
+    //   redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+    // }
+    // else
+    // {
+    //   return 1;
+    // }
+
   }
   
   /**
