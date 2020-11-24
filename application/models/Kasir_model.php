@@ -80,4 +80,15 @@ class Kasir_model extends CI_Model
         $this->db->where('product_id', $id);
         $this->db->update('product_inventory');
     }
+
+    public function get_customer($data)
+    {
+        $customer_id = $data;
+        $query = $this->db->query("SELECT cust_type FROM customer WHERE id=$customer_id");
+
+        $row = $query->row_array();
+        // $row = $query->last_row();
+
+        return $row;
+    }
 }

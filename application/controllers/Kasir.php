@@ -57,13 +57,6 @@ class Kasir extends CI_Controller
         $invoice_payment_id = '';
 
         $employee_id = $_SESSION['id'];
-
-        // 86400,
-
-        // $paid_at = 
-        $transaction_id = 1;
-        $employee_id = $_SESSION['id'];
-
         $checkbox_value = $this->input->post('product');
 
 
@@ -73,14 +66,20 @@ class Kasir extends CI_Controller
 
         // BEGIN PROSES INSERT DATA TRANSAKSI
 
+
+        // format trans_number = TRANS-
+
         $price_total = 0;
         $store_id = $_SESSION['store_id'];
         $customer_id = $this->input->post('nama_pelanggan');
+        $data_customer = $this->Kasir_model->get_customer($customer_id);
+        $customer_type = $data_customer['cust_type'];
+        // var_dump($data_customer);
         $due_at = unix_to_human(now() + (86400 * 7), true, 'europe');
-        $trans_number = 'TRANS' . $invoice; //primary_key pada tabel transaksi format menyesuaikan
+        $trans_number = 'TRANS-' . date("m.d.y") . now(); //primary_key pada tabel transaksi format menyesuaikan
         $data_transaction = [
-            'trans_number' => $trans_number,     //XXX  Belum ada formatnya
-            'price_total' => $price_total, //XXX
+            'trans_number' => $trans_number,     //
+            'price_total' => $price_total, // price total di kosongkan dulu karena item belum masuk, setelah item masuk di di iterasi barulah di hitung total_price untuk diupdate
             'store_id' => $store_id,
             'customer_id' => $customer_id,
             'due_at' => $due_at,
@@ -107,9 +106,9 @@ class Kasir extends CI_Controller
         $invoice_id = $invoice_id['id'];
 
 
-        var_dump($quantity);
-        echo "<br>";
-        var_dump($checkbox_value);
+        // var_dump($quantity);
+        // echo "<br>";
+        // var_dump($checkbox_value);
 
         // BEGIN PERULANGAN UNTUK BANYAK PRODUK YANG MASUK
         foreach ($checkbox_value as $id_product) {
@@ -142,11 +141,12 @@ class Kasir extends CI_Controller
 
 
             // product_mutation akan menghasilkan history barang yang keluar dari store mana, produk apa, serta siapa yang melakukan
+            $mutation_code = $invoice . rand(10, 100); //Masih data dummy 
             $data_product_mutation = [
                 'id' => '',
                 'product_id' =>  $id_product,
                 'store_id' => $store_id,
-                'mutation_code' => $invoice . rand(10, 100),
+                'mutation_code' => $mutation_code,
                 'quantity' => $quantity[$id_product],
                 'mutation_type' => 'keluar',
                 'created_by' => $_SESSION['username'],
@@ -182,6 +182,7 @@ class Kasir extends CI_Controller
         ];
         $update_price_total = $this->Kasir_model->update_total_price($data_update);
 
+        //INVOICE FORMAT NO. 49/AR/03/2020
 
 
         $paid_amount = $this->input->post('paid_amount'); //yang dibayarkan oleh pembeli
@@ -193,7 +194,7 @@ class Kasir extends CI_Controller
             'paid_amount' => $paid_amount,
             'left_to_paid' => $left_to_paid,
             // 'paid_at' => '',
-            'transaction_id' => $invoice_id, //masih dummy statis
+            'transaction_id' => $invoice_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
             'employee_id' => $employee_id,
             'created_at' => $createdAt,
             'is_deleted' => 0
