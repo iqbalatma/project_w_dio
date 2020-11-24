@@ -4,7 +4,7 @@
             <h4 class="page-title">Forms</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
-                    <a href="#">
+                    <a href="<?= base_url(); ?>">
                         <i class="flaticon-home"></i>
                     </a>
                 </li>
@@ -12,13 +12,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Forms</a>
+                    <a href="#">Kasir</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Basic Form</a>
+                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
                 </li>
             </ul>
         </div>
@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Form Elements</div>
+                        <div class="card-title">Checkout Station</div>
                     </div>
                     <!-- <pre><?php var_dump($_SESSION); ?></pre> -->
                     <?= form_open('Kasir/insert'); ?>
@@ -46,7 +46,9 @@
                                 </div>
 
                                 <div class="form-group">
+
                                     <label class="form-label">Barang yang dibeli</label>
+
 
                                     <div class="selectgroup selectgroup-pills">
 
@@ -56,14 +58,19 @@
                                         ?>
                                             <label class="selectgroup-item">
                                                 <input type="checkbox" name="product[<?= $i; ?>]" value="<?= $row['id']; ?>" class="selectgroup-input">
-                                                <span class="selectgroup-button"><?= $row['full_name']; ?></span>
+                                                <span class="selectgroup-button"><?= $row['full_name']; ?> | Rp <?= $row['price_retail']; ?></span>
 
+                                                <select name="quantity[<?= $row['id']; ?>]" id="quantity">
+                                                    <?php
+                                                    $j = 1;
+                                                    while ($j <= $row['quantity']) {
+                                                    ?>
+                                                        <option value="<?= $j; ?>"><?= $j; ?></option>
 
-                                                <select name="quantity[<?= $i; ?>]" id="quantity">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
+                                                    <?php
+                                                        $j++;
+                                                    }; ?>
+
                                                 </select>
                                             </label>
                                         <?php
@@ -85,14 +92,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="email2">Email Address</label>
-                                    <input type="text" class="form-control" id="email2" placeholder="Enter Email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
-                                </div>
+
 
 
                             </div>

@@ -63,7 +63,9 @@ class Kasir_model extends CI_Model
     public function update_quantity_inventory_product($data)
     {
         $id = $data['id'];
-        $query = $this->db->query("SELECT * FROM product_inventory WHERE product_id=$id");
+        $store_id = $data['store_id'];
+        $quantity_input = $data['quantity'];
+        $query = $this->db->query("SELECT * FROM product_inventory WHERE product_id=$id AND store_id=$store_id");
 
         $row = $query->row_array();
         $quantity_db = $row['quantity'];
@@ -72,7 +74,7 @@ class Kasir_model extends CI_Model
 
 
 
-        $quantity_input = $data['quantity'];
+
         $final_quantity = $quantity_db - $quantity_input;
         $this->db->set('quantity', $final_quantity, FALSE);
         $this->db->where('product_id', $id);
