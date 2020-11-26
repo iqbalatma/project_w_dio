@@ -8,10 +8,10 @@
                       <div class="card-header">
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
-                          <!-- <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
+                          <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
                             <i class="fa fa-plus mr-2"></i>
                             <span class="h6">Tambah data</span>
-                          </a> -->
+                          </a>
                         </div>
                       </div>
 
