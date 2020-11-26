@@ -25,7 +25,7 @@
             swal({
                 title: "<?= $this->session->title; ?>",
                 text: "<?= $this->session->text; ?>",
-                timer: 2000,
+                timer: 5000,
                 button: false,
                 icon: 'error'
             });

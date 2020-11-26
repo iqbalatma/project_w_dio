@@ -60,7 +60,7 @@ if ( ! function_exists('role_validation'))
   }
 }
 
-if ( ! function_exists('access_menu'))
+if ( ! function_exists('role_access'))
 {
   /**
   * What is the role of the user, and search in array stack
@@ -69,7 +69,7 @@ if ( ! function_exists('access_menu'))
   * @param string user role name
   * @param array allowed role
   */
-  function access_menu($role = '3', $who = [])
+  function role_access($role = '3', $who = [])
   {
     // jika tidak ada, maka tidak cocok dan buang keluar
     if ( ! in_array($role, $who)) 

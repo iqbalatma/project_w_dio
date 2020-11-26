@@ -33,6 +33,31 @@ class Customer_model extends CI_Model
     return $lastId;
   }
   
+
+  /**
+   * 
+   * Check whether if cust have custom price for specific product or not
+   * if they have custom price, then update the existing one
+   * if not, then create a new one
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function _get_by_id_and_product_code($id, $code, $select = '*')
+  {
+    $this->db->select($select);
+    $this->db->from($this->tb_custom_price);
+    $this->db->where('customer_id', $id);
+    $this->db->where('product_code', $code);
+    $query = $this->db->get();
+    if ( $query->num_rows() > 0) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+  
   /**
    * setter untuk menambahkan harga kustom pada pelanggan
    * 
@@ -41,33 +66,42 @@ class Customer_model extends CI_Model
   public function set_new_customer_price_by_id($id, $data)
   {
     $createdAt = unix_to_human(now(), true, 'europe');
-
+    
     $this->db->trans_start();
     foreach ($data['custom'] as $c)
     {
+      $cek = $this->_get_by_id_and_product_code($id, $c['product_code']);
       $data = array(
         "price"         => $c['price'],
         "customer_id"   => $id,
         "product_code"  => $c['product_code'],
         "created_at"    => $createdAt,
       );
-      $this->db->insert($this->tb_custom_price, $data);
+      // cek apakah data sudah ada atau belum
+      // kalo udah ada berarti update, kalo belum berarti insert baru
+      if ($cek)
+      {
+        $this->db->where('customer_id', $id);
+        $this->db->where('product_code', $c['product_code']);
+        $this->db->update($this->tb_custom_price, $data);
+      }
+      else
+      {
+        $this->db->insert($this->tb_custom_price, $data);
+      }
     }
     $this->db->trans_complete();
-
+    
     if ($this->db->trans_status() === FALSE)
     {
-      // flashdata untuk sweetalert
-      $this->session->set_flashdata('failed_message', 1);
-      $this->session->set_flashdata('title', "Input gagal!");
-      $this->session->set_flashdata('text', 'Data gagal diproses! Hubungi administrator segera.');
-      redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+      return FALSE;
     }
     else
     {
       return 1;
     }
   }
+
 
   // update customer by id
   public function set_update_by_id($id, $data)
@@ -148,4 +182,5 @@ class Customer_model extends CI_Model
     }
     return FALSE;
   }
+
 }

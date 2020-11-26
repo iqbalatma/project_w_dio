@@ -86,7 +86,7 @@
                               </div>
 
                               <?php // check for the user will have custom price or not ?>
-                              <div class="form-group row">
+                              <!-- <div class="form-group row">
                                 <div class="form-check">
                                   <label class="form-check-label">
                                     <input class="form-check-input" id="show-or-hide" name="show-or-hide" type="checkbox" value="scheckbox">
@@ -98,7 +98,7 @@
                               <div class="bungkus">
                                 <span class="btn btn-sm btn-border btn-secondary add-customprice-div">Tambah produk</span>
                                 <span class="element" id="div-0"></span>
-                              </div>
+                              </div> -->
 
                               <!-- button -->
                               <div class="form-group row justify-content-center mt-3">

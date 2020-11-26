@@ -33,7 +33,7 @@ class Data_master_pegawai extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     } // end method
 
-    public function tambah()
+    public function _tambah() // private, harus edit nama method untuk bisa akses
     {
       // set form rules
       $this->form_validation->set_rules('add-username', 'username', 					'required|trim|min_length[3]|max_length[15]|is_unique[employee.username]');
@@ -89,10 +89,8 @@ class Data_master_pegawai extends CI_Controller
 
     public function edit($id = NULL)
     {
-      if ($id === NULL)
-      {
-        redirect(base_url( getBeforeLastSegment($this->modules) ));
-      }
+      if ($id === NULL) redirect(base_url( getBeforeLastSegment($this->modules) ));
+      if ($id == 0) redirect(base_url( getBeforeLastSegment($this->modules, 2) )); // redirect keluar untuk akses superadmin
       // set form rules
       $this->form_validation->set_rules('edit-firstname', 'nama depan', 			'required|trim|min_length[3]|max_length[100]');
       $this->form_validation->set_rules('edit-lastname', 'nama belakang', 		'trim|min_length[3]|max_length[100]');
@@ -148,10 +146,8 @@ class Data_master_pegawai extends CI_Controller
     public function hapus()
     {
       $id  = $this->input->post('id');
-      if ($id === NULL)
-      {
-        redirect(base_url( getBeforeLastSegment($this->modules) ));
-      }
+      if ($id === NULL) redirect(base_url( getBeforeLastSegment($this->modules) ));
+      if ($id == 0) redirect(base_url( getBeforeLastSegment($this->modules, 2) )); // redirect keluar untuk akses superadmin
       // update data to db
       // echo '<pre>'; print_r($id); die;
       $query = $this->employee_m->set_delete_by_id($id);
@@ -178,10 +174,8 @@ class Data_master_pegawai extends CI_Controller
     // ============================== DETAL =========================
     public function detail($id = NULL)
     {
-      if ($id === NULL)
-      {
-        redirect(base_url( getBeforeLastSegment($this->modules) ));
-      }
+      if ($id === NULL) redirect(base_url( getBeforeLastSegment($this->modules) ));
+      if ($id == 0) redirect(base_url( getBeforeLastSegment($this->modules, 2) )); // redirect keluar untuk akses superadmin
       // set data untuk digunakan pada view
       $data = [
         'title'          => 'Detail pegawai',
