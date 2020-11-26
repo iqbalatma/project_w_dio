@@ -91,4 +91,31 @@ class Kasir_model extends CI_Model
 
         return $row;
     }
+
+    public function cek_number_invoice($data)
+    {
+        $tanggal = $data;
+
+        $this->db->select('*');
+        $this->db->from('invoice');
+        $this->db->where("created_at", $tanggal);
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public function cek_invoice_terakhir($data)
+    {
+        $tanggal = $data;
+
+        $query = $this->db->query("SELECT * FROM invoice WHERE created_at='$tanggal' ORDER BY id DESC LIMIT 1 ");
+
+        $row = $query->row_array();
+        // $row = $query->last_row();
+
+        return $row;
+    }
 }

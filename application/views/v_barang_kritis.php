@@ -34,7 +34,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>">Inventory Barang</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Barang Masuk</a>
                 </li>
             </ul>
         </div>
@@ -64,7 +64,6 @@
                                         <th class="px-3">Jumlah</th>
                                         <th class="px-3">Tanggal Masuk</th>
                                         <th class="px-3">Diinput Oleh</th>
-                                        <th class="px-3" style="width: 10%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="thead-light">
@@ -76,14 +75,14 @@
                                         <th class="px-3">Jumlah</th>
                                         <th class="px-3">Tanggal Masuk</th>
                                         <th class="px-3">Diinput Oleh</th>
-                                        <th class="px-3" style="width: 10%">Aksi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
 
                                     <?php
+
                                     $i = 1;
-                                    foreach ($data_barang_masuk as $row) : ?>
+                                    foreach ($data_barang_kritis as $row) : ?>
                                         <tr>
                                             <td class="px-3">
                                                 <?= $i++ ?>
@@ -105,12 +104,6 @@
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->created_by ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <div class="form-button-action">
-                                                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-link btn-danger btn-delete" data-id="<?= $row->id; ?>"><i class="fa fa-times"></i></a>
-                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

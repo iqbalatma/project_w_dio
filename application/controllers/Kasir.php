@@ -52,6 +52,7 @@ class Kasir extends CI_Controller
         $createdAt = unix_to_human(now(), true, 'europe');
 
         // $invoice = 'INV' . $_SESSION['store_id'] . $date->format('m');
+
         $invoice = rand(10, 1000000);
         $price_total = 40000;
         $invoice_payment_id = '';
@@ -141,7 +142,9 @@ class Kasir extends CI_Controller
 
 
             // product_mutation akan menghasilkan history barang yang keluar dari store mana, produk apa, serta siapa yang melakukan
-            $mutation_code = $invoice . rand(10, 100); //Masih data dummy 
+
+            // $mutation_code = $invoice . rand(10, 100); //Masih data dummy 
+            $mutation_code = "MUTATION-" . date('Y-m-d h:i:sa');
             $data_product_mutation = [
                 'id' => '',
                 'product_id' =>  $id_product,
@@ -184,13 +187,39 @@ class Kasir extends CI_Controller
 
         //INVOICE FORMAT NO. 49/AR/03/2020
 
+        // echo date('Y');
+        $tanggal = date('Y-m-d');
+        $tanggal2 = date('Y-m-d');
+
+        $is_there_number_invoice = $this->Kasir_model->cek_number_invoice($tanggal);
+        $is_there_number_invoice2 = $this->Kasir_model->cek_invoice_terakhir($tanggal2);
+        var_dump($is_there_number_invoice2);
+        echo $is_there_number_invoice;
+        if ($is_there_number_invoice) { //saat nomor pada hari pertama tidak ada
+            $invoice1 = "NO. " . "1/AR/" . date('d') . "/" . date('m') . "/" . date('Y');
+            echo $invoice1;
+            // echo "bangsat";
+        } elseif ($is_there_number_invoice2) { //invoice pada hari itu ada
+
+            // var_dump($is_there_number_invoice2);
+            $invoice_number =  $is_there_number_invoice2['invoice_number'];
+            // $invoice_sebelumnya = $is_there_number_invoice2['invoice_number'];
+            $invoice_sebelumnya = explode("/", $invoice_number);
+            $invoice_sebelumnya = $invoice_sebelumnya[0];
+            $invoice_sebelumnya = explode(" ", $invoice_sebelumnya);
+            $invoice_sebelumnya = $invoice_sebelumnya[1];
+            $nomor_invoice_sekarang = $invoice_sebelumnya + 1;
+            $invoice1 = "NO. " . "$nomor_invoice_sekarang/AR/" . date('d') . "/" . date('m') . "/" . date('Y');
+        }
+
+
 
         $paid_amount = $this->input->post('paid_amount'); //yang dibayarkan oleh pembeli
         // sisa yang harus dibayar (lunas atau tidak)
         $left_to_paid = $paid_amount - $item_price_total;
         $data_invoice = [
             'id' => '',
-            'invoice_number' => $invoice,
+            'invoice_number' => $invoice1,
             'paid_amount' => $paid_amount,
             'left_to_paid' => $left_to_paid,
             // 'paid_at' => '',

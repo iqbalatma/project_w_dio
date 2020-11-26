@@ -21,10 +21,10 @@ class Data_inventory_barang_mentah extends CI_Controller
     public function index()
     {
         $data = [
-            'title'             => 'Data Barang Masuk',
+            'title'             => 'Data Barang Mentah',
             'content'           => 'v_inventory_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-inventory-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
             'data_barang_kimia' => $this->Material_model->getAll(),
             'data_store' => $this->Store_model->getAll(),

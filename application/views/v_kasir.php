@@ -28,7 +28,9 @@
                     <div class="card-header">
                         <div class="card-title">Checkout Station</div>
                     </div>
-
+                    <?php echo date('Y-m-d h:i:sa');
+                    // echo now(); 
+                    ?>
                     <?= form_open('Kasir/insert'); ?>
                     <div class="card-body">
                         <div class="row">
@@ -38,6 +40,7 @@
                                     <label for="nama_pelanggan">Nama Pelanggan</label>
                                     <select class="form-control" id="nama_pelanggan" name="nama_pelanggan" onchange='changeValue(this.value)' required>
                                         <option value="">-Pilih Pelanggan-</option>
+
 
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
