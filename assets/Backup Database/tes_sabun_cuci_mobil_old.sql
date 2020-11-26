@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2020 at 10:46 AM
+-- Generation Time: Nov 20, 2020 at 03:19 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -110,8 +110,7 @@ INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `cust_type`, `cre
 (38, 'nama 14', 'Kepulauan 1013, Antartika', '08771231836', 'reseller', '2020-11-20 15:00:00', 0),
 (39, 'nama 15', 'Kepulauan 1014, Antartika', '08771231837', 'retail', '2020-11-20 15:00:00', 0),
 (40, 'nama 16', 'Kepulauan 1015, Antartika', '08771231838', 'reseller', '2020-11-20 15:00:00', 0),
-(41, 'nama 17', 'Kepulauan 1016, Antartika', '08771231839', 'retail', '2020-11-20 15:00:00', 0),
-(42, 'pleanggan', 'sdsadasdasdasdasd', '098765789876', 'reseller', '2020-11-21 15:51:28', 0);
+(41, 'nama 17', 'Kepulauan 1016, Antartika', '08771231839', 'retail', '2020-11-20 15:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -244,8 +243,7 @@ INSERT INTO `invoice_item` (`id`, `quantity`, `item_price`, `invoice_id`, `produ
 (13, 3, 34000, 7, 4),
 (14, 2, 36000, 7, 5),
 (15, 4, 38000, 8, 3),
-(16, 7, 40000, 8, 6),
-(17, 1, 10000, 9, 1);
+(16, 7, 40000, 8, 6);
 
 -- --------------------------------------------------------
 
@@ -380,7 +378,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `product_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `price_retail`, `price_reseller`, `price_wholesale`, `created_at`, `is_deleted`) VALUES
-(1, 'DT001', 'Sabun Dettol 50ml', 'mililiter', 50, 'default.png', 10000, 20000, 19000, 18000, '2020-11-17 13:44:04', 1),
+(1, 'DT001', 'Sabun Dettol 50ml', 'mililiter', 50, 'default.png', 10000, 20000, 19000, 18000, '2020-11-17 13:44:04', 0),
 (2, 'DT002', 'Sabun Dettol 150ml', 'mililiter', 150, 'default.png', 15000, 30000, 27000, 25000, '2020-11-17 13:44:04', 0),
 (3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 25000, 50000, 45000, 40000, '2020-11-17 13:44:04', 0),
 (4, 'DT004', 'Sabun Dettol 1L', 'mililiter', 1000, 'default.png', 0, 0, 0, 0, '2020-11-18 15:37:08', 0),
@@ -419,6 +417,39 @@ INSERT INTO `product_composition` (`id`, `volume`, `product_id`, `material_id`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product_inventory`
+--
+
+CREATE TABLE `product_inventory` (
+  `id` tinyint(10) NOT NULL,
+  `product_id` tinyint(10) NOT NULL,
+  `store_id` tinyint(10) DEFAULT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` varchar(15) DEFAULT NULL,
+  `updated_by` varchar(15) DEFAULT NULL,
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_inventory`
+--
+
+INSERT INTO `product_inventory` (`id`, `product_id`, `store_id`, `quantity`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`) VALUES
+(1, 1, 2, 10, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(2, 1, 3, 50, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(3, 2, 2, 24, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(4, 2, 3, 32, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(5, 3, 2, 5, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(6, 3, 3, 87, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(7, 4, 2, 46, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(8, 5, 2, 24, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0),
+(9, 6, 3, 51, '2020-11-20 15:00:00', NULL, 'admins', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product_mutation`
 --
 
@@ -439,7 +470,6 @@ CREATE TABLE `product_mutation` (
 --
 
 INSERT INTO `product_mutation` (`id`, `product_id`, `store_id`, `mutation_code`, `quantity`, `mutation_type`, `created_at`, `created_by`, `is_deleted`) VALUES
-(20, 1, 1, '74741711', 1, 'keluar', '2020-11-21 12:24:41', 'superadmin', 0),
 (1, 1, 2, 'KLR001', 43, 'keluar', '2020-11-01 15:00:00', 'admins', 0),
 (5, 5, 3, 'KLR002', 54, 'keluar', '2020-11-05 15:00:00', 'admins', 0),
 (6, 6, 3, 'KLR003', 32, 'keluar', '2020-11-06 15:00:00', 'admins', 0),
@@ -515,7 +545,6 @@ INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) 
 CREATE TABLE `transaction` (
   `id` tinyint(10) NOT NULL,
   `trans_number` varchar(100) NOT NULL,
-  `deliv_address` varchar(250) DEFAULT NULL,
   `price_total` int(11) NOT NULL,
   `store_id` tinyint(10) NOT NULL,
   `customer_id` tinyint(10) NOT NULL,
@@ -529,16 +558,15 @@ CREATE TABLE `transaction` (
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `trans_number`, `deliv_address`, `price_total`, `store_id`, `customer_id`, `employee_id`, `due_at`, `created_at`, `is_deleted`) VALUES
-(9, 'TRANS747417', NULL, 10000, 1, 9, 0, '2020-11-28 12:24:41', '2020-11-21 12:24:41', 0),
-(1, 'TRX2011010001', NULL, 50000, 2, 1, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
-(2, 'TRX2011010002', NULL, 15000, 2, 5, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
-(3, 'TRX2011010003', NULL, 65000, 2, 6, 3, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0),
-(4, 'TRX2011020001', NULL, 84000, 3, 18, 4, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
-(5, 'TRX2011030001', NULL, 75000, 2, 5, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
-(6, 'TRX2012010001', NULL, 36000, 3, 15, 4, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0),
-(7, 'TRX2012010002', NULL, 92000, 3, 19, 4, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0),
-(8, 'TRX2012010003', NULL, 48500, 3, 24, 4, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0);
+INSERT INTO `transaction` (`id`, `trans_number`, `price_total`, `store_id`, `customer_id`, `employee_id`, `due_at`, `created_at`, `is_deleted`) VALUES
+(1, 'TRX2011010001', 50000, 2, 1, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
+(2, 'TRX2011010002', 15000, 2, 5, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
+(3, 'TRX2011010003', 65000, 2, 6, 3, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0),
+(4, 'TRX2011020001', 84000, 3, 18, 4, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
+(5, 'TRX2011030001', 75000, 2, 5, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
+(6, 'TRX2012010001', 36000, 3, 15, 4, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0),
+(7, 'TRX2012010002', 92000, 3, 19, 4, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0),
+(8, 'TRX2012010003', 48500, 3, 24, 4, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0);
 
 --
 -- Indexes for dumped tables
@@ -632,6 +660,14 @@ ALTER TABLE `product_composition`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `product_inventory`
+--
+ALTER TABLE `product_inventory`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `store_id` (`store_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `product_mutation`
 --
 ALTER TABLE `product_mutation`
@@ -677,7 +713,7 @@ ALTER TABLE `basic_info_meta`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `custom_price`
@@ -701,7 +737,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `invoice_item`
 --
 ALTER TABLE `invoice_item`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `material`
@@ -734,10 +770,16 @@ ALTER TABLE `product_composition`
   MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `product_inventory`
+--
+ALTER TABLE `product_inventory`
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `product_mutation`
 --
 ALTER TABLE `product_mutation`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -755,7 +797,7 @@ ALTER TABLE `store`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -808,6 +850,13 @@ ALTER TABLE `material_mutation`
 ALTER TABLE `product_composition`
   ADD CONSTRAINT `product_composition_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `product_composition_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_inventory`
+--
+ALTER TABLE `product_inventory`
+  ADD CONSTRAINT `product_inventory_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_inventory_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_mutation`
