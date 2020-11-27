@@ -11,7 +11,7 @@ $_data_pelanggan        = 'data-pelanggan';
 $_data_pegawai          = 'data-pegawai';
 $_informasi_perusahaan  = 'informasi-perusahaan';
 $_kasir                 = 'kasir';
-$_cetak                 = 'cetak';
+$_input_pengeluaran     = 'input-pengeluaran';
 
 // Role sesuai dengan masing2 role id
 // {owner=1 ; admin=2 ; cashier=3}
@@ -29,7 +29,7 @@ $_role_3            = '3';
 
 $mainMenu = array(
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 1,
     'name'    => 'Dashboard',
     'slug'    => $_dashboard,
@@ -38,7 +38,7 @@ $mainMenu = array(
     'submenu' => FALSE,
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 2,
     'name'    => 'Data Gudang',
     'slug'    => $_data_gudang,
@@ -46,17 +46,17 @@ $mainMenu = array(
     'icon'    => 'fas fa-layer-group',
     'submenu' => array(
       [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
         'name'  => 'Data Barang Mentah',
         'slug'  => 'data-barang-mentah',
         'url'   => "{$_data_gudang}/data-barang-mentah",
       ],[
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
         'name'  => 'Data Inventory Barang Mentah',
         'slug'  => 'data-inventory-barang-mentah',
         'url'   => "{$_data_gudang}/data-inventory-barang-mentah",
       ],[
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
         'name'  => 'Data Transaksi Barang',
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
@@ -64,7 +64,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
     'no'      => 3,
     'name'    => 'Data Produksi',
     'slug'    => $_data_produksi,
@@ -200,7 +200,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 7,
     'name'    => 'Data Pelanggan',
     'slug'    => $_data_pelanggan,
@@ -208,7 +208,7 @@ $mainMenu = array(
     'icon'    => 'fas fa-users',
     'submenu' => array(
       [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Master Pelanggan',
         'slug'  => 'data-master-pelanggan',
         'url'   => "{$_data_pelanggan}/data-master-pelanggan",
@@ -232,7 +232,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 9,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
@@ -241,12 +241,21 @@ $mainMenu = array(
     'submenu' => FALSE
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_2]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_2, $_role_3]),
     'no'      => 10,
     'name'    => 'Kasir',
     'slug'    => $_kasir,
     'url'     => $_kasir,
     'icon'    => 'fas fa-address-card',
+    'submenu' => FALSE,
+  ],
+  [
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+    'no'      => 11,
+    'name'    => 'Input Pengeluaran',
+    'slug'    => $_input_pengeluaran,
+    'url'     => $_input_pengeluaran,
+    'icon'    => 'fas fa-share-square',
     'submenu' => FALSE,
   ],
 );
