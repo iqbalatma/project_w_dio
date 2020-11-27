@@ -16,6 +16,7 @@ class Data_inventory_barang_mentah extends CI_Controller
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
+        $this->load->model("Kasir_model");
     }
 
     public function index()
@@ -24,7 +25,7 @@ class Data_inventory_barang_mentah extends CI_Controller
             'title'             => 'Data Barang Mentah',
             'content'           => 'v_inventory_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-inventory-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
             'data_barang_kimia' => $this->Material_model->getAll(),
             'data_store' => $this->Store_model->getAll(),
@@ -44,6 +45,7 @@ class Data_inventory_barang_mentah extends CI_Controller
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
             'data_barang_kimia' => $this->Material_model->getAll(),
             'data_store' => $this->Store_model->getAll(),
+
             'datatables' => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
@@ -97,6 +99,19 @@ class Data_inventory_barang_mentah extends CI_Controller
             ];
 
             $insert = $this->Inventory_material_model->insert($data);
+
+            $data = [
+                'id' => '',
+                'material_id' => $material_id,
+                'store_id' => $store_id,
+                'mutation_code' => 'MUTATION-MATERIAL-' . date("Y-m-d") . rand(10, 1000),
+                'quantity' => $quantity,
+                'mutation_type' => 'masuk',
+                'created_by' => $_SESSION['username'],
+                'is_deleted' => 0
+            ];
+
+            $this->Kasir_model->insert_material_mutation($data);
 
 
             if ($insert == 1) {

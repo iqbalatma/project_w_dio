@@ -34,7 +34,7 @@
 
                         <?php
                         $attributes = ['id' => 'form_barang_masuk'];
-                        echo form_open_multipart('data-gudang/Data_barang_masuk/insert', $attributes); ?>
+                        echo form_open_multipart('data-gudang/Data_inventory_barang_mentah/insert', $attributes); ?>
                         <div class="form-group">
                             <label for="material_id">Kode Bahan</label>
                             <select class="form-control material_id" id="material_id" name="material_id">
@@ -97,7 +97,7 @@
             </div>
             <?php
             $attributes = ['id' => 'form_barang_masuk'];
-            echo form_open_multipart('data-gudang/Data_barang_masuk/insert', $attributes); ?>
+            echo form_open_multipart('data-gudang/Data_inventory_barang_mentah/insert', $attributes); ?>
 
 
             <div class="modal-body">

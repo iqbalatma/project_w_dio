@@ -18,7 +18,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>">Data Barang Kimia</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Barang Kimia</a>
                 </li>
             </ul>
         </div>
@@ -27,7 +27,7 @@
                 <div class="card">
                     <?php
                     $attributes = ['id' => 'form_barang_kimia'];
-                    echo form_open_multipart('data-gudang/Data_barang_kimia/insert', $attributes); ?>
+                    echo form_open_multipart('data-gudang/Data_barang_mentah/insert', $attributes); ?>
                     <div class="card-header">
                         <div class="card-title">Form Tambah Data</div>
                     </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="card-action">
                         <input type="hidden" name="id" class="id"></input>
-                        <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
+                        <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
                         <button type="submit" name="submit" class="btn btn-primary" id="submit_barang_kimia">Tambah Data</button>
                     </div>
                     <?= form_close(); ?>

@@ -161,11 +161,11 @@ class Data_barang_mentah extends CI_Controller
             if ($insert == 1) {
                 echo "input berhasil";
                 $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
-                redirect(base_url('data-gudang/Data_barang_kimia'));
+                redirect(base_url('data-gudang/Data_barang_mentah'));
             } else {
                 echo "input gagal";
                 $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
-                redirect(base_url('data-gudang/Data_barang_kimia'));
+                redirect(base_url('data-gudang/Data_barang_mentah'));
             }
         }
     }
