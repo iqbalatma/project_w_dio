@@ -222,6 +222,22 @@ class Kasir extends CI_Controller
                 ];
                 // query update material
                 $this->Kasir_model->update_quantity_material($data);
+
+
+
+                // INSERT PRODUCT MUTATION
+                $data = [
+                    'id' => '',
+                    'material_id' => $material_id,
+                    'store_id' => $store_id,
+                    'mutation_code' => 'MUTATION-MATERIAL-' . date("Y-m-d") . rand(10, 1000),
+                    'quantity' => $quantity_material,
+                    'mutation_type' => 'keluar',
+                    'created_by' => $_SESSION['username'],
+                    'is_deleted' => 0
+                ];
+
+                $this->Kasir_model->insert_material_mutation($data);
             }
             $i++;
         }

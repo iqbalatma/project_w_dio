@@ -197,4 +197,9 @@ class Kasir_model extends CI_Model
 
         return $row;
     }
+
+    public function insert_material_mutation($data)
+    {
+        return $this->db->insert('material_mutation', $data);
+    }
 }
