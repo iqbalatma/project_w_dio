@@ -24,7 +24,8 @@ class Kasir extends CI_Controller
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer' => $this->Customer_model->get_all(),
-            'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
+            // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
+            'data_product' => $this->Product_model->get_all2(),
             'datatables' => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
@@ -33,30 +34,12 @@ class Kasir extends CI_Controller
     public function insert()
     {
 
-        // Logic Tabel dan Alur data
-        // pertama tama lakukan pencatatan pada tabel transaksi
-        // kemudian transaksi di acu oleh invoice item yang mana dapat terdapat banyak item dalam satu transaksi
-        // item tersebut datanya memiliki id produk yang mana akan di didapat dari tabel produk
-        // produk yang keluar akan tercatat didalam product_mutation
-        // kemudian yang terakhir adalah transaksi tersebut akan masuk kedalam tabel invoice
 
 
-        // PENTING ALUR TABEL
-        // Transaction->invoice_item[i]->invoice->
-        // item price dari quantitas dikali harga
-        // produk harus tau di gudang mana dan kuantitasnya berapa
-        // harus melakukan update pada kuantitas produk
 
 
-        $date = new DateTime();
         $createdAt = unix_to_human(now(), true, 'europe');
-
-        // $invoice = 'INV' . $_SESSION['store_id'] . $date->format('m');
-
-        $invoice = rand(10, 1000000);
         $price_total = 40000;
-        $invoice_payment_id = '';
-
         $employee_id = $_SESSION['id'];
         $checkbox_value = $this->input->post('product');
 
@@ -68,30 +51,91 @@ class Kasir extends CI_Controller
         // BEGIN PROSES INSERT DATA TRANSAKSI
 
 
-        // format trans_number = TRANS-
-
         $price_total = 0;
         $store_id = $_SESSION['store_id'];
         $customer_id = $this->input->post('nama_pelanggan');
         $data_customer = $this->Kasir_model->get_customer($customer_id);
         $customer_type = $data_customer['cust_type'];
-        // var_dump($data_customer);
+
+        if ($customer_type == "retail") {
+            $customer_type = "KS";
+        } else {
+            $customer_type = "AR";
+        }
+
         $due_at = unix_to_human(now() + (86400 * 7), true, 'europe');
         $trans_number = 'TRANS-' . date("m.d.y") . now(); //primary_key pada tabel transaksi format menyesuaikan
+        $address = $this->input->post('alamat_pelanggan');
         $data_transaction = [
             'trans_number' => $trans_number,     //
+            'deliv_address' => $address,
             'price_total' => $price_total, // price total di kosongkan dulu karena item belum masuk, setelah item masuk di di iterasi barulah di hitung total_price untuk diupdate
             'store_id' => $store_id,
             'customer_id' => $customer_id,
+            'employee_id' => $employee_id,
             'due_at' => $due_at,
             'created_at' => $createdAt,
             'is_deleted' => 0
         ];
         $insert = $this->Kasir_model->insert_transaction($data_transaction);
 
-        // END PROSES INSERT DATA TRANSAKSI
+        // // END PROSES INSERT DATA TRANSAKSI
+        $invoice_id = $this->Kasir_model->get_row_terbaru();
+        $invoice_id = $invoice_id['id']; //id_transaksi
+        $tanggal = unix_to_human(now(), true, 'europe');
+        $tanggal = explode(" ", $tanggal);
+        $tanggal = $tanggal[0];
+        echo $tanggal;
+
+        $is_there_number_invoice = $this->Kasir_model->cek_number_invoice($tanggal);
+        $is_there_number_invoice2 = $this->Kasir_model->cek_invoice_terakhir($tanggal);
 
 
+
+        $tanggal = explode("-", $tanggal);
+        // INVOICE NUMBER PERBULAN
+
+        var_dump($is_there_number_invoice);
+        var_dump($is_there_number_invoice2);
+        if ($is_there_number_invoice) { //saat nomor pada hari pertama tidak ada
+
+
+            $invoice1 = "NO. " . "1/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
+            // echo $invoice1;
+
+            // echo "bangsat";
+        } elseif ($is_there_number_invoice2) { //invoice pada hari itu ada
+
+            // var_dump($is_there_number_invoice2);
+            $invoice_number =  $is_there_number_invoice2['invoice_number'];
+            // $invoice_sebelumnya = $is_there_number_invoice2['invoice_number'];
+            $invoice_sebelumnya = explode("/", $invoice_number);
+            $invoice_sebelumnya = $invoice_sebelumnya[0];
+            $invoice_sebelumnya = explode(" ", $invoice_sebelumnya);
+            $invoice_sebelumnya = $invoice_sebelumnya[1];
+            $nomor_invoice_sekarang = $invoice_sebelumnya + 1;
+            $invoice1 = "NO. " . "$nomor_invoice_sekarang/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
+        }
+
+
+
+        $paid_amount = $this->input->post('paid_amount'); //yang dibayarkan oleh pembeli
+        // sisa yang harus dibayar (lunas atau tidak)
+
+
+        $data_invoice = [
+            'id' => '',
+            'invoice_number' => $invoice1,
+            'paid_amount' => $paid_amount,
+            'left_to_paid' => 0,
+            // 'paid_at' => '',
+            'transaction_id' => $invoice_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
+
+            'created_at' => $createdAt,
+            'is_deleted' => 0
+
+        ];
+        $insert = $this->Kasir_model->insert_invoice($data_invoice);
 
 
 
@@ -103,14 +147,14 @@ class Kasir extends CI_Controller
 
         // untuk mengambil data id terbaru yang di insert diatas karena auto increament
         // setelah id didapat maka lakukan insert pada invoice item, dilakukan berulang ulang sesuai dengan jumlah produk yang dimasukkan
-        $invoice_id = $this->Kasir_model->get_row_terbaru();
-        $invoice_id = $invoice_id['id'];
+
 
 
         // var_dump($quantity);
         // echo "<br>";
         // var_dump($checkbox_value);
-
+        $data_id_invoice_terakhir = $this->Kasir_model->cek_id_invoice_terakhir();
+        $data_id_invoice_terakhir = $data_id_invoice_terakhir['id'];
         // BEGIN PERULANGAN UNTUK BANYAK PRODUK YANG MASUK
         foreach ($checkbox_value as $id_product) {
 
@@ -124,27 +168,30 @@ class Kasir extends CI_Controller
             $price = $this->Product_model->get_by_id($id_product);
 
 
+
+
             //setelah price diambil maka simpan pada array data
             // PENTING, index quantity adalah id_product - 1 karena value dan indexnya tidak sesuai
             $data_invoice_item = [
                 'id' => '',
                 'quantity' => $quantity[$id_product],
-                'item_price' => $price->price_base,
-                'invoice_id' => $invoice_id,
+                'item_price' => $price->price_base * $quantity[$id_product],
+                'invoice_id' => $data_id_invoice_terakhir,
                 'product_id' => $id_product
             ];
+
             $insert = $this->Kasir_model->insert_invoice_item($data_invoice_item); //kemudian masukkan data invoice kedalam tabel
 
 
 
             // setelah data invoice masing-masing item ada, maka kita dapat menghitung harga totalnya dengan menjumlahkan
-            $item_price_total +=  $price->price_base;
+            $item_price_total +=  $price->price_base * $quantity[$id_product];
 
 
             // product_mutation akan menghasilkan history barang yang keluar dari store mana, produk apa, serta siapa yang melakukan
 
             // $mutation_code = $invoice . rand(10, 100); //Masih data dummy 
-            $mutation_code = "MUTATION-" . date('Y-m-d h:i:sa');
+            $mutation_code = "MUTATION-" . date('Y-m-d h:i:sa') . rand(10, 1000);
             $data_product_mutation = [
                 'id' => '',
                 'product_id' =>  $id_product,
@@ -159,13 +206,23 @@ class Kasir extends CI_Controller
 
 
             //setelah data di insert pada produk mutasi, kita juga harus mengupdate kuantitas barang yang kita keluarkan yaitu dengan mengirimkan id produk yang keluar serta kuantitas produk yang keluar
-            $data_update_inventory_product = [
-                'id' => $id_product,
-                'quantity' => $quantity[$id_product],
-                'store_id' => $_SESSION['store_id']
-            ];
-            var_dump($data_update_inventory_product);
-            $update = $this->Kasir_model->update_quantity_inventory_product($data_update_inventory_product);
+
+            // UPDATE QUANTITIY LOGICNYA DISINI
+
+            // cari tahu komposisi pada suatu produk
+            $komposisi = $this->Kasir_model->cek_komposisi($id_product);
+            foreach ($komposisi as $data) {
+                $material_id = $data['material_id'];
+                $volume = $data['volume'];
+                $quantity_material = $quantity[$id_product] * $volume;
+                $data = [
+                    'material_id' => $material_id,
+                    'quantity_material' => $quantity_material,
+                    'store_id' => $store_id
+                ];
+                // query update material
+                $this->Kasir_model->update_quantity_material($data);
+            }
             $i++;
         }
 
@@ -185,56 +242,18 @@ class Kasir extends CI_Controller
         ];
         $update_price_total = $this->Kasir_model->update_total_price($data_update);
 
-        //INVOICE FORMAT NO. 49/AR/03/2020
-
-        // echo date('Y');
-        $tanggal = date('Y-m-d');
-        $tanggal2 = date('Y-m-d');
-
-        $is_there_number_invoice = $this->Kasir_model->cek_number_invoice($tanggal);
-        $is_there_number_invoice2 = $this->Kasir_model->cek_invoice_terakhir($tanggal2);
-        var_dump($is_there_number_invoice2);
-        echo $is_there_number_invoice;
-        if ($is_there_number_invoice) { //saat nomor pada hari pertama tidak ada
-            $invoice1 = "NO. " . "1/AR/" . date('d') . "/" . date('m') . "/" . date('Y');
-            echo $invoice1;
-            // echo "bangsat";
-        } elseif ($is_there_number_invoice2) { //invoice pada hari itu ada
-
-            // var_dump($is_there_number_invoice2);
-            $invoice_number =  $is_there_number_invoice2['invoice_number'];
-            // $invoice_sebelumnya = $is_there_number_invoice2['invoice_number'];
-            $invoice_sebelumnya = explode("/", $invoice_number);
-            $invoice_sebelumnya = $invoice_sebelumnya[0];
-            $invoice_sebelumnya = explode(" ", $invoice_sebelumnya);
-            $invoice_sebelumnya = $invoice_sebelumnya[1];
-            $nomor_invoice_sekarang = $invoice_sebelumnya + 1;
-            $invoice1 = "NO. " . "$nomor_invoice_sekarang/AR/" . date('d') . "/" . date('m') . "/" . date('Y');
-        }
-
-
-
-        $paid_amount = $this->input->post('paid_amount'); //yang dibayarkan oleh pembeli
-        // sisa yang harus dibayar (lunas atau tidak)
         $left_to_paid = $paid_amount - $item_price_total;
-        $data_invoice = [
-            'id' => '',
-            'invoice_number' => $invoice1,
-            'paid_amount' => $paid_amount,
-            'left_to_paid' => $left_to_paid,
-            // 'paid_at' => '',
-            'transaction_id' => $invoice_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
-            'employee_id' => $employee_id,
-            'created_at' => $createdAt,
-            'is_deleted' => 0
-
+        $data_update_invoice = [
+            'id' => $data_id_invoice_terakhir,
+            'left_to_paid' => $left_to_paid
         ];
-        $insert = $this->Kasir_model->insert_invoice($data_invoice);
+        $update_left_to_paid = $this->Kasir_model->update_left_to_paid($data_update_invoice);
     }
 
 
 
-    // TODO LIST BUAT quantity dinamis berdasarkan toko
-    // CUSTOM HARGA
+    //    TODO LIST :  VIEW KASIR BASE ON STORE, 
+
+    // DONE : CUSTOMER TYPE ON INVOICE, CUSTOM ALAMAT , UPDATE QUANTITY,INVOICE BY MONTH
 
 }

@@ -95,13 +95,24 @@ class Kasir_model extends CI_Model
     public function cek_number_invoice($data)
     {
         $tanggal = $data;
+        $tanggal = explode("-", $tanggal);
+        $tanggal = $tanggal[1];
 
-        $this->db->select('*');
-        $this->db->from('invoice');
-        $this->db->where("created_at", $tanggal);
+        // $this->db->select('*');
+        // $this->db->from('invoice');
+        // $this->db->where("created_at", $tanggal);
 
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
+        // $query = $this->db->get();
+
+        $query = $this->db->query("SELECT * FROM invoice  ORDER BY id DESC LIMIT 1 ");
+        $row = $query->row_array();
+        $row = $row['created_at'];
+        $row = explode("-", $row);
+        $row = $row[1];
+
+
+
+        if ($row == $tanggal) {
             return false;
         }
         return true;
@@ -111,10 +122,78 @@ class Kasir_model extends CI_Model
     {
         $tanggal = $data;
 
-        $query = $this->db->query("SELECT * FROM invoice WHERE created_at='$tanggal' ORDER BY id DESC LIMIT 1 ");
+        $query = $this->db->query("SELECT * FROM invoice ORDER BY id DESC LIMIT 1 ");
 
         $row = $query->row_array();
         // $row = $query->last_row();
+
+        return $row;
+    }
+
+
+    public function cek_id_invoice_terakhir()
+    {
+
+
+        $query = $this->db->query("SELECT * FROM invoice WHERE is_deleted=0 ORDER BY id DESC LIMIT 1 ");
+
+        $row = $query->row_array();
+
+
+        return $row;
+    }
+
+    public function update_left_to_paid($data)
+    {
+        $id = $data['id'];
+        $left_to_paid = $data['left_to_paid'];
+        $this->db->set('left_to_paid', $left_to_paid, FALSE);
+        $this->db->where('id', $id);
+        $this->db->update('invoice');
+    }
+
+
+
+    public function cek_komposisi($data)
+    {
+        $id_product = $data;
+
+        $this->db->select('*');
+        $this->db->from('product_composition');
+        $this->db->where("product_id", $id_product);
+
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
+
+    public function update_quantity_material($data)
+    {
+        $material_id = $data['material_id'];
+        $quantity = $data['quantity_material'];
+        $store_id = $data['store_id'];
+        $query = $this->db->query("UPDATE material_inventory SET quantity = quantity - $quantity WHERE material_id = $material_id AND store_id=$store_id");
+    }
+
+    public function cek_kuantitas_material($id_product)
+    {
+        $query = $this->db->query("SELECT * FROM product_composition WHERE product_id = $id_product");
+
+        $row = $query->result_array();
+
+
+        return $row;
+    }
+
+    public function cek_inventory($id_material)
+    {
+        $query = $this->db->query("SELECT * FROM material_inventory WHERE material_id =$id_material");
+
+        $row = $query->result_array();
+
 
         return $row;
     }

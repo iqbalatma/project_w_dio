@@ -58,6 +58,18 @@
 
 
 
+
+                                <div>
+                                    <div class="form-group">
+                                        <label for="custom_alamat">Custom Alamat ? </label>
+                                        <input type="checkbox" class="ml-2" id="custom_alamat" name="custom_alamat" onclick="myFunction()">
+                                        </input>
+                                    </div>
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+
                                 <div id="form_custom_kasir">
                                     <div class="form-group">
                                         <label for="alamat_pelanggan">Alamat Pelanggan</label>
@@ -71,35 +83,95 @@
                                     </div>
                                 </div>
 
+
+
+
                                 <script type="text/javascript">
                                     <?php echo $jsArray; ?>
+
+                                    // document.getElementById('custom_alamat').onclick = function() {
+                                    //     document.getElementById('alamat_pelanggan').removeAttribute('readonly');
+                                    // };
+
+
+                                    function myFunction() {
+                                        // Get the checkbox
+                                        var checkBox = document.getElementById("custom_alamat");
+                                        // Get the output text
+                                        var alamat = document.getElementById("alamat_pelanggan");
+
+                                        // If the checkbox is checked, display the output text
+                                        if (checkBox.checked == true) {
+                                            alamat.removeAttribute('readonly');
+                                        } else {
+
+                                            alamat.setAttribute('readonly', true);
+                                        }
+                                    }
+
+
+
+
 
                                     function changeValue(id) {
                                         document.getElementById('alamat_pelanggan').value = prdName[id].alamat_pelanggan;
                                         document.getElementById('phone').value = prdName[id].phone;
-
                                     };
                                 </script>
+
 
                                 <div class="form-group">
 
                                     <label class="form-label">Barang yang dibeli</label>
 
-                                    <!-- <?php echo  $trans_number = 'TRANS-' . date("m.d.y"); ?> -->
+
                                     <div class="selectgroup selectgroup-pills">
+
+
+
+
+
 
                                         <?php
                                         $i = 0;
                                         foreach ($data_product as $row) {
                                         ?>
+
+
+
+
+
                                             <label class="selectgroup-item">
                                                 <input type="checkbox" name="product[<?= $i; ?>]" value="<?= $row['id']; ?>" class="selectgroup-input">
                                                 <span class="selectgroup-button"><?= $row['full_name']; ?> | Rp <?= $row['price_retail']; ?></span>
+                                                <?php
+
+                                                $cek_kuantitas_material = $this->Kasir_model->cek_kuantitas_material($row['id']); //mencari data material berdasarkan id_product
+
+                                                $kuantitas_product = array();
+                                                $q = 0;
+                                                foreach ($cek_kuantitas_material as $data) {
+                                                    $volume = $data['volume'];
+                                                    $material_id = $data['material_id']; //id material pada satu product
+
+                                                    $cek_inventory = $this->Kasir_model->cek_inventory($material_id);
+                                                    $cek_inventory = $cek_inventory[0]['quantity'];
+                                                    $quantity = $cek_inventory / $volume;
+
+                                                    // echo $volume . " ---" . $material_id . "--- " . $cek_inventory . " ---- " . $quantity;
+                                                    // echo "<br>";
+                                                    $kuantitas_product[$q] = $quantity;
+                                                    $q++;
+                                                }
+                                                sort($kuantitas_product);
+                                                $kuantitas_material = $kuantitas_product[0];
+                                                ?>
+
 
                                                 <select name="quantity[<?= $row['id']; ?>]" id="quantity">
                                                     <?php
                                                     $j = 1;
-                                                    while ($j <= $row['quantity']) {
+                                                    while ($j <= $kuantitas_material) {
                                                     ?>
                                                         <option value="<?= $j; ?>"><?= $j; ?></option>
 

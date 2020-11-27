@@ -121,6 +121,23 @@ class Product_model extends CI_Model
     }
     return FALSE;
   }
+  public function get_all2($select = '*')
+  {
+    // $this->db->select($select);
+    // $this->db->from($this->table);
+    // $this->db->join("product_composition", "product.id = product_composition.product_id");
+    // $this->db->where('product.is_deleted', 0);
+    // $this->db->order_by('product.id', 'ASC');
+
+
+
+    $query = $this->db->query("SELECT DISTINCTROW product.id, product.full_name, product.price_retail FROM product INNER JOIN product_composition ON product.id = product_composition.product_id WHERE product.is_deleted = 0");
+
+    $row = $query->result_array();
+    return $row;
+  }
+
+
 
   /**
    * Get one product by the product unique id
@@ -222,10 +239,9 @@ class Product_model extends CI_Model
   }
   public function get_by_store_id($id)
   {
-    $this->db->select('product.id, product.product_code, product.full_name, product_inventory.quantity, product.price_retail');
+    $this->db->select('product.id, product.product_code, product.full_name, product.price_retail');
     $this->db->from($this->table);
-    $this->db->join('product_inventory', 'product_inventory.product_id = product.id');
-    $this->db->where("store_id", $id);
+    // $this->db->where("store_id", $id);
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
