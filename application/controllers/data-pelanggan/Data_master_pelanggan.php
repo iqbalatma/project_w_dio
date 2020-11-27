@@ -73,7 +73,7 @@ class Data_master_pelanggan extends CI_Controller
       } // end form_validation->run()
     }
 
-    public function edit($id=NULL)
+    public function edit($id = NULL)
     {
       if ($id === NULL)
       {
@@ -185,7 +185,8 @@ class Data_master_pelanggan extends CI_Controller
       }else {
         // insert data to db
         $post   = $this->input->post();
-        $query = $this->customer_m->set_new_customer_price_by_id($id, $post);
+        $query  = $this->customer_m->set_new_customer_price_by_id($id, $post);
+        // pprintd($query);
 
         if ($query) {
           // flashdata untuk sweetalert
@@ -198,8 +199,8 @@ class Data_master_pelanggan extends CI_Controller
         }else {
           // flashdata untuk sweetalert
           $this->session->set_flashdata('failed_message', 1);
-          $this->session->set_flashdata('title', "Data harga gagal!");
-          $this->session->set_flashdata('text', 'Data gagal diproses! Hubungi administrator segera.');
+          $this->session->set_flashdata('title', "Gagal! Kode produk salah.");
+          $this->session->set_flashdata('text', 'Jika masih berlanjut hubungi administrator segera.');
           // kembali ke laman sebelumnya sesuai hirarki controller
           redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
         } // end if($query): success or failed

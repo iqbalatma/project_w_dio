@@ -6,11 +6,12 @@ $_data_gudang           = 'data-gudang';
 $_data_produksi         = 'data-produksi';
 $_data_penjualan        = 'data-penjualan';
 $_data_keuangan         = 'data-keuangan';
+$_data_laporan          = 'data-laporan';
 $_data_pelanggan        = 'data-pelanggan';
 $_data_pegawai          = 'data-pegawai';
 $_informasi_perusahaan  = 'informasi-perusahaan';
 $_kasir                 = 'kasir';
-$_cetak                 = 'cetak';
+$_input_pengeluaran     = 'input-pengeluaran';
 
 // Role sesuai dengan masing2 role id
 // {owner=1 ; admin=2 ; cashier=3}
@@ -20,15 +21,15 @@ $_role_2            = '2';
 $_role_3            = '3';
 
 // Every menu and submenu has array key named 'hasAccess' and the value 0 or 1 returned from helper,
-// helper access_menu take 2 params, the first one is the logged in role id and the second is array
+// helper role_access take 2 params, the first one is the logged in role id and the second is array
 // containing comma seperated value refer to role id that will be matched up with the first params.
 // 
-// 'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+// 'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
 
 
 $mainMenu = array(
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 1,
     'name'    => 'Dashboard',
     'slug'    => $_dashboard,
@@ -37,7 +38,7 @@ $mainMenu = array(
     'submenu' => FALSE,
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 2,
     'name'    => 'Data Gudang',
     'slug'    => $_data_gudang,
@@ -45,17 +46,17 @@ $mainMenu = array(
     'icon'    => 'fas fa-layer-group',
     'submenu' => array(
       [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
         'name'  => 'Data Barang Mentah',
         'slug'  => 'data-barang-mentah',
         'url'   => "{$_data_gudang}/data-barang-mentah",
       ],[
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
         'name'  => 'Data Inventory Barang Mentah',
         'slug'  => 'data-inventory-barang-mentah',
         'url'   => "{$_data_gudang}/data-inventory-barang-mentah",
       ],[
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
         'name'  => 'Data Transaksi Barang',
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
@@ -63,7 +64,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
     'no'      => 3,
     'name'    => 'Data Produksi',
     'slug'    => $_data_produksi,
@@ -71,25 +72,25 @@ $mainMenu = array(
     'icon'    => 'fas fa-shapes',
     'submenu' => array(
       [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Master Produk',
         'slug'  => 'data-master-produk',
         'url'   => "{$_data_produksi}/data-master-produk",
-      ],[
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-        'name'  => 'Data Inventory Produk',
-        'slug'  => 'data-inventory-produk',
-        'url'   => "{$_data_produksi}/data-inventory-produk",
-      ],[
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-        'name'  => 'Data Transaksi Produk',
-        'slug'  => 'data-transaksi-produk',
-        'url'   => "{$_data_produksi}/data-transaksi-produk",
+      // ],[
+      //   'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+      //   'name'  => 'Data Inventory Produk',
+      //   'slug'  => 'data-inventory-produk',
+      //   'url'   => "{$_data_produksi}/data-inventory-produk",
+      // ],[
+      //   'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+      //   'name'  => 'Data Transaksi Produk',
+      //   'slug'  => 'data-transaksi-produk',
+      //   'url'   => "{$_data_produksi}/data-transaksi-produk",
       ],
     )
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
     'no'      => 4,
     'name'    => 'Data Penjualan',
     'slug'    => $_data_penjualan,
@@ -97,20 +98,20 @@ $mainMenu = array(
     'icon'    => 'fas fa-signal',
     'submenu' => array(
       [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Master Penjualan',
         'slug'  => 'data-penjualan',
         'url'   => "{$_data_penjualan}/data-penjualan",
       ], [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-        'name'  => 'Data Penjualan per Cabang',
-        'slug'  => 'data-penjualan#per-cabang',
-        'url'   => "{$_data_penjualan}/data-penjualan#per-cabang",
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Data Penjualan per Toko',
+        'slug'  => 'data-penjualan#per-toko',
+        'url'   => "{$_data_penjualan}/data-penjualan#per-toko",
       ],
     )
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
     'no'      => 5,
     'name'    => 'Data Keuangan',
     'slug'    => $_data_keuangan,
@@ -118,22 +119,22 @@ $mainMenu = array(
     'icon'    => 'fas fa-money-bill-wave',
     'submenu' => array(
       [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Hutang Piutang',
         'slug'  => 'data-hutang-piutang',
         'url'   => "{$_data_keuangan}/data-hutang-piutang",
       ], [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Pengeluaran',
         'slug'  => 'data-pengeluaran',
         'url'   => "{$_data_keuangan}/data-pengeluaran",
       ], [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Laba / Rugi',
         'slug'  => 'data-laba-rugi',
         'url'   => "{$_data_keuangan}/data-laba-rugi",
       ], [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Kas Perusahaan',
         'slug'  => 'data-kas-perusahaan',
         'url'   => "{$_data_keuangan}/data-kas-perusahaan",
@@ -141,15 +142,73 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
     'no'      => 6,
+    'name'    => 'Data Laporan',
+    'slug'    => $_data_laporan,
+    'url'     => $_data_laporan,
+    'icon'    => 'fas fa-file-alt',
+    'submenu' => array(
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Hutang piutang',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Pengeluaran',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Laba / rugi',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Kas perusahaan',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'barang masuk',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Barang keluar ke toko',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Barang keluar penjualan',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Penjualan',
+        'slug'  => '##',
+        'url'   => "{$_data_laporan}###",
+      ],
+    )
+  ],
+  [
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 7,
     'name'    => 'Data Pelanggan',
     'slug'    => $_data_pelanggan,
     'url'     => $_data_pelanggan,
     'icon'    => 'fas fa-users',
     'submenu' => array(
       [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Master Pelanggan',
         'slug'  => 'data-master-pelanggan',
         'url'   => "{$_data_pelanggan}/data-master-pelanggan",
@@ -157,15 +216,15 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-    'no'      => 7,
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'no'      => 8,
     'name'    => 'Data Pegawai',
     'slug'    => $_data_pegawai,
     'url'     => $_data_pegawai,
     'icon'    => 'fas fa-user-tie',
     'submenu' => array(
       [
-        'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Master Pegawai',
         'slug'  => 'data-master-pegawai',
         'url'   => "{$_data_pegawai}/data-master-pegawai",
@@ -173,8 +232,8 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-    'no'      => 8,
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+    'no'      => 9,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
     'url'     => $_informasi_perusahaan,
@@ -182,8 +241,8 @@ $mainMenu = array(
     'submenu' => FALSE
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-    'no'      => 9,
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_2, $_role_3]),
+    'no'      => 10,
     'name'    => 'Kasir',
     'slug'    => $_kasir,
     'url'     => $_kasir,
@@ -191,12 +250,12 @@ $mainMenu = array(
     'submenu' => FALSE,
   ],
   [
-    'hasAccess' => access_menu($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-    'no'      => 10,
-    'name'    => 'Cetak',
-    'slug'    => $_cetak,
-    'url'     => $_cetak,
-    'icon'    => 'fas fa-print',
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+    'no'      => 11,
+    'name'    => 'Input Pengeluaran',
+    'slug'    => $_input_pengeluaran,
+    'url'     => $_input_pengeluaran,
+    'icon'    => 'fas fa-share-square',
     'submenu' => FALSE,
   ],
 );

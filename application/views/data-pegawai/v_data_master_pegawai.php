@@ -8,10 +8,10 @@
                       <div class="card-header">
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
-                          <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
+                          <!-- <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
                             <i class="fa fa-plus mr-2"></i>
                             <span class="h6">Tambah data</span>
-                          </a>
+                          </a> -->
                         </div>
                       </div>
 
@@ -48,7 +48,9 @@
                             <tbody>
                               <?php
                               $i = 1;
-                              foreach ($employees as $row) : ?>
+                              foreach ($employees as $row) : 
+                              if (($row['id'] == 0) OR ($row['username'] == 'superadmin')) continue; // skip ditampilin untuk superadmin
+                              ?>
                                 <tr>
                                   <td class="px-3">
                                     <?= $i++ ?>
@@ -73,9 +75,9 @@
                                     <div class="form-button-action">
                                       <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
                                       <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                      <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
+                                      <!-- <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
                                         <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
-                                      </span>
+                                      </span> -->
                                     </div>
                                   </td>
                                 </tr>
