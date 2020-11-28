@@ -50,31 +50,25 @@
                         </div>
                         <div class="form-group">
                             <label for="store">Toko</label>
-                            <select class="form-control store" id="store" name="store">
-                                <?php foreach ($data_store as $row) {
-                                ?>
-                                    <option value="<?= $row->id; ?>"><?= $row->store_name; ?></option>
-                                <?php
-                                }; ?>
-                            </select>
-                            <?= form_error('material_code', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <input type="text" class="form-control store    " name="store" id="store" value="Gudang Pusat" readonly disabled>
+
                         </div>
                         <div class="form-group">
                             <label for="quantity">Jumlah</label>
                             <input type="text" class="form-control quantity" id="quantity" placeholder="Masukkan jumlah barang" name="quantity" required>
                             <?= form_error('quantity', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="suplier">Suplier</label>
                             <input type="text" class="form-control suplier" id="suplier" placeholder="Masukkan penginput" name="suplier" required>
                             <?= form_error('suplier', '<small class="text-danger pl-3">', '</small>'); ?>
-                        </div>
+                        </div> -->
 
                         <div id="alert-msg"></div>
                     </div>
                     <div class="card-action">
                         <input type="hidden" name="id" class="id"></input>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                        <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
                         <button type="submit" name="submit" id="submit_barang_masuk" class="btn btn-primary">Masukkan Barang</button>
                     </div>
                     <?= form_close(); ?>

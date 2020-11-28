@@ -19,7 +19,10 @@ class Material_model extends CI_Model
 
     public function getAll()
     {
-        return $this->db->get_where($this->table, array('is_deleted' => 0))->result();
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get_where($this->table, array('is_deleted' => 0));
+
+        return $query->result();
     }
 
     public function getById($id)
@@ -63,6 +66,7 @@ class Material_model extends CI_Model
         $this->db->join("material", "material_mutation.material_id = material.id");
         $this->db->join("store", "material_mutation.store_id = store.id");
         $this->db->where("material_mutation.is_deleted", 0);
+        $this->db->order_by("material_mutation.created_at", "DESC");
         $query = $this->db->get();
 
         return $query->result();

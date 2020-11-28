@@ -46,6 +46,15 @@
                             <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Masukkan Barang</a>
                         </div>
                     </div>
+                    <?php
+
+                    $date = new DateTime(null, new DateTimeZone('Asia/Jakarta'));
+                    echo 'Europe/Amsterdam: ' . $date->getTimestamp() . '<br />' . "\r\n";
+                    echo $date->format('Y-m-d H:i:s')
+
+
+
+                    ?>
 
 
 
@@ -62,7 +71,7 @@
                                         <th class="px-3">Nama Bahan</th>
 
                                         <th class="px-3">Jumlah</th>
-                                        <th class="px-3">Tanggal Masuk</th>
+                                        <th class="px-3">Tanggal Update</th>
                                         <th class="px-3">Diinput Oleh</th>
                                         <th class="px-3" style="width: 10%">Aksi</th>
                                     </tr>
@@ -74,7 +83,7 @@
                                         <th class="px-3">Nama Bahan</th>
 
                                         <th class="px-3">Jumlah</th>
-                                        <th class="px-3">Tanggal Masuk</th>
+                                        <th class="px-3">Tanggal Update</th>
                                         <th class="px-3">Diinput Oleh</th>
                                         <th class="px-3" style="width: 10%">Aksi</th>
                                     </tr>
@@ -99,7 +108,7 @@
                                                 <?= $row->quantity ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row->created_at ?>
+                                                <?= $row->updated_at ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->created_by ?>

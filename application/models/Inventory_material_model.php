@@ -20,7 +20,7 @@ class Inventory_material_model extends CI_Model
 
     public function getAll()
     {
-        $query = $this->db->query("SELECT  material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material.full_name,  material_inventory.quantity, material_inventory.updated_by FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id INNER JOIN store ON material_inventory.store_id = store.id WHERE material_inventory.is_deleted=0");
+        $query = $this->db->query("SELECT  material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material_inventory.updated_at, material.full_name,  material_inventory.quantity, material_inventory.updated_by FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id INNER JOIN store ON material_inventory.store_id = store.id WHERE material_inventory.is_deleted=0 ORDER BY updated_at DESC");
 
         $row = $query->result();
         return $row;
@@ -74,7 +74,7 @@ class Inventory_material_model extends CI_Model
         $store_id = $data['store_id'];
         $material_id = $data['material_id'];
 
-        $cek_data = $this->db->get_where($this->table, array('material_id' => $material_id, 'store_id' => $store_id))->result();
+        $cek_data = $this->db->get_where($this->table, array('material_id' => $material_id))->result();
 
         if ($cek_data) {
             // var_dump($data);
@@ -83,7 +83,8 @@ class Inventory_material_model extends CI_Model
             $quantity_form = $data['quantity'];
             $quantitiy_table = $cek_data[0]->quantity;
             $quantity_final = $quantity_form + $quantitiy_table;
-            $slq = $this->db->query("UPDATE $this->table SET quantity = $quantity_final WHERE id=$id");
+            $updated_at = $data['updated_at'];
+            $slq = $this->db->query("UPDATE $this->table SET quantity = $quantity_final, updated_at = '$updated_at' WHERE id=$id");
             return $slq;
 
             // $sql = 
@@ -91,5 +92,11 @@ class Inventory_material_model extends CI_Model
             // var_dump($data);
             return $this->db->insert($this->table, $data);
         }
+    }
+
+    public function update($data)
+    {
+        $this->db->where('material_id', $data['material_id']);
+        return $this->db->update("material_inventory", $data);
     }
 }

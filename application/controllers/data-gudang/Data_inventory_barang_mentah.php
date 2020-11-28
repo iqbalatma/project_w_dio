@@ -82,10 +82,13 @@ class Data_inventory_barang_mentah extends CI_Controller
         } else {
 
             $material_id = $this->input->post('material_id');
-            $store_id = $this->input->post('store');
+            $store_id = 1;
             $quantity = $this->input->post('quantity');
             $updated_by = $_SESSION['username'];
             $suplier = $this->input->post('supplier');
+
+
+            $date = new DateTime(null, new DateTimeZone('Asia/Jakarta'));
 
 
             $data = [
@@ -94,11 +97,17 @@ class Data_inventory_barang_mentah extends CI_Controller
                 'created_by' => $updated_by,
                 'store_id' => $store_id,
                 'quantity' => $quantity,
+                'updated_at' => $date->format('Y-m-d H:i:s'),
                 'updated_by' => $updated_by,
                 'is_deleted' => 0
             ];
 
             $insert = $this->Inventory_material_model->insert($data);
+            // $update = $this->Inventory_material_model->update($data);
+
+
+
+
 
             $data = [
                 'id' => '',

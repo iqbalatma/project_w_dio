@@ -275,14 +275,14 @@ class Data_barang_mentah extends CI_Controller
                 // $this->session->set_flashdata('text', 'Please activate your account via email');
                 // redirect(base_url('login'));
                 $this->session->set_flashdata('message_berhasil', 'Berhasil Mengubah data');
-                redirect(base_url('data-gudang/Data_barang_kimia'));
+                redirect(base_url('data-gudang/Data_barang_mentah'));
             } else {
                 // $this->session->set_flashdata('failed_message', 1);
                 // $this->session->set_flashdata('title', 'Registration failed !');
                 // $this->session->set_flashdata('text', 'Please check again your information');
                 // redirect(base_url('register'));
                 $this->session->set_flashdata('message_gagal', 'Gagal Mengubah data');
-                redirect(base_url('data-gudang/Data_barang_kimia'));
+                redirect(base_url('data-gudang/Data_barang_mentah'));
             }
         }
     }
@@ -298,14 +298,14 @@ class Data_barang_mentah extends CI_Controller
             // $this->session->set_flashdata('text', 'Please activate your account via email');
             // redirect(base_url('login'));
             $this->session->set_flashdata('message_berhasil', 'Berhasil Menghapus data');
-            redirect(base_url('data-gudang/Data_barang_kimia'));
+            redirect(base_url('data-gudang/Data_barang_mentah'));
         } else {
             // $this->session->set_flashdata('failed_message', 1);
             // $this->session->set_flashdata('title', 'Registration failed !');
             // $this->session->set_flashdata('text', 'Please check again your information');
             // redirect(base_url('register'));
             $this->session->set_flashdata('message_gagal', 'Gagal Menghapus data');
-            redirect(base_url('data-gudang/Data_barang_kimia'));
+            redirect(base_url('data-gudang/Data_barang_mentah'));
         }
     }
 }

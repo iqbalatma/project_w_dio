@@ -27,7 +27,7 @@
                 <div class="card">
                     <?php
                     $attributes = ['id' => 'form_barang_kimia'];
-                    echo form_open_multipart('data-gudang/Data_barang_kimia/update', $attributes); ?>
+                    echo form_open_multipart('data-gudang/Data_barang_mentah/update', $attributes); ?>
                     <div class="card-header">
                         <div class="card-title">Form Tambah Data</div>
                     </div>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="card-action">
 
-                        <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
+                        <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
                         <button type="submit" name="submit" class="btn btn-primary" id="submit_barang_kimia">Ubah Data</button>
                     </div>
                     <?= form_close(); ?>

@@ -193,7 +193,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp</span>
                                         </div>
-                                        <input type="text" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran">
+                                        <input type="text" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">.00</span>
                                         </div>
