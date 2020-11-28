@@ -14,7 +14,7 @@ class Product_mutation_model extends CI_Model
   // var $tb_employee  = 'employee';
 
 
-//  ===============================================GETTER===============================================
+  //  ===============================================GETTER===============================================
   /**
    * 
    * Get total rows from certain table
@@ -28,8 +28,7 @@ class Product_mutation_model extends CI_Model
   {
     $total = $this->db->count_all_results($this->table);
 
-    if ($keyName !== NULL)
-    {
+    if ($keyName !== NULL) {
       if ($keyName === '') $keyName = 'key';
       $total = [$keyName => $total];
     }
@@ -55,12 +54,12 @@ class Product_mutation_model extends CI_Model
     $this->db->where("pm.is_deleted", 0);
     $this->db->order_by("pm.id", 'ASC');
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
   }
-  
+
   /**
    * 
    * Get one row from certain table
@@ -81,12 +80,12 @@ class Product_mutation_model extends CI_Model
     $this->db->where("pi.is_deleted", 0);
     $this->db->order_by("pi.id", 'ASC');
     $query = $this->db->get();
-    if ( $query->num_rows() == 1) {
+    if ($query->num_rows() == 1) {
       return $query->row();
     }
     return FALSE;
   }
-  
+
   /**
    * 
    * Get one store by the store unique id
@@ -106,12 +105,24 @@ class Product_mutation_model extends CI_Model
     $this->db->join($this->tb_store, "{$this->tb_store}.id={$this->table}.store_id");
     $this->db->where("{$this->table}.id", $id);
     $query = $this->db->get();
-    if ( $query->num_rows() == 1) {
+    if ($query->num_rows() == 1) {
       return $query->row();
     }
     return FALSE;
   }
-
-
-
+  public function get_by_store_id($id)
+  {
+    $this->db->select("*");
+    $this->db->from("{$this->tb_product} AS p");
+    $this->db->join("{$this->table} AS pm", "pm.product_id = p.id");
+    $this->db->join("{$this->tb_store} AS s", "s.id = pm.store_id");
+    // $this->db->where("{$this->tb_product_composition}.product_id", $id);
+    $this->db->where("pm.store_id", $id);
+    $this->db->order_by("pm.id", 'ASC');
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
 }
