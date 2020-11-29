@@ -125,4 +125,14 @@ class Product_mutation_model extends CI_Model
     }
     return FALSE;
   }
+
+  public function product_paling_laku()
+  {
+    $query = $this->db->query("SELECT *, count(product_mutation.product_id) as jumlah FROM product_mutation INNER JOIN product ON product_mutation.product_id = product.id WHERE product_mutation.mutation_type = 'keluar' GROUP BY product_mutation.product_id ORDER BY jumlah DESC LIMIT 5");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
 }

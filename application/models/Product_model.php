@@ -123,11 +123,7 @@ class Product_model extends CI_Model
   }
   public function get_all2($select = '*')
   {
-    // $this->db->select($select);
-    // $this->db->from($this->table);
-    // $this->db->join("product_composition", "product.id = product_composition.product_id");
-    // $this->db->where('product.is_deleted', 0);
-    // $this->db->order_by('product.id', 'ASC');
+
 
 
 
