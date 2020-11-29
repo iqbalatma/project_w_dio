@@ -233,34 +233,6 @@ $mainMenu = array(
   ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
-    'no'      => 9,
-    'name'    => 'Kas perusahaan',
-    'slug'    => $_kas_perusahaan,
-    'url'     => $_kas_perusahaan,
-    'icon'    => 'fas fa-share-square',
-    'submenu' => array(
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Data Master',
-        'slug'  => 'data-master',
-        'url'   => "{$_kas_perusahaan}/data-master",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Input Pengeluaran',
-        'slug'  => 'input-pengeluaran',
-        'url'   => "{$_kas_perusahaan}/input-kas/pengeluaran",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Input Pemasukan',
-        'slug'  => 'input-pemasukan',
-        'url'   => "{$_kas_perusahaan}/input-kas/pemasukan",
-      ],
-    )
-  ],
-  [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 10,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,

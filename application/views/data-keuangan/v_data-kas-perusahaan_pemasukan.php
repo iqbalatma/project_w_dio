@@ -8,7 +8,7 @@
                       <div class="card-header">
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
-                          <a href="<?= base_url('kas-perusahaan/data-master') ?>" class="close ml-auto p-1">
+                          <a href="<?= base_url('data-keuangan/data-kas-perusahaan') ?>" class="close ml-auto p-1">
                             <span aria-hidden="true">&times;</span>
                           </a>
                         </div>
@@ -83,7 +83,7 @@
 
                               <!-- button -->
                               <div class="form-group row justify-content-center mt-3">
-                                <a href="<?= base_url('kas-perusahaan/data-master') ?>" class="btn btn-light btn-border col-5 mx-1">
+                                <a href="<?= base_url('data-keuangan/data-kas-perusahaan') ?>" class="btn btn-light btn-border col-5 mx-1">
                                   Batal
                                 </a>
                                 <button type="submit" class="btn btn-success col-5 mx-1">

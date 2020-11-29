@@ -6,8 +6,19 @@
                     <div class="card">
 
                       <div class="card-header">
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-between">
+                          <!-- <span class="h3"><?= $title ?></span> -->
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
+                          <div>
+                            <a href=<?= current_url() . '/pengeluaran' ?> class="btn btn-default btn-sm ml-auto mr-2">
+                              <i class="fa fa-minus mr-2"></i>
+                              <span class="h4">Input pengeluaran kas</span>
+                            </a>
+                            <a href=<?= current_url() . '/pemasukan' ?> class="btn btn-default btn-sm ml-auto">
+                              <i class="fa fa-plus mr-2"></i>
+                              <span class="h4">Input pemasukan kas</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
 
@@ -30,7 +41,7 @@
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
                                 <th class="px-3">Aksi</th>
-                                <th></th>
+                                <th rowspan="2"></th>
                               </tr>
                             </thead>
                             <tfoot class="thead-light">
@@ -48,7 +59,7 @@
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
                                 <th class="px-3">Aksi</th>
-                                <th></th>
+                                <th rowspan="2"></th>
                               </tr>
                             </tfoot>
                             <tbody>
