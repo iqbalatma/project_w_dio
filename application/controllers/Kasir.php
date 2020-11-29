@@ -221,9 +221,10 @@ class Kasir extends CI_Controller
                     'store_id' => $store_id
                 ];
                 // query update material
-                $this->Kasir_model->update_quantity_material($data);
-
-
+                $xct = $this->Kasir_model->update_quantity_material($data);
+                echo $xct . "haha";
+                echo $material_id;
+                echo $id_product;
 
                 // INSERT PRODUCT MUTATION
                 $data = [

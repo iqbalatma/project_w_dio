@@ -175,7 +175,8 @@ class Kasir_model extends CI_Model
         $material_id = $data['material_id'];
         $quantity = $data['quantity_material'];
         $store_id = $data['store_id'];
-        $query = $this->db->query("UPDATE material_inventory SET quantity = quantity - $quantity WHERE material_id = $material_id AND store_id=$store_id");
+        $query = $this->db->query("UPDATE material_inventory SET quantity = quantity - $quantity WHERE material_id = $material_id");
+        return $query;
     }
 
     public function cek_kuantitas_material($id_product)

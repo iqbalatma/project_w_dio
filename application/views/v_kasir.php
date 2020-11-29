@@ -28,9 +28,7 @@
                     <div class="card-header">
                         <div class="card-title">Checkout Station</div>
                     </div>
-                    <?php echo date('Y-m-d h:i:sa');
-                    // echo now(); 
-                    ?>
+
                     <?= form_open('Kasir/insert'); ?>
                     <div class="card-body">
                         <div class="row">
