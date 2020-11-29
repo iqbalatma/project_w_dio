@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2020 at 10:46 AM
+-- Generation Time: Nov 29, 2020 at 01:55 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -111,7 +111,11 @@ INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `cust_type`, `cre
 (39, 'nama 15', 'Kepulauan 1014, Antartika', '08771231837', 'retail', '2020-11-20 15:00:00', 0),
 (40, 'nama 16', 'Kepulauan 1015, Antartika', '08771231838', 'reseller', '2020-11-20 15:00:00', 0),
 (41, 'nama 17', 'Kepulauan 1016, Antartika', '08771231839', 'retail', '2020-11-20 15:00:00', 0),
-(42, 'pleanggan', 'sdsadasdasdasdasd', '098765789876', 'reseller', '2020-11-21 15:51:28', 0);
+(42, 'pleanggan', 'sdsadasdasdasdasd', '098765789876', 'reseller', '2020-11-21 15:51:28', 0),
+(43, 'beruang 1', 'kutub', '087727712839', 'reseller', '2020-11-26 16:50:25', 0),
+(44, 'beruang 2', 'kutub', '0812389378878', 'reseller', '2020-11-26 16:51:32', 0),
+(45, 'beruang 3', 'kutub', '0846545451518', 'reseller', '2020-11-26 17:03:34', 0),
+(46, 'beruang 4', 'kutub', '0856215444487', 'reseller', '2020-11-26 17:04:33', 0);
 
 -- --------------------------------------------------------
 
@@ -137,11 +141,14 @@ INSERT INTO `custom_price` (`id`, `price`, `customer_id`, `product_code`, `creat
 (2, 450000, 3, 'DT001', '2020-11-20 15:00:00', 0),
 (3, 125000, 11, 'DT005', '2020-11-20 15:00:00', 0),
 (4, 40000, 24, 'DT004', '2020-11-20 15:00:00', 0),
-(5, 21000, 24, 'DT004', '2020-11-20 15:00:00', 0),
 (6, 50000, 24, 'DT005', '2020-11-20 15:00:00', 0),
 (7, 1000, 24, 'DT001', '2020-11-20 15:00:00', 0),
 (8, 25000, 24, 'DT002', '2020-11-20 15:00:00', 0),
-(9, 63500, 24, 'DT006', '2020-11-20 15:00:00', 0);
+(9, 63500, 24, 'DT006', '2020-11-20 15:00:00', 0),
+(10, 10000, 44, 'DT001', '2020-11-26 17:02:58', 0),
+(11, 1234122, 46, 'DT005', '2020-11-26 17:53:17', 0),
+(12, 23500, 46, 'DT001', '2020-11-26 17:51:47', 0),
+(13, 14000, 46, 'DT003', '2020-11-26 17:51:47', 0);
 
 -- --------------------------------------------------------
 
@@ -170,12 +177,12 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `phone`, `address`, `avatar`, `role_id`, `store_id`, `created_at`, `is_deleted`) VALUES
-(0, 'superadmin', 'superadmin@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'super', 'admin', '06969696969', 'langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
+(0, 'superadmin', 'superadmin@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'Kaisar', 'Sihir', '087717071998', 'Langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
 (1, 'pemilik', 'pemilik@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Saya', 'Pemilik', '0871263612', 'Di kantor', 'avatar-1.png', 1, 1, '2020-11-10 22:48:27', 0),
 (2, 'gudang', 'gudang@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang', '087213513441', 'Di gudang', 'avatar-1.png', 2, 1, '2020-11-10 22:52:15', 0),
 (3, 'kasir_cica', 'kasir_cica@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Cica', NULL, '0856123872', 'Di Cicalengka', 'avatar-1.png', 3, 2, '2020-11-10 22:54:23', 0),
 (4, 'kasir_uber', 'kasir_uber@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Uber', NULL, '08571123098', 'Di Ujung Beruang', 'avatar-1.png', 3, 3, '2020-11-10 22:54:23', 0),
-(5, 'admins', 'admin1@jp.com', '$2a$08$HVX6fm.h9nJlfgYJxOlHOuKxvNB8ZJhWdB/qmuksTxaIJuT2RyoCG', 'dio', 'Ilham', '081236137132', 'Dipatiukur', 'avatar-0.png', 1, 1, '2020-11-17 03:19:40', 0);
+(5, 'admins', 'admin1@jp.com', '$2a$08$HVX6fm.h9nJlfgYJxOlHOuKxvNB8ZJhWdB/qmuksTxaIJuT2RyoCG', 'dios', 'Ilham', '081236137132', 'Dipatiukur', 'avatar-0.png', 1, 1, '2020-11-17 03:19:40', 0);
 
 -- --------------------------------------------------------
 
@@ -208,7 +215,9 @@ INSERT INTO `invoice` (`id`, `invoice_number`, `paid_amount`, `left_to_paid`, `p
 (10, 'INV/6/0002', 16000, 0, '2020-11-21 17:00:00', 6, '2020-11-21 17:00:00', 0),
 (6, 'INV/6/0006', 20000, 16000, '2020-11-20 15:00:00', 6, '2020-11-20 15:00:00', 0),
 (7, 'INV/7/0007', 92000, 0, '2020-11-20 15:00:00', 7, '2020-11-20 15:00:00', 0),
-(8, 'INV/8/0008', 48500, 0, '2020-11-20 15:00:00', 8, '2020-11-20 15:00:00', 0);
+(8, 'INV/8/0008', 48500, 0, '2020-11-20 15:00:00', 8, '2020-11-20 15:00:00', 0),
+(11, 'NO. 1/AR/11/2020', 0, -10000, '2020-11-28 03:14:21', 10, '2020-11-28 03:14:21', 0),
+(12, 'NO. 2/AR/11/2020', 0, -10000, '2020-11-28 03:16:08', 11, '2020-11-28 03:16:08', 0);
 
 -- --------------------------------------------------------
 
@@ -245,7 +254,61 @@ INSERT INTO `invoice_item` (`id`, `quantity`, `item_price`, `invoice_id`, `produ
 (14, 2, 36000, 7, 5),
 (15, 4, 38000, 8, 3),
 (16, 7, 40000, 8, 6),
-(17, 1, 10000, 9, 1);
+(17, 1, 10000, 9, 1),
+(18, 1, 10000, 11, 1),
+(19, 1, 10000, 12, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kas`
+--
+
+CREATE TABLE `kas` (
+  `id` tinyint(10) NOT NULL,
+  `kas_code` varchar(100) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `description` text,
+  `date` date NOT NULL,
+  `debet` int(30) NOT NULL,
+  `kredit` int(30) NOT NULL,
+  `final_balance` int(30) NOT NULL,
+  `type` enum('debet','kredit') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kas`
+--
+
+INSERT INTO `kas` (`id`, `kas_code`, `title`, `description`, `date`, `debet`, `kredit`, `final_balance`, `type`, `created_at`, `created_by`) VALUES
+(1, 'D/20/11/0001', 'Uang kas awal', NULL, '2020-11-25', 100000000, 0, 100000000, 'debet', '2020-11-28 20:56:55', 'superadmin'),
+(2, 'K/20/11/0002', 'Sewa gudang pusat per tahun', NULL, '2020-11-26', 0, 60000000, 40000000, 'kredit', '2020-11-28 20:57:51', 'superadmin'),
+(3, 'K/20/11/0003', 'Ongkos bongkar pasang tukang', NULL, '2020-11-26', 0, 10000000, 30000000, 'kredit', '2020-11-28 20:58:09', 'superadmin'),
+(4, 'K/20/11/0004', 'Sewa toko cabang 1 per tahun', NULL, '2020-11-27', 0, 60000000, -30000000, 'kredit', '2020-11-28 20:58:40', 'superadmin'),
+(5, 'K/20/11/0005', 'Sewa toko cabang 2 per tahun', NULL, '2020-11-27', 0, 80000000, -110000000, 'kredit', '2020-11-28 20:59:12', 'superadmin'),
+(6, 'D/20/11/0006', 'Investor 1', NULL, '2020-11-28', 100000000, 0, -10000000, 'debet', '2020-11-28 20:59:25', 'superadmin'),
+(7, 'D/20/11/0007', 'Investor 2', NULL, '2020-11-29', 120000000, 0, 110000000, 'debet', '2020-11-28 20:59:39', 'superadmin'),
+(8, 'D/20/11/0008', 'Dari donatur awal bulan', NULL, '2020-12-01', 250000, 0, 110250000, 'debet', '2020-11-29 07:13:07', 'superadmin'),
+(9, 'K/20/12/0001', 'Sedekah', 'Alhamdulillah', '2020-12-29', 0, 125000, 110125000, 'kredit', '2020-12-29 07:21:20', 'superadmin'),
+(10, 'D/20/12/0002', 'Donasi', NULL, '2020-12-30', 560500, 0, 110685500, 'debet', '2020-12-29 07:22:39', 'superadmin'),
+(11, 'K/20/12/0003', 'Bensin motor', NULL, '2020-12-30', 0, 35000, 110650500, 'kredit', '2020-12-29 07:23:51', 'superadmin'),
+(12, 'K/20/12/0004', 'Bensin motor 2', '123', '2020-12-30', 0, 17000, 110633500, 'kredit', '2020-12-29 07:26:42', 'superadmin'),
+(13, 'K/20/12/0005', 'Bensin motor 3', '0', '2020-12-30', 0, 18000, 110615500, 'kredit', '2020-12-29 07:27:26', 'superadmin'),
+(14, 'K/20/12/0006', 'Bensin motor 4', '1', '2020-12-30', 0, 22000, 110593500, 'kredit', '2020-12-29 07:28:05', 'superadmin'),
+(15, 'K/20/12/0007', 'Bensin motor 5', NULL, '2020-12-30', 0, 16500, 110577000, 'kredit', '2020-12-29 07:28:45', 'superadmin'),
+(16, 'D/20/12/0008', 'Donasi', '1', '2020-12-30', 50000, 0, 110627000, 'debet', '2020-12-29 07:29:12', 'superadmin'),
+(17, 'K/20/12/0009', 'Bensin mobil', 'Mantapp', '2020-12-31', 0, 126000, 110501000, 'kredit', '2020-12-29 07:29:50', 'superadmin'),
+(18, 'K/20/12/0010', 'Bonus tunjangan akhir tahun', NULL, '2020-12-31', 0, 75265000, 35236000, 'kredit', '2020-12-29 07:30:36', 'superadmin'),
+(19, 'K/20/12/0011', 'Servis motor dan mobil', 'Servis di bengkel resmi', '2020-12-31', 0, 12000000, 23236000, 'kredit', '2020-12-29 07:31:29', 'superadmin'),
+(20, 'K/20/11/0001', 'Bayar gorengan', NULL, '2020-11-30', 0, 7000, 23229000, 'kredit', '2020-11-29 11:06:24', 'superadmin'),
+(21, 'K/20/11/0002', 'Bayar gorengan', NULL, '2020-11-30', 0, 7000, 23222000, 'kredit', '2020-11-29 11:07:09', 'superadmin'),
+(22, 'K/20/11/0003', 'Bayar mie ayam', NULL, '2020-11-30', 0, 32000, 23190000, 'kredit', '2020-11-29 11:07:54', 'superadmin'),
+(23, 'K/20/11/0004', 'Bayar mie ayam 2', NULL, '2020-11-30', 0, 21000, 23169000, 'kredit', '2020-11-29 11:09:00', 'superadmin'),
+(24, 'D/20/11/0005', 'Investor 1', NULL, '2020-11-30', 200000, 0, 23369000, 'debet', '2020-11-29 11:17:37', 'superadmin'),
+(25, 'K/20/11/0006', 'Bayar batagor', NULL, '2020-11-30', 0, 9000, 23360000, 'kredit', '2020-11-29 11:20:29', 'superadmin'),
+(26, 'D/20/11/0007', 'Donasi', NULL, '2020-11-30', 25000, 0, 23385000, 'debet', '2020-11-29 11:21:42', 'superadmin');
 
 -- --------------------------------------------------------
 
@@ -275,7 +338,10 @@ INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `c
 (2, 'BM002', 'Barang mentah 2', 'mililiter', 233, 'bahan', 'default.png', 20000, '2020-11-16 17:40:30', 0),
 (3, 'BM003', 'Barang Mentah 3', 'gram', 100, 'bahan', 'default.png', 5000, '2020-11-18 19:23:25', 0),
 (4, 'BM004', 'Barang Mentah 4', 'gram', 500, 'bahan', 'default.png', 14000, '2020-11-18 19:24:05', 0),
-(5, 'BM005', 'Barang Mentah 5', 'mililiter', 1500, 'kemasan', 'default.png', 15000, '2020-11-18 19:24:26', 0);
+(5, 'BM005', 'Barang Mentah 5', 'mililiter', 1500, 'kemasan', 'default.png', 15000, '2020-11-18 19:24:26', 0),
+(6, 'BM006', 'Barang Mentah 6', 'gram', 1, 'bahan', 'default.png', 1000, '2020-11-28 02:34:37', 0),
+(7, 'BM007', 'Barang Mentah 7', 'gram', 1, 'bahan', 'bukti_udah_di_upload_hehe.png', 125000, '2020-11-28 02:35:23', 0),
+(8, 'BM008', 'Barang Mentah 8', 'gram', 2, 'bahan', 'default.png', 7500, '2020-11-28 02:46:39', 0);
 
 -- --------------------------------------------------------
 
@@ -300,16 +366,12 @@ CREATE TABLE `material_inventory` (
 --
 
 INSERT INTO `material_inventory` (`id`, `material_id`, `store_id`, `quantity`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`) VALUES
-(1, 1, 1, 100, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(2, 1, 1, 88, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(3, 2, 1, 92, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(4, 2, 1, 56, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(5, 4, 1, 120, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(6, 4, 1, 80, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(7, 4, 1, 25, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(8, 3, 1, 44, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(9, 5, 1, 12, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(10, 5, 1, 34, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0);
+(1, 1, 1, 123, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(2, 2, 1, 80, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(3, 4, 1, 120, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(4, 3, 1, 56, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(5, 5, 1, 2, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(6, 7, 1, 100000044, '2020-11-28 02:52:51', NULL, 'superadmin', 'superadmin', 0);
 
 -- --------------------------------------------------------
 
@@ -352,7 +414,18 @@ INSERT INTO `material_mutation` (`id`, `material_id`, `store_id`, `mutation_code
 (16, 4, 1, 'MSK0016', 26, 'masuk', '2020-11-16 15:00:00', 'admins', 0),
 (17, 5, 1, 'MSK0017', 15, 'masuk', '2020-11-17 15:00:00', 'admins', 0),
 (18, 2, 1, 'MSK0018', 12, 'masuk', '2020-11-18 15:00:00', 'admins', 0),
-(19, 3, 1, 'MSK0019', 54, 'masuk', '2020-11-19 15:00:00', 'admins', 0);
+(19, 3, 1, 'MSK0019', 54, 'masuk', '2020-11-19 15:00:00', 'admins', 0),
+(24, 7, 1, 'MUTATION-MATERIAL-2020-11-27272', 100000000, 'masuk', '2020-11-28 03:04:25', 'superadmin', 0),
+(26, 1, 1, 'MUTATION-MATERIAL-2020-11-27336', 50, 'keluar', '2020-11-28 03:14:21', 'superadmin', 0),
+(30, 5, 1, 'MUTATION-MATERIAL-2020-11-27378', 5, 'keluar', '2020-11-28 03:16:09', 'superadmin', 0),
+(22, 7, 1, 'MUTATION-MATERIAL-2020-11-27428', 44, 'masuk', '2020-11-28 02:52:51', 'superadmin', 0),
+(29, 1, 1, 'MUTATION-MATERIAL-2020-11-27460', 50, 'keluar', '2020-11-28 03:16:08', 'superadmin', 0),
+(23, 3, 1, 'MUTATION-MATERIAL-2020-11-27497', 12, 'masuk', '2020-11-28 02:58:27', 'superadmin', 0),
+(21, 2, 1, 'MUTATION-MATERIAL-2020-11-27590', 8, 'masuk', '2020-11-28 02:51:18', 'superadmin', 0),
+(25, 2, 1, 'MUTATION-MATERIAL-2020-11-27697', 10, 'keluar', '2020-11-28 03:14:21', 'superadmin', 0),
+(27, 5, 1, 'MUTATION-MATERIAL-2020-11-27798', 5, 'keluar', '2020-11-28 03:14:22', 'superadmin', 0),
+(20, 1, 1, 'MUTATION-MATERIAL-2020-11-27836', 123, 'masuk', '2020-11-28 02:50:10', 'superadmin', 0),
+(28, 2, 1, 'MUTATION-MATERIAL-2020-11-27996', 10, 'keluar', '2020-11-28 03:16:08', 'superadmin', 0);
 
 -- --------------------------------------------------------
 
@@ -380,7 +453,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `product_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `price_retail`, `price_reseller`, `price_wholesale`, `created_at`, `is_deleted`) VALUES
-(1, 'DT001', 'Sabun Dettol 50ml', 'mililiter', 50, 'default.png', 10000, 20000, 19000, 18000, '2020-11-17 13:44:04', 1),
+(1, 'DT001', 'Sabun Dettol 50ml', 'mililiter', 50, 'default.png', 10000, 20000, 19000, 18000, '2020-11-17 13:44:04', 0),
 (2, 'DT002', 'Sabun Dettol 150ml', 'mililiter', 150, 'default.png', 15000, 30000, 27000, 25000, '2020-11-17 13:44:04', 0),
 (3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 25000, 50000, 45000, 40000, '2020-11-17 13:44:04', 0),
 (4, 'DT004', 'Sabun Dettol 1L', 'mililiter', 1000, 'default.png', 0, 0, 0, 0, '2020-11-18 15:37:08', 0),
@@ -458,7 +531,9 @@ INSERT INTO `product_mutation` (`id`, `product_id`, `store_id`, `mutation_code`,
 (14, 1, 3, 'MSK009', 54, 'masuk', '2020-11-14 15:00:00', 'admins', 0),
 (17, 5, 3, 'MSK010', 15, 'masuk', '2020-11-17 15:00:00', 'admins', 0),
 (18, 2, 2, 'MSK011', 12, 'masuk', '2020-11-18 15:00:00', 'admins', 0),
-(19, 3, 3, 'MSK012', 54, 'masuk', '2020-11-19 15:00:00', 'admins', 0);
+(19, 3, 3, 'MSK012', 54, 'masuk', '2020-11-19 15:00:00', 'admins', 0),
+(21, 1, 1, 'MUTATION-2020-11-27 09:14:21pm586', 1, 'keluar', '2020-11-28 03:14:21', 'superadmin', 0),
+(22, 1, 1, 'MUTATION-2020-11-27 09:16:08pm769', 1, 'keluar', '2020-11-28 03:16:08', 'superadmin', 0);
 
 -- --------------------------------------------------------
 
@@ -530,6 +605,8 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`id`, `trans_number`, `deliv_address`, `price_total`, `store_id`, `customer_id`, `employee_id`, `due_at`, `created_at`, `is_deleted`) VALUES
+(10, 'TRANS-11.27.201606529661', 'hutan flores', 10000, 1, 46, 0, '2020-12-05 03:14:21', '2020-11-28 03:14:21', 0),
+(11, 'TRANS-11.27.201606529768', 'hutan flores', 10000, 1, 46, 0, '2020-12-05 03:16:08', '2020-11-28 03:16:08', 0),
 (9, 'TRANS747417', NULL, 10000, 1, 9, 0, '2020-11-28 12:24:41', '2020-11-21 12:24:41', 0),
 (1, 'TRX2011010001', NULL, 50000, 2, 1, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
 (2, 'TRX2011010002', NULL, 15000, 2, 5, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
@@ -591,6 +668,12 @@ ALTER TABLE `invoice_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `invoice_id` (`invoice_id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `kas`
+--
+ALTER TABLE `kas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `material`
@@ -677,13 +760,13 @@ ALTER TABLE `basic_info_meta`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `custom_price`
 --
 ALTER TABLE `custom_price`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -695,31 +778,37 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `invoice_item`
 --
 ALTER TABLE `invoice_item`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `kas`
+--
+ALTER TABLE `kas`
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `material_inventory`
 --
 ALTER TABLE `material_inventory`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `material_mutation`
 --
 ALTER TABLE `material_mutation`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -737,7 +826,7 @@ ALTER TABLE `product_composition`
 -- AUTO_INCREMENT for table `product_mutation`
 --
 ALTER TABLE `product_mutation`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -755,7 +844,7 @@ ALTER TABLE `store`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

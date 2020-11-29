@@ -68,6 +68,7 @@
     <?php if (isset($datatables)) { ?>
         <!-- Datatables -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
         <script>
             $(document).ready(function() {
                 // Add Row
@@ -75,6 +76,29 @@
                     "pageLength": 25,
                 });
             });
+            
+            $(document).ready(function() {
+                $('#table-kas').DataTable( {
+                    responsive: {
+                        details: {
+                            type: 'column',
+                            target: -1,
+                            display: $.fn.dataTable.Responsive.display.modal( {
+                                header: function ( row ) {
+                                    var data = row.data();
+                                    return `Detail untuk kode : ${data[7]}`;
+                                }
+                            } ),
+                            renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+                        }
+                    },
+                    columnDefs: [ {
+                        className: 'control',
+                        orderable: false,
+                        targets:   -1
+                    } ],
+                } );
+            } );
         </script>
     <?php } ?>
 

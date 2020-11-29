@@ -80,6 +80,8 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/datatables/jquery.dataTables.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/datatables/responsive.dataTables.min.css') ?>">
     
     <?php // SCROLLBAR STYLING ?>
     <style>
