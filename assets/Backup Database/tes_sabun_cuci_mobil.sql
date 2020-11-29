@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 09:59 PM
+-- Generation Time: Nov 29, 2020 at 01:55 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -289,7 +289,26 @@ INSERT INTO `kas` (`id`, `kas_code`, `title`, `description`, `date`, `debet`, `k
 (4, 'K/20/11/0004', 'Sewa toko cabang 1 per tahun', NULL, '2020-11-27', 0, 60000000, -30000000, 'kredit', '2020-11-28 20:58:40', 'superadmin'),
 (5, 'K/20/11/0005', 'Sewa toko cabang 2 per tahun', NULL, '2020-11-27', 0, 80000000, -110000000, 'kredit', '2020-11-28 20:59:12', 'superadmin'),
 (6, 'D/20/11/0006', 'Investor 1', NULL, '2020-11-28', 100000000, 0, -10000000, 'debet', '2020-11-28 20:59:25', 'superadmin'),
-(7, 'D/20/11/0007', 'Investor 2', NULL, '2020-11-29', 120000000, 0, 110000000, 'debet', '2020-11-28 20:59:39', 'superadmin');
+(7, 'D/20/11/0007', 'Investor 2', NULL, '2020-11-29', 120000000, 0, 110000000, 'debet', '2020-11-28 20:59:39', 'superadmin'),
+(8, 'D/20/11/0008', 'Dari donatur awal bulan', NULL, '2020-12-01', 250000, 0, 110250000, 'debet', '2020-11-29 07:13:07', 'superadmin'),
+(9, 'K/20/12/0001', 'Sedekah', 'Alhamdulillah', '2020-12-29', 0, 125000, 110125000, 'kredit', '2020-12-29 07:21:20', 'superadmin'),
+(10, 'D/20/12/0002', 'Donasi', NULL, '2020-12-30', 560500, 0, 110685500, 'debet', '2020-12-29 07:22:39', 'superadmin'),
+(11, 'K/20/12/0003', 'Bensin motor', NULL, '2020-12-30', 0, 35000, 110650500, 'kredit', '2020-12-29 07:23:51', 'superadmin'),
+(12, 'K/20/12/0004', 'Bensin motor 2', '123', '2020-12-30', 0, 17000, 110633500, 'kredit', '2020-12-29 07:26:42', 'superadmin'),
+(13, 'K/20/12/0005', 'Bensin motor 3', '0', '2020-12-30', 0, 18000, 110615500, 'kredit', '2020-12-29 07:27:26', 'superadmin'),
+(14, 'K/20/12/0006', 'Bensin motor 4', '1', '2020-12-30', 0, 22000, 110593500, 'kredit', '2020-12-29 07:28:05', 'superadmin'),
+(15, 'K/20/12/0007', 'Bensin motor 5', NULL, '2020-12-30', 0, 16500, 110577000, 'kredit', '2020-12-29 07:28:45', 'superadmin'),
+(16, 'D/20/12/0008', 'Donasi', '1', '2020-12-30', 50000, 0, 110627000, 'debet', '2020-12-29 07:29:12', 'superadmin'),
+(17, 'K/20/12/0009', 'Bensin mobil', 'Mantapp', '2020-12-31', 0, 126000, 110501000, 'kredit', '2020-12-29 07:29:50', 'superadmin'),
+(18, 'K/20/12/0010', 'Bonus tunjangan akhir tahun', NULL, '2020-12-31', 0, 75265000, 35236000, 'kredit', '2020-12-29 07:30:36', 'superadmin'),
+(19, 'K/20/12/0011', 'Servis motor dan mobil', 'Servis di bengkel resmi', '2020-12-31', 0, 12000000, 23236000, 'kredit', '2020-12-29 07:31:29', 'superadmin'),
+(20, 'K/20/11/0001', 'Bayar gorengan', NULL, '2020-11-30', 0, 7000, 23229000, 'kredit', '2020-11-29 11:06:24', 'superadmin'),
+(21, 'K/20/11/0002', 'Bayar gorengan', NULL, '2020-11-30', 0, 7000, 23222000, 'kredit', '2020-11-29 11:07:09', 'superadmin'),
+(22, 'K/20/11/0003', 'Bayar mie ayam', NULL, '2020-11-30', 0, 32000, 23190000, 'kredit', '2020-11-29 11:07:54', 'superadmin'),
+(23, 'K/20/11/0004', 'Bayar mie ayam 2', NULL, '2020-11-30', 0, 21000, 23169000, 'kredit', '2020-11-29 11:09:00', 'superadmin'),
+(24, 'D/20/11/0005', 'Investor 1', NULL, '2020-11-30', 200000, 0, 23369000, 'debet', '2020-11-29 11:17:37', 'superadmin'),
+(25, 'K/20/11/0006', 'Bayar batagor', NULL, '2020-11-30', 0, 9000, 23360000, 'kredit', '2020-11-29 11:20:29', 'superadmin'),
+(26, 'D/20/11/0007', 'Donasi', NULL, '2020-11-30', 25000, 0, 23385000, 'debet', '2020-11-29 11:21:42', 'superadmin');
 
 -- --------------------------------------------------------
 
@@ -771,7 +790,7 @@ ALTER TABLE `invoice_item`
 -- AUTO_INCREMENT for table `kas`
 --
 ALTER TABLE `kas`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `material`
