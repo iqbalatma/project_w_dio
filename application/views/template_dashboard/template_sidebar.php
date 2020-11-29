@@ -234,6 +234,34 @@ $mainMenu = array(
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 9,
+    'name'    => 'Kas perusahaan',
+    'slug'    => $_kas_perusahaan,
+    'url'     => $_kas_perusahaan,
+    'icon'    => 'fas fa-share-square',
+    'submenu' => array(
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Data Master',
+        'slug'  => 'data-master',
+        'url'   => "{$_kas_perusahaan}/data-master",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Input Pengeluaran',
+        'slug'  => 'input-pengeluaran',
+        'url'   => "{$_kas_perusahaan}/input-kas/pengeluaran",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'name'  => 'Input Pemasukan',
+        'slug'  => 'input-pemasukan',
+        'url'   => "{$_kas_perusahaan}/input-kas/pemasukan",
+      ],
+    )
+  ],
+  [
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+    'no'      => 10,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
     'url'     => $_informasi_perusahaan,
@@ -242,40 +270,12 @@ $mainMenu = array(
   ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_2, $_role_3]),
-    'no'      => 10,
+    'no'      => 11,
     'name'    => 'Kasir',
     'slug'    => $_kasir,
     'url'     => $_kasir,
     'icon'    => 'fas fa-address-card',
     'submenu' => FALSE,
-  ],
-  [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
-    'no'      => 11,
-    'name'    => 'Kas perusahaan',
-    'slug'    => $_kas_perusahaan,
-    'url'     => $_kas_perusahaan,
-    'icon'    => 'fas fa-share-square',
-    'submenu' => array(
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
-        'name'  => 'Data Master',
-        'slug'  => 'data-master',
-        'url'   => "{$_kas_perusahaan}/data-master",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
-        'name'  => 'Input Pengeluaran',
-        'slug'  => 'input-pengeluaran',
-        'url'   => "{$_kas_perusahaan}/input-kas/pengeluaran",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
-        'name'  => 'Input Pemasukan',
-        'slug'  => 'input-pemasukan',
-        'url'   => "{$_kas_perusahaan}/input-kas/pemasukan",
-      ],
-    )
   ],
 );
 

@@ -86,7 +86,7 @@
                             display: $.fn.dataTable.Responsive.display.modal( {
                                 header: function ( row ) {
                                     var data = row.data();
-                                    return `Detail untuk kode : ${data[2]}`;
+                                    return `Detail untuk kode : ${data[7]}`;
                                 }
                             } ),
                             renderer: $.fn.dataTable.Responsive.renderer.tableAll()

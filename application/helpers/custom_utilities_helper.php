@@ -147,4 +147,31 @@ if ( ! function_exists('pprintd'))
   }
 }
 
+
+
+
+// belum dipakai, cuma buat next projek
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('set_swal'))
+{
+	/**
+	 * Set flashdata session for calling sweetalert popup
+	 *
+	 * @param	array	$swal Berisi 3 array yang masing2 adalah string
+	*/
+  function set_swal($swal)
+  {
+    if ($swal[0] == 'success') $this->session->set_flashdata('success_message', 1);
+    if ($swal[0] == 'failed') $this->session->set_flashdata('failed_message', 1);
+    $this->session->set_flashdata('title', $swal[1]);
+    $this->session->set_flashdata('text', $swal[2]);
+  }
+
+  // ? contoh penggunaan
+  // $swal = ['success', 'Judul dari sweetalert', 'Kalo ini kontennya dari sweetalert'];
+  // set_swal($swal);
+}
+
+
 ?>

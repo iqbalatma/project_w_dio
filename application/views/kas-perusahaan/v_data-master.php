@@ -17,12 +17,15 @@
                           <table id="table-kas" class="display nowrap table table-sm table-hover">
                             <thead class="thead-light">
                               <tr>
-                                <th class="px-3">No</th>
-                                <th class="px-3">Tanggal</th>
-                                <th class="px-3">Perihal</th>
-                                <th class="px-3">Debet</th>
-                                <th class="px-3">Kredit</th>
-                                <th class="px-3">Saldo akhir</th>
+                                <th class="px-3" rowspan="2">No</th>
+                                <th class="px-3" rowspan="2">Tanggal</th>
+                                <th class="px-3" rowspan="2">Perihal</th>
+                                <th class="px-3" rowspan="2">Debet</th>
+                                <th class="px-3" rowspan="2">Kredit</th>
+                                <th class="px-3" rowspan="2">Saldo akhir</th>
+                                <th class="px-3" colspan="5"><center>Keterangan</center></th>
+                              </tr>
+                              <tr>
                                 <th class="px-3">Tipe</th>
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
@@ -32,17 +35,21 @@
                             </thead>
                             <tfoot class="thead-light">
                               <tr>
-                                <th class="px-3">No</th>
-                                <th class="px-3">Tanggal</th>
-                                <th class="px-3">Perihal</th>
-                                <th class="px-3">Debet</th>
-                                <th class="px-3">Kredit</th>
-                                <th class="px-3">Saldo akhir</th>
+                                <th class="px-3" rowspan="2">No</th>
+                                <th class="px-3" rowspan="2">Tanggal</th>
+                                <th class="px-3" rowspan="2">Perihal</th>
+                                <th class="px-3" rowspan="2">Debet</th>
+                                <th class="px-3" rowspan="2">Kredit</th>
+                                <th class="px-3" rowspan="2">Saldo akhir</th>
+                                <th class="px-3" colspan="5"><center>Keterangan</center></th>
+                              </tr>
+                              <tr>
                                 <th class="px-3">Tipe</th>
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
                                 <th class="px-3">Aksi</th>
                                 <th></th>
+                              </tr>
                             </tfoot>
                             <tbody>
                               <?php

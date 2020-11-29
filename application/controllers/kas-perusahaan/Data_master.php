@@ -36,7 +36,6 @@ class Data_master extends CI_Controller
       redirect(base_url( getBeforeLastSegment($this->modules) ));
     }
     // update data to db
-    // echo '<pre>'; print_r($id); die;
     $query = $this->kas_m->set_delete_by_id($id);
 
     if ($query) {
