@@ -1,7 +1,9 @@
 <?php
 
 /**
- *
+ * 
+ * @dioilham
+ * 
  */
 class Employee_model extends CI_Model
 {
@@ -13,9 +15,11 @@ class Employee_model extends CI_Model
 
 //  ===============================================SETTER===============================================
   /**
-   * setter untuk menambahkan employee baru
+   * Insert new employee to the database.
    * 
-   * @param array $data [berisi 11 data]
+   * @param array $data [11 data]
+   * The key and value in the array that will be inserted into the database.
+   * 
    */
   public function set_new_employee($data)
   {
@@ -36,7 +40,15 @@ class Employee_model extends CI_Model
 		return $this->db->insert($this->table, $data);
   }
 
-  // update employee by id
+  /**
+   * Update employee that already registered and still active (not deleted).
+   * 
+   * @param array $id
+   * Set the $id from the employee id to fetch the data relatives to the id.
+   * @param array $data [6 data]
+   * The key and value in the array that will be inserted into the database.
+   * 
+   */
   public function set_update_by_id($id, $data)
   {
     $data = array(
@@ -52,9 +64,17 @@ class Employee_model extends CI_Model
   }
 
   // update is_deleted employee by id
+
+  /**
+   * Delete employee that already registered, but not the actual row data deletion,
+   * this is just updating "is_deleted" fields in the table from 0 to 1.
+   * 
+   * @param array $id
+   * Set the $id from the employee id to fetch the data relatives to the id.
+   * 
+   */
   public function set_delete_by_id($id)
   {
-    // echo '<pre>'; print_r($id); die;
     $data = array(
 		  "is_deleted"   => 1,
     );
@@ -85,15 +105,24 @@ class Employee_model extends CI_Model
     return $total;
   }
 
-  // get all employee
-  // parameter pertama untuk tabel yg akan diquery
+  /**
+   * 
+   * Get all rows from certain table
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some field(s) name of your choice.
+   * 
+   */
   public function get_all($select = '*')
   {
     // get from table
     $this->db->select($select);
-    $this->db->from($this->table);
-    $this->db->where('is_deleted', 0);
-    $this->db->order_by('id', 'DESC');
+    $this->db->from("{$this->tb_employee} AS e");
+    $this->db->join("{$this->tb_role} AS r", "r.id=e.role_id");
+    $this->db->join("{$this->tb_store} AS s", "s.id=e.store_id");
+    $this->db->where('e.is_deleted', 0);
+    $this->db->order_by('e.id', 'DESC');
     $query = $this->db->get();
     if ( $query->num_rows() > 0) {
       return $query->result_array();
@@ -101,9 +130,15 @@ class Employee_model extends CI_Model
     return FALSE;
   }
 
-  // get 1 employee berdasarkan id
-  // parameter pertama untuk id sebagai acuan
-  // parameter kedua untuk tabel yg akan diquery
+  /**
+   * 
+   * Get one row from certain table 
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some field(s) name of your choice.
+   * 
+   */
   public function get_by_id($id, $select = '*')
   {
     // get from table
@@ -117,9 +152,18 @@ class Employee_model extends CI_Model
     }
     return FALSE;
   }
-    
-  // get 1 role berdasarkan id
-  // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
+  
+  /**
+   * 
+   * Get one role by the role unique id
+   * 
+   * @param string $id 
+   * Set the $id from the role id to fetch the data relatives to the id.
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some field(s) name of your choice.
+   * 
+   */
   public function get_role_by_id($id, $select = '*')
   {
     // get from tb_department
@@ -133,9 +177,18 @@ class Employee_model extends CI_Model
     }
     return FALSE;
   }
-    
-  // get 1 store berdasarkan id
-  // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
+  
+  /**
+   * 
+   * Get one store by the store unique id
+   * 
+   * @param string $id 
+   * Set the $id from the store id to fetch the data relatives to the id.
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some field(s) name of your choice.
+   * 
+   */
   public function get_store_by_id($id, $select = '*')
   {
     // get from tb_department

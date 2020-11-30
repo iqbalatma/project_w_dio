@@ -28,7 +28,9 @@ class Data_master_pegawai extends CI_Controller
           'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'datatables'      => 1,
-          'employees'       => $this->employee_m->get_all(),
+          'employees'       => $this->employee_m->get_all(
+                                'e.id, e.username, e.avatar, e.first_name, e.last_name, e.phone, e.address, s.store_name, r.role_name'
+                              ),
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     } // end method

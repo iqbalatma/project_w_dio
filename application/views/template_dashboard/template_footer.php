@@ -286,7 +286,7 @@
                     var split_id = lastid.split("-");
                     var nextindex = Number(split_id[1]) + 1;
                     // set max product
-                    var max = 6;
+                    var max = 11;
                     // Check total number elements
                     if (total_element < max) {
                         // Adding new div container after last occurance of element class
@@ -297,12 +297,12 @@
                         $("#div-" + nextindex).append(`
                         <div class='d-flex justify-content-center'>
                             <div class='form-group row mx-auto'>
-                                <label>Kode produk</label>
+                                <label>Kode produk ${nextindex}</label>
                                     <input required type='text' placeholder='Input kode' id='add-customproduct-${nextindex}' name='custom[${nextindex}][product_code]' class='form-control'>
                                 </label>
                             </div>
                             <div class='form-group row mx-auto'>
-                                <label>Harga kustom</label>
+                                <label>Harga kustom ${nextindex}</label>
                                 <input required type='tel' pattern="[0-9]{1,}" title="Harga harus angka dan minimal 1 angka" placeholder='Input harga' id='add-customprice-${nextindex}' name='custom[${nextindex}][price]' class='form-control'>
                             </div>
                             <div class='py-4 h1'>
