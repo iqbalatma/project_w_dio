@@ -60,6 +60,16 @@ $mainMenu = array(
         'name'  => 'Data Transaksi Barang',
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
+      ], [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+        'name'  => 'Data Barang Laku',
+        'slug'  => 'data-barang-laku',
+        'url'   => "{$_data_gudang}/data-barang-laku",
+      ], [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+        'name'  => 'Data Barang Kritis',
+        'slug'  => 'data-barang-kritis',
+        'url'   => "{$_data_gudang}/data-barang-kritis",
       ],
     )
   ],

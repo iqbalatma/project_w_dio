@@ -45,7 +45,7 @@ class Customer_model extends CI_Model
    * to select some table(s) name of your choice.
    * 
    */
-  public function _get_by_id_and_product_code($id, $code, $select = '*')
+  public function __get_by_id_and_product_code($id, $code, $select = '*')
   {
     $this->db->select($select);
     $this->db->from($this->tb_custom_price);
@@ -70,7 +70,7 @@ class Customer_model extends CI_Model
     $this->db->trans_start();
     foreach ($data['custom'] as $c)
     {
-      $cek = $this->_get_by_id_and_product_code($id, $c['product_code']);
+      $cek = $this->__get_by_id_and_product_code($id, $c['product_code']);
       $data = array(
         "price"         => $c['price'],
         "customer_id"   => $id,

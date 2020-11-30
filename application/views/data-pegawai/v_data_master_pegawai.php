@@ -23,10 +23,11 @@
                               <tr>
                                 <th class="px-3" width="20px">No</th>
                                 <th class="px-3" width="30px">Avatar</th>
-                                <th class="px-3">Nama depan</th>
-                                <th class="px-3">Nama belakang</th>
+                                <th class="px-3">Nama lengkap</th>
                                 <th class="px-3">No. Handphone</th>
                                 <th class="px-3">Alamat</th>
+                                <th class="px-3">Lokasi</th>
+                                <th class="px-3">Jabatan</th>
                                 <th class="px-3" style="width: 10%">
                                   <center>Aksi</center>
                                 </th>
@@ -36,10 +37,11 @@
                               <tr>
                                 <th class="px-3">No</th>
                                 <th class="px-3">Avatar</th>
-                                <th class="px-3">Nama depan</th>
-                                <th class="px-3">Nama belakang</th>
+                                <th class="px-3">Nama lengkap</th>
                                 <th class="px-3">No. Handphone</th>
                                 <th class="px-3">Alamat</th>
+                                <th class="px-3">Lokasi</th>
+                                <th class="px-3">Jabatan</th>
                                 <th class="px-3">
                                   <center>Aksi</center>
                                 </th>
@@ -59,16 +61,19 @@
                                     <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="<?= "Avatar {$row['first_name']}" ?>" width="50px">
                                   </td>
                                   <td class="px-3">
-                                    <?= $row['first_name'] ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['last_name'] ?>
+                                    <?= $row['first_name'] ?> <?= $row['last_name'] ?>
                                   </td>
                                   <td class="px-3">
                                     <a href="tel:<?= $row['phone'] ?>" class="text-muted"><?= $row['phone'] ?></a>
                                   </td>
                                   <td class="px-3">
                                     <?= $row['address'] ?>
+                                  </td>
+                                  <td class="px-3">
+                                    <?= $row['store_name'] ?>
+                                  </td>
+                                  <td class="px-3">
+                                    <?= $row['role_name'] ?>
                                   </td>
 
                                   <td class="px-3">

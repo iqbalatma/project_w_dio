@@ -62,7 +62,7 @@ class Product_model extends CI_Model
   }
 
   /**
-   * Delete employee that already registered, but not the actual row data deletion,
+   * Delete product that already registered, but not the actual row data deletion,
    * this is just updating "is_deleted" fields in the table from 0 to 1.
    * 
    * @param array $id
@@ -71,7 +71,6 @@ class Product_model extends CI_Model
    */
   public function set_delete_by_id($id)
   {
-    // echo '<pre>'; print_r($id); die;
     $data = array(
       "is_deleted"   => 1,
     );
@@ -205,9 +204,7 @@ class Product_model extends CI_Model
     }
     return FALSE;
   }
-
-  // get 1 product_composition berdasarkan id
-  // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
+  
   /**
    * Get all Product Composition that is belong to
    * the corresponding Product by joining some tables on its id.
@@ -216,7 +213,7 @@ class Product_model extends CI_Model
    * Set the $id from the product id to fetch the data relatives to the id.
    * @param string $select 
    * Default value is '*', but you can input some string
-   * to select some table(s) name of your choice.
+   * to select some field(s) name of your choice.
    * 
    */
   public function get_all_composition_by_id($id, $select = '*')

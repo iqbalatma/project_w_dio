@@ -41,7 +41,7 @@
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
                                 <th class="px-3">Aksi</th>
-                                <th rowspan="2"></th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tfoot class="thead-light">
@@ -59,7 +59,7 @@
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
                                 <th class="px-3">Aksi</th>
-                                <th rowspan="2"></th>
+                                <th></th>
                               </tr>
                             </tfoot>
                             <tbody>
