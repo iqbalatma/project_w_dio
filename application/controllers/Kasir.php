@@ -39,7 +39,7 @@ class Kasir extends CI_Controller
 
 
         $createdAt = unix_to_human(now(), true, 'europe');
-        $price_total = 40000;
+
         $employee_id = $_SESSION['id'];
         $checkbox_value = $this->input->post('product');
 
@@ -77,7 +77,7 @@ class Kasir extends CI_Controller
             'created_at' => $createdAt,
             'is_deleted' => 0
         ];
-        $insert = $this->Kasir_model->insert_transaction($data_transaction);
+        $insert1 = $this->Kasir_model->insert_transaction($data_transaction);
 
         // // END PROSES INSERT DATA TRANSAKSI
         $invoice_id = $this->Kasir_model->get_row_terbaru();
@@ -85,7 +85,7 @@ class Kasir extends CI_Controller
         $tanggal = unix_to_human(now(), true, 'europe');
         $tanggal = explode(" ", $tanggal);
         $tanggal = $tanggal[0];
-        echo $tanggal;
+
 
         $is_there_number_invoice = $this->Kasir_model->cek_number_invoice($tanggal);
         $is_there_number_invoice2 = $this->Kasir_model->cek_invoice_terakhir($tanggal);
@@ -95,8 +95,7 @@ class Kasir extends CI_Controller
         $tanggal = explode("-", $tanggal);
         // INVOICE NUMBER PERBULAN
 
-        var_dump($is_there_number_invoice);
-        var_dump($is_there_number_invoice2);
+
         if ($is_there_number_invoice) { //saat nomor pada hari pertama tidak ada
 
 
@@ -135,7 +134,7 @@ class Kasir extends CI_Controller
             'is_deleted' => 0
 
         ];
-        $insert = $this->Kasir_model->insert_invoice($data_invoice);
+        $insert2 = $this->Kasir_model->insert_invoice($data_invoice);
 
 
 
@@ -145,8 +144,12 @@ class Kasir extends CI_Controller
         $item_price_total = 0;
         $quantity = $this->input->post('quantity');
 
+        $custom_harga = $this->input->post('custom_harga');
+
         // untuk mengambil data id terbaru yang di insert diatas karena auto increament
         // setelah id didapat maka lakukan insert pada invoice item, dilakukan berulang ulang sesuai dengan jumlah produk yang dimasukkan
+        var_dump($custom_harga);
+        // var_dump($quantity);
 
 
 
@@ -158,8 +161,7 @@ class Kasir extends CI_Controller
         // BEGIN PERULANGAN UNTUK BANYAK PRODUK YANG MASUK
         foreach ($checkbox_value as $id_product) {
 
-            // echo $id_product;
-            // // echo "<br>";
+
             // echo $quantity[$id_product];
 
 
@@ -167,25 +169,43 @@ class Kasir extends CI_Controller
             // $id_product pada view valuenya diambil dari id pada tabel data product jadi tidak perlu khawatir akan missmatch data
             $price = $this->Product_model->get_by_id($id_product);
 
+            $price_per_produk = $price->price_base;
 
 
 
+            $cek_code_product = $this->Kasir_model->get_code_product($id_product);
+            // echo "<br>";
+            // var_dump($cek_code_product);
+            $cek_code_product = $cek_code_product[0]['product_code'];
+            $data_cek_harga_custom = [
+                'code_product' => $cek_code_product,
+                'id_customer' => $customer_id
+            ];
+            $cek_harga_custom = $this->Kasir_model->cek_harga_custom($data_cek_harga_custom);
+            $b = true;
+            if ($custom_harga[$id_product] !== "") {
+                $price_per_produk = $custom_harga[$id_product];
+                $b = false;
+            } elseif ($cek_harga_custom && $b) {
+                $price_per_produk = $cek_harga_custom[0]['price'];
+            }
+            echo $price_per_produk;
             //setelah price diambil maka simpan pada array data
             // PENTING, index quantity adalah id_product - 1 karena value dan indexnya tidak sesuai
             $data_invoice_item = [
                 'id' => '',
                 'quantity' => $quantity[$id_product],
-                'item_price' => $price->price_base * $quantity[$id_product],
+                'item_price' => $price_per_produk * $quantity[$id_product],
                 'invoice_id' => $data_id_invoice_terakhir,
                 'product_id' => $id_product
             ];
 
-            $insert = $this->Kasir_model->insert_invoice_item($data_invoice_item); //kemudian masukkan data invoice kedalam tabel
+            $insert3 = $this->Kasir_model->insert_invoice_item($data_invoice_item); //kemudian masukkan data invoice kedalam tabel
 
 
 
             // setelah data invoice masing-masing item ada, maka kita dapat menghitung harga totalnya dengan menjumlahkan
-            $item_price_total +=  $price->price_base * $quantity[$id_product];
+            $item_price_total +=  $price_per_produk * $quantity[$id_product];
 
 
             // product_mutation akan menghasilkan history barang yang keluar dari store mana, produk apa, serta siapa yang melakukan
@@ -202,7 +222,7 @@ class Kasir extends CI_Controller
                 'created_by' => $_SESSION['username'],
                 'is_deleted' => 0,
             ];
-            $insert = $this->Kasir_model->insert_product_mutation($data_product_mutation);
+            $insert4 = $this->Kasir_model->insert_product_mutation($data_product_mutation);
 
 
             //setelah data di insert pada produk mutasi, kita juga harus mengupdate kuantitas barang yang kita keluarkan yaitu dengan mengirimkan id produk yang keluar serta kuantitas produk yang keluar
@@ -222,9 +242,7 @@ class Kasir extends CI_Controller
                 ];
                 // query update material
                 $xct = $this->Kasir_model->update_quantity_material($data);
-                echo $xct . "haha";
-                echo $material_id;
-                echo $id_product;
+
 
                 // INSERT PRODUCT MUTATION
                 $data = [
@@ -257,7 +275,7 @@ class Kasir extends CI_Controller
             'id' => $invoice_id,
             'price_total' => $item_price_total
         ];
-        $update_price_total = $this->Kasir_model->update_total_price($data_update);
+        $update_price_total5 = $this->Kasir_model->update_total_price($data_update);
 
         $left_to_paid = $paid_amount - $item_price_total;
         $data_update_invoice = [
@@ -265,6 +283,29 @@ class Kasir extends CI_Controller
             'left_to_paid' => $left_to_paid
         ];
         $update_left_to_paid = $this->Kasir_model->update_left_to_paid($data_update_invoice);
+
+        // echo "insert 1 " .  $insert1;
+        // echo "<br>";
+        // echo "insert 2 " . $insert2;
+        // echo "<br>";
+        // echo "insert 3 " . $insert3;
+        // echo "<br>";
+        // echo "insert 4 " . $insert4;
+        // echo "<br>";
+        // echo "insert 5 " . $update_price_total5;
+        // echo "<br>";
+        // echo "insert 6 " . $update_left_to_paid;
+        // echo "<br>";
+
+        if ($insert1 == 1 && $insert2 == 1 && $insert3 == 1 && $insert4 == 1 && $update_price_total5 == 1 && $update_left_to_paid == 1) {
+            echo "input berhasil";
+            $this->session->set_flashdata('message_berhasil', 'Berhasil checkout product');
+            redirect(base_url('Kasir'));
+        } else {
+            echo "input gagal";
+            $this->session->set_flashdata('message_gagal', 'Gagal checkout product');
+            redirect(base_url('Kasir'));
+        }
     }
 
 

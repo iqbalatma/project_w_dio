@@ -53,6 +53,7 @@ class Kasir_model extends CI_Model
         $this->db->set('price_total', $data['price_total'], FALSE);
         $this->db->where('id', $data['id']);
         $this->db->update('transaction'); // gives UPDATE mytable SET field = field+1 WHERE id = 2
+        return 1;
     }
 
     public function insert_product_mutation($data)
@@ -79,6 +80,7 @@ class Kasir_model extends CI_Model
         $this->db->set('quantity', $final_quantity, FALSE);
         $this->db->where('product_id', $id);
         $this->db->update('product_inventory');
+        return 1;
     }
 
     public function get_customer($data)
@@ -150,6 +152,7 @@ class Kasir_model extends CI_Model
         $this->db->set('left_to_paid', $left_to_paid, FALSE);
         $this->db->where('id', $id);
         $this->db->update('invoice');
+        return 1;
     }
 
 
@@ -202,5 +205,29 @@ class Kasir_model extends CI_Model
     public function insert_material_mutation($data)
     {
         return $this->db->insert('material_mutation', $data);
+    }
+
+    public function cek_harga_custom($data)
+    {
+        $code_product = $data['code_product'];
+        $id_customer = $data['id_customer'];
+
+        $query = $this->db->query("SELECT * FROM custom_price WHERE customer_id =$id_customer AND product_code = '$code_product'");
+
+        $row = $query->result_array();
+
+
+        return $row;
+    }
+    public function get_code_product($id_product)
+    {
+
+
+        $query = $this->db->query("SELECT * FROM product WHERE id =$id_product");
+
+        $row = $query->result_array();
+
+
+        return $row;
     }
 }
