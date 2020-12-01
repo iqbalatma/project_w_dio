@@ -1,4 +1,18 @@
 <div class="content">
+    <?php if ($this->session->flashdata('message_berhasil')) {
+    ?>
+        <div class="alert alert-success" role="alert">
+            <?= $this->session->flashdata('message_berhasil'); ?>
+        </div>
+    <?php
+    }; ?>
+    <?php if ($this->session->flashdata('message_gagal')) {
+    ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $this->session->flashdata('message_gagal'); ?>
+        </div>
+    <?php
+    }; ?>
     <div class="page-inner">
         <div class="page-header">
             <h4 class="page-title">Forms</h4>
@@ -80,8 +94,6 @@
                                         </input>
                                     </div>
                                 </div>
-
-
 
 
                                 <script type="text/javascript">
@@ -178,6 +190,10 @@
                                                     }; ?>
 
                                                 </select>
+
+                                                <input type="text" class="" id="custom_harga" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga">
+                                                </input>
+
                                             </label>
                                         <?php
                                             $i++;
@@ -206,9 +222,41 @@
                     </div>
                     <div class="card-action">
                         <a href="<?= base_url(); ?>" class="btn btn-danger">Keluar</a>
-                        <button type="submit" class="btn btn-primary">Checkout</button>
+                        <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            Checkout
+                        </button>
+                        <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
+                    </div>
+
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi Checkout</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Yakin Ingin Checkout ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <?= form_close(); ?>
+
+
+
                 </div>
             </div>
         </div>
