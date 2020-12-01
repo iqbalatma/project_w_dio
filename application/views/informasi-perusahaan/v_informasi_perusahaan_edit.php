@@ -7,17 +7,17 @@
                   <div class="col-md-12">
                     <div class="card">
 
-                      <form method="post">
+                      <form method="post" enctype='multipart/form-data'>
                         <div class="card-body my-3">
 
                           <div class="row justify-content-center">
                             <div class="col-md-6 col-lg-8">
                               <div class="form-group d-flex justify-content-center">
-                                <img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid border rounded p-2" width="300px">
-                                <!-- <div class="ml-4 mt-3">
+                                <img src="<?= base_url("assets/img/{$meta->logo}") ?>" alt="" class="img-fluid border rounded p-2" width="300px">
+                                <div class="ml-4 mt-3">
                                   <label for="edit-logo">Upload logo baru</label>
-                                  <input type="file" class="form-control-file" id="edit-logo">
-                                </div> -->
+                                  <input type="file" id="edit-logo" name='edit-logo' accept=".png, .jpg, .jpeg" class="form-control-file">
+                                </div>
                               </div>
                             </div>
                           </div>
