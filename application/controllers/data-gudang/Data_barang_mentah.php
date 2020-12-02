@@ -25,6 +25,8 @@ class Data_barang_mentah extends CI_Controller
             'data_barang_kimia' => $this->Material_model->getAll(),
             'datatables' => 1
         ];
+
+
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
