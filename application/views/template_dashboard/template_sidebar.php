@@ -29,6 +29,34 @@ $_role_3            = '3';
 
 $mainMenu = array(
   [
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+    'no'      => 1,
+    'name'    => 'Generate Report',
+    'slug'    => 'generate-report',
+    'url'     => 'generate-report',
+    'icon'    => 'fas fa-file-pdf',
+    'submenu' => array(
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'name'  => 'PDF - Invoice',
+        'slug'  => 'invoice/generate',
+        'url'   => "generate-report/invoice/generate",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'name'  => 'PDF - Surat jalan',
+        'slug'  => 'surat-jalan/generate',
+        'url'   => "generate-report/surat-jalan/generate",
+      ],
+      [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+        'name'  => 'Semua menu ini cuma buat developing, nanti generate pdf gaakan dari sini tapi ketika udah cekout',
+        'slug'  => $_dashboard,
+        'url'   => $_dashboard,
+      ],
+    )
+  ],
+  [
     'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 1,
     'name'    => 'Dashboard',

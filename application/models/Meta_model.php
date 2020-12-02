@@ -43,7 +43,7 @@ class Meta_model extends CI_Model
 		  "contact_2"   => $data['edit-kontak-2'],
 		  "email"       => $data['edit-email'],
 		  "website"     => $data['edit-website'],
-		  // "logo"     => $data['edit-logo'],
+		  "logo"        => $data['edit-logo'],
       "updated_at"  => $updatedAt,
       "updated_by"  => $data['username'],
     );

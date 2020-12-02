@@ -52,10 +52,13 @@ class Informasi_perusahaan extends CI_Controller
 
     }else {
       // insert data to db
-      $post  = $this->input->post();
-      $post['username'] = $this->session->username;
-      // echo getBeforeLastSegment();
-      // echo "<pre>";print_r($post);die();
+      $post               = $this->input->post();
+      $post['username']   = $this->session->username;
+
+      // cek apakah image kosong / tidak
+      if ( isset($_FILES["edit-logo"]["name"])) $post['edit-logo'] = $this->_uploadLogo();
+      else $post['edit-logo'] = 'logo.png';
+      
       $query = $this->meta_m->set_update_meta_by_id(1, $post);
 
       if ($query) {
@@ -76,4 +79,31 @@ class Informasi_perusahaan extends CI_Controller
       } // end if($query): success or failed
     } // end form_validation->run()
   }
+
+  // private method untuk upload gambar logo ke folder img
+  // dengan nama logo.png apapun ekstensi awalnya dan return nama filenya
+  private function _uploadLogo()
+  {
+    $config['upload_path']      = './assets/img/';
+    $config['allowed_types']    = 'jpg|png';
+    $config['file_name']        = 'logo.png';
+    $config['overwrite']			  = true;
+    $config['max_size']         = 1024 * 5; // 5MB
+    // $config['max_width']        = 1024;
+    // $config['max_height']       = 768;
+
+    $this->upload->initialize($config);
+
+    if ($this->upload->do_upload('edit-logo')) {
+      return $this->upload->data("file_name");
+    } else {
+      return "logo.png";
+    }
+  }
+
+
+
+
+
+
 }

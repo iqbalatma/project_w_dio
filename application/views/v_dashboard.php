@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="page-inner mt--5">
+        <!-- <div class="page-inner mt--5">
             <div class="row mt--2">
                 <div class="col-md-6">
                     <div class="card full-height">
@@ -124,7 +124,7 @@
                 </div>
             </div>
 
-            <!-- <div class="row row-card-no-pd">
+            <div class="row row-card-no-pd">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -516,7 +516,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
-        </div>
+        </div> -->
     </div>
