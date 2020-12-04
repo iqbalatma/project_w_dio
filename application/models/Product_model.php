@@ -53,9 +53,8 @@ class Product_model extends CI_Model
       "unit"                => $data['edit-unit'],
       "volume"              => $data['edit-volume'],
       "price_base"          => $data['edit-hpp'],
-      "price_retail"        => $data['edit-priceretail'],
-      "price_reseller"      => $data['edit-pricereseller'],
-      "price_wholesale"     => $data['edit-pricewholesale'],
+      "selling_price"        => $data['edit-priceretail'],
+
     );
     $this->db->where('id', $id);
     return $this->db->update($this->table, $data);
@@ -126,7 +125,7 @@ class Product_model extends CI_Model
 
 
 
-    $query = $this->db->query("SELECT DISTINCTROW product.id, product.full_name, product.price_retail FROM product INNER JOIN product_composition ON product.id = product_composition.product_id WHERE product.is_deleted = 0");
+    $query = $this->db->query("SELECT DISTINCTROW product.id, product.full_name, product.selling_price FROM product INNER JOIN product_composition ON product.id = product_composition.product_id WHERE product.is_deleted = 0");
 
     $row = $query->result_array();
     return $row;
@@ -204,7 +203,7 @@ class Product_model extends CI_Model
     }
     return FALSE;
   }
-  
+
   /**
    * Get all Product Composition that is belong to
    * the corresponding Product by joining some tables on its id.
@@ -232,7 +231,7 @@ class Product_model extends CI_Model
   }
   public function get_by_store_id($id)
   {
-    $this->db->select('product.id, product.product_code, product.full_name, product.price_retail');
+    $this->db->select('product.id, product.product_code, product.full_name, product.selling_price');
     $this->db->from($this->table);
     // $this->db->where("store_id", $id);
     $query = $this->db->get();

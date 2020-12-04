@@ -230,4 +230,33 @@ class Kasir_model extends CI_Model
 
         return $row;
     }
+
+    public function get_ajax()
+    {
+        $query = $this->db->query("SELECT * FROM product WHERE id =1");
+
+        $row = $query->result_array();
+
+
+        return json_encode($row);
+    }
+
+
+    public function get_hutang()
+    {
+        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.is_deleted = 0 AND left_to_paid > 0");
+
+        $row = $query->result_array();
+
+
+        return $row;
+    }
+
+    public function edit_invoice($data)
+    {
+        $id_invoice = $data['id_invoice'];
+        $paid_amount = $data['paid_amount'];
+        $query = $this->db->query("UPDATE invoice SET is_deleted = 1 WHERE id = $id_invoice");
+        return $query;
+    }
 }

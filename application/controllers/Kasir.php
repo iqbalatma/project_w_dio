@@ -278,6 +278,9 @@ class Kasir extends CI_Controller
         $update_price_total5 = $this->Kasir_model->update_total_price($data_update);
 
         $left_to_paid = $paid_amount - $item_price_total;
+        if ($left_to_paid >= 0) {
+            $left_to_paid = 0;
+        }
         $data_update_invoice = [
             'id' => $data_id_invoice_terakhir,
             'left_to_paid' => $left_to_paid
@@ -306,6 +309,11 @@ class Kasir extends CI_Controller
             $this->session->set_flashdata('message_gagal', 'Gagal checkout product');
             redirect(base_url('Kasir'));
         }
+    }
+
+    public function get_ajax()
+    {
+        $this->Kasir_mode->get_ajax();
     }
 
 

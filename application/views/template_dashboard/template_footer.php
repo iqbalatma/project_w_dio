@@ -76,29 +76,29 @@
                     "pageLength": 25,
                 });
             });
-            
+
             $(document).ready(function() {
-                $('#table-kas').DataTable( {
+                $('#table-kas').DataTable({
                     responsive: {
                         details: {
                             type: 'column',
                             target: -1,
-                            display: $.fn.dataTable.Responsive.display.modal( {
-                                header: function ( row ) {
+                            display: $.fn.dataTable.Responsive.display.modal({
+                                header: function(row) {
                                     var data = row.data();
                                     return `Detail untuk kode : ${data[7]}`;
                                 }
-                            } ),
+                            }),
                             renderer: $.fn.dataTable.Responsive.renderer.tableAll()
                         }
                     },
-                    columnDefs: [ {
+                    columnDefs: [{
                         className: 'control',
                         orderable: false,
-                        targets:   -1
-                    } ],
-                } );
-            } );
+                        targets: -1
+                    }],
+                });
+            });
         </script>
     <?php } ?>
 
@@ -252,6 +252,126 @@
 
         });
     </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        $(document).on("click", ".open-modal-kasir", function() {
+
+
+
+
+            // -------------------------------------------
+
+            var x = new Date();
+            var myHeading = "<p>Total Belanjaan adalah : Rp ";
+
+            var total_final = 0;
+            var counter = $("#counter").val();
+
+            for (let j = 0; j < counter; j++) {
+                var total_belanjaan = 0;
+                var nilai_custom_harga = 0;
+
+
+
+
+
+                // TESTING
+
+                // var is_checked = $(checked_array).checked;
+                // var is_checked = $(checked_array).attr.
+
+
+
+                // console.log(is_checked);
+                // if (is_checked == 1) {
+                //     console.log("INI DI CHECK");
+
+                // } else {
+                //     console.log("TIDAK DI CHECK");
+                // }
+                // TESTING
+
+
+
+
+
+                var id_custom_harga = "#custom_harga";
+                var custom_harga_final = id_custom_harga + j;
+                var custom_harga = $(custom_harga_final).val();
+                console.log(custom_harga);
+                if (custom_harga > 0) {
+                    nilai_custom_harga = parseInt(custom_harga);
+                } else {
+                    var id_selling_price = "#selling_price";
+                    var selling_price = id_selling_price + j;
+                    var selling_price_final = $(selling_price).val();
+                    nilai_custom_harga = parseInt(selling_price_final);
+                }
+
+
+
+
+
+
+                var id_quantity = "#quantity";
+                var id_quantity_final = id_quantity + j;
+                var p = $(id_quantity_final + " option:selected").val();
+                if (p > 0) {
+                    total_belanjaan = parseInt(p);
+                }
+
+                var status = $(".kelas_product")[j].checked;
+                if (status == false) {
+                    total_belanjaan = 0;
+                }
+
+
+                var o = (nilai_custom_harga * total_belanjaan);
+                // if (custom_harga === 0) {
+                //     o = parseInt(0);
+                // }
+                // console.log(custom_harga_final);
+                total_final = total_final + o;
+
+            }
+
+
+
+            // for (let i = 0; i < counter; i++) {
+
+            // }
+
+
+
+            // + total_belanjaan
+            console.log(custom_harga);
+            $("#total_bayar").html(myHeading + total_final);
+            // $("#total_bayar").html(myHeading + "Nilai Custom Harga " + nilai_custom_harga + " Nilai Total Belanja" + total_belanjaan);
+            $("#modal").modal("show");
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <?php
     // hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)

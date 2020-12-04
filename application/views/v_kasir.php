@@ -99,11 +99,6 @@
                                 <script type="text/javascript">
                                     <?php echo $jsArray; ?>
 
-                                    // document.getElementById('custom_alamat').onclick = function() {
-                                    //     document.getElementById('alamat_pelanggan').removeAttribute('readonly');
-                                    // };
-
-
                                     function myFunction() {
                                         // Get the checkbox
                                         var checkBox = document.getElementById("custom_alamat");
@@ -124,6 +119,12 @@
 
 
                                     function changeValue(id) {
+                                        var sel = document.getElementById('nama_pelanggan');
+                                        console.log(sel.value);
+                                        // $(document).ready(function() {
+                                        // document.writeln("<?php echo "" ?>");
+
+                                        // });
                                         document.getElementById('alamat_pelanggan').value = prdName[id].alamat_pelanggan;
                                         document.getElementById('phone').value = prdName[id].phone;
                                     };
@@ -146,14 +147,13 @@
                                         $i = 0;
                                         foreach ($data_product as $row) {
                                         ?>
+                                            <script type="text/javascript">
 
-
-
-
+                                            </script>
 
                                             <label class="selectgroup-item">
-                                                <input type="checkbox" name="product[<?= $i; ?>]" value="<?= $row['id']; ?>" class="selectgroup-input">
-                                                <span class="selectgroup-button"><?= $row['full_name']; ?> | Rp <?= $row['price_retail']; ?></span>
+                                                <input type="checkbox" name="product[<?= $i; ?>]" id="product" value="<?= $row['id']; ?>" class="selectgroup-input kelas_product">
+                                                <span class="selectgroup-button"><?= $row['full_name']; ?> | Rp <?= $row['selling_price']; ?></span>
                                                 <?php
 
                                                 $cek_kuantitas_material = $this->Kasir_model->cek_kuantitas_material($row['id']); //mencari data material berdasarkan id_product
@@ -178,7 +178,7 @@
                                                 ?>
 
 
-                                                <select name="quantity[<?= $row['id']; ?>]" id="quantity">
+                                                <select name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>">
                                                     <?php
                                                     $j = 1;
                                                     while ($j <= $kuantitas_material) {
@@ -191,28 +191,44 @@
 
                                                 </select>
 
-                                                <input type="text" class="" id="custom_harga" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga">
+                                                <input type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga">
                                                 </input>
 
                                             </label>
+
+                                            <input type="hidden" id="selling_price<?= $i; ?>" value="<?= $row['selling_price'];; ?>">
                                         <?php
                                             $i++;
                                         }; ?>
+                                        <input type="hidden" id="counter" value="<?= $i; ?>">
+
+
+
 
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+
+
+
+
+                                <!-- <div class="form-group">
+                                    <label class="form-label">Total Bayar</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp</span>
                                         </div>
-                                        <input type="text" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required>
+                                        <input type="text" name="yang_dibayar" id="yang_dibayar" class="form-control" aria-label="Pembayaran" disabled value="0">
                                         <div class="input-group-append">
                                             <span class="input-group-text">.00</span>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="checkbox" value="tes" id="tes">
+                                <h1 id="tess">haha</h1> -->
+
+
+
 
 
 
@@ -224,7 +240,7 @@
                         <a href="<?= base_url(); ?>" class="btn btn-danger">Keluar</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button type="button" class="btn btn-primary open-modal-kasir" data-toggle="modal" data-target="#modal">
                             Checkout
                         </button>
                         <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
@@ -234,7 +250,7 @@
 
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -243,8 +259,20 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    <p>Yakin Ingin Checkout ?</p>
+                                <div class="modal-body" id="modal-body">
+                                    <label class="form-label" id="total_bayar">Total Bayar</label>
+                                    <div class="form-group">
+                                        <label class="form-label">Yang Dibayarkan</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="text" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
@@ -253,6 +281,7 @@
                             </div>
                         </div>
                     </div>
+
                     <?= form_close(); ?>
 
 
