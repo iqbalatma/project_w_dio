@@ -20,7 +20,7 @@ class Kasir extends CI_Controller
     {
         $data = [
             'title'             => 'Kasir',
-            'content'           => 'v_kasir.php',
+            'content'           => 'kasir/v_kasir.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer' => $this->Customer_model->get_all(),

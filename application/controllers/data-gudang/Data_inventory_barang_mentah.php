@@ -23,7 +23,7 @@ class Data_inventory_barang_mentah extends CI_Controller
     {
         $data = [
             'title'             => 'Data Barang Mentah',
-            'content'           => 'v_inventory_barang.php',
+            'content'           => 'data-gudang/v_inventory_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
@@ -39,7 +39,7 @@ class Data_inventory_barang_mentah extends CI_Controller
     {
         $data = [
             'title'             => 'Data Barang Masuk',
-            'content'           => 'v_tambah_barang_masuk.php',
+            'content'           => 'data-gudang/v_tambah_barang_masuk.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
@@ -78,19 +78,16 @@ class Data_inventory_barang_mentah extends CI_Controller
 
 
         if ($this->form_validation->run() == FALSE) {
-            echo validation_errors();
+
+            $this->session->set_flashdata('message_gagal', validation_errors());
+            redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
         } else {
 
             $material_id = $this->input->post('material_id');
             $store_id = 1;
             $quantity = $this->input->post('quantity');
             $updated_by = $_SESSION['username'];
-            $suplier = $this->input->post('supplier');
-
-
             $date = new DateTime(null, new DateTimeZone('Asia/Jakarta'));
-
-
             $data = [
                 'id' => '',
                 'material_id' => $material_id,

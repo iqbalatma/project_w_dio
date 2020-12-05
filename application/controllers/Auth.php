@@ -21,10 +21,10 @@ class Auth extends CI_Controller
     public function index()
     {
         must_not_login();
-        
+
         $data = [
             'title' => 'Login',
-            'content' => 'v_login.php'
+            'content' => 'auth/v_login.php'
         ];
 
         $this->load->view('template_dashboard/template_wrapper_login.php', $data);
@@ -34,7 +34,7 @@ class Auth extends CI_Controller
     public function login()
     {
         must_not_login();
-        
+
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
@@ -101,12 +101,16 @@ class Auth extends CI_Controller
         $role_data = $this->Role_model->getAll();
         $data = [
             'title' => 'Registration',
-            'content' => 'v_registration.php',
+            'content' => 'auth/v_registration.php',
+
+            'menuActive'        => '', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => '', // harus selalu ada, buat indikator sidebar menu yg aktif
             'store_data' => $store_data,
             'role_data' => $role_data,
         ];
 
-
+        // $this->load->view('template_dashboard/template_wrapper_login.php', $data);
+        // $this->load->view('template_dashboard/template_wrapper', $data);
 
 
         $this->form_validation->set_rules(
@@ -185,7 +189,6 @@ class Auth extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('template_dashboard/template_wrapper', $data);
-            // jika syarat pada form sudah terpenuhi (tombol register sudah ditekan)
         } else {
 
             $username = $this->input->post('username');

@@ -134,13 +134,6 @@
 
 
 
-
-
-
-
-
-
-
                     <div class="modal fade" id="modalKonfirmasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -155,7 +148,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="fullname">Pembayaran</label>
+                                                    <label for="pembayaran">Pembayaran</label>
                                                     <input type="text" class="form-control pembayaran" id="pembayaran" placeholder="Masukkan uang yang dibayarkan" name="pembayaran" required>
                                                     <?= form_error('fullname', '<small class="text-danger pl-3">', '</small>'); ?>
                                                 </div>
@@ -173,9 +166,6 @@
                                         <button class="btn btn-primary">Konfirmasi Pembayaran</button>
                                     </div>
                                 </form>
-
-
-
                             </div>
                         </div>
                     </div>

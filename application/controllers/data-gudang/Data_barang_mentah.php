@@ -19,7 +19,7 @@ class Data_barang_mentah extends CI_Controller
     {
         $data = [
             'title'             => 'Data Barang Mentah',
-            'content'           => 'v_barang_mentah.php',
+            'content'           => 'data-gudang/v_barang_mentah.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_kimia' => $this->Material_model->getAll(),
@@ -34,7 +34,7 @@ class Data_barang_mentah extends CI_Controller
     {
         $data = [
             'title'             => 'Tambah Barang Kimia',
-            'content'           => 'v_tambah_barang_kimia.php',
+            'content'           => 'data-gudang/v_tambah_barang_kimia.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-kimia', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_kimia' => $this->Material_model->getAll()
@@ -46,7 +46,7 @@ class Data_barang_mentah extends CI_Controller
     {
         $data = [
             'title'             => 'Ubah Barang Kimia',
-            'content'           => 'v_ubah_barang_kimia.php',
+            'content'           => 'data-gudang/v_ubah_barang_kimia.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-kimia', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_kimia' => $this->Material_model->getAll(),
@@ -108,10 +108,11 @@ class Data_barang_mentah extends CI_Controller
 
 
         if ($this->form_validation->run() == FALSE) {
-            echo validation_errors();
+            $this->session->set_flashdata('message_gagal', validation_errors());
+            redirect(base_url('data-gudang/Data_barang_mentah'));
         } else {
 
-            echo "validasi berhasil";
+
             $material = $this->input->post('material');
             $fullname = $this->input->post('fullname');
             $unit = $this->input->post('unitbahan');

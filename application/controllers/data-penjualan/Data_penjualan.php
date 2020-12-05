@@ -23,7 +23,7 @@ class Data_penjualan extends CI_Controller
     {
         $data = [
             'title'             => 'Data Barang',
-            'content'           => 'v_master_penjualan.php',
+            'content'           => 'data-penjualan/v_master_penjualan.php',
             'menuActive'        => 'data-penjualan', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-master-penjualan', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_master_penjualan' => $this->Product_mutation_model->get_all(),
