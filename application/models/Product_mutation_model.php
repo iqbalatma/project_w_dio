@@ -143,6 +143,17 @@ class Product_mutation_model extends CI_Model
     return FALSE;
   }
 
+  public function get_by_store_id_2($id)
+  {
+    $query = $this->db->query("SELECT product_mutation.product_id, product_mutation.store_id, product_mutation.mutation_code, product_mutation.quantity, store.store_name, product.full_name, product.product_code, product_mutation.mutation_type, product_mutation.created_by, product_mutation.created_at FROM product_mutation INNER JOIN product ON product_mutation.product_id = product.id INNER JOIN store ON product_mutation.store_id = store.id WHERE product_mutation.store_id = $id ORDER BY product_mutation.created_at DESC");
+    // $query = $this->db->query("SELECT * FROM product_mutation ");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
+
   public function product_paling_laku()
   {
     $query = $this->db->query("SELECT *, count(product_mutation.product_id) as jumlah FROM product_mutation INNER JOIN product ON product_mutation.product_id = product.id WHERE product_mutation.mutation_type = 'keluar' GROUP BY product_mutation.product_id ORDER BY jumlah DESC LIMIT 5");
