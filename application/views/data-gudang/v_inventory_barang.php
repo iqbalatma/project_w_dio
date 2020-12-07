@@ -49,8 +49,7 @@
                     <?php
 
                     $date = new DateTime(null, new DateTimeZone('Asia/Jakarta'));
-                    echo 'Europe/Amsterdam: ' . $date->getTimestamp() . '<br />' . "\r\n";
-                    echo $date->format('Y-m-d H:i:s')
+
 
 
 

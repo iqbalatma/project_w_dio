@@ -60,6 +60,23 @@ class Product_mutation_model extends CI_Model
     return FALSE;
   }
 
+  public function get_all_2($select = '*')
+  {
+    // $this->db->select($select);
+    // $this->db->from("product_mutation");
+    // $this->db->join("product", "product_mutation.product_id = product.id");
+    // // $this->db->join("store", "product_mutation.store_id = product.id");
+
+    // $this->db->where("product_mutation.is_deleted", 0);
+
+    $query = $this->db->query("SELECT product_mutation.product_id, product_mutation.store_id, product_mutation.mutation_code, product_mutation.quantity, store.store_name, product.full_name, product.product_code, product_mutation.mutation_type, product_mutation.created_by, product_mutation.created_at FROM product_mutation INNER JOIN product ON product_mutation.product_id = product.id INNER JOIN store ON product_mutation.store_id = store.id");
+    // $query = $this->db->query("SELECT * FROM product_mutation ");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
   /**
    * 
    * Get one row from certain table
