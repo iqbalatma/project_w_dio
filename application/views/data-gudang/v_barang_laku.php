@@ -73,26 +73,32 @@
                                 </tfoot>
                                 <tbody>
 
+
+
                                     <?php
 
-                                    $i = 1;
+                                    $i = 0;
+
                                     foreach ($data_barang_laku as $row) : ?>
+
                                         <tr>
                                             <td class="px-3">
-                                                <?= $i++ ?>
+                                                <?= $i + 1 ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row['product_code'] ?>
+                                                <?= $row[0]['product_code'] ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row['full_name'] ?>
+                                                <?= $row[0]['full_name'] ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row['jumlah'] ?>
+                                                <?= $row[0]['total'] ?>
                                             </td>
 
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php
+                                        $i++;
+                                    endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

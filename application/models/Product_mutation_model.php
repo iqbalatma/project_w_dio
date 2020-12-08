@@ -163,4 +163,25 @@ class Product_mutation_model extends CI_Model
 
     return $row;
   }
+
+
+  public function jumlah_kuantitas_produk_keluar($product_id)
+  {
+    $query = $this->db->query("SELECT product.product_code, product.full_name,product_mutation.product_id,SUM(product_mutation.quantity) AS total FROM product_mutation INNER JOIN product ON product_mutation.product_id = product.id WHERE product_mutation.product_id=$product_id");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
+
+  public function mendapatkan_id_produk()
+  {
+    $query = $this->db->query("SELECT *  FROM product");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
 }

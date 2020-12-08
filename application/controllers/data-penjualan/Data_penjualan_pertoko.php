@@ -27,8 +27,6 @@ class Data_penjualan_pertoko extends CI_Controller
             'menuActive'        => 'data-penjualan', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-penjualan-per-toko', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_master_penjualan' => $this->Product_mutation_model->get_by_store_id_2($id_toko),
-
-
             'datatables' => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
