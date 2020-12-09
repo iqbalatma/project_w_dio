@@ -21,13 +21,13 @@
                           <table id="add-row" class="display table table-sm  table-hover">
                             <thead class="thead-light">
                               <tr>
-                                <th class="px-3">No</th>
-                                <th class="px-3">Image</th>
+                                <th class="px-3" width="5%">No</th>
+                                <th class="px-3">Gambar</th>
                                 <th class="px-3">Kode produk</th>
                                 <th class="px-3">Nama produk</th>
-                                <th class="px-3">volume</th>
+                                <th class="px-3">Volume</th>
                                 <th class="px-3">HPP</th>
-                                <th class="px-3">Selling Price</th>
+                                <th class="px-3">Harga jual</th>
 
                                 <th class="">
                                   <center>Aksi</center>
@@ -37,12 +37,12 @@
                             <tfoot class="thead-light">
                               <tr>
                                 <th class="px-3">No</th>
-                                <th class="px-3">Image</th>
+                                <th class="px-3">Gambar</th>
                                 <th class="px-3">Kode produk</th>
                                 <th class="px-3">Nama produk</th>
-                                <th class="px-3">volume</th>
+                                <th class="px-3">Volume</th>
                                 <th class="px-3">HPP</th>
-                                <th class="px-3">Selling Price</th>
+                                <th class="px-3">Harga jual</th>
 
                                 <th class="">
                                   <center>Aksi</center>

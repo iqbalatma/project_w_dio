@@ -39,7 +39,7 @@
                                 </div>
                                 <!-- 4 -->
                                 <div class="mt-3">
-                                  <h5 class="font-weight-bold"> Volume / unit </h5>
+                                  <h5 class="font-weight-bold"> Volume / Berat</h5>
                                   <h5 class="bg-light px-2 py-2 rounded"><?= "{$product->volume} {$product->unit}" ?></h5>
                                 </div>
                               </div>
@@ -52,7 +52,7 @@
                                 </div>
                                 <!-- 2 -->
                                 <div class="mt-3">
-                                  <h5 class="font-weight-bold"> Harga jual ecer </h5>
+                                  <h5 class="font-weight-bold"> Harga jual normal </h5>
                                   <h5 class="bg-light px-2 py-2 rounded"><?= $product->selling_price ?></h5>
                                 </div>
                                 <!-- 3 -->
@@ -66,7 +66,7 @@
                                   <h5 class="bg-light px-2 py-2 rounded"></h5>
                                 </div> -->
                                 <?php if ($product->price_base == 0) : ?>
-                                <p class="mt-4 text-danger"><em>Silakan setting HPP untuk produk ini agar bisa melihat harga.</em></p>
+                                <p class="mt-4 text-danger"><em>Silakan setting komposisi untuk produk ini agar bisa melihat HPP.</em></p>
                                 <?php endif; ?>
                               </div>
                             </div>
@@ -79,7 +79,7 @@
                                 $i = 1;
                                 foreach ($composition as $row) :?>
                                 <div class="col-11 mx-auto mt-4">
-                                  <h4 class="text-muted">Barang mentah <?= $i++ ?></h4>
+                                  <h4 class="text-muted ml-2">Barang mentah <?= $i++ ?></h4>
                                   <div class="d-flex flex-wrap flex-row justify-content-center">
                                     <div class="col-6">
                                       <h5 class="font-weight-bold"> Kode </h5>
@@ -90,7 +90,7 @@
                                       <h5 class="bg-light px-2 py-2 rounded"><?= $row['full_name'] ?></h5>
                                     </div>
                                     <div class="col-6">
-                                      <h5 class="font-weight-bold"> vol / unit </h5>
+                                      <h5 class="font-weight-bold"> Vol / Berat </h5>
                                       <h5 class="bg-light px-2 py-2 rounded"><?= "{$row['volume']} {$row['unit']}" ?></h5>
                                     </div>
                                     <div class="col-6">

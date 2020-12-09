@@ -130,6 +130,22 @@ class Product_model extends CI_Model
     }
     return FALSE;
   }
+
+  public function __set_update_hpp_by_product_id($product_id)
+  {
+    $this->db->select('SUM(m.price_base * pc.volume) AS price_base');
+    $this->db->from("{$this->table} AS p");
+    $this->db->join("{$this->tb_product_composition} AS pc", "pc.product_id = p.id");
+    $this->db->join("{$this->tb_material} AS m", "m.id = pc.material_id");
+    $this->db->where('pc.product_id', $product_id);
+    $query = $this->db->get();
+    if ($query->num_rows() == 1) {
+      $data = $query->row();
+      return $this->db->update($this->table, $data);
+    }
+    return FALSE;
+
+  }
   
   /**
    * setter untuk menambahkan harga kustom pada pelanggan
@@ -138,6 +154,7 @@ class Product_model extends CI_Model
    */
   public function set_new_composition_by_id($id, $data)
   {
+    // $newHpp = 0;
     $updatedAt = unix_to_human(now(), true, 'europe');
     
     $this->db->trans_start();
@@ -145,21 +162,23 @@ class Product_model extends CI_Model
     {
       // inputnya material code, tapi yg dibutuhin material id buat ke tabel pc
       // jadi return material id dari proses join 2 tabel dengan method di bawah ini.
-      $cek          = $this->__get_by_product_id_and_material_code($id, $c['material_code'], 'pc.material_id');
-      $material_id  = $this->__get_material_by_code($c['material_code'], 'id');
+      $cek          = $this->__get_by_product_id_and_material_code($id, $c['material_code'], 'pc.material_id, m.price_base');
+      $material     = $this->__get_material_by_code($c['material_code'], 'id, price_base');
+      // $newHpp[]     = $material->price_base;
+
       $data = array(
         "volume"        => $c['volume'],
         "product_id"    => $id,
-        "material_id"   => $material_id->id,
+        "material_id"   => $material->id,
         "updated_at"    => $updatedAt,
       );
-      // pprintd($data);
+      
       // cek apakah data sudah ada atau belum
       // kalo udah ada berarti update, kalo belum berarti insert baru
       if ($cek)
       {
         $this->db->where('product_id', $id);
-        $this->db->where('material_id', $material_id->id);
+        $this->db->where('material_id', $material->id);
         $this->db->update($this->tb_product_composition, $data);
       }
       else
@@ -167,6 +186,7 @@ class Product_model extends CI_Model
         $this->db->insert($this->tb_product_composition, $data);
       }
     }
+    $this->__set_update_hpp_by_product_id($id);
     $this->db->trans_complete();
     
     if ($this->db->trans_status() === FALSE)
@@ -228,7 +248,7 @@ class Product_model extends CI_Model
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);
-    $this->db->order_by('id', 'ASC');
+    $this->db->order_by('id', 'DESC');
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

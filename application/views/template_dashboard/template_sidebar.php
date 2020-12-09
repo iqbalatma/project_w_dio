@@ -149,7 +149,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 5,
     'name'    => 'Data Keuangan',
     'slug'    => $_data_keuangan,
@@ -157,7 +157,7 @@ $mainMenu = array(
     'icon'    => 'fas fa-money-bill-wave',
     'submenu' => array(
       [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Hutang Piutang',
         'slug'  => 'data-hutang-piutang',
         'url'   => "{$_data_keuangan}/data-hutang-piutang",

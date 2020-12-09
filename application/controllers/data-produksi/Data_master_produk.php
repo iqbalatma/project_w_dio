@@ -15,6 +15,7 @@ class Data_master_produk extends CI_Controller
       $this->controller = "data-master-produk";
   }
 
+
   // ============================================== INDEX =======================================
   public function index()
   {
@@ -28,6 +29,7 @@ class Data_master_produk extends CI_Controller
       ];
       $this->load->view('template_dashboard/template_wrapper', $data);
   }
+
 
   // ============================================== TAMBAH =======================================
   public function tambah()
@@ -73,6 +75,7 @@ class Data_master_produk extends CI_Controller
       } // end if($query): success or failed
     } // end form_validation->run()
   }
+
 
   // ============================================== EDIT =======================================
   public function edit($id=NULL)
@@ -139,6 +142,7 @@ class Data_master_produk extends CI_Controller
     } // end form_validation->run()
   }
 
+
   // ============================================== HAPUS =======================================
   public function hapus()
   {
@@ -169,7 +173,8 @@ class Data_master_produk extends CI_Controller
     } // end if($query): success or failed
   }
 
-  // ============================================== HAPUS =======================================
+
+  // ============================================== HAPUS KOMPOSISI ================================
   public function hapus_komposisi()
   {
     $id  = $this->input->post('id');
@@ -178,7 +183,6 @@ class Data_master_produk extends CI_Controller
       redirect(base_url( getBeforeLastSegment($this->modules) ));
     }
     // update data to db
-    // echo '<pre>'; print_r($id); die;
     $query = $this->product_m->set_delete_composition_by_id($id);
 
     if ($query) {
@@ -199,6 +203,7 @@ class Data_master_produk extends CI_Controller
     } // end if($query): success or failed
   }
 
+
   // ============================================== DETAIL ======================================
   public function detail($id = NULL)
   {
@@ -217,6 +222,7 @@ class Data_master_produk extends CI_Controller
     ];
     $this->load->view('template_dashboard/template_wrapper', $data);
   } // end method
+
 
   // ============================================== EDIT KOMPOSISI ==============================
   public function edit_komposisi($id=NULL)
@@ -270,6 +276,7 @@ class Data_master_produk extends CI_Controller
       } // end if($query): success or failed
     } // end form_validation->run()
   }
+  
   
 
   // private method untuk upload gambar logo ke folder img

@@ -24,7 +24,7 @@
                                   <div class="form-group d-flex-row justify-content-center">
                                     <img src="<?= base_url("assets/img/product/{$product->image}") ?>" alt="" class="img-fluid border rounded p-2" width="300px">
                                     <div class="mt-3">
-                                      <label for="edit-foto">Upload foto produk baru</label>
+                                      <label for="edit-foto">Upload foto produk</label>
                                       <input type="file" id="edit-foto" name='edit-foto' accept=".png, .jpg, .jpeg" class="form-control-file">
                                     </div>
                                   </div>
@@ -77,7 +77,7 @@
                                   <!-- 4 -->
                                   <div class="form-group row">
                                     <label for="edit-volume">
-                                      Volume <span class="text-danger">*</span>
+                                      Volume / Berat <span class="text-danger">*</span>
                                     </label>
                                     <input 
                                       type        = "text" 
@@ -117,7 +117,7 @@
                                         type        = "text" 
                                         id          = "edit-sellingprice" 
                                         name        = "edit-sellingprice" 
-                                        placeholder = "Harga ecer" 
+                                        placeholder = "Harga normal" 
                                         value       = "<?= (set_value('edit-sellingprice') !== '') ? set_value('edit-sellingprice') : $product->selling_price ; ?>"
                                         class       = "form-control <?php if(form_error('edit-sellingprice') !== ''){ echo 'is-invalid'; } ?>"
                                       >
