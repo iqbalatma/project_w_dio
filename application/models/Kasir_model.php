@@ -50,9 +50,14 @@ class Kasir_model extends CI_Model
 
     public function update_total_price($data)
     {
-        $this->db->set('price_total', $data['price_total'], FALSE);
-        $this->db->where('id', $data['id']);
-        $this->db->update('transaction'); // gives UPDATE mytable SET field = field+1 WHERE id = 2
+        // $this->db->set('price_total', $data['price_total'], FALSE);
+        // $this->db->where('id', $data['id']);
+        // $this->db->update('transaction');
+        $price_total = $data['price_total'];
+        $id = $data['id'];
+        $nama_tabel = "transaction";
+        $query = $this->db->query("UPDATE $nama_tabel SET price_total = $price_total WHERE id = $id");
+        // gives UPDATE mytable SET field = field+1 WHERE id = 2
         return 1;
     }
 
@@ -212,7 +217,7 @@ class Kasir_model extends CI_Model
         $code_product = $data['code_product'];
         $id_customer = $data['id_customer'];
 
-        $query = $this->db->query("SELECT * FROM custom_price WHERE customer_id =$id_customer AND product_code = '$code_product'");
+        $query = $this->db->query("SELECT * FROM custom_price WHERE customer_id ='$id_customer' AND product_code = '$code_product'");
 
         $row = $query->result_array();
 
