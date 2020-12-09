@@ -43,7 +43,7 @@
                         <div class="card-title">Checkout Station</div>
                     </div>
 
-                    <?= form_open('Kasir/insert'); ?>
+                    <?= form_open('Kasir/konfirmasi_kasir'); ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -212,20 +212,6 @@
 
 
 
-                                <!-- <div class="form-group">
-                                    <label class="form-label">Total Bayar</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Rp</span>
-                                        </div>
-                                        <input type="text" name="yang_dibayar" id="yang_dibayar" class="form-control" aria-label="Pembayaran" disabled value="0">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="checkbox" value="tes" id="tes">
-                                <h1 id="tess">haha</h1> -->
 
 
 
@@ -240,17 +226,20 @@
                         <a href="<?= base_url(); ?>" class="btn btn-danger">Keluar</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary open-modal-kasir" data-toggle="modal" data-target="#modal">
+
+
+                        <!-- <button type="button" class="btn btn-primary open-modal-kasir" data-toggle="modal" data-target="#modal">
                             Checkout
-                        </button>
+                        </button> -->
                         <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
+                        <button type="submit" class="btn btn-primary">Checkout</button>
                     </div>
 
 
 
 
                     <!-- Modal -->
-                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <!-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -280,7 +269,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <?= form_close(); ?>
 

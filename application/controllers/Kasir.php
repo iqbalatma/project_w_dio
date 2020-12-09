@@ -41,7 +41,7 @@ class Kasir extends CI_Controller
         $createdAt = unix_to_human(now(), true, 'europe');
 
         $employee_id = $_SESSION['id'];
-        $checkbox_value = $this->input->post('product');
+        $checkbox_value = $this->input->post('checkbox_value');
 
 
 
@@ -53,7 +53,7 @@ class Kasir extends CI_Controller
 
         $price_total = 0;
         $store_id = $_SESSION['store_id'];
-        $customer_id = $this->input->post('nama_pelanggan');
+        $customer_id = $this->input->post('customer_id');
         $data_customer = $this->Kasir_model->get_customer($customer_id);
         $customer_type = $data_customer['cust_type'];
 
@@ -65,7 +65,7 @@ class Kasir extends CI_Controller
 
         $due_at = unix_to_human(now() + (86400 * 7), true, 'europe');
         $trans_number = 'TRANS-' . date("m.d.y") . now(); //primary_key pada tabel transaksi format menyesuaikan
-        $address = $this->input->post('alamat_pelanggan');
+        $address = $this->input->post('address');
         $data_transaction = [
             'trans_number' => $trans_number,     //
             'deliv_address' => $address,
@@ -142,10 +142,10 @@ class Kasir extends CI_Controller
         // BEGIN PROSES INSERT INVOICE ITEM
         $i = 0;
         $item_price_total = 0;
-        $quantity = $this->input->post('quantity');
+        // $quantity = $this->input->post('quantity');
 
         $custom_harga = $this->input->post('custom_harga');
-
+        var_dump($custom_harga);
         // untuk mengambil data id terbaru yang di insert diatas karena auto increament
         // setelah id didapat maka lakukan insert pada invoice item, dilakukan berulang ulang sesuai dengan jumlah produk yang dimasukkan
         // var_dump($custom_harga);
@@ -162,7 +162,7 @@ class Kasir extends CI_Controller
         foreach ($checkbox_value as $id_product) {
 
 
-            // echo $quantity[$id_product];
+            // echo $this->input->("quantity[".$id_product."]");
 
 
             // untuk mengambil harga dari produk berdasarkan id yang dipilih
@@ -185,17 +185,17 @@ class Kasir extends CI_Controller
             $b = true;
             if ($custom_harga[$id_product] !== "") {
                 $price_per_produk = $custom_harga[$id_product];
-                $b = false;
+                // $b = false;
             } elseif ($cek_harga_custom && $b) {
                 $price_per_produk = $cek_harga_custom[0]['price'];
             }
-            echo $price_per_produk;
+
             //setelah price diambil maka simpan pada array data
             // PENTING, index quantity adalah id_product - 1 karena value dan indexnya tidak sesuai
             $data_invoice_item = [
                 'id' => '',
-                'quantity' => $quantity[$id_product],
-                'item_price' => $price_per_produk * $quantity[$id_product],
+                'quantity' => $this->input->post("quantity[" . $id_product . "]"),
+                'item_price' => $price_per_produk * $this->input->post("quantity[" . $id_product . "]"),
                 'invoice_id' => $data_id_invoice_terakhir,
                 'product_id' => $id_product
             ];
@@ -205,7 +205,7 @@ class Kasir extends CI_Controller
 
 
             // setelah data invoice masing-masing item ada, maka kita dapat menghitung harga totalnya dengan menjumlahkan
-            $item_price_total +=  $price_per_produk * $quantity[$id_product];
+            $item_price_total +=  $price_per_produk * $this->input->post("quantity[" . $id_product . "]");
 
 
             // product_mutation akan menghasilkan history barang yang keluar dari store mana, produk apa, serta siapa yang melakukan
@@ -217,7 +217,7 @@ class Kasir extends CI_Controller
                 'product_id' =>  $id_product,
                 'store_id' => $store_id,
                 'mutation_code' => $mutation_code,
-                'quantity' => $quantity[$id_product],
+                'quantity' => $this->input->post("quantity[" . $id_product . "]"),
                 'mutation_type' => 'keluar',
                 'created_by' => $_SESSION['username'],
                 'is_deleted' => 0,
@@ -234,7 +234,7 @@ class Kasir extends CI_Controller
             foreach ($komposisi as $data) {
                 $material_id = $data['material_id'];
                 $volume = $data['volume'];
-                $quantity_material = $quantity[$id_product] * $volume;
+                $quantity_material = $this->input->post("quantity[" . $id_product . "]") * $volume;
                 $data = [
                     'material_id' => $material_id,
                     'quantity_material' => $quantity_material,
@@ -273,7 +273,7 @@ class Kasir extends CI_Controller
             // data transaksi di update oleh total price
             // update price total berdasarkan item yang sudah ditambahkan
             'id' => $invoice_id,
-            'price_total' => $item_price_total
+            'price_total' => $this->input->post('harga_total'),
         ];
         $update_price_total5 = $this->Kasir_model->update_total_price($data_update);
 
@@ -291,6 +291,11 @@ class Kasir extends CI_Controller
         // echo "<br>";
         // echo $left_to_paid;
 
+        echo $item_price_total;
+        echo $this->input->post("quantity[" . $id_product . "]");
+        // var_dump($quantity);
+        echo $id_product;
+
         if ($insert1 == 1 && $insert2 == 1 && $insert3 == 1 && $insert4 == 1 && $update_price_total5 == 1 && $update_left_to_paid == 1) {
             echo "input berhasil";
             $this->session->set_flashdata('message_berhasil', 'Berhasil checkout product');
@@ -305,6 +310,50 @@ class Kasir extends CI_Controller
     public function get_ajax()
     {
         $this->Kasir_mode->get_ajax();
+    }
+
+    public function konfirmasi_kasir()
+    {
+        $checkbox_value = $this->input->post('product');
+        $customer_id = $this->input->post('nama_pelanggan');
+        $address = $this->input->post('alamat_pelanggan');
+        $quantity = $this->input->post('quantity');
+        $custom_harga = $this->input->post('custom_harga');
+
+        // var_dump($checkbox_value);
+        // echo "<br>";
+        // var_dump($customer_id);
+        // echo "<br>";
+        // var_dump($address);
+        // echo "<br>";
+        // var_dump($paid_amount);
+        // echo "<br>";
+        // var_dump($quantity);
+        // echo "<br>";
+        // var_dump($custom_harga);
+        // echo "<br>";
+        $data = [
+            'title'             => 'Kasir',
+            'content'           => 'kasir/v_konfirmasi_kasir.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'data_customer' => $this->Customer_model->get_all(),
+            'data_product' => $this->Product_model->get_all2(),
+            'checkbox_value' => $checkbox_value,
+            'customer_id' => $customer_id,
+            'address' => $address,
+            'quantity' => $quantity,
+            'custom_harga' => $custom_harga,
+            'datatables' => 1
+        ];
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+    public function test()
+    {
+        echo $x = $this->input->post('a');
+        var_dump($this->input->post('checkbox_value'));
+        var_dump($this->input->post('custom_harga'));
     }
 
 

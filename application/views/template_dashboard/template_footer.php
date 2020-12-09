@@ -272,6 +272,34 @@
             var total_final = 0;
             var counter = $("#counter").val();
 
+
+            var id_total_bayar = "#total_harga";
+            var total_bayar_final = $(id_total_bayar).val();
+            console.log(total_bayar_final);
+
+
+
+
+            $("#total_bayar").html(myHeading + total_bayar_final);
+            // $("#total_bayar").html(myHeading + "Nilai Custom Harga " + nilai_custom_harga + " Nilai Total Belanja" + total_belanjaan);
+            $("#modal").modal("show");
+        });
+    </script>
+
+    <!-- <script>
+        $(document).on("click", ".open-modal-kasir", function() {
+
+
+
+
+            // -------------------------------------------
+
+            var x = new Date();
+            var myHeading = "<p>Total Belanjaan adalah : Rp ";
+
+            var total_final = 0;
+            var counter = $("#counter").val();
+
             for (let j = 0; j < counter; j++) {
                 var total_belanjaan = 0;
                 var nilai_custom_harga = 0;
@@ -354,7 +382,7 @@
             // $("#total_bayar").html(myHeading + "Nilai Custom Harga " + nilai_custom_harga + " Nilai Total Belanja" + total_belanjaan);
             $("#modal").modal("show");
         });
-    </script>
+    </script> -->
 
 
     <?php
