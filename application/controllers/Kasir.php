@@ -148,7 +148,7 @@ class Kasir extends CI_Controller
 
         // untuk mengambil data id terbaru yang di insert diatas karena auto increament
         // setelah id didapat maka lakukan insert pada invoice item, dilakukan berulang ulang sesuai dengan jumlah produk yang dimasukkan
-        var_dump($custom_harga);
+        // var_dump($custom_harga);
         // var_dump($quantity);
 
 
@@ -169,7 +169,7 @@ class Kasir extends CI_Controller
             // $id_product pada view valuenya diambil dari id pada tabel data product jadi tidak perlu khawatir akan missmatch data
             $price = $this->Product_model->get_by_id($id_product);
 
-            $price_per_produk = $price->price_base;
+            $price_per_produk = $price->selling_price;
 
 
 
@@ -277,8 +277,10 @@ class Kasir extends CI_Controller
         ];
         $update_price_total5 = $this->Kasir_model->update_total_price($data_update);
 
-        $left_to_paid = $paid_amount - $item_price_total;
-        if ($left_to_paid >= 0) {
+
+
+        $left_to_paid =    intval($item_price_total) - intval($paid_amount);
+        if ($left_to_paid <= 0) {
             $left_to_paid = 0;
         }
         $data_update_invoice = [
@@ -286,19 +288,8 @@ class Kasir extends CI_Controller
             'left_to_paid' => $left_to_paid
         ];
         $update_left_to_paid = $this->Kasir_model->update_left_to_paid($data_update_invoice);
-
-        // echo "insert 1 " .  $insert1;
         // echo "<br>";
-        // echo "insert 2 " . $insert2;
-        // echo "<br>";
-        // echo "insert 3 " . $insert3;
-        // echo "<br>";
-        // echo "insert 4 " . $insert4;
-        // echo "<br>";
-        // echo "insert 5 " . $update_price_total5;
-        // echo "<br>";
-        // echo "insert 6 " . $update_left_to_paid;
-        // echo "<br>";
+        // echo $left_to_paid;
 
         if ($insert1 == 1 && $insert2 == 1 && $insert3 == 1 && $insert4 == 1 && $update_price_total5 == 1 && $update_left_to_paid == 1) {
             echo "input berhasil";
