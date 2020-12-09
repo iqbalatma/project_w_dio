@@ -264,7 +264,7 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('title', "Data komposisi sukses!");
         $this->session->set_flashdata('text', 'Komposisi produk telah diset!');
         // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
 
       }else {
         // flashdata untuk sweetalert

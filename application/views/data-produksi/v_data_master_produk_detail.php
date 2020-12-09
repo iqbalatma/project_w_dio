@@ -48,12 +48,12 @@
                                 <!-- 1 -->
                                 <div class="mt-3">
                                   <h5 class="font-weight-bold"> HPP </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_base ?></h5>
+                                  <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($product->price_base, 0, '', '.') ?></h5>
                                 </div>
                                 <!-- 2 -->
                                 <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual normal </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->selling_price ?></h5>
+                                  <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($product->selling_price, 0, '', '.') ?></h5>
                                 </div>
                                 <!-- 3 -->
                                 <!-- <div class="mt-3">

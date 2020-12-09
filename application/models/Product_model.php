@@ -141,6 +141,8 @@ class Product_model extends CI_Model
     $query = $this->db->get();
     if ($query->num_rows() == 1) {
       $data = $query->row();
+
+      $this->db->where('id', $product_id);
       return $this->db->update($this->table, $data);
     }
     return FALSE;
