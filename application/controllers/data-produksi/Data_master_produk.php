@@ -10,6 +10,7 @@ class Data_master_produk extends CI_Controller
       must_login();
       // load model
       $this->load->model('Product_model', 'product_m');
+      $this->load->model('Material_model', 'material_m');
       // initialize for menuActive and submenuActive
       $this->modules    = "data-produksi";
       $this->controller = "data-master-produk";
@@ -63,7 +64,7 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('title', "Penambahan sukses!");
         $this->session->set_flashdata('text', 'Data produk telah berhasil ditambah!');
         // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules) ));
+        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
 
       }else {
         // flashdata untuk sweetalert
@@ -71,7 +72,7 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('title', "Penambahan gagal!");
         $this->session->set_flashdata('text', 'Mohon cek kembali data produk.');
         // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules) ));
+        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
       } // end if($query): success or failed
     } // end form_validation->run()
   }
@@ -129,7 +130,7 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('title', "Pembaruan sukses!");
         $this->session->set_flashdata('text', 'Data produk telah berhasil diperbarui!');
         // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
 
       }else {
         // flashdata untuk sweetalert
@@ -137,7 +138,63 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('title', "Pembaruan gagal!");
         $this->session->set_flashdata('text', 'Mohon cek kembali data produk.');
         // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
+      } // end if($query): success or failed
+    } // end form_validation->run()
+  }
+
+
+  // ============================================== EDIT KOMPOSISI ==============================
+  public function edit_komposisi($id=NULL)
+  {
+    if ($id === NULL)
+    {
+      redirect(base_url( getBeforeLastSegment($this->modules) ));
+    }
+    // set form rules
+    $this->form_validation->set_rules('polo', 'polo',			  'required');
+
+    // run the form validation
+    if ($this->form_validation->run() == FALSE) {
+      // query data dari database
+      $result = $this->product_m->get_by_id($id);
+      // validasi jika data tidak ada (return FALSE) maka redirect keluar
+      ($result !== FALSE) ?: redirect(base_url( getBeforeLastSegment($this->modules, 2) )) ;
+
+      // set data untuk digunakan pada view
+      $data = [
+        'title'           => 'Ubah data komposisi produk',
+        'content'         => 'data-produksi/v_data_master_produk_edit_komposisi.php',
+        'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+        'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
+        'product'         => $result,
+        'composition'     => $this->product_m->get_all_composition_by_id($id, 'pc.id AS pc_id, p.product_code, m.material_code, m.full_name, pc.volume'),
+        'materials'       => $this->material_m->get_all('material_code, full_name'),
+        'select2'         => 1,
+      ];
+      // pprintd($data);
+      $this->load->view('template_dashboard/template_wrapper', $data);
+
+    }else {
+      // insert data to db
+      $post   = $this->input->post();
+      $query  = $this->product_m->set_new_composition_by_id($id, $post);
+
+      if ($query) {
+        // flashdata untuk sweetalert
+        $this->session->set_flashdata('success_message', 1);
+        $this->session->set_flashdata('title', "Data komposisi sukses!");
+        $this->session->set_flashdata('text', 'Komposisi produk telah diset!');
+        // kembali ke laman sebelumnya sesuai hirarki controller
+        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
+
+      }else {
+        // flashdata untuk sweetalert
+        $this->session->set_flashdata('failed_message', 1);
+        $this->session->set_flashdata('title', "Gagal! Kode bahan baku salah.");
+        $this->session->set_flashdata('text', 'Jika masih berlanjut hubungi administrator segera.');
+        // kembali ke laman sebelumnya sesuai hirarki controller
+        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
       } // end if($query): success or failed
     } // end form_validation->run()
   }
@@ -191,7 +248,7 @@ class Data_master_produk extends CI_Controller
       $this->session->set_flashdata('title', "Penghapusan sukses!");
       $this->session->set_flashdata('text', 'Data komposisi produk telah berhasil dihapus!');
       // kembali ke laman sebelumnya sesuai hirarki controller
-      redirect(base_url( getBeforeLastSegment($this->modules) ));
+      redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
 
     }else {
       // flashdata untuk sweetalert
@@ -199,7 +256,7 @@ class Data_master_produk extends CI_Controller
       $this->session->set_flashdata('title', "Penghapusan gagal!");
       $this->session->set_flashdata('text', 'Mohon hubungi administrator jika masih berlanjut.');
       // kembali ke laman sebelumnya sesuai hirarki controller
-      redirect(base_url( getBeforeLastSegment($this->modules) ));
+      redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
     } // end if($query): success or failed
   }
 
@@ -218,81 +275,30 @@ class Data_master_produk extends CI_Controller
       'menuActive'        => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
       'submenuActive'     => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
       'product'           => $this->product_m->get_by_id($id),
-      'composition'       => $this->product_m->get_all_composition_by_id($id, 'm.*'),
+      'composition'       => $this->product_m->get_all_composition_by_id($id, 'm.full_name, m.material_code, m.price_base, pc.volume'),
     ];
     $this->load->view('template_dashboard/template_wrapper', $data);
   } // end method
-
-
-  // ============================================== EDIT KOMPOSISI ==============================
-  public function edit_komposisi($id=NULL)
-  {
-    if ($id === NULL)
-    {
-      redirect(base_url( getBeforeLastSegment($this->modules) ));
-    }
-    // set form rules
-    $this->form_validation->set_rules('polo', 'polo',			  'required');
-
-    // run the form validation
-    if ($this->form_validation->run() == FALSE) {
-      // query data dari database
-      $result = $this->product_m->get_by_id($id);
-      // validasi jika data tidak ada (return FALSE) maka redirect keluar
-      ($result !== FALSE) ?: redirect(base_url( getBeforeLastSegment($this->modules, 2) )) ;
-
-      // set data untuk digunakan pada view
-      $data = [
-        'title'           => 'Ubah data komposisi produk',
-        'content'         => 'data-produksi/v_data_master_produk_edit_komposisi.php',
-        'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
-        'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
-        'product'         => $result,
-        'composition'     => $this->product_m->get_all_composition_by_id($id, 'pc.id AS pc_id, p.product_code, m.material_code, m.full_name, pc.volume'),
-      ];
-      // pprintd($data);
-      $this->load->view('template_dashboard/template_wrapper', $data);
-
-    }else {
-      // insert data to db
-      $post   = $this->input->post();
-      $query  = $this->product_m->set_new_composition_by_id($id, $post);
-
-      if ($query) {
-        // flashdata untuk sweetalert
-        $this->session->set_flashdata('success_message', 1);
-        $this->session->set_flashdata('title', "Data komposisi sukses!");
-        $this->session->set_flashdata('text', 'Komposisi produk telah diset!');
-        // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
-
-      }else {
-        // flashdata untuk sweetalert
-        $this->session->set_flashdata('failed_message', 1);
-        $this->session->set_flashdata('title', "Gagal! Kode bahan baku salah.");
-        $this->session->set_flashdata('text', 'Jika masih berlanjut hubungi administrator segera.');
-        // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
-      } // end if($query): success or failed
-    } // end form_validation->run()
-  }
   
   
 
+
+
+  // ============================================== UPLOAD FOTO =======================================
   // private method untuk upload gambar logo ke folder img
   // dengan nama logo.png apapun ekstensi awalnya dan return nama filenya
   private function __uploadfoto($opt=NULL)
   {
     $config['upload_path']      = './assets/img/product';
-    $config['allowed_types']    = 'jpg|png';
+    $config['allowed_types']    = 'jpg|jpeg|png';
     $config['file_name']        = ($opt===NULL) ? 'default.png' : $opt;
     $config['overwrite']			  = true;
     $config['max_size']         = 1024 * 5; // 5MB
     // $config['max_width']        = 1024;
     // $config['max_height']       = 768;
 
-      // pprintd($config);
-      $this->upload->initialize($config);
+    $this->upload->initialize($config);
+    // pprintd($this->upload->data("file_name"));
 
     if ($this->upload->do_upload('edit-foto')) {
       return $this->upload->data("file_name");

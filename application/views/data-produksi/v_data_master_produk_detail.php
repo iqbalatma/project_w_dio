@@ -78,23 +78,23 @@
                                 $i = 1;
                                 foreach ($composition as $row) :?>
                                 <div class="col-11 mx-auto mt-4">
-                                  <h4 class="text-muted ml-2">Barang mentah <?= $i++ ?></h4>
+                                  <h4 class="text-muted ml-2">Bahan baku ke-<?= $i++ ?></h4>
                                   <div class="d-flex flex-wrap flex-row justify-content-center">
-                                    <div class="col-6">
-                                      <h5 class="font-weight-bold"> Kode </h5>
-                                      <h5 class="bg-light px-2 py-2 rounded"><?= $row['material_code'] ?></h5>
-                                    </div>
                                     <div class="col-6">
                                       <h5 class="font-weight-bold"> Nama </h5>
                                       <h5 class="bg-light px-2 py-2 rounded"><?= $row['full_name'] ?></h5>
                                     </div>
                                     <div class="col-6">
-                                      <h5 class="font-weight-bold"> Vol / Berat </h5>
-                                      <h5 class="bg-light px-2 py-2 rounded"><?= "{$row['volume']} {$row['unit']}" ?></h5>
+                                      <h5 class="font-weight-bold"> Kode </h5>
+                                      <h5 class="bg-light px-2 py-2 rounded"><?= $row['material_code'] ?></h5>
                                     </div>
                                     <div class="col-6">
-                                      <h5 class="font-weight-bold"> HPP </h5>
+                                      <h5 class="font-weight-bold"> Harga dasar </h5>
                                       <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($row['price_base'], 0, '', '.') ?></h5>
+                                    </div>
+                                    <div class="col-6">
+                                      <h5 class="font-weight-bold"> Harga dasar x Jumlah </h5>
+                                      <h5 class="bg-light px-2 py-2 rounded"><?= "{$row['price_base']} x {$row['volume']}" ?> = Rp. <?= number_format($row['price_base'] * $row['volume'], 0, '', '.') ?></h5>
                                     </div>
                                   </div>
                                 </div> <?php 
@@ -109,7 +109,7 @@
                               <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-light btn-border col-3 mx-1">
                                 Batal
                               </a>
-                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-warning btn-border col-3 mx-1">
+                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-primary btn-border col-3 mx-1">
                                 Setting komposisi
                               </a>
                               <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-3 mx-1">

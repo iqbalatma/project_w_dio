@@ -17,6 +17,28 @@ class Material_model extends CI_Model
     protected $primaryKey = 'material_code';
     protected $returnType     = 'array';
 
+    // buat yg returnnya array -dio
+    /**
+     * Get all rows from certain table
+     * 
+     * @param string $select 
+     * Default value is '*', but you can input some string
+     * to select some table(s) name of your choice.
+     * 
+     */
+    public function get_all($select = '*')
+    {
+        $this->db->select($select);
+        $this->db->from($this->table);
+        $this->db->where('is_deleted', 0);
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+        return $query->result_array();
+        }
+        return FALSE;
+    }
+  
     public function getAll()
     {
         $this->db->order_by('id', 'DESC');

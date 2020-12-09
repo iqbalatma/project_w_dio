@@ -113,6 +113,10 @@
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
     <?php } ?>
 
+    <?php if (isset($select2)) { ?>
+        <script src="<?= base_url('vendor/select2/select2/dist/js/select2.min.js') ?>"></script>
+    <?php } ?>
+
     <!-- Atlantis JS -->
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
 
@@ -254,8 +258,6 @@
     </script>
 
 
-
-
     <script>
         $(document).on("click", ".open-modal-kasir", function() {
 
@@ -355,8 +357,6 @@
     </script>
 
 
-
-
     <?php
     // hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
     if ($submenuActive == 'data-master-pelanggan') : ?>
@@ -402,7 +402,14 @@
                         <div class='d-flex justify-content-center'>
                             <div class='form-group row mx-auto'>
                                 <label>Kode produk ${nextindex} <span class="text-danger">*</span></label>
-                                    <input required type='text' placeholder='Input kode' id='add-customproduct-${nextindex}' name='custom[${nextindex}][product_code]' class='form-control'>
+                                    <select required class="form-control select2" id='add-customproduct-${nextindex}' name='custom[${nextindex}][product_code]'>
+                                    <option selected disabled>-- Pilih produk --</option>
+                                    <?php foreach ($products as $row): ?>
+                                        <option value=<?= "{$row['product_code']}" ?>>
+                                            <?= "{$row['product_code']} - {$row['full_name']}" ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                    </select>
                                 </label>
                             </div>
                             <div class='form-group row mx-auto'>
@@ -415,6 +422,11 @@
                         </div>
                     `);
                     }
+
+                    // untuk set select2 libs hanya ketika element di atas ditambah
+                    $(document).ready(function() {
+                        $('.select2').select2();
+                    });
                 });
 
                 // Remove element
@@ -475,7 +487,14 @@
                         <div class='d-flex justify-content-center'>
                             <div class='form-group row mx-auto'>
                                 <label>Kode bahan baku ${nextindex} <span class="text-danger">*</span></label>
-                                    <input required type='text' placeholder='Input kode bahan baku' id='add-bahanbaku-${nextindex}' name='custom[${nextindex}][material_code]' class='form-control'>
+                                    <select required class="form-control select2" id='add-bahanbaku-${nextindex}' name='custom[${nextindex}][material_code]'>
+                                    <option selected disabled>-- Pilih bahan baku --</option>
+                                    <?php foreach ($materials as $row): ?>
+                                        <option value=<?= "{$row['material_code']}" ?>>
+                                            <?= "{$row['material_code']} - {$row['full_name']}" ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                    </select>
                                 </label>
                             </div>
                             <div class='form-group row mx-auto'>
@@ -488,6 +507,11 @@
                         </div>
                     `);
                     }
+
+                    // untuk set select2 libs hanya ketika element di atas ditambah
+                    $(document).ready(function() {
+                        $('.select2').select2();
+                    });
                 });
 
                 // Remove element

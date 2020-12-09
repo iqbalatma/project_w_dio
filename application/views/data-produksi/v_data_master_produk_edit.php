@@ -23,9 +23,11 @@
                                 <div class="col-6 mr-2">
                                   <div class="form-group d-flex-row justify-content-center">
                                     <img src="<?= base_url("assets/img/product/{$product->image}") ?>" alt="" class="img-fluid border rounded p-2" width="300px">
-                                    <div class="mt-3">
+                                    <div class="mt-4">
                                       <label for="edit-foto">Upload foto produk</label>
                                       <input type="file" id="edit-foto" name='edit-foto' accept=".png, .jpg, .jpeg" class="form-control-file">
+                                      <br>
+                                      <span class="text-danger">* Gambar hanya bisa .jpg, .jpeg, dan .png</span>
                                     </div>
                                   </div>
                                 </div>
