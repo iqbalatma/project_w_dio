@@ -26,7 +26,7 @@
                               <!-- 1 -->
                               <div class="form-group row">
                                 <label for="edit-fullname">
-                                  Nama pelanggan
+                                  Nama pelanggan <span class="text-danger">*</span>
                                 </label>
                                 <input 
                                   type        = "text" 
@@ -55,7 +55,7 @@
                               <!-- 2 -->
                               <div class="form-group row">
                                 <label for="edit-phone">
-                                  Nomor handphone
+                                  Nomor handphone <span class="text-danger">*</span>
                                 </label>
                                 <input 
                                   type        = "tel" 
@@ -72,7 +72,7 @@
                               <!-- 3 -->
                               <div class="form-group row">
                                 <label for="edit-address">
-                                  Alamat
+                                  Alamat <span class="text-danger">*</span>
                                 </label>
                                 <textarea 
                                   cols        = "30"

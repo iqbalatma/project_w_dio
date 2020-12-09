@@ -20,11 +20,13 @@
                           <div class="col-8 mt-2">
 
                             <div class="row d-flex">
+                              <!-- 1 -->
+                              <div class="d-flex avatar avatar-xxl mx-auto">
+                                <img src="<?= base_url("assets/img/product/{$product->image}") ?>" alt="" class="avatar-img rounded">
+                              </div>
+                            </div>
+                            <div class="row d-flex">
                               <div class="col-5 mx-auto">
-                                <!-- 1 -->
-                                <div class="d-flex avatar avatar-xxl mx-auto">
-                                  <img src="<?= base_url("assets/img/product/{$product->image}") ?>" alt="" class="avatar-img rounded">
-                                </div>
                                 <!-- 2 -->
                                 <div class="mt-3">
                                   <h5 class="font-weight-bold"> Kode produk </h5>
@@ -44,25 +46,25 @@
 
                               <div class="col-5 mx-auto">
                                 <!-- 1 -->
-                                <div class="">
+                                <div class="mt-3">
                                   <h5 class="font-weight-bold"> HPP </h5>
                                   <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_base ?></h5>
                                 </div>
                                 <!-- 2 -->
                                 <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual ecer </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_retail ?></h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->selling_price ?></h5>
                                 </div>
                                 <!-- 3 -->
-                                <div class="mt-3">
+                                <!-- <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual reseller </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_reseller ?></h5>
-                                </div>
+                                  <h5 class="bg-light px-2 py-2 rounded"></h5>
+                                </div> -->
                                 <!-- 4 -->
-                                <div class="mt-3">
+                                <!-- <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual grosir </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_wholesale ?></h5>
-                                </div>
+                                  <h5 class="bg-light px-2 py-2 rounded"></h5>
+                                </div> -->
                                 <?php if ($product->price_base == 0) : ?>
                                 <p class="mt-4 text-danger"><em>Silakan setting HPP untuk produk ini agar bisa melihat harga.</em></p>
                                 <?php endif; ?>
@@ -105,10 +107,13 @@
 
                             <!-- button -->
                             <div class="form-group row justify-content-center mt-5">
-                              <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-light btn-border col-5 mx-1">
+                              <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-light btn-border col-3 mx-1">
                                 Kembali
                               </a>
-                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-5 mx-1">
+                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-warning btn-border col-3 mx-1">
+                                Setting komposisi
+                              </a>
+                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-3 mx-1">
                                 Perbarui data
                               </a>
                             </div>

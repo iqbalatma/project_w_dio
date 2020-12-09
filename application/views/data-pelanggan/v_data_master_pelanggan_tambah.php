@@ -48,7 +48,6 @@
                                   <option disabled selected>-- pilih tipe --</option>
                                     <option value="retail"> Biasa / Retail </option>
                                     <option value="reseller"> Reseller </option>
-                                    <option value="wholesale"> Grosir / Wholesale </option>
                                 </select>
                                 <?= form_error('add-tipe') ?>
                               </div>

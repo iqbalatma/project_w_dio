@@ -51,18 +51,18 @@
                                 <!-- 2 -->
                                 <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual ecer </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_retail ?></h5>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->selling_price ?></h5>
                                 </div>
                                 <!-- 3 -->
-                                <div class="mt-3">
+                                <!-- <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual reseller </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_reseller ?></h5>
-                                </div>
+                                  <h5 class="bg-light px-2 py-2 rounded"></h5>
+                                </div> -->
                                 <!-- 4 -->
-                                <div class="mt-3">
+                                <!-- <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual grosir </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"><?= $product->price_wholesale ?></h5>
-                                </div>
+                                  <h5 class="bg-light px-2 py-2 rounded"></h5>
+                                </div> -->
                                 <?php if ($product->price_base == 0) : ?>
                                 <p class="mt-4 text-danger"><em>Silakan setting HPP untuk produk ini agar bisa melihat harga.</em></p>
                                 <?php endif; ?>

@@ -60,7 +60,7 @@ class Data_master_pelanggan extends CI_Controller
           $this->session->set_flashdata('title', "Penambahan sukses!");
           $this->session->set_flashdata('text', 'Data pelanggan telah berhasil ditambah!');
           // kembali ke laman sebelumnya sesuai hirarki controller
-          redirect(base_url( getBeforeLastSegment($this->modules)."/edit/{$lastId}" ));
+          redirect(base_url( getBeforeLastSegment($this->modules)."/edit-harga/{$lastId}" ));
 
         }else {
           // flashdata untuk sweetalert
@@ -156,6 +156,36 @@ class Data_master_pelanggan extends CI_Controller
       } // end if($query): success or failed 
     }
 
+    // ============================================== HAPUS =======================================
+  public function hapus_harga()
+  {
+    $id  = $this->input->post('id');
+    if ($id === NULL)
+    {
+      redirect(base_url( getBeforeLastSegment($this->modules) ));
+    }
+    // update data to db
+    // echo '<pre>'; print_r($id); die;
+    $query = $this->customer_m->set_delete_custom_price_by_id($id);
+
+    if ($query) {
+      // flashdata untuk sweetalert
+      $this->session->set_flashdata('success_message', 1);
+      $this->session->set_flashdata('title', "Penghapusan sukses!");
+      $this->session->set_flashdata('text', 'Data harga kustom telah berhasil dihapus!');
+      // kembali ke laman sebelumnya sesuai hirarki controller
+      redirect(base_url( getBeforeLastSegment($this->modules) ));
+
+    }else {
+      // flashdata untuk sweetalert
+      $this->session->set_flashdata('failed_message', 1);
+      $this->session->set_flashdata('title', "Penghapusan gagal!");
+      $this->session->set_flashdata('text', 'Mohon hubungi administrator jika masih berlanjut.');
+      // kembali ke laman sebelumnya sesuai hirarki controller
+      redirect(base_url( getBeforeLastSegment($this->modules) ));
+    } // end if($query): success or failed
+  }
+
     public function edit_harga($id=NULL)
     {
       if ($id === NULL)
@@ -179,7 +209,9 @@ class Data_master_pelanggan extends CI_Controller
           'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'customer'        => $result,
+          'custom_price'    => $this->customer_m->get_customer_price_by_id($id, 'cp.id, cp.customer_id, cp.price, cp.product_code, p.full_name'),
         ];
+        // pprintd($data['custom_price']);
         $this->load->view('template_dashboard/template_wrapper', $data);
 
       }else {

@@ -48,12 +48,13 @@ class Product_model extends CI_Model
   public function set_update_by_id($id, $data)
   {
     $data = array(
+      "image"               => $data['edit-foto'],
       "product_code"        => $data['edit-kodeproduk'],
       "full_name"           => $data['edit-fullname'],
       "unit"                => $data['edit-unit'],
       "volume"              => $data['edit-volume'],
       "price_base"          => $data['edit-hpp'],
-      "selling_price"        => $data['edit-priceretail'],
+      "selling_price"       => $data['edit-sellingprice'],
 
     );
     $this->db->where('id', $id);
@@ -75,6 +76,121 @@ class Product_model extends CI_Model
     );
     $this->db->where('id', $id);
     return $this->db->update($this->table, $data);
+  }
+
+
+
+
+
+
+  /**
+   * 
+   * Check whether if cust have composition for specific product or not
+   * if they have composition, then update the existing one
+   * if not, then create a new one
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function __get_by_product_id_and_material_code($product_id, $material_code, $select = '*')
+  {
+    $this->db->select($select);
+    $this->db->from("{$this->tb_product_composition} AS pc");
+    $this->db->join("{$this->tb_material} AS m", "m.id = pc.material_id");
+    $this->db->where('pc.product_id', $product_id);
+    $this->db->where('m.material_code', $material_code);
+    $query = $this->db->get();
+    if ( $query->num_rows() > 0) {
+      return $query->row();
+    }
+    return FALSE;
+  }
+
+  /**
+   * Get one material by the material unique id
+   * 
+   * @param string $id 
+   * Set the $id from the material id to fetch the data relatives to the id.
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function __get_material_by_code($code, $select = '*')
+  {
+    // get from tb_department
+    $this->db->select($select);
+    $this->db->from($this->tb_material);
+    $this->db->where("{$this->tb_material}.material_code", $code);
+    $query = $this->db->get();
+    if ($query->num_rows() == 1) {
+      return $query->row();
+    }
+    return FALSE;
+  }
+  
+  /**
+   * setter untuk menambahkan harga kustom pada pelanggan
+   * 
+   * @param array $data [berisi 4 data]
+   */
+  public function set_new_composition_by_id($id, $data)
+  {
+    $updatedAt = unix_to_human(now(), true, 'europe');
+    
+    $this->db->trans_start();
+    foreach ($data['custom'] as $c)
+    {
+      // inputnya material code, tapi yg dibutuhin material id buat ke tabel pc
+      // jadi return material id dari proses join 2 tabel dengan method di bawah ini.
+      $cek          = $this->__get_by_product_id_and_material_code($id, $c['material_code'], 'pc.material_id');
+      $material_id  = $this->__get_material_by_code($c['material_code'], 'id');
+      $data = array(
+        "volume"        => $c['volume'],
+        "product_id"    => $id,
+        "material_id"   => $material_id->id,
+        "updated_at"    => $updatedAt,
+      );
+      // pprintd($data);
+      // cek apakah data sudah ada atau belum
+      // kalo udah ada berarti update, kalo belum berarti insert baru
+      if ($cek)
+      {
+        $this->db->where('product_id', $id);
+        $this->db->where('material_id', $material_id->id);
+        $this->db->update($this->tb_product_composition, $data);
+      }
+      else
+      {
+        $this->db->insert($this->tb_product_composition, $data);
+      }
+    }
+    $this->db->trans_complete();
+    
+    if ($this->db->trans_status() === FALSE)
+    {
+      return FALSE;
+    }
+    else
+    {
+      return 1;
+    }
+  }
+
+  /**
+   * 
+   * Delete composition dara row, entirely
+   * 
+   * @param array $id
+   * Set the $id from the kas id to fetch the data relatives to the id.
+   * 
+   */
+  public function set_delete_composition_by_id($id)
+  {
+    $this->db->where('id', $id);
+    return $this->db->delete($this->tb_product_composition);
   }
 
 
@@ -219,10 +335,11 @@ class Product_model extends CI_Model
   {
     // get from tb_department
     $this->db->select($select);
-    $this->db->from($this->table);
-    $this->db->join($this->tb_product_composition, "{$this->table}.id={$this->tb_product_composition}.product_id");
-    $this->db->join($this->tb_material, "{$this->tb_product_composition}.material_id={$this->tb_material}.id");
-    $this->db->where("{$this->tb_product_composition}.product_id", $id);
+    $this->db->from("{$this->table} AS p");
+    $this->db->join("{$this->tb_product_composition} AS pc", "p.id=pc.product_id");
+    $this->db->join("{$this->tb_material} AS m", "pc.material_id=m.id");
+    $this->db->where("pc.product_id", $id);
+    $this->db->where('pc.is_deleted', 0);
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

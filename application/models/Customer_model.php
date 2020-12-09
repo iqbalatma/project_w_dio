@@ -6,8 +6,9 @@
 class Customer_model extends CI_Model
 {
 
-  var $table = 'customer';
-  var $tb_custom_price = 'custom_price';
+  var $table            = 'customer';
+  var $tb_custom_price  = 'custom_price';
+  var $tb_product       = 'product';
 
   //  ===============================================SETTER===============================================
   /**
@@ -33,6 +34,7 @@ class Customer_model extends CI_Model
     return $lastId;
   }
   
+
 
   /**
    * 
@@ -103,6 +105,7 @@ class Customer_model extends CI_Model
   }
 
 
+
   // update customer by id
   public function set_update_by_id($id, $data)
   {
@@ -125,6 +128,20 @@ class Customer_model extends CI_Model
     );
     $this->db->where('id', $id);
     return $this->db->update($this->table, $data);
+  }
+
+  /**
+   * 
+   * Delete composition dara row, entirely
+   * 
+   * @param array $id
+   * Set the $id from the kas id to fetch the data relatives to the id.
+   * 
+   */
+  public function set_delete_custom_price_by_id($id)
+  {
+    $this->db->where('id', $id);
+    return $this->db->delete($this->tb_custom_price);
   }
 
 
@@ -179,6 +196,22 @@ class Customer_model extends CI_Model
     $query = $this->db->get();
     if ($query->num_rows() == 1) {
       return $query->row();
+    }
+    return FALSE;
+  }
+
+  public function get_customer_price_by_id($id, $select = '*')
+  {
+    // get from table
+    $this->db->select($select);
+    $this->db->from("{$this->table} AS c");
+    $this->db->join("{$this->tb_custom_price} AS cp", 'cp.customer_id = c.id');
+    $this->db->join("{$this->tb_product} AS p", 'p.product_code = cp.product_code');
+    $this->db->where('cp.customer_id', $id);
+    $this->db->where('cp.is_deleted', 0);
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
     }
     return FALSE;
   }

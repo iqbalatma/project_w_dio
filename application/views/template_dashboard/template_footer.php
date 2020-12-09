@@ -256,11 +256,6 @@
 
 
 
-
-
-
-
-
     <script>
         $(document).on("click", ".open-modal-kasir", function() {
 
@@ -362,17 +357,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     <?php
     // hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
     if ($submenuActive == 'data-master-pelanggan') : ?>
@@ -417,12 +401,12 @@
                         $("#div-" + nextindex).append(`
                         <div class='d-flex justify-content-center'>
                             <div class='form-group row mx-auto'>
-                                <label>Kode produk ${nextindex}</label>
+                                <label>Kode produk ${nextindex} <span class="text-danger">*</span></label>
                                     <input required type='text' placeholder='Input kode' id='add-customproduct-${nextindex}' name='custom[${nextindex}][product_code]' class='form-control'>
                                 </label>
                             </div>
                             <div class='form-group row mx-auto'>
-                                <label>Harga kustom ${nextindex}</label>
+                                <label>Harga kustom ${nextindex} <span class="text-danger">*</span></label>
                                 <input required type='tel' pattern="[0-9]{1,}" title="Harga harus angka dan minimal 1 angka" placeholder='Input harga' id='add-customprice-${nextindex}' name='custom[${nextindex}][price]' class='form-control'>
                             </div>
                             <div class='py-4 h1'>
@@ -444,9 +428,79 @@
                 });
             });
         </script>
+    <?php endif; ?>
 
+    <?php
+    // hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
+    if ($submenuActive == 'data-master-produk') : ?>
+        <script>
+            // fungsi menampilkan tombol tambah
+            $(function() {
+                if ($('input[name="show-or-hide"]').prop('checked')) {
+                    $('.add-komposisi-div').fadeIn();
+                } else {
+                    $('.add-komposisi-div').hide();
+                }
 
+                //show it when the show-or-hide is clicked
+                $('input[name="show-or-hide"]').on('click', function() {
+                    if ($(this).prop('checked')) {
+                        $('.add-komposisi-div').fadeIn();
+                    } else {
+                        $('.add-komposisi-div').hide();
+                    }
+                });
+            });
 
+            // fungsi menambah input box
+            $(function() {
+                // Add new element
+                $(".add-komposisi-div").click(function() {
+                    // Finding total number of elements added
+                    var total_element = $(".element").length;
+                    // last <div> with element class id
+                    var lastid = $(".element:last").attr("id");
+                    var split_id = lastid.split("-");
+                    var nextindex = Number(split_id[1]) + 1;
+                    // set max product
+                    var max = 16;
+                    // Check total number elements
+                    if (total_element < max) {
+                        // Adding new div container after last occurance of element class
+                        $(".element:last").after(`
+                        <div class='element' id='div-${nextindex}'></div>
+                    `);
+                        // Adding element to <div>
+                        $("#div-" + nextindex).append(`
+                        <div class='d-flex justify-content-center'>
+                            <div class='form-group row mx-auto'>
+                                <label>Kode bahan baku ${nextindex} <span class="text-danger">*</span></label>
+                                    <input required type='text' placeholder='Input kode bahan baku' id='add-bahanbaku-${nextindex}' name='custom[${nextindex}][material_code]' class='form-control'>
+                                </label>
+                            </div>
+                            <div class='form-group row mx-auto'>
+                                <label>Total volume / qty ${nextindex} <span class="text-danger">*</span></label>
+                                <input required type='tel' pattern="[0-9]{1,}" title="Total harus angka dan minimal 1 angka" placeholder='Input volume / qty' id='add-komposisi-${nextindex}' name='custom[${nextindex}][volume]' class='form-control'>
+                            </div>
+                            <div class='py-4 h1'>
+                                <span id='remove-${nextindex}' class='remove h2 text-danger'>&times</span>
+                            </div>
+                        </div>
+                    `);
+                    }
+                });
+
+                // Remove element
+                $('.bungkus').on('click', '.remove', function() {
+                    var id = this.id;
+                    var split_id = id.split("-");
+                    var deleteindex = split_id[1];
+                    // Remove <div> with id
+                    $("#div-" + deleteindex).remove();
+
+                });
+            });
+        </script>
     <?php endif; ?>
 
     </body>
