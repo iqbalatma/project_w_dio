@@ -261,7 +261,7 @@ class Kasir_model extends CI_Model
     {
         $id_invoice = $data['id_invoice'];
         $paid_amount = $data['paid_amount'];
-        $query = $this->db->query("UPDATE invoice SET is_deleted = 1 WHERE id = $id_invoice");
+        $query = $this->db->query("UPDATE invoice SET status = '1' WHERE id = $id_invoice");
         return $query;
     }
 

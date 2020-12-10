@@ -132,7 +132,8 @@ class Kasir extends CI_Controller
             'transaction_id' => $invoice_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
 
             'created_at' => $createdAt,
-            'is_deleted' => 0
+            'is_deleted' => 0,
+            'status' => 0,
 
         ];
         $insert2 = $this->Kasir_model->insert_invoice($data_invoice);
@@ -281,7 +282,7 @@ class Kasir extends CI_Controller
 
 
         $left_to_paid =    intval($item_price_total) - intval($paid_amount);
-
+        $kembalian = 0;
         if ($left_to_paid <= 0) {
             // $left_to_paid = 0;
             $kembalian = $left_to_paid * (-1);
