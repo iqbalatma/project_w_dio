@@ -249,7 +249,7 @@ class Kasir_model extends CI_Model
 
     public function get_hutang()
     {
-        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.is_deleted = 0 AND left_to_paid > 0");
+        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.status = '0' AND left_to_paid > 0");
 
         $row = $query->result_array();
 
@@ -263,5 +263,26 @@ class Kasir_model extends CI_Model
         $paid_amount = $data['paid_amount'];
         $query = $this->db->query("UPDATE invoice SET is_deleted = 1 WHERE id = $id_invoice");
         return $query;
+    }
+
+
+
+    public function generate_invoice($invoice_id)
+    {
+        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id, invoice.created_at, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.is_deleted = 0 AND invoice.id=$invoice_id");
+
+        $row = $query->result_array();
+
+
+        return $row;
+    }
+    public function generate_invoice_item($invoice_id)
+    {
+        $query = $this->db->query("SELECT product.full_name, product.unit,invoice_item.quantity, invoice_item.item_price FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
+
+        $row = $query->result_array();
+
+
+        return $row;
     }
 }
