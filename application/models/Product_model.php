@@ -47,18 +47,18 @@ class Product_model extends CI_Model
    */
   public function set_update_by_id($id, $data)
   {
-    $data = array(
-      "image"               => $data['edit-foto'],
+    $data2 = array(
       "product_code"        => $data['edit-kodeproduk'],
       "full_name"           => $data['edit-fullname'],
       "unit"                => $data['edit-unit'],
       "volume"              => $data['edit-volume'],
-      // "price_base"          => $data['edit-hpp'],
       "selling_price"       => $data['edit-sellingprice'],
-
     );
+    // 0 = error
+    if ($data['edit-foto'] !== 0) $data2['image'] = $data['edit-foto'];
+
     $this->db->where('id', $id);
-    return $this->db->update($this->table, $data);
+    return $this->db->update($this->table, $data2);
   }
 
   /**
@@ -202,8 +202,7 @@ class Product_model extends CI_Model
   }
 
   /**
-   * 
-   * Delete composition dara row, real delete. Second params is optional,
+   * Delete composition data row (real delete). Second params is optional,
    * if omitted it will only delete composition, if not it will update the hpp too.
    * 
    * @param int,string $id

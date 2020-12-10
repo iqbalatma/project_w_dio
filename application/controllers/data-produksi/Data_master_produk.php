@@ -115,9 +115,9 @@ class Data_master_produk extends CI_Controller
       $post  = $this->input->post();
       
       // cek apakah image kosong / tidak
-      if ( isset($_FILES["edit-foto"]["name"])) $post['edit-foto'] = $this->__uploadfoto($post['edit-kodeproduk']);
-      else $post['edit-foto'] = 'default.png';
-      // pprintd($post);
+      if ($_FILES["edit-foto"]["error"] === 0) $post['edit-foto'] = $this->__uploadfoto($post['edit-kodeproduk']);
+      else $post['edit-foto'] = 0;
+      // pprintd($_FILES["edit-foto"]["error"]);
       
       $query = $this->product_m->set_update_by_id($id, $post);
 
