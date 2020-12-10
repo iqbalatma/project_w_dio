@@ -59,18 +59,20 @@ class Data_hutang_piutang extends CI_Controller
             $id_invoice = $passing_data[0];
             $paid_amount = $this->input->post('pembayaran');
 
+
             $transaction_id = $passing_data[1];
-            $invoice_number = $passing_data[3];
+            $invoice_number = $passing_data[2];
             $invoice_number = explode("/", $invoice_number);
             $customer_type = $invoice_number[1];
 
-            $left_to_paid = $passing_data[4];
+            $left_to_paid = $passing_data[3];
 
-
+            var_dump($passing_data);
 
             $data_invoice = [
                 'id_invoice' => $id_invoice,
-                'paid_amount' => $paid_amount
+                'paid_amount' => $paid_amount,
+                'status' => '1'
             ];
 
 
@@ -90,26 +92,29 @@ class Data_hutang_piutang extends CI_Controller
             $tanggal = explode("-", $tanggal);
             // INVOICE NUMBER PERBULAN
             if ($is_there_number_invoice) { //saat nomor pada hari pertama tidak ada
-                $invoice1 = "NO. " . "1/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
+                $invoice1 =  "1/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
                 $x = "c";
             } elseif ($is_there_number_invoice2) { //invoice pada hari itu ada
 
                 // var_dump($is_there_number_invoice2);
                 $invoice_number =  $is_there_number_invoice2['invoice_number'];
                 // $invoice_sebelumnya = $is_there_number_invoice2['invoice_number'];
-                $invoice_sebelumnya = explode("/", $invoice_number);
-                $invoice_sebelumnya = $invoice_sebelumnya[0];
-                $invoice_sebelumnya = explode(" ", $invoice_sebelumnya);
-                $invoice_sebelumnya = $invoice_sebelumnya[1];
+
+
+                $invoice_number = explode("/", $invoice_number);
+                $invoice_sebelumnya = $invoice_number[0];
                 $nomor_invoice_sekarang = $invoice_sebelumnya + 1;
-                $invoice1 = "NO. " . "$nomor_invoice_sekarang/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
+                $invoice1 = "$nomor_invoice_sekarang/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
                 $x = "s";
             }
 
+            // echo $left_to_paid;
+            // echo $paid_amount;
 
 
             $left_to_paid_final = $left_to_paid - $paid_amount;
 
+            // echo $left_to_paid_final;
             $data_invoice = [
                 'id' => '',
                 'invoice_number' => $invoice1,
@@ -119,19 +124,25 @@ class Data_hutang_piutang extends CI_Controller
                 'transaction_id' => $transaction_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
 
                 'created_at' => $createdAt,
-                'is_deleted' => 0
+                'is_deleted' => 0,
+                'status' => '0',
 
             ];
+
+
 
             $insert2 = $this->Kasir_model->insert_invoice($data_invoice);
 
             $kembalian = $paid_amount - $left_to_paid;
+
+
             if ($kembalian > 0) {
                 $kembalian = $kembalian;
             } else {
                 $kembalian = 0;
             }
 
+            echo $kembalian;
 
             if ($insert2 == 1 && $edit_invoice == 1) {
                 $this->session->set_flashdata('message_berhasil', 'Pembayaran Berhasil. Kembalian Rp ' . $kembalian);

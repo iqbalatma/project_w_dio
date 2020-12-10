@@ -99,7 +99,7 @@ class Kasir extends CI_Controller
         if ($is_there_number_invoice) { //saat nomor pada hari pertama tidak ada
 
 
-            $invoice1 = "NO. " . "1/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
+            $invoice1 = "1/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
             // echo $invoice1;
 
             // echo "bangsat";
@@ -108,12 +108,13 @@ class Kasir extends CI_Controller
             // var_dump($is_there_number_invoice2);
             $invoice_number =  $is_there_number_invoice2['invoice_number'];
             // $invoice_sebelumnya = $is_there_number_invoice2['invoice_number'];
-            $invoice_sebelumnya = explode("/", $invoice_number);
-            $invoice_sebelumnya = $invoice_sebelumnya[0];
-            $invoice_sebelumnya = explode(" ", $invoice_sebelumnya);
-            $invoice_sebelumnya = $invoice_sebelumnya[1];
+            // $invoice_sebelumnya = explode("/", $invoice_number);
+            // $invoice_sebelumnya = $invoice_sebelumnya[0];
+            // $invoice_sebelumnya = explode(" ", $invoice_sebelumnya);
+            $invoice_number = explode("/", $invoice_number);
+            $invoice_sebelumnya = $invoice_number[0];
             $nomor_invoice_sekarang = $invoice_sebelumnya + 1;
-            $invoice1 = "NO. " . "$nomor_invoice_sekarang/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
+            $invoice1 = "$nomor_invoice_sekarang/" . $customer_type .  "/" . $tanggal[1] . "/" . $tanggal[0];
         }
 
 
@@ -131,7 +132,8 @@ class Kasir extends CI_Controller
             'transaction_id' => $invoice_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
 
             'created_at' => $createdAt,
-            'is_deleted' => 0
+            'is_deleted' => 0,
+            'status' => 0,
 
         ];
         $insert2 = $this->Kasir_model->insert_invoice($data_invoice);
@@ -280,8 +282,10 @@ class Kasir extends CI_Controller
 
 
         $left_to_paid =    intval($item_price_total) - intval($paid_amount);
+        $kembalian = 0;
         if ($left_to_paid <= 0) {
-            $left_to_paid = 0;
+            // $left_to_paid = 0;
+            $kembalian = $left_to_paid * (-1);
         }
         $data_update_invoice = [
             'id' => $data_id_invoice_terakhir,
@@ -291,15 +295,15 @@ class Kasir extends CI_Controller
         // echo "<br>";
         // echo $left_to_paid;
 
-        echo $item_price_total;
-        echo $this->input->post("quantity[" . $id_product . "]");
-        // var_dump($quantity);
-        echo $id_product;
+
+
+        // echo $kembalian;
 
         if ($insert1 == 1 && $insert2 == 1 && $insert3 == 1 && $insert4 == 1 && $update_price_total5 == 1 && $update_left_to_paid == 1) {
             echo "input berhasil";
-            $this->session->set_flashdata('message_berhasil', 'Berhasil checkout product');
-            redirect(base_url('Kasir'));
+            $this->session->set_flashdata('message_berhasil', 'Berhasil checkout product. Kembalian Rp. ' . $kembalian);
+            // redirect(base_url('generate-report/invoice/generate/' . $data_id_invoice_terakhir));
+            redirect(base_url('Kasir/kembalian_kasir/' . $data_id_invoice_terakhir . "/" . $kembalian));
         } else {
             echo "input gagal";
             $this->session->set_flashdata('message_gagal', 'Gagal checkout product');
@@ -349,12 +353,31 @@ class Kasir extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
+    public function kembalian_kasir($id_invoice, $kembalian)
+    {
+        $data = [
+            'title'             => 'Kasir',
+            'content'           => 'kasir/v_kembalian.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'data_customer' => $this->Customer_model->get_all(),
+            // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
+            'data_product' => $this->Product_model->get_all2(),
+            'datatables' => 1,
+            'id_invoice' => $id_invoice,
+            'kembalian' => $kembalian
+        ];
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
     public function test()
     {
         echo $x = $this->input->post('a');
         var_dump($this->input->post('checkbox_value'));
         var_dump($this->input->post('custom_harga'));
     }
+
+
 
 
 
