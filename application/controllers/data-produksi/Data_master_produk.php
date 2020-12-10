@@ -36,7 +36,7 @@ class Data_master_produk extends CI_Controller
   public function tambah()
   {
     // set form rules
-    $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|trim|min_length[5]|max_length[100]');
+    $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|trim|min_length[5]|max_length[100]|is_unique[product.product_code]');
     $this->form_validation->set_rules('add-fullname', 'nama pelanggan',	  'required|trim|min_length[3]|max_length[100]');
     $this->form_validation->set_rules('add-unit', 'unit', 						    'required');
     $this->form_validation->set_rules('add-volume', 'volume', 						'required');
@@ -64,7 +64,7 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('title', "Penambahan sukses!");
         $this->session->set_flashdata('text', 'Data produk telah berhasil ditambah!');
         // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
+        redirect(base_url( getBeforeLastSegment($this->modules) ));
 
       }else {
         // flashdata untuk sweetalert
@@ -72,7 +72,7 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('title', "Penambahan gagal!");
         $this->session->set_flashdata('text', 'Mohon cek kembali data produk.');
         // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
+        redirect(base_url( getBeforeLastSegment($this->modules) ));
       } // end if($query): success or failed
     } // end form_validation->run()
   }
@@ -89,10 +89,7 @@ class Data_master_produk extends CI_Controller
     $this->form_validation->set_rules('edit-fullname', 'nama pelanggan',	        'required|trim|min_length[3]|max_length[100]');
     $this->form_validation->set_rules('edit-unit', 'unit', 						            'required');
     $this->form_validation->set_rules('edit-volume', 'volume', 						        'required');
-    $this->form_validation->set_rules('edit-hpp', 'HPP',		                      'required|trim|is_numeric');
     $this->form_validation->set_rules('edit-sellingprice', 'harga normal',        'required|trim|is_numeric');
-    // $this->form_validation->set_rules('edit-pricereseller', 'harga reseller', 		'required|trim|is_numeric');
-    // $this->form_validation->set_rules('edit-pricewholesale', 'harga grosir', 			'required|trim|is_numeric');
     $this->form_validation->set_error_delimiters('<small class="form-text text-danger text-nowrap"><em>', '</em></small>');
 
     // run the form validation
@@ -234,13 +231,14 @@ class Data_master_produk extends CI_Controller
   // ============================================== HAPUS KOMPOSISI ================================
   public function hapus_komposisi()
   {
+    $productId = $this->input->post('page_id');
     $id  = $this->input->post('id');
     if ($id === NULL)
     {
       redirect(base_url( getBeforeLastSegment($this->modules) ));
     }
-    // update data to db
-    $query = $this->product_m->set_delete_composition_by_id($id);
+    // delete (real) composition row for this product, and update HPP
+    $query = $this->product_m->set_delete_composition_by_id($id, $productId);
 
     if ($query) {
       // flashdata untuk sweetalert
@@ -248,7 +246,7 @@ class Data_master_produk extends CI_Controller
       $this->session->set_flashdata('title', "Penghapusan sukses!");
       $this->session->set_flashdata('text', 'Data komposisi produk telah berhasil dihapus!');
       // kembali ke laman sebelumnya sesuai hirarki controller
-      redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
+      redirect(base_url( getBeforeLastSegment($this->modules)."/edit-komposisi/{$productId}" ));
 
     }else {
       // flashdata untuk sweetalert
@@ -256,7 +254,7 @@ class Data_master_produk extends CI_Controller
       $this->session->set_flashdata('title', "Penghapusan gagal!");
       $this->session->set_flashdata('text', 'Mohon hubungi administrator jika masih berlanjut.');
       // kembali ke laman sebelumnya sesuai hirarki controller
-      redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
+      redirect(base_url( getBeforeLastSegment($this->modules, 2)."/edit-komposisi/{$productId}" ));
     } // end if($query): success or failed
   }
 

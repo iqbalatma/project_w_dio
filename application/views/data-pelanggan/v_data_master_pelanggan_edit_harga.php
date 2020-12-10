@@ -20,7 +20,7 @@
 
                       <div class="card-body">
                         <div class="row justify-content-center">
-                          <div class="col-10 col-md-6 col-lg-6 col-xl-6">
+                          <div class="col-10 col-xl-8">
 
                             <form method="POST">
                               <div class="row d-flex justify-content-center col-8 mx-auto">
@@ -89,19 +89,21 @@
 
                               <hr class="mt-4" width="80%">
 
-                              <?php // check for the user will have custom price or not ?>
-                              <div class="form-group row">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" id="show-or-hide" name="show-or-hide" type="checkbox" value="scheckbox">
-                                    <span class="form-check-sign">Pelanggan punya harga custom lainnya?</span>
-                                  </label>
+                              <div class="mx-5">
+                                <?php // check for the user will have custom price or not ?>
+                                <div class="form-group row">
+                                  <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" id="show-or-hide" name="show-or-hide" type="checkbox" value="scheckbox">
+                                      <span class="form-check-sign">Pelanggan punya harga custom lainnya?</span>
+                                    </label>
+                                  </div>
                                 </div>
-                              </div>
-                              
-                              <div class="bungkus">
-                                <span class="btn btn-sm btn-border btn-secondary add-customprice-div">Tambah produk</span>
-                                <span class="element" id="div-0"></span>
+                                
+                                <div class="bungkus">
+                                  <span class="btn btn-sm btn-border btn-secondary add-customprice-div">Tambah produk</span>
+                                  <span class="element" id="div-0"></span>
+                                </div>
                               </div>
 
                               <input type="hidden" name="polo" id="polo" value=1>

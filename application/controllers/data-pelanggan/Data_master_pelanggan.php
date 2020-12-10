@@ -156,7 +156,7 @@ class Data_master_pelanggan extends CI_Controller
           'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
           'customer'        => $result,
           'custom_price'    => $this->customer_m->get_customer_price_by_id($id, 'cp.id, cp.customer_id, cp.price, cp.product_code, p.full_name'),
-          'products'        => $this->product_m->get_all('product_code, full_name'),
+          'products'        => $this->product_m->get_all('product_code, full_name, selling_price'),
           'select2'         => 1,
         ];
         // pprintd($data['products']);
@@ -174,7 +174,7 @@ class Data_master_pelanggan extends CI_Controller
           $this->session->set_flashdata('title', "Data harga sukses!");
           $this->session->set_flashdata('text', 'Harga kustom telah diset!');
           // kembali ke laman sebelumnya sesuai hirarki controller
-          redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+          redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
 
         }else {
           // flashdata untuk sweetalert
@@ -182,7 +182,7 @@ class Data_master_pelanggan extends CI_Controller
           $this->session->set_flashdata('title', "Gagal! Kode produk salah.");
           $this->session->set_flashdata('text', 'Jika masih berlanjut hubungi administrator segera.');
           // kembali ke laman sebelumnya sesuai hirarki controller
-          redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+          redirect(base_url( getBeforeLastSegment($this->modules, 2)."/detail/{$id}" ));
         } // end if($query): success or failed
       } // end form_validation->run()
     }

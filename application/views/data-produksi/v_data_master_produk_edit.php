@@ -24,10 +24,10 @@
                                   <div class="form-group d-flex-row justify-content-center">
                                     <img src="<?= base_url("assets/img/product/{$product->image}") ?>" alt="" class="img-fluid border rounded p-2" width="300px">
                                     <div class="mt-4">
-                                      <label for="edit-foto">Upload foto produk</label>
+                                      <label for="edit-foto">Upload foto produk <span class="text-danger">**</span></label>
                                       <input type="file" id="edit-foto" name='edit-foto' accept=".png, .jpg, .jpeg" class="form-control-file">
                                       <br>
-                                      <span class="text-danger">* Gambar hanya bisa .jpg, .jpeg, dan .png</span>
+                                      <span class="text-danger">** Gambar hanya bisa .jpg, .jpeg, dan .png</span>
                                     </div>
                                   </div>
                                 </div>
@@ -93,7 +93,7 @@
                                   </div>
                                   
                                   <!-- grouping row -->
-                                  <div class="mt-4 d-flex justify-content-center">
+                                  <div class="d-flex justify-content-center">
                                     <!-- 1 -->
                                     <div class="form-group row mr-1 col-6 px-0">
                                       <label for="edit-hpp">
@@ -104,11 +104,10 @@
                                         id          = "edit-hpp" 
                                         name        = "edit-hpp" 
                                         placeholder = "HPP" 
-                                        value       = "<?= (set_value('edit-hpp') !== '') ? set_value('edit-hpp') : $product->price_base ; ?>"
-                                        class       = "form-control <?php if(form_error('edit-hpp') !== ''){ echo 'is-invalid'; } ?>"
-                                        readonly
+                                        value       = "<?= (set_value('edit-hpp') !== '') ? set_value('edit-hpp') : $product->price_base ?>"
+                                        class       = "hpp form-control <?php if(form_error('edit-hpp') !== ''){ echo 'is-invalid'; } ?>"
+                                        disabled
                                       >
-                                      <?= form_error('edit-hpp') ?>
                                     </div>
                                     <!-- 2 -->
                                     <div class="form-group row ml-1 col-6 px-0">
@@ -121,10 +120,16 @@
                                         name        = "edit-sellingprice" 
                                         placeholder = "Harga normal" 
                                         value       = "<?= (set_value('edit-sellingprice') !== '') ? set_value('edit-sellingprice') : $product->selling_price ; ?>"
-                                        class       = "form-control <?php if(form_error('edit-sellingprice') !== ''){ echo 'is-invalid'; } ?>"
+                                        class       = "sellingprice live-typing form-control <?php if(form_error('edit-sellingprice') !== ''){ echo 'is-invalid'; } ?>"
                                       >
                                       <?= form_error('edit-sellingprice') ?>
                                     </div>
+                                  </div>
+                                  
+                                  <!-- grouping row -->
+                                  <div class="d-flex justify-content-start">
+                                    <p>Prosentase margin&nbsp;:</p>
+                                    <p class="live-output ml-2"></p>
                                   </div>
 
                                   <!-- grouping row -->
@@ -162,10 +167,10 @@
                                 </div>
                               </div>
                               
-                              <hr class="mt-4" width="80%">
+                              <hr class="my-5" width="80%">
 
                               <!-- button -->
-                              <div class="form-group row justify-content-center mt-4">
+                              <div class="form-group row justify-content-center mb-4">
                                 <a href="<?= base_url( 'data-produksi/'.getBeforeLastSegment('', 2)."/detail/{$product->id}" ) ?>" class="btn btn-light btn-border col-5 mx-1">
                                   Kembali
                                 </a>

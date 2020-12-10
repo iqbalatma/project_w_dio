@@ -47,12 +47,14 @@
                                 <!-- 1 -->
                                 <div class="mt-3">
                                   <h5 class="font-weight-bold"> HPP </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($product->price_base, 0, '', '.') ?></h5>
+                                  <?php $masihNol1 = "<span class='mt-4 text-danger'><em>Silakan setting komposisi terlebih dahulu.</em></span>" ?>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= ($product->price_base == 0) ? $masihNol1 : price_format($product->price_base) ?></h5>
                                 </div>
                                 <!-- 2 -->
                                 <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual normal </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($product->selling_price, 0, '', '.') ?></h5>
+                                  <?php $masihNol2 = "<span class='mt-4 text-danger'><em>Silakan set harga di Perbarui Data terlebih dahulu.</em></span>" ?>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= ($product->selling_price == 0) ? $masihNol2 : price_format($product->selling_price) ?></h5>
                                 </div>
                                 <!-- 3 -->
                                 <!-- <div class="mt-3">
@@ -64,9 +66,6 @@
                                   <h5 class="font-weight-bold"> Harga jual grosir </h5>
                                   <h5 class="bg-light px-2 py-2 rounded"></h5>
                                 </div> -->
-                                <?php if ($product->price_base == 0) : ?>
-                                <p class="mt-4 text-danger"><em>Silakan setting komposisi untuk produk ini agar bisa melihat HPP.</em></p>
-                                <?php endif; ?>
                               </div>
                             </div>
 
@@ -90,22 +89,24 @@
                                     </div>
                                     <div class="col-6">
                                       <h5 class="font-weight-bold"> Harga dasar </h5>
-                                      <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($row['price_base'], 0, '', '.') ?></h5>
+                                      <h5 class="bg-light px-2 py-2 rounded"><?= price_format($row['price_base']) ?></h5>
                                     </div>
                                     <div class="col-6">
                                       <h5 class="font-weight-bold"> Harga dasar x Jumlah </h5>
-                                      <h5 class="bg-light px-2 py-2 rounded"><?= "{$row['price_base']} x {$row['volume']}" ?> = Rp. <?= number_format($row['price_base'] * $row['volume'], 0, '', '.') ?></h5>
+                                      <h5 class="bg-light px-2 py-2 rounded"><i><?= "{$row['price_base']} x {$row['volume']}" ?></i> &nbsp;&nbsp; = &nbsp;&nbsp; <?= price_format($row['price_base'] * $row['volume']) ?></h5>
                                     </div>
                                   </div>
                                 </div> <?php 
                                 endforeach;
                               } else { ?>
-                                <p class="text-danger"><em>Silakan setting komposisi dari produk ini untuk menampilkan daftar bahan mentahnya.</em></p>
+                                <p class="text-danger"><em>Silakan setting komposisi untuk menampilkan daftar bahan baku.</em></p>
                               <?php } ?>
                             </div>
 
+                            <hr class="my-5" width="80%">
+                            
                             <!-- button -->
-                            <div class="form-group row justify-content-center mt-5">
+                            <div class="form-group row justify-content-center mb-4">
                               <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-light btn-border col-3 mx-1">
                                 Batal
                               </a>

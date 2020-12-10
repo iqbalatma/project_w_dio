@@ -53,7 +53,7 @@ class Product_model extends CI_Model
       "full_name"           => $data['edit-fullname'],
       "unit"                => $data['edit-unit'],
       "volume"              => $data['edit-volume'],
-      "price_base"          => $data['edit-hpp'],
+      // "price_base"          => $data['edit-hpp'],
       "selling_price"       => $data['edit-sellingprice'],
 
     );
@@ -203,16 +203,24 @@ class Product_model extends CI_Model
 
   /**
    * 
-   * Delete composition dara row, entirely
+   * Delete composition dara row, real delete. Second params is optional,
+   * if omitted it will only delete composition, if not it will update the hpp too.
    * 
-   * @param array $id
+   * @param int,string $id
    * Set the $id from the kas id to fetch the data relatives to the id.
    * 
+   * @param int,string $productId
+   * Refer for updating HPP in product table with product id provided.
+   * 
    */
-  public function set_delete_composition_by_id($id)
+  public function set_delete_composition_by_id($id, $productId=NULL)
   {
+    $this->db->trans_start();
     $this->db->where('id', $id);
-    return $this->db->delete($this->tb_product_composition);
+    $this->db->delete($this->tb_product_composition);
+    if ($productId !== NULL) $this->__set_update_hpp_by_product_id($productId);
+    $this->db->trans_complete();
+    return 1;
   }
 
 

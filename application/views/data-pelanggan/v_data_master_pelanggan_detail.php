@@ -84,7 +84,7 @@
                                       <h5 class="bg-light px-2 py-2 rounded"><?= $row['full_name'] ?></h5>
                                     </div>
                                     <div class="">
-                                      <h5 class="font-weight-bold"> Harga custom </h5>
+                                      <h5 class="font-weight-bold"> Harga kustom </h5>
                                       <h5 class="bg-light px-2 py-2 rounded">Rp. <?= number_format($row['price'], 0, '', '.') ?></h5>
                                     </div>
                                   </div>
@@ -92,7 +92,7 @@
                               </div> <?php 
                               endforeach;
                             } else { ?>
-                              <p class="text-danger"><em>Customer belum punya harga custom.</em></p>
+                              <p class="text-danger"><em>Customer belum punya harga kustom.</em></p>
                             <?php } ?>
                             </div>
                             

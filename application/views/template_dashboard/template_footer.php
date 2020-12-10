@@ -120,108 +120,7 @@
     <!-- Atlantis JS -->
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
 
-    <?php
-    /**
-     * ! yang di bawah bisa dihapus nanti, cuma bawaan default buat contoh
-     */
-    ?>
-    <!-- Atlantis DEMO methods, don't include it in your project! -->
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
-    <script>
-        Circles.create({
-            id: 'circles-1',
-            radius: 45,
-            value: 60,
-            maxValue: 100,
-            width: 7,
-            text: 5,
-            colors: ['#f1f1f1', '#FF9E27'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            textClass: 'circles-text',
-            styleWrapper: true,
-            styleText: true
-        })
 
-        Circles.create({
-            id: 'circles-2',
-            radius: 45,
-            value: 70,
-            maxValue: 100,
-            width: 7,
-            text: 36,
-            colors: ['#f1f1f1', '#2BB930'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            textClass: 'circles-text',
-            styleWrapper: true,
-            styleText: true
-        })
-
-        Circles.create({
-            id: 'circles-3',
-            radius: 45,
-            value: 40,
-            maxValue: 100,
-            width: 7,
-            text: 12,
-            colors: ['#f1f1f1', '#F25961'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            textClass: 'circles-text',
-            styleWrapper: true,
-            styleText: true
-        })
-
-        var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-
-        var mytotalIncomeChart = new Chart(totalIncomeChart, {
-            type: 'bar',
-            data: {
-                labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-                datasets: [{
-                    label: "Total Income",
-                    backgroundColor: '#ff9e27',
-                    borderColor: 'rgb(23, 125, 255)',
-                    data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            display: false //this will remove only the label
-                        },
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        }
-                    }]
-                },
-            }
-        });
-
-        $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
-            type: 'line',
-            height: '70',
-            width: '100%',
-            lineWidth: '2',
-            lineColor: '#ffa534',
-            fillColor: 'rgba(255, 165, 52, .14)'
-        });
-    </script>
 
     <script>
         $(document).ready(function() {
@@ -256,7 +155,6 @@
 
         });
     </script>
-
 
     <script>
         $(document).on("click", ".open-modal-kasir", function() {
@@ -384,9 +282,26 @@
         });
     </script> -->
 
+    <script>
+        // inisiasi variable
+        let input           = $('.live-typing'),
+            output          = $('.live-output'),
+            hpp             = $('.hpp'),
+            sellingprice    = $('.sellingprice');
+
+        // output prosentase margin
+        output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
+
+        // hitung PROSENTASE MARGIN DARI HPP DAN INPUT HARGA JUAL secara live
+        sellingprice.bind('keydown keypress', function() {
+            setTimeout(function() {
+                output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
+            }, 0);
+        });
+    </script>
 
     <?php
-    // hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
+    // cek hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
     if ($submenuActive == 'data-master-pelanggan') : ?>
         <script>
             // fungsi menampilkan tombol tambah
@@ -418,31 +333,31 @@
                     var split_id = lastid.split("-");
                     var nextindex = Number(split_id[1]) + 1;
                     // set max product
-                    var max = 11;
+                    var max = 21;
                     // Check total number elements
                     if (total_element < max) {
                         // Adding new div container after last occurance of element class
                         $(".element:last").after(`
-                        <div class='element' id='div-${nextindex}'></div>
-                    `);
+                            <div class='element' id='div-${nextindex}'></div>
+                        `);
                         // Adding element to <div>
                         $("#div-" + nextindex).append(`
                         <div class='d-flex justify-content-center'>
-                            <div class='form-group row mx-auto'>
-                                <label>Kode produk ${nextindex} <span class="text-danger">*</span></label>
+                            <div class='col-6 form-group row mx-auto'>
+                                <label>Kode produk (${nextindex}) <span class="text-danger">*</span></label>
                                     <select required class="form-control select2" id='add-customproduct-${nextindex}' name='custom[${nextindex}][product_code]'>
                                     <option selected disabled>-- Pilih produk --</option>
                                     <?php foreach ($products as $row): ?>
                                         <option value=<?= "{$row['product_code']}" ?>>
-                                            <?= "{$row['product_code']} - {$row['full_name']}" ?>
+                                            <?= "{$row['product_code']} - {$row['full_name']} (Rp.&nbsp;" . number_format($row['selling_price'], 0, '', '.') . ")"; ?>
                                         </option>
                                     <?php endforeach; ?>
                                     </select>
                                 </label>
                             </div>
-                            <div class='form-group row mx-auto'>
-                                <label>Harga kustom ${nextindex} <span class="text-danger">*</span></label>
-                                <input required type='tel' pattern="[0-9]{1,}" title="Harga harus angka dan minimal 1 angka" placeholder='Input harga' id='add-customprice-${nextindex}' name='custom[${nextindex}][price]' class='form-control'>
+                            <div class='col-4 form-group row mx-auto'>
+                                <label>Harga kustom (${nextindex}) <span class="text-danger">*</span></label>
+                                <input required type='tel' pattern="[0-9]{1,}" title="Harga harus angka dan minimal 1 angka" placeholder='Input harga' id='add-customprice-${nextindex}' name='custom[${nextindex}][price]' class='form-control form-control-sm'>
                             </div>
                             <div class='py-4 h1'>
                                 <span id='remove-${nextindex}' class='remove h2 text-danger'>&times</span>
@@ -471,7 +386,7 @@
     <?php endif; ?>
 
     <?php
-    // hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
+    // cek hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
     if ($submenuActive == 'data-master-produk') : ?>
         <script>
             // fungsi menampilkan tombol tambah
@@ -508,13 +423,13 @@
                     if (total_element < max) {
                         // Adding new div container after last occurance of element class
                         $(".element:last").after(`
-                        <div class='element' id='div-${nextindex}'></div>
-                    `);
+                            <div class='element' id='div-${nextindex}'></div>
+                        `);
                         // Adding element to <div>
                         $("#div-" + nextindex).append(`
                         <div class='d-flex justify-content-center'>
                             <div class='form-group row mx-auto'>
-                                <label>Kode bahan baku ${nextindex} <span class="text-danger">*</span></label>
+                                <label>Kode bahan baku (${nextindex}) <span class="text-danger">*</span></label>
                                     <select required class="form-control select2" id='add-bahanbaku-${nextindex}' name='custom[${nextindex}][material_code]'>
                                     <option selected disabled>-- Pilih bahan baku --</option>
                                     <?php foreach ($materials as $row): ?>
@@ -526,7 +441,7 @@
                                 </label>
                             </div>
                             <div class='form-group row mx-auto'>
-                                <label>Total volume / qty ${nextindex} <span class="text-danger">*</span></label>
+                                <label>Total volume / qty (${nextindex}) <span class="text-danger">*</span></label>
                                 <input required type='tel' pattern="[0-9]{1,}" title="Total harus angka dan minimal 1 angka" placeholder='Input volume / qty' id='add-komposisi-${nextindex}' name='custom[${nextindex}][volume]' class='form-control'>
                             </div>
                             <div class='py-4 h1'>
@@ -555,6 +470,111 @@
         </script>
     <?php endif; ?>
 
-    </body>
 
-    </html>
+
+    <?php // script bawaan template (jangan dihapus dulu dipake buat contoh bikin chart) ?>
+    <?php // =========================================================================== ?>
+    <!-- Atlantis DEMO methods, don't include it in your project! -->
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
+    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
+    <script>
+        Circles.create({
+            id: 'circles-1',
+            radius: 45,
+            value: 60,
+            maxValue: 100,
+            width: 7,
+            text: 5,
+            colors: ['#f1f1f1', '#FF9E27'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        Circles.create({
+            id: 'circles-2',
+            radius: 45,
+            value: 70,
+            maxValue: 100,
+            width: 7,
+            text: 36,
+            colors: ['#f1f1f1', '#2BB930'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        Circles.create({
+            id: 'circles-3',
+            radius: 45,
+            value: 40,
+            maxValue: 100,
+            width: 7,
+            text: 12,
+            colors: ['#f1f1f1', '#F25961'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+        var mytotalIncomeChart = new Chart(totalIncomeChart, {
+            type: 'bar',
+            data: {
+                labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+                datasets: [{
+                    label: "Total Income",
+                    backgroundColor: '#ff9e27',
+                    borderColor: 'rgb(23, 125, 255)',
+                    data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false //this will remove only the label
+                        },
+                        gridLines: {
+                            drawBorder: false,
+                            display: false
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            drawBorder: false,
+                            display: false
+                        }
+                    }]
+                },
+            }
+        });
+
+        $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
+            type: 'line',
+            height: '70',
+            width: '100%',
+            lineWidth: '2',
+            lineColor: '#ffa534',
+            fillColor: 'rgba(255, 165, 52, .14)'
+        });
+    </script>
+    <?php // =========================================================================== ?>
+
+
+
+</body>
+
+</html>

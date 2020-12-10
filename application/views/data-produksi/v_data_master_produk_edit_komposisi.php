@@ -90,8 +90,10 @@
 
                               <input type="hidden" name="polo" id="polo" value=1>
 
+                              <hr class="my-5" width="80%">
+                              
                               <!-- button -->
-                              <div class="form-group row justify-content-center mt-3">
+                              <div class="form-group row justify-content-center mb-4">
                                 <a href="<?= base_url('data-produksi/'.getBeforeLastSegment('', 2))."/detail/{$product->id}" ?>" class="btn btn-light btn-border col-5 mx-1">
                                   Kembali
                                 </a>
@@ -131,6 +133,7 @@
                   </div>
                   <form action="<?= base_url() . "data-produksi/data-master-produk/hapus-komposisi" ?>" method="POST">
                     <div class="modal-footer">
+                    <input type="hidden" name="page_id" value="<?= $product->id ?>">
                       <input type="hidden" name="id" class="id"></input>
                       <button class="btn btn-danger btn-border">Hapus Data</button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>

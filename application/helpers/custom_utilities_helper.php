@@ -1,4 +1,7 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+// -----------------------------------------------------------------------------------------------
 
 if ( ! function_exists('must_login'))
 {
@@ -80,7 +83,7 @@ if ( ! function_exists('role_access'))
   }
 }
 
-// ------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------
 
 if ( ! function_exists('getBeforeLastSegment'))
 {
@@ -121,7 +124,7 @@ if ( ! function_exists('getLastSegment'))
   }
 }
 
-// ------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------
 
 if ( ! function_exists('pprint'))
 {
@@ -144,6 +147,19 @@ if ( ! function_exists('pprintd'))
 	*/
   function pprintd($str){
     echo "<pre>"; print_r($str); die;
+  }
+}
+
+if ( ! function_exists('price_format'))
+{
+	/**
+	 * Format number to Rp. xxxxx price format
+	 *
+	 * @param	int	Integer of the pre-formatted price
+	*/
+  function price_format($int = 0)
+  {
+    echo "Rp.&nbsp;".number_format($int, 0, '', '.');
   }
 }
 
