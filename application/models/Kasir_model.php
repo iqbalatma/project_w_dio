@@ -200,11 +200,15 @@ class Kasir_model extends CI_Model
     public function cek_inventory($id_material)
     {
         $query = $this->db->query("SELECT * FROM material_inventory WHERE material_id =$id_material");
+        if ($query->num_rows() > 0) {
+          return $query->result_array();
+        }
+        return FALSE;
 
-        $row = $query->result_array();
+        // $row = $query->result_array();
 
-
-        return $row;
+        // pprintd($row);
+        // return $row;
     }
 
     public function insert_material_mutation($data)
