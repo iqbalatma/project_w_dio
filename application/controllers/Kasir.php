@@ -35,17 +35,10 @@ class Kasir extends CI_Controller
     {
 
 
-
-
-
         $createdAt = unix_to_human(now(), true, 'europe');
 
         $employee_id = $_SESSION['id'];
         $checkbox_value = $this->input->post('checkbox_value');
-
-
-
-
 
 
         // BEGIN PROSES INSERT DATA TRANSAKSI
@@ -318,11 +311,31 @@ class Kasir extends CI_Controller
 
     public function konfirmasi_kasir()
     {
-        $checkbox_value = $this->input->post('product');
-        $customer_id = $this->input->post('nama_pelanggan');
-        $address = $this->input->post('alamat_pelanggan');
-        $quantity = $this->input->post('quantity');
-        $custom_harga = $this->input->post('custom_harga');
+        $post = $this->input->post();
+        // cek apakah tombol cekout ditekan tanpa memilih satupun produk
+        if ( ! isset($post['product']) )
+        {
+            // flashdata untuk sweetalert
+            $this->session->set_flashdata('failed_message', 1);
+            $this->session->set_flashdata('title', "Pembelanjaan kosong!");
+            $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
+            redirect(base_url( getBeforeLastSegment($this->modules) ));
+        }
+
+        $checkbox_value     = $this->input->post('product');
+        $customer_id        = $this->input->post('nama_pelanggan');
+        $address            = $this->input->post('alamat_pelanggan');
+        $quantity           = $this->input->post('quantity');
+        $custom_harga       = $this->input->post('custom_harga');
+
+        // set variabel untuk nanti menjadi where query, untuk get hanya produk2 yg dicekout
+        // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua terambil
+        $productQuery = '';
+        foreach ($checkbox_value as $row) {
+            // hanya tambah OR setelah iterasi pertama, dan hasil query tidak akan ada OR di blkg
+            if ($productQuery !== '') $productQuery .= " OR ";
+            $productQuery .= "id={$row}";
+        }
 
         // var_dump($checkbox_value);
         // echo "<br>";
@@ -336,20 +349,62 @@ class Kasir extends CI_Controller
         // echo "<br>";
         // var_dump($custom_harga);
         // echo "<br>";
+        // pprintd($this->input->post());
+
+        // get data dari db yg dibutuhkan, dari tabel customer dan produk yg relevan dengan environment ketika cekout
+        $data_customer  = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
+        $data_product   = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
+
+        // inisiasi $container untuk menyimpan hasil iterasi di bawah
+        $container      = [];
+
+        // cek custom harga dari inputan dengan key dari id produk
+        // untuk mengolah harga custom per produk di cekout
+        foreach ($data_product as $row) 
+        {
+            // jika ada harga custom = set custom_price, dan jika tidak ada set selling_price
+            if ($custom_harga[$row['id']]) {
+                $row['kasir_price'] = $custom_harga[$row['id']];
+            } else {
+                $row['kasir_price'] = $row['selling_price'];
+            }
+            // himpun kembali dalam array dengan bentuk yg sama seperti $data_product
+            $container[] = $row;
+        }
+        // kembalikan dari $container ke variabel awal
+        $data_product = $container;
+        
+        // reset kembali $container agar kosong untuk digunakan
+        // proses di bawah sama seperti di atas, bedanya ini untuk quantity ketika cekout
+        $container = [];
+        foreach ($data_product as $row) 
+        {
+            if ($quantity[$row['id']]) {
+                $row['kasir_qty'] = $quantity[$row['id']];
+            } else {
+                $row['kasir_qty'] = 0;
+            }
+            // himpun kembali dalam array dengan bentuk yg sama seperti $data_product
+            $container[] = $row;
+        }
+        // kembalikan dari $container ke variabel awal
+        $data_product = $container;
+
         $data = [
             'title'             => 'Kasir',
             'content'           => 'kasir/v_konfirmasi_kasir.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_customer' => $this->Customer_model->get_all(),
-            'data_product' => $this->Product_model->get_all2(),
-            'checkbox_value' => $checkbox_value,
-            'customer_id' => $customer_id,
-            'address' => $address,
-            'quantity' => $quantity,
-            'custom_harga' => $custom_harga,
-            'datatables' => 1
+            'data_customer'     => $data_customer,
+            'data_product'      => $data_product,
+            // 'checkbox_value' => $checkbox_value,
+            // 'customer_id' => $customer_id,
+            'address'           => $address,
+            // 'quantity'          => $quantity,
+            // 'custom_harga'      => $custom_harga,
+            'datatables'        => 1
         ];
+        // pprintd($data['data_product']);
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 

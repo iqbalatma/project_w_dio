@@ -51,7 +51,12 @@
 
                                 <div class="form-group">
                                     <label for="alamat_pelanggan">Nama Pelanggan</label>
-                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= $this->Customer_model->get_by_id($customer_id)->full_name; ?>" readonly>
+                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= $data_customer->full_name ?>" readonly>
+                                    </input>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat_pelanggan2">Alamat dikirim ke</label>
+                                    <input type="text" class="form-control" id="alamat_pelanggan2" name="alamat_pelanggan2" value="<?= $address ?>" readonly>
                                     </input>
                                 </div>
                                 <div class="form-group">
@@ -72,41 +77,40 @@
 
                                             $i = 1;
                                             $harga_total = 0;
-                                            foreach ($checkbox_value as $row) {
-                                                $harga_produk = 0;
-                                                $harga_produk = $this->Product_model->get_by_id($row)->selling_price;
-                                                $data_custom = [
-                                                    'code_product' => $this->Product_model->get_by_id($row)->product_code,
-                                                    'id_customer' => $customer_id
-                                                ];
-                                                $tabel_custom = $this->Kasir_model->cek_harga_custom($data_custom);
+                                            foreach ($data_product as $row) :
+                                                // $harga_produk = 0;
+                                                // $harga_produk = $this->Product_model->get_by_id($row)->selling_price;
+                                                // $data_custom = [
+                                                //     'code_product' => $this->Product_model->get_by_id($row)->product_code,
+                                                //     'id_customer' => $data_customer->id
+                                                // ];
+                                                // $tabel_custom = $this->Kasir_model->cek_harga_custom($data_custom);
+                                                // pprintd($custom_harga);
 
-                                                if ($custom_harga[$row] !== "") {
-                                                    $harga_produk = $custom_harga[$row];
-                                                } elseif ($tabel_custom) {
-                                                    $harga_produk = $tabel_custom[0]['price'];
-                                                }
+                                                // if ($custom_harga[$row] !== "") {
+                                                //     $harga_produk = $custom_harga[$row];
+                                                // } elseif ($tabel_custom) {
+                                                //     $harga_produk = $tabel_custom[0]['price'];
+                                                // }
+
+                                                // pprintd($row);
 
                                             ?>
                                                 <tr>
                                                     <th scope="row"><?= $i; ?></th>
+                                                    <td><?= $row['product_code'] ?></td>
+                                                    <td><?= $row['full_name'] ?></td>
+                                                    <td><?= $row['kasir_qty'] ?></td>
+                                                    <td><?= price_format($row['kasir_price']) ?></td>
 
-
-
-
-                                                    <td><?= $this->Product_model->get_by_id($row)->product_code ?></td>
-                                                    <td><?= $this->Product_model->get_by_id($row)->full_name ?></td>
-                                                    <td><?= $quantity[$row]; ?></td>
-                                                    <td>Rp <?= $harga_produk * $quantity[$row] ?></td>
-
-                                                    <?php $harga_total += $harga_produk * $quantity[$row]; ?>
+                                                    <?php $harga_total += $row['kasir_price'] * $row['kasir_qty']; ?>
 
                                                 </tr>
                                             <?php
-                                                echo '<input type="hidden" name="quantity[' . $row . ']" value="' . $quantity[$row] . '">';
-                                                echo '<input type="hidden" name="custom_harga[' . $row . ']" value="' . $custom_harga[$row] . '">';
+                                                echo '<input type="hidden" name="quantity[' . $row['id'] . ']" value="' . $row['id'] . '">';
+                                                echo '<input type="hidden" name="custom_harga[' . $row['id'] . ']" value="' . $row['id'] . '">';
                                                 $i++;
-                                            };
+                                                endforeach;
 
                                             echo '<input type="hidden" name="harga_total" value="' . $harga_total . '">';
                                             ?>
@@ -116,17 +120,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat_pelanggan">Harga Total</label>
-                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= "Rp " . $harga_total ?>" readonly>
+                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= price_format($harga_total) ?>" readonly>
                                     </input>
                                     <input type="hidden" name="total_harga" id="total_harga" value="<?= $harga_total; ?>">
                                 </div>
 
                                 <?php
 
-                                foreach ($checkbox_value as $value) {
-                                    echo '<input type="hidden" name="checkbox_value[]" value="' . $value . '">';
+                                
+                                foreach ($data_product as $row) {
+                                    echo '<input type="hidden" name="checkbox_value[]" value="' . $row['id'] . '">';
                                 };
-                                echo '<input type="hidden" name="customer_id" value="' . $customer_id . '">';
+                                echo '<input type="hidden" name="customer_id" value="' . $data_customer->id . '">';
                                 echo '<input type="hidden" name="address" value="' . $address . '">';
 
 
@@ -148,7 +153,7 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a href="<?= base_url("Kasir"); ?>" class="btn btn-danger">Keluar</a>
+                        <a href="<?= base_url("Kasir"); ?>" class="btn btn-danger">Batal</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
 

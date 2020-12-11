@@ -374,6 +374,7 @@ class Product_model extends CI_Model
     }
     return FALSE;
   }
+
   public function get_by_store_id($id)
   {
     $this->db->select('product.id, product.product_code, product.full_name, product.selling_price');
@@ -385,5 +386,29 @@ class Product_model extends CI_Model
     }
     return false;
     // return $query->result();
+  }
+
+  /**
+   * Get product by custom where clause
+   * 
+   * @param string $where
+   * Query string for where clause (ex. id=5 OR id=6 OR id=10)
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function get_by_where($where = NULL, $select = '*')
+  {
+    // get from table
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where($where);
+    $query = $this->db->get();
+    // pprintd($where);
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
   }
 }
