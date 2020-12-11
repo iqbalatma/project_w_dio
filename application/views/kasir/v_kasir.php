@@ -58,7 +58,7 @@
                                         $jsArray = "var prdName = new Array();\n";
                                         foreach ($data_customer as $row) {
                                         ?>
-                                            <option name="id_customer" value="<?= $row['id']; ?>"><?= $row['full_name']; ?></option>
+                                            <option name="id_customer" value="<?= $row['id']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
                                             <?php
                                             $jsArray .= "prdName['" . $row['id'] . "'] = {alamat_pelanggan:'" . addslashes($row['address']) . "',phone:'" . addslashes($row['phone']) . "'};\n";
                                             ?>
@@ -274,20 +274,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
                             </div>
                         </div>
                     </div>
                     <div class="card-action">
-                        <a href="<?= base_url(); ?>" class="btn btn-danger">Keluar</a>
+                        <a href="<?= base_url(); ?>" class="btn btn-outline-danger px-5">Keluar</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
 
@@ -296,7 +287,7 @@
                             Checkout
                         </button> -->
                         <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
-                        <button type="submit" class="btn btn-primary">Checkout</button>
+                        <button type="submit" class="btn btn-primary px-5">Selanjutnya</button>
                     </div>
 
 

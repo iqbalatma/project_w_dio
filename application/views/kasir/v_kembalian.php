@@ -54,10 +54,14 @@
                     </div>
                     <div class="card-action">
 
-                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $id_invoice); ?>" class="btn btn-primary">Cetak Surat Jalan</a>
+                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $id_invoice); ?>" class="btn btn-primary">
+                            <i class="fas fa-print mr-2"></i> Cetak Surat Jalan
+                        </a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
-                        <a href="<?= base_url("generate-report/invoice/generate/" . $id_invoice); ?>" class="btn btn-primary">Cetak Invoice</a>
+                        <a href="<?= base_url("generate-report/invoice/generate/" . $id_invoice); ?>" class="btn btn-primary">
+                            <i class="fas fa-print mr-2"></i> Cetak Invoice
+                        </a>
 
 
                         <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->

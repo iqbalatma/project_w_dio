@@ -33,22 +33,20 @@ class Kasir extends CI_Controller
 
     public function insert()
     {
-
-
+        
         $createdAt = unix_to_human(now(), true, 'europe');
-
+        
         $employee_id = $_SESSION['id'];
         $checkbox_value = $this->input->post('checkbox_value');
-
-
+        
         // BEGIN PROSES INSERT DATA TRANSAKSI
-
-
+        
         $price_total = 0;
         $store_id = $_SESSION['store_id'];
         $customer_id = $this->input->post('customer_id');
         $data_customer = $this->Kasir_model->get_customer($customer_id);
         $customer_type = $data_customer['cust_type'];
+        pprintd($this->input->post());
 
         if ($customer_type == "retail") {
             $customer_type = "KS";
@@ -82,7 +80,6 @@ class Kasir extends CI_Controller
 
         $is_there_number_invoice = $this->Kasir_model->cek_number_invoice($tanggal);
         $is_there_number_invoice2 = $this->Kasir_model->cek_invoice_terakhir($tanggal);
-
 
 
         $tanggal = explode("-", $tanggal);
@@ -130,8 +127,6 @@ class Kasir extends CI_Controller
 
         ];
         $insert2 = $this->Kasir_model->insert_invoice($data_invoice);
-
-
 
 
         // BEGIN PROSES INSERT INVOICE ITEM
@@ -260,9 +255,6 @@ class Kasir extends CI_Controller
 
 
 
-
-
-
         // price total pada transaction hanya bisa di update jika invoice_item sudah masuk semua, tapi invoice item hanya bisa masuk jika row transaksi sudah dibuat, berarti memang harus melakukan insert transaksi kemudian price totalnya nanti akan di update setelah invoice item masuk semua
         $data_update = [
             // data transaksi di update oleh total price
@@ -321,15 +313,27 @@ class Kasir extends CI_Controller
             $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
             redirect(base_url( getBeforeLastSegment($this->modules) ));
         }
+        
+        $zero = array_search(0, $post['quantity']);
+        // cek apakah dari pencarian ada yang qty == 1, kalo ada keluar
+        if ( $zero == 1 )
+        {
+            // flashdata untuk sweetalert
+            $this->session->set_flashdata('failed_message', 1);
+            $this->session->set_flashdata('title', "Jumlah item nol!");
+            $this->session->set_flashdata('text', 'Jumlah produk tidak boleh semua nol.');
+            redirect(base_url( getBeforeLastSegment($this->modules) ));
+        }
 
+        
         $checkbox_value     = $this->input->post('product');
         $customer_id        = $this->input->post('nama_pelanggan');
         $address            = $this->input->post('alamat_pelanggan');
         $quantity           = $this->input->post('quantity');
         $custom_harga       = $this->input->post('custom_harga');
 
-        // set variabel untuk nanti menjadi where query, untuk get hanya produk2 yg dicekout
-        // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua terambil
+        // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
+        // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get
         $productQuery = '';
         foreach ($checkbox_value as $row) {
             // hanya tambah OR setelah iterasi pertama, dan hasil query tidak akan ada OR di blkg
@@ -393,11 +397,11 @@ class Kasir extends CI_Controller
         $data = [
             'title'             => 'Kasir',
             'content'           => 'kasir/v_konfirmasi_kasir.php',
-            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer'     => $data_customer,
             'data_product'      => $data_product,
-            // 'checkbox_value' => $checkbox_value,
+            'checkbox_value' => $checkbox_value,
             // 'customer_id' => $customer_id,
             'address'           => $address,
             // 'quantity'          => $quantity,
@@ -413,8 +417,8 @@ class Kasir extends CI_Controller
         $data = [
             'title'             => 'Kasir',
             'content'           => 'kasir/v_kembalian.php',
-            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer' => $this->Customer_model->get_all(),
             // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
             'data_product' => $this->Product_model->get_all2(),

@@ -49,18 +49,23 @@
 
                             <div class="col-md-12">
 
+                                <div class="d-flex">
+                                    <div class="form-group col-8">
+                                        <label for="nama_pelanggan">Nama Pelanggan</label>
+                                        <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan" value="<?= "{$data_customer->full_name}" ?>" readonly>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label for="tipe_pelanggan">Tipe Pelanggan</label>
+                                        <input type="text" class="form-control" id="tipe_pelanggan" name="tipe_pelanggan" value="<?= "{$data_customer->cust_type}" ?>" readonly>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
-                                    <label for="alamat_pelanggan">Nama Pelanggan</label>
-                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= $data_customer->full_name ?>" readonly>
-                                    </input>
+                                    <label for="alamat_pelanggan">Alamat Pengiriman</label>
+                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= $address ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="alamat_pelanggan2">Alamat dikirim ke</label>
-                                    <input type="text" class="form-control" id="alamat_pelanggan2" name="alamat_pelanggan2" value="<?= $address ?>" readonly>
-                                    </input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="alamat_pelanggan">Barang-barang yang dibeli : </label>
+                                    <label for="barang_dibeli">Barang-barang yang dibeli : </label>
                                     <br>
                                     <table class="table">
                                         <thead>
@@ -69,13 +74,15 @@
                                                 <th scope="col">Kode Barang</th>
                                                 <th scope="col">Nama Barang</th>
                                                 <th scope="col">Jumlah Barang</th>
-                                                <th scope="col">Harga Barang</th>
+                                                <th scope="col">Harga Satuan</th>
+                                                <th scope="col">Jumlah</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
 
                                             $i = 1;
+                                            $harga_jumlah = 0;
                                             $harga_total = 0;
                                             foreach ($data_product as $row) :
                                                 // $harga_produk = 0;
@@ -102,39 +109,38 @@
                                                     <td><?= $row['full_name'] ?></td>
                                                     <td><?= $row['kasir_qty'] ?></td>
                                                     <td><?= price_format($row['kasir_price']) ?></td>
-
-                                                    <?php $harga_total += $row['kasir_price'] * $row['kasir_qty']; ?>
-
+                                                    <?php $harga_jumlah += $row['kasir_price'] * $row['kasir_qty']; ?>
+                                                    <td><?= price_format($harga_jumlah) ?></td>
                                                 </tr>
                                             <?php
                                                 echo '<input type="hidden" name="quantity[' . $row['id'] . ']" value="' . $row['id'] . '">';
                                                 echo '<input type="hidden" name="custom_harga[' . $row['id'] . ']" value="' . $row['id'] . '">';
+
+                                                $harga_total += $harga_jumlah;
                                                 $i++;
                                                 endforeach;
 
-                                            echo '<input type="hidden" name="harga_total" value="' . $harga_total . '">';
+                                            // echo '<input type="hidden" name="harga_total" value="' . $harga_total . '">';
                                             ?>
 
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="form-group">
-                                    <label for="alamat_pelanggan">Harga Total</label>
-                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= price_format($harga_total) ?>" readonly>
+                                    <label for="harga_total">Harga Total</label>
+                                    <input type="text" class="form-control" id="harga_total" name="harga_total" value="<?= price_format($harga_total) ?>" readonly>
                                     </input>
                                     <input type="hidden" name="total_harga" id="total_harga" value="<?= $harga_total; ?>">
                                 </div>
 
                                 <?php
 
-                                
+                                // ini dulu $checkbox_value, isinya sama2 id produk
                                 foreach ($data_product as $row) {
                                     echo '<input type="hidden" name="checkbox_value[]" value="' . $row['id'] . '">';
                                 };
                                 echo '<input type="hidden" name="customer_id" value="' . $data_customer->id . '">';
                                 echo '<input type="hidden" name="address" value="' . $address . '">';
-
-
 
 
                                 // foreach ($quantity as $value_quantity) {
@@ -145,21 +151,18 @@
                                 // };
                                 ?>
 
-
-
                             </div>
-
 
                         </div>
                     </div>
                     <div class="card-action">
-                        <a href="<?= base_url("Kasir"); ?>" class="btn btn-danger">Batal</a>
+                        <a href="<?= base_url("Kasir"); ?>" class="btn btn-outline-danger px-5">Batal</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
 
 
-                        <button type="button" class="btn btn-primary open-modal-kasir" data-toggle="modal" data-target="#modal">
-                            Konfirmasi Checkout
+                        <button type="button" class="btn btn-primary px-5 open-modal-kasir" data-toggle="modal" data-target="#modal">
+                            Konfirmasi 
                         </button>
                         <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
                     </div>
@@ -172,7 +175,7 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi Checkout</h5>
+                                    <h3 class="modal-title font-weight-bold" id="exampleModalLongTitle">Konfirmasi Checkout</h3>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -185,16 +188,16 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Rp</span>
                                             </div>
-                                            <input type="text" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required>
-                                            <div class="input-group-append">
+                                            <input type="tel" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required>
+                                            <!-- <div class="input-group-append">
                                                 <span class="input-group-text">.00</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
-                                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                                    <button type="button" class="btn btn-outline-danger px-5" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary px-5">Checkout</button>
                                 </div>
                             </div>
                         </div>
