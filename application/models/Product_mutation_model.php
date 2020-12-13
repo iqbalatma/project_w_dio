@@ -184,4 +184,66 @@ class Product_mutation_model extends CI_Model
 
     return $row;
   }
+
+  public function get_most_buy_product()
+  {
+    $query = $this->db->query("
+      SELECT pm.id, p.product_code, p.full_name, p.image, s.store_name, pm.mutation_code, SUM(pm.quantity) AS freq, pm.mutation_type 
+      FROM product AS p
+      JOIN product_mutation AS pm
+      ON pm.product_id = p.id
+      JOIN store AS s
+      ON s.id = pm.store_id
+      WHERE pm.mutation_type='keluar' 
+      GROUP BY pm.product_id 
+      ORDER BY freq DESC 
+      LIMIT 5
+    ");
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
+  public function get_least_buy_product()
+  {
+    $query = $this->db->query("
+      SELECT pm.id, p.product_code, p.full_name, p.image, s.store_name, pm.mutation_code, SUM(pm.quantity) AS freq, pm.mutation_type 
+      FROM product AS p
+      JOIN product_mutation AS pm
+      ON pm.product_id = p.id
+      JOIN store AS s
+      ON s.id = pm.store_id
+      WHERE pm.mutation_type='keluar' 
+      GROUP BY pm.product_id 
+      ORDER BY freq ASC 
+      LIMIT 5
+    ");
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
+  public function get_month_total()
+  {
+    $query = $this->db->query("
+      SELECT COUNT(created_at) AS total
+      FROM product_mutation
+      WHERE MONTH(created_at) = MONTH(CURRENT_DATE) 
+      AND YEAR(created_at) = YEAR(CURRENT_DATE)
+      AND mutation_type = 'keluar'
+      AND is_deleted = 0
+    ");
+
+    if ($query->num_rows() == 1) {
+      return $query->row();
+    }
+    return FALSE;
+  }
+
+
+
 }

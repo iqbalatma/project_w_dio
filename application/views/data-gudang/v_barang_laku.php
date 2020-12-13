@@ -41,11 +41,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <div class="col-md-4 pt-3">
                             <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Masukkan Barang</a>
                         </div>
-                    </div>
+                    </div> -->
 
 
 

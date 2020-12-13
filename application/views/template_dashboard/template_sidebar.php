@@ -28,34 +28,34 @@ $_role_3            = '3';
 
 
 $mainMenu = array(
-  [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-    'no'      => 1,
-    'name'    => 'Generate Report',
-    'slug'    => 'generate-report',
-    'url'     => 'generate-report',
-    'icon'    => 'fas fa-file-pdf',
-    'submenu' => array(
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-        'name'  => 'PDF - Invoice',
-        'slug'  => 'invoice/generate',
-        'url'   => "generate-report/invoice/generate",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-        'name'  => 'PDF - Surat jalan',
-        'slug'  => 'surat-jalan/generate',
-        'url'   => "generate-report/surat-jalan/generate",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
-        'name'  => 'Semua menu ini cuma buat developing, nanti generate pdf gaakan dari sini tapi ketika udah cekout',
-        'slug'  => $_dashboard,
-        'url'   => $_dashboard,
-      ],
-    )
-  ],
+  // [
+  //   'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+  //   'no'      => 1,
+  //   'name'    => 'Generate Report',
+  //   'slug'    => 'generate-report',
+  //   'url'     => 'generate-report',
+  //   'icon'    => 'fas fa-file-pdf',
+  //   'submenu' => array(
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+  //       'name'  => 'PDF - Invoice',
+  //       'slug'  => 'invoice/generate',
+  //       'url'   => "generate-report/invoice/generate",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+  //       'name'  => 'PDF - Surat jalan',
+  //       'slug'  => 'surat-jalan/generate',
+  //       'url'   => "generate-report/surat-jalan/generate",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+  //       'name'  => 'Semua menu ini cuma buat developing, nanti generate pdf gaakan dari sini tapi ketika udah cekout',
+  //       'slug'  => $_dashboard,
+  //       'url'   => $_dashboard,
+  //     ],
+  //   )
+  // ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
     'no'      => 1,
@@ -128,7 +128,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
     'no'      => 4,
     'name'    => 'Data Penjualan',
     'slug'    => $_data_penjualan,
@@ -143,8 +143,13 @@ $mainMenu = array(
       ], [
         'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Penjualan per Toko',
-        'slug'  => 'data-penjualan#per-toko',
+        'slug'  => 'data-penjualan-per-toko',
         'url'   => "{$_data_penjualan}/data-penjualan-pertoko/index/1",
+      ], [
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
+        'name'  => 'Data Invoice',
+        'slug'  => 'data-invoice',
+        'url'   => "{$_data_penjualan}/data-invoice",
       ],
     )
   ],
@@ -179,64 +184,64 @@ $mainMenu = array(
       ],
     )
   ],
-  [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-    'no'      => 6,
-    'name'    => 'Data Laporan',
-    'slug'    => $_data_laporan,
-    'url'     => $_data_laporan,
-    'icon'    => 'fas fa-file-alt',
-    'submenu' => array(
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Hutang piutang',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Pengeluaran',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Laba / rugi',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Kas perusahaan',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'barang masuk',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Barang keluar ke toko',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Barang keluar penjualan',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-      [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Penjualan',
-        'slug'  => '##',
-        'url'   => "{$_data_laporan}###",
-      ],
-    )
-  ],
+  // [
+  //   'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //   'no'      => 6,
+  //   'name'    => 'Data Laporan',
+  //   'slug'    => $_data_laporan,
+  //   'url'     => $_data_laporan,
+  //   'icon'    => 'fas fa-file-alt',
+  //   'submenu' => array(
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'Hutang piutang',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'Pengeluaran',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'Laba / rugi',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'Kas perusahaan',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'barang masuk',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'Barang keluar ke toko',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'Barang keluar penjualan',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+  //       'name'  => 'Penjualan',
+  //       'slug'  => '##',
+  //       'url'   => "{$_data_laporan}###",
+  //     ],
+  //   )
+  // ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 7,

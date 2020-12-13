@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2020 at 01:39 PM
+-- Generation Time: Dec 13, 2020 at 09:33 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -12,8 +12,6 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE Database tes_sabun_cuci_mobil;
-use tes_sabun_cuci_mobil;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -120,7 +118,10 @@ INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `cust_type`, `cre
 (46, 'beruang 4', 'kutub', '0856215444487', 'reseller', '2020-11-26 17:04:33', 0),
 (47, 'Jhon', 'Greenland', '0871161166172', 'retail', '2020-12-09 12:56:08', 0),
 (48, 'Shin', 'Blueland', '086272772661', 'retail', '2020-12-09 12:57:07', 0),
-(49, 'Jhona', 'Redline', '09882712777', 'retail', '2020-12-09 13:48:26', 0);
+(49, 'Jhona', 'Redline', '09882712777', 'retail', '2020-12-09 13:48:26', 0),
+(50, 'Albert Shicuan', 'Denpasar, Bali, Indonesia', '08465489798', 'reseller', '2020-12-11 14:00:13', 0),
+(51, 'Aku retail', 'Dalam perut bumi yang jauh', '084465766548', 'retail', '2020-12-11 19:54:44', 0),
+(52, 'Aku reseller', 'Di atas langit yang dingin dan gelap', '088456887945', 'reseller', '2020-12-11 19:55:12', 0);
 
 -- --------------------------------------------------------
 
@@ -154,10 +155,22 @@ INSERT INTO `custom_price` (`id`, `price`, `customer_id`, `product_code`, `creat
 (11, 7000, 46, 'DT005', '2020-11-30 19:10:10', 0),
 (12, 23500, 46, 'DT001', '2020-11-26 17:51:47', 0),
 (13, 14000, 46, 'DT003', '2020-11-26 17:51:47', 0),
-(15, 32000, 48, 'DT005', '2020-12-09 12:57:48', 0),
 (16, 89500, 24, 'DT003', '2020-12-09 13:46:19', 0),
 (17, 79500, 49, 'DT004', '2020-12-09 13:49:17', 0),
-(18, 12000, 49, 'DT001', '2020-12-09 16:12:07', 0);
+(18, 12000, 49, 'DT001', '2020-12-09 16:12:07', 0),
+(20, 500000, 46, 'DT007', '2020-12-09 22:53:48', 0),
+(21, 300000, 49, 'DT006', '2020-12-10 22:55:42', 0),
+(22, 650000, 48, 'DT007', '2020-12-10 22:58:30', 0),
+(23, 75000, 48, 'DT003', '2020-12-10 22:58:30', 0),
+(24, 315000, 48, 'DT006', '2020-12-10 22:59:15', 0),
+(25, 32000, 50, 'DT012', '2020-12-11 14:01:28', 0),
+(27, 40000, 52, 'DT012', '2020-12-11 19:57:06', 0),
+(28, 95000, 52, 'DT011', '2020-12-11 19:57:06', 0),
+(29, 58000, 52, 'DT005', '2020-12-11 19:57:06', 0),
+(30, 100000, 52, 'DT004', '2020-12-11 19:57:06', 0),
+(31, 56000, 52, 'DT003', '2020-12-11 19:57:06', 0),
+(32, 33000, 52, 'DT002', '2020-12-11 19:57:06', 0),
+(33, 31000, 52, 'DT001', '2020-12-11 19:57:06', 0);
 
 -- --------------------------------------------------------
 
@@ -216,6 +229,13 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`id`, `invoice_number`, `paid_amount`, `left_to_paid`, `paid_at`, `transaction_id`, `created_at`, `status`, `is_deleted`) VALUES
+(28, '1/KS/12/2020', 1108000, -1107830, '2020-12-12 00:22:06', 20, '2020-12-12 00:22:06', '', 0),
+(29, '2/KS/12/2020', 1081000, 0, '2020-12-13 01:11:12', 21, '2020-12-13 01:11:12', '', 0),
+(30, '3/KS/12/2020', 2770000, 0, '2020-12-13 14:26:11', 29, '2020-12-13 14:26:11', '', 0),
+(36, '4/KS/12/2020', 1000000, 214000, '2020-12-13 15:02:00', 35, '2020-12-13 15:02:00', '1', 0),
+(37, '5/KS/12/2020', 100000, 114000, '2020-12-13 15:22:01', 35, '2020-12-13 15:22:00', '1', 0),
+(38, '6/KS/12/2020', 50000, 64000, '2020-12-13 15:22:18', 35, '2020-12-13 15:22:18', '0', 0),
+(39, '7/KS/12/2020', 1000000, 952000, '2020-12-13 15:26:37', 36, '2020-12-13 15:26:37', '0', 0),
 (1, 'INV/1/0001', 50000, 0, '2020-11-20 15:00:00', 1, '2020-11-20 15:00:00', '0', 0),
 (2, 'INV/2/0002', 15000, 0, '2020-11-20 15:00:00', 2, '2020-11-20 15:00:00', '0', 0),
 (3, 'INV/3/0003', 65000, 0, '2020-11-20 15:00:00', 3, '2020-11-20 15:00:00', '0', 0),
@@ -288,7 +308,20 @@ INSERT INTO `invoice_item` (`id`, `quantity`, `item_price`, `invoice_id`, `produ
 (24, 1, 25000, 19, 3),
 (25, 3, 45000, 20, 2),
 (26, 1, 30000, 21, 2),
-(27, 1, 30000, 25, 2);
+(27, 1, 30000, 25, 2),
+(28, 1, 1, 28, 1),
+(29, 13, 169, 28, 13),
+(30, 1, 1, 29, 1),
+(31, 9, 81, 29, 9),
+(32, 13, 169, 29, 13),
+(33, 10, 270000, 1, 1),
+(34, 5, 150000, 1, 2),
+(35, 10, 320000, 1, 9),
+(36, 50, 600000, 1, 13),
+(48, 9, 243000, 36, 1),
+(49, 4, 120000, 36, 2),
+(50, 70, 245000, 36, 13),
+(51, 61, 1952000, 39, 9);
 
 -- --------------------------------------------------------
 
@@ -341,7 +374,19 @@ INSERT INTO `kas` (`id`, `kas_code`, `title`, `description`, `date`, `debet`, `k
 (24, 'D/20/11/0005', 'Investor 1', NULL, '2020-11-30', 200000, 0, 23369000, 'debet', '2020-11-29 11:17:37', 'superadmin'),
 (25, 'K/20/11/0006', 'Bayar batagor', NULL, '2020-11-30', 0, 9000, 23360000, 'kredit', '2020-11-29 11:20:29', 'superadmin'),
 (26, 'D/20/11/0007', 'Donasi', NULL, '2020-11-30', 25000, 0, 23385000, 'debet', '2020-11-29 11:21:42', 'superadmin'),
-(27, 'D/20/12/0001', 'Sedekah', NULL, '2020-12-09', 78000, 0, 23463000, 'debet', '2020-12-09 06:58:45', 'superadmin');
+(27, 'D/20/12/0001', 'Sedekah', NULL, '2020-12-09', 78000, 0, 23463000, 'debet', '2020-12-09 06:58:45', 'superadmin'),
+(28, 'K/20/12/0002', 'Bayar parkir truk', NULL, '2020-12-10', 0, 15000, 23448000, 'kredit', '2020-12-09 17:48:56', 'superadmin'),
+(29, 'K/20/12/0003', 'Beli 3 komputer', 'Untuk keperluan operasional, menggantikan komputer yang lama', '2020-12-10', 0, 19000000, 4448000, 'kredit', '2020-12-09 17:49:51', 'superadmin'),
+(30, 'K/20/12/0004', 'Cairan sabun merah - 230 gram', NULL, '2020-12-11', 0, 2760, 4445240, 'kredit', '2020-12-11 06:41:20', 'superadmin'),
+(31, 'K/20/12/0005', 'Cairan sabun biru - 230 gram', NULL, '2020-12-11', 0, 4675, 4440565, 'kredit', '2020-12-11 06:41:50', 'superadmin'),
+(32, 'K/20/12/0006', 'Beli cairan sabun biru - 885470 gram', NULL, '2020-12-11', 0, 22136750, -17696185, 'kredit', '2020-12-11 06:43:35', 'superadmin'),
+(33, 'K/20/12/0007', 'Beli cairan sabun merah - 957884 gram', NULL, '2020-12-11', 0, 11494608, -29190793, 'kredit', '2020-12-11 06:44:45', 'superadmin'),
+(34, 'K/20/12/0008', 'Pengadaan kendaran transportasi - 2 armada', 'Hodan Beat 2020', '2020-12-11', 0, 25000000, -54190793, 'kredit', '2020-12-11 06:45:09', 'superadmin'),
+(35, 'D/20/12/0009', 'Investor 3', NULL, '2020-12-11', 50000000, 0, -4190793, 'debet', '2020-12-11 06:46:36', 'superadmin'),
+(36, 'D/20/12/0010', 'Komisi 1 - Partner CV. SCBS', NULL, '2020-12-11', 10000000, 0, 5809207, 'debet', '2020-12-11 06:48:21', 'superadmin'),
+(37, 'D/20/12/0011', 'Checkout: INV 3/KS/12/2020', 'Total harga:2770000 ; Total bayar:2770000 ; Sisa harus dibayar:0 ; Oleh:superadmin', '2020-12-13', 2770000, 0, 8579207, 'debet', '2020-12-13 07:26:11', 'superadmin'),
+(38, 'D/20/12/0012', 'Checkout: INV 4/KS/12/2020', 'Total harga:1214000 ; Total bayar:1000000 ; Sisa harus dibayar:214000 ; Oleh:superadmin', '2020-12-13', 1000000, 0, 9579207, 'debet', '2020-12-13 08:02:00', 'superadmin'),
+(39, 'D/20/12/0013', 'Checkout: INV 7/KS/12/2020', 'Total harga:1952000 ; Total bayar:1000000 ; Sisa harus dibayar:952000 ; Oleh:superadmin', '2020-12-13', 1000000, 0, 10579207, 'debet', '2020-12-13 08:26:38', 'superadmin');
 
 -- --------------------------------------------------------
 
@@ -374,8 +419,14 @@ INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `c
 (5, 'BM005', 'Barang Mentah 5', 'mililiter', 1500, 'kemasan', 'default.png', 15000, '2020-11-18 19:24:26', 0),
 (6, 'BM006', 'Barang Mentah 6', 'gram', 1, 'bahan', 'default.png', 1000, '2020-11-28 02:34:37', 0),
 (7, 'BM007', 'Barang Mentah 7', 'gram', 1, 'bahan', 'bukti_udah_di_upload_hehe.png', 12500, '2020-11-28 02:35:23', 0),
-(8, 'BM008', 'Barang Mentah 8', 'gram', 2, 'bahan', 'default.png', 8300, '2020-11-28 02:46:39', 0),
-(9, 'BM101', 'Kemasan 101', 'gram', 1, 'bahan', 'avatar-4.png', 12500, '2020-12-01 16:43:11', 0);
+(8, 'BM008', 'Barang Mentah 8', 'gram', 1, 'bahan', 'default.png', 8300, '2020-11-28 02:46:39', 0),
+(11, 'BM009', 'Cairan sabun biru', 'gram', 1, 'bahan', 'default.png', 25, '2020-12-11 13:27:48', 0),
+(12, 'BM010', 'Cairan sabun merah', 'gram', 1, 'bahan', 'default.png', 12, '2020-12-11 13:31:13', 0),
+(13, 'BM990', 'Tes inventory gaada row', 'gram', 1, 'bahan', 'default.png', 20, '2020-12-11 15:56:12', 0),
+(14, 'BM991', 'Tes inventory ada row tapi 0', 'gram', 1, 'bahan', 'default.png', 50, '2020-12-11 15:56:32', 0),
+(15, 'BM992', 'Tes inventory ada row dan >0', 'gram', 1, 'bahan', 'default.png', 125, '2020-12-11 15:57:04', 0),
+(9, 'KMS001', 'Kemasan 500 ml', 'gram', 1, 'kemasan', 'avatar-4.png', 12500, '2020-12-01 16:43:11', 0),
+(10, 'KMS002', 'Kemasan 1 Liter', 'gram', 1, 'kemasan', 'jerigen_1l.png', 17500, '2020-12-09 21:05:14', 0);
 
 -- --------------------------------------------------------
 
@@ -401,12 +452,22 @@ CREATE TABLE `material_inventory` (
 
 INSERT INTO `material_inventory` (`id`, `material_id`, `store_id`, `quantity`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`) VALUES
 (1, 1, 1, 123, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(2, 2, 1, 77, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(3, 4, 1, 120, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(4, 3, 1, 3, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(5, 5, 1, 2, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
-(6, 7, 1, 100000044, '2020-11-28 02:52:51', NULL, 'superadmin', 'superadmin', 0),
-(7, 9, 1, 19, '2020-12-09 13:54:05', '2020-12-09 13:54:05', 'superadmin', 'superadmin', 0);
+(2, 2, 1, 0, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(3, 4, 1, 1, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(4, 3, 1, 999878, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(5, 5, 1, 1000001, '2020-11-18 19:31:43', NULL, 'admins', NULL, 0),
+(6, 7, 1, 100000044, '2020-11-28 02:52:51', NULL, 'admins', 'admins', 0),
+(7, 9, 1, 0, '2020-12-09 13:54:05', '2020-12-11 16:10:33', 'admins', 'admins', 0),
+(8, 12, 1, 814614, '2020-12-11 13:33:56', '2020-12-11 13:42:15', 'admins', 'admins', 0),
+(9, 11, 1, 885657, '2020-12-11 13:34:42', '2020-12-11 13:42:38', 'admins', 'admins', 0),
+(10, 14, 1, 0, '2020-12-11 15:57:46', '2020-12-11 15:57:46', 'superadmin', 'superadmin', 0),
+(11, 15, 1, 50000000, '2020-12-11 15:58:27', '2020-12-11 15:58:27', 'superadmin', 'superadmin', 0),
+(26, 4, 1, 1, '2020-12-13 14:26:11', '2020-12-13 14:26:11', NULL, 'superadmin', 0),
+(27, 3, 1, -4, '2020-12-13 14:26:11', '2020-12-13 14:26:11', NULL, 'superadmin', 0),
+(28, 3, 1, -104, '2020-12-13 14:26:11', '2020-12-13 14:26:11', NULL, 'superadmin', 0),
+(29, 9, 1, -69, '2020-12-13 14:26:11', '2020-12-13 14:26:11', NULL, 'superadmin', 0),
+(30, 12, 1, -104550, '2020-12-13 14:26:11', '2020-12-13 14:26:11', NULL, 'superadmin', 0),
+(31, 9, 1, -24, '2020-12-13 14:26:11', '2020-12-13 14:26:11', NULL, 'superadmin', 0);
 
 -- --------------------------------------------------------
 
@@ -431,6 +492,20 @@ CREATE TABLE `material_mutation` (
 --
 
 INSERT INTO `material_mutation` (`id`, `material_id`, `store_id`, `mutation_code`, `quantity`, `mutation_type`, `created_at`, `created_by`, `is_deleted`) VALUES
+(51, 12, 1, '000001/MAT/KEL/13/12/2020', 18450, 'keluar', '2020-12-13 01:11:13', 'superadmin', 0),
+(52, 9, 1, '000002/MAT/KEL/13/12/2020', 13, 'keluar', '2020-12-13 01:11:13', 'superadmin', 0),
+(67, 4, 1, '000003/MAT/KEL/13/12/2020', 100, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(68, 3, 1, '000004/MAT/KEL/13/12/2020', 120, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(69, 3, 1, '000005/MAT/KEL/13/12/2020', 20, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(70, 9, 1, '000006/MAT/KEL/13/12/2020', 5, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(71, 12, 1, '000007/MAT/KEL/13/12/2020', 20500, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(72, 9, 1, '000008/MAT/KEL/13/12/2020', 50, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(94, 4, 1, '000009/MAT/KEL/13/12/2020', 90, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(95, 3, 1, '000010/MAT/KEL/13/12/2020', 108, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(96, 3, 1, '000011/MAT/KEL/13/12/2020', 16, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(97, 9, 1, '000012/MAT/KEL/13/12/2020', 4, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(98, 9, 1, '000013/MAT/KEL/13/12/2020', 70, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(99, 12, 1, '000014/MAT/KEL/13/12/2020', 125050, 'keluar', '2020-12-13 15:26:37', 'superadmin', 0),
 (1, 1, 1, 'MSK0001', 43, 'masuk', '2020-11-01 15:00:00', 'admins', 0),
 (2, 2, 1, 'MSK0002', 12, 'masuk', '2020-11-02 15:00:00', 'admins', 0),
 (3, 3, 1, 'MSK0003', 32, 'masuk', '2020-11-03 15:00:00', 'admins', 0),
@@ -470,7 +545,17 @@ INSERT INTO `material_mutation` (`id`, `material_id`, `store_id`, `mutation_code
 (35, 3, 1, 'MUTATION-MATERIAL-2020-12-09673', 3, 'keluar', '2020-12-09 13:55:46', 'superadmin', 0),
 (34, 9, 1, 'MUTATION-MATERIAL-2020-12-09741', 19, 'masuk', '2020-12-09 13:54:05', 'superadmin', 0),
 (40, 3, 1, 'MUTATION-MATERIAL-2020-12-09862', 3, 'keluar', '2020-12-09 19:13:11', 'superadmin', 0),
-(36, 3, 1, 'MUTATION-MATERIAL-2020-12-09960', 17, 'keluar', '2020-12-09 16:20:37', 'superadmin', 0);
+(36, 3, 1, 'MUTATION-MATERIAL-2020-12-09960', 17, 'keluar', '2020-12-09 16:20:37', 'superadmin', 0),
+(42, 11, 1, 'MUTATION-MATERIAL-2020-12-11161', 187, 'masuk', '2020-12-11 13:34:42', 'superadmin', 0),
+(49, 9, 1, 'MUTATION-MATERIAL-2020-12-11186', 13, 'keluar', '2020-12-12 00:22:06', 'superadmin', 0),
+(43, 12, 1, 'MUTATION-MATERIAL-2020-12-11412', 957884, 'masuk', '2020-12-11 13:42:15', 'superadmin', 0),
+(45, 14, 1, 'MUTATION-MATERIAL-2020-12-1146', 1, 'masuk', '2020-12-11 15:57:46', 'superadmin', 0),
+(44, 11, 1, 'MUTATION-MATERIAL-2020-12-11631', 885470, 'masuk', '2020-12-11 13:42:38', 'superadmin', 0),
+(47, 9, 1, 'MUTATION-MATERIAL-2020-12-11744', 100, 'masuk', '2020-12-11 16:10:33', 'superadmin', 0),
+(46, 15, 1, 'MUTATION-MATERIAL-2020-12-11928', 50000000, 'masuk', '2020-12-11 15:58:27', 'superadmin', 0),
+(48, 4, 1, 'MUTATION-MATERIAL-2020-12-11979', 10, 'keluar', '2020-12-12 00:22:06', 'superadmin', 0),
+(41, 12, 1, 'MUTATION-MATERIAL-2020-12-11998', 230, 'masuk', '2020-12-11 13:33:56', 'superadmin', 0),
+(50, 4, 1, 'MUTATION-MATERIAL-2020-12-12708', 10, 'keluar', '2020-12-13 01:11:13', 'superadmin', 0);
 
 -- --------------------------------------------------------
 
@@ -496,12 +581,19 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `product_code`, `full_name`, `unit`, `volume`, `image`, `price_base`, `selling_price`, `created_at`, `is_deleted`) VALUES
-(1, 'DT001', 'Sabun Dettol 50ml - versi4', 'gram', 50, 'DT001.png', 10000, 27000, '2020-11-17 13:44:04', 0),
-(2, 'DT002', 'Sabun Dettol 150ml', 'mililiter', 150, 'default.png', 15000, 30000, '2020-11-17 13:44:04', 0),
-(3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 25000, 50000, '2020-11-17 13:44:04', 0),
-(4, 'DT004', 'Sabun Dettol 1L', 'mililiter', 1000, 'default.png', 0, 0, '2020-11-18 15:37:08', 0),
-(5, 'DT005', 'Sabun Dettol 1.5L', 'gram', 15, 'default.png', 20000, 50000, '2020-11-18 16:12:08', 0),
-(6, 'DT006', 'Sabun Dettol 10L', 'mililiter', 10000, 'default.png', 0, 0, '2020-11-18 17:33:36', 0);
+(1, 'DT001', 'Sabun Dettol 50ml - versi4', 'gram', 50, 'DT001.png', 140000, 27000, '2020-11-17 13:44:04', 0),
+(2, 'DT002', 'Sabun Dettol 150ml', 'mililiter', 150, 'default.png', 32500, 30000, '2020-11-17 13:44:04', 0),
+(3, 'DT003', 'Sabun Dettol 500ml', 'mililiter', 500, 'default.png', 157500, 50000, '2020-11-17 13:44:04', 0),
+(4, 'DT004', 'Sabun Dettol 1L', 'mililiter', 1000, 'default.png', 17500, 78500, '2020-11-18 15:37:08', 0),
+(5, 'DT005', 'Sabun Dettol 1.5L', 'gram', 15, 'default.png', 217500, 50000, '2020-11-18 16:12:08', 0),
+(6, 'DT006', 'Sabun Dettol 10L', 'mililiter', 10000, 'default.png', 183500, 275000, '2020-11-18 17:33:36', 0),
+(7, 'DT007', 'Sabun Soap Batang 50gr', 'gram', 1000, 'DT007.jpeg', 454500, 635000, '2020-12-09 19:49:05', 0),
+(8, 'DT008', 'Dettol liquid 500ml', 'gram', 1, 'default.png', 244100, 317000, '2020-12-10 01:08:34', 0),
+(9, 'DT009', 'Sabun Dove Milkbath', 'gram', 50, 'default.png', 24600, 32000, '2020-12-12 18:53:22', 0),
+(10, 'DT010', 'Sabun Brand New Rose', 'gram', 100, 'DT009.png', 2080000, 124000, '2020-12-11 01:57:03', 0),
+(11, 'DT011', 'Sabun Brand New Gold', 'gram', 1, 'default.png', 17500, 82000, '2020-12-11 01:58:25', 0),
+(12, 'DT012', 'Sabun Hi-clean Silver', 'gram', 1000, 'DT011.png', 27590, 35000, '2020-12-11 13:52:56', 0),
+(13, 'DT013', 'Sabun Ekonomis X', 'gram', 50, 'default.png', 12500, 0, '2020-12-11 15:39:42', 0);
 
 -- --------------------------------------------------------
 
@@ -524,15 +616,35 @@ CREATE TABLE `product_composition` (
 --
 
 INSERT INTO `product_composition` (`id`, `volume`, `product_id`, `material_id`, `created_at`, `updated_at`, `is_deleted`) VALUES
-(1, 7, 1, 2, '2020-11-20 15:00:00', '2020-12-09 15:57:09', 0),
-(2, 10, 1, 1, '2020-11-20 15:00:00', '2020-12-09 15:57:09', 0),
-(3, 34, 1, 5, '2020-11-20 15:00:00', '2020-12-09 15:58:24', 0),
-(4, 10, 6, 1, '2020-11-20 15:00:00', NULL, 0),
-(5, 3, 6, 2, '2020-11-20 15:00:00', NULL, 0),
-(6, 5, 6, 4, '2020-11-20 15:00:00', NULL, 0),
-(7, 3, 2, 3, '2020-11-20 15:00:00', NULL, 0),
+(7, 4, 2, 3, '2020-11-20 15:00:00', '2020-12-11 16:11:49', 0),
 (8, 17, 3, 3, '2020-12-09 15:55:29', '2020-12-09 15:57:42', 0),
-(9, 3, 3, 2, '2020-12-09 15:55:30', '2020-12-09 15:57:42', 0);
+(9, 3, 3, 2, '2020-12-09 15:55:30', '2020-12-09 15:57:42', 0),
+(67, 1, 7, 9, '2020-12-09 22:30:12', '2020-12-09 22:32:35', 0),
+(68, 110, 7, 6, '2020-12-09 22:30:12', '2020-12-09 22:43:04', 0),
+(69, 40, 7, 8, '2020-12-09 22:30:12', '2020-12-09 22:43:24', 0),
+(71, 1, 5, 10, '2020-12-09 22:44:48', '2020-12-09 22:44:48', 0),
+(72, 20, 5, 1, '2020-12-09 22:44:48', '2020-12-09 22:44:48', 0),
+(73, 1, 2, 9, '2020-12-09 22:45:38', '2020-12-09 22:45:38', 0),
+(74, 1, 3, 9, '2020-12-09 22:47:03', '2020-12-09 22:47:03', 0),
+(75, 1, 8, 9, '2020-12-10 01:30:14', '2020-12-10 01:30:14', 0),
+(77, 1, 6, 10, '2020-12-10 03:05:57', '2020-12-10 03:05:57', 0),
+(78, 20, 6, 8, '2020-12-10 03:06:21', '2020-12-10 03:06:21', 0),
+(79, 10, 8, 7, '2020-12-10 03:21:28', '2020-12-10 03:21:28', 0),
+(80, 12, 8, 8, '2020-12-10 03:21:28', '2020-12-10 03:21:28', 0),
+(81, 7, 8, 6, '2020-12-10 03:21:28', '2020-12-11 01:07:10', 0),
+(84, 1, 10, 10, '2020-12-11 02:06:05', '2020-12-11 02:34:14', 0),
+(94, 5, 10, 3, '2020-12-11 02:19:59', '2020-12-11 02:19:59', 0),
+(95, 3, 10, 7, '2020-12-11 02:19:59', '2020-12-11 02:19:59', 0),
+(96, 100, 10, 2, '2020-12-11 03:00:24', '2020-12-11 03:01:16', 0),
+(97, 1, 4, 10, '2020-12-11 03:09:20', '2020-12-11 03:09:47', 0),
+(98, 1, 12, 10, '2020-12-11 13:54:48', '2020-12-11 13:54:48', 0),
+(99, 320, 12, 12, '2020-12-11 13:54:48', '2020-12-11 13:54:48', 0),
+(100, 250, 12, 11, '2020-12-11 13:54:48', '2020-12-11 13:54:48', 0),
+(102, 1, 11, 10, '2020-12-11 14:04:29', '2020-12-11 14:04:29', 0),
+(108, 1, 13, 9, '2020-12-11 15:43:52', '2020-12-11 15:43:52', 0),
+(123, 10, 1, 4, '2020-12-11 16:09:26', '2020-12-11 16:09:26', 0),
+(124, 2050, 9, 12, '2020-12-12 18:54:18', '2020-12-12 18:54:18', 0),
+(125, 12, 1, 3, '2020-12-13 12:38:46', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -557,6 +669,15 @@ CREATE TABLE `product_mutation` (
 --
 
 INSERT INTO `product_mutation` (`id`, `product_id`, `store_id`, `mutation_code`, `quantity`, `mutation_type`, `created_at`, `created_by`, `is_deleted`) VALUES
+(35, 13, 1, '000001/PRO/KEL/13/12/2020', 13, 'keluar', '2020-12-13 01:11:13', 'superadmin', 0),
+(46, 1, 1, '000002/PRO/KEL/13/12/2020', 10, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(47, 2, 1, '000003/PRO/KEL/13/12/2020', 5, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(48, 9, 1, '000004/PRO/KEL/13/12/2020', 10, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(49, 13, 1, '000005/PRO/KEL/13/12/2020', 50, 'keluar', '2020-12-13 14:26:11', 'superadmin', 0),
+(61, 1, 1, '000006/PRO/KEL/13/12/2020', 9, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(62, 2, 1, '000007/PRO/KEL/13/12/2020', 4, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(63, 13, 1, '000008/PRO/KEL/13/12/2020', 70, 'keluar', '2020-12-13 15:02:00', 'superadmin', 0),
+(64, 9, 1, '000009/PRO/KEL/13/12/2020', 61, 'keluar', '2020-12-13 15:26:37', 'superadmin', 0),
 (20, 1, 1, '74741711', 1, 'keluar', '2020-11-21 12:24:41', 'superadmin', 0),
 (1, 1, 2, 'KLR001', 43, 'keluar', '2020-11-01 15:00:00', 'admins', 0),
 (5, 5, 3, 'KLR002', 54, 'keluar', '2020-11-05 15:00:00', 'admins', 0),
@@ -586,7 +707,11 @@ INSERT INTO `product_mutation` (`id`, `product_id`, `store_id`, `mutation_code`,
 (26, 2, 1, 'MUTATION-2020-12-09 07:55:46am190', 1, 'keluar', '2020-12-09 13:55:46', 'superadmin', 0),
 (27, 3, 1, 'MUTATION-2020-12-09 10:20:36am869', 1, 'keluar', '2020-12-09 16:20:36', 'superadmin', 0),
 (28, 2, 2, 'MUTATION-2020-12-09 10:23:12am279', 3, 'keluar', '2020-12-09 16:23:12', 'kasir_cica', 0),
-(29, 2, 2, 'MUTATION-2020-12-09 12:55:59pm480', 1, 'keluar', '2020-12-09 18:55:59', 'kasir_cica', 0);
+(29, 2, 2, 'MUTATION-2020-12-09 12:55:59pm480', 1, 'keluar', '2020-12-09 18:55:59', 'kasir_cica', 0),
+(31, 1, 1, 'MUTATION-2020-12-11 06:22:06pm150', 1, 'keluar', '2020-12-12 00:22:06', 'superadmin', 0),
+(32, 13, 1, 'MUTATION-2020-12-11 06:22:06pm788', 13, 'keluar', '2020-12-12 00:22:06', 'superadmin', 0),
+(33, 1, 1, 'MUTATION-2020-12-12 07:11:12pm128', 1, 'keluar', '2020-12-13 01:11:12', 'superadmin', 0),
+(34, 9, 1, 'MUTATION-2020-12-12 07:11:13pm769', 9, 'keluar', '2020-12-13 01:11:13', 'superadmin', 0);
 
 -- --------------------------------------------------------
 
@@ -668,7 +793,15 @@ INSERT INTO `transaction` (`id`, `trans_number`, `deliv_address`, `price_total`,
 (17, 'TRANS-12.09.201607527392', 'Redline blueeeeeeeeeee', 45000, 2, 49, 3, '2020-12-16 16:23:12', '2020-12-09 16:23:12', 0),
 (18, 'TRANS-12.09.201607536559', 'Redline', 30000, 2, 49, 3, '2020-12-16 18:55:59', '2020-12-09 18:55:59', 0),
 (19, 'TRANS-12.09.201607537591', 'Blueland seaaaaaaaaaaa', 30000, 1, 48, 0, '2020-12-16 19:13:11', '2020-12-09 19:13:11', 0),
+(20, 'TRANS-12.11.201607728926', 'Dalam perut bumi yang jauhhhhhhhhhhhhhhhhhhhhhhh', 1108000, 1, 51, 0, '2020-12-19 00:22:06', '2020-12-12 00:22:06', 0),
+(26, 'TRANS-13_12_20-000002', 'Redline blueeeeeeeeeeesea', 947000, 1, 49, 0, '2020-12-20 08:35:11', '2020-12-13 08:35:11', 0),
+(27, 'TRANS-13_12_20-000003', 'Redline blueeeeeeeeeeesea', 947000, 1, 49, 0, '2020-12-20 08:36:04', '2020-12-13 08:36:04', 0),
+(28, 'TRANS-13_12_20-000004', 'Redline blueeeeeeeeeeesea', 947000, 1, 49, 0, '2020-12-20 08:36:41', '2020-12-13 08:36:41', 0),
+(21, 'TRANS-20_12_20-000001', 'Redline', 0, 1, 49, 0, '2020-12-20 01:11:12', '2020-12-13 01:11:12', 0),
+(29, 'TRANS/12/20/000005', 'Redline', 2770000, 1, 49, 0, '2020-12-20 14:26:11', '2020-12-13 14:26:11', 0),
 (9, 'TRANS747417', NULL, 10000, 1, 9, 0, '2020-11-28 12:24:41', '2020-11-21 12:24:41', 0),
+(35, 'TRX/12/20/000006', 'Blueland', 1214000, 1, 48, 0, '2020-12-20 15:02:00', '2020-12-13 15:02:00', 0),
+(36, 'TRX/12/20/000007', 'Greenland', 1952000, 1, 47, 0, '2020-12-20 15:26:37', '2020-12-13 15:26:37', 0),
 (1, 'TRX2011010001', NULL, 50000, 2, 1, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
 (2, 'TRX2011010002', NULL, 15000, 2, 5, 3, '2020-11-20 15:00:00', '2020-11-20 15:00:00', 0),
 (3, 'TRX2011010003', NULL, 65000, 2, 6, 3, '2020-11-27 15:00:00', '2020-11-20 15:00:00', 0),
@@ -821,13 +954,13 @@ ALTER TABLE `basic_info_meta`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `custom_price`
 --
 ALTER TABLE `custom_price`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -839,55 +972,55 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `invoice_item`
 --
 ALTER TABLE `invoice_item`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `kas`
 --
 ALTER TABLE `kas`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `material_inventory`
 --
 ALTER TABLE `material_inventory`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `material_mutation`
 --
 ALTER TABLE `material_mutation`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `product_composition`
 --
 ALTER TABLE `product_composition`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT for table `product_mutation`
 --
 ALTER TABLE `product_mutation`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -905,7 +1038,7 @@ ALTER TABLE `store`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` tinyint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables

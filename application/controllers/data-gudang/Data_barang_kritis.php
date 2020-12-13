@@ -22,7 +22,7 @@ class Data_barang_kritis extends CI_Controller
             'title'             => 'Data Barang',
             'content'           => 'data-gudang/v_barang_kritis.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-kritis', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
 
             'datatables' => 1

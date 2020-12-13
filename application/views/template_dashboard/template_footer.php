@@ -68,7 +68,7 @@
     <?php if (isset($datatables)) { ?>
         <!-- Datatables -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
-        <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+        <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/datatables/dataTables.responsive.min.js"></script>
         <script>
             $(document).ready(function() {
                 // Add Row
@@ -518,11 +518,15 @@
 
 
 
+    <?php
+    // cek hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
+    if ($submenuActive == 'demooo') : ?>
     <?php // script bawaan template (jangan dihapus dulu dipake buat contoh bikin chart) ?>
     <?php // =========================================================================== ?>
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
+    
     <script>
         Circles.create({
             id: 'circles-1',
@@ -617,6 +621,7 @@
             fillColor: 'rgba(255, 165, 52, .14)'
         });
     </script>
+    <?php endif; ?>
     <?php // =========================================================================== ?>
 
 

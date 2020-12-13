@@ -157,11 +157,68 @@ if ( ! function_exists('price_format'))
 	 *
 	 * @param	int	Integer of the pre-formatted price
 	*/
-  function price_format($int = 0)
+  function price_format($int = 0, $nbsp = TRUE, $echo = NULL)
   {
-    echo "Rp.&nbsp;".number_format($int, 0, '', '.');
+    if ($nbsp === TRUE) $x = "Rp.&nbsp;".number_format($int, 0, '', '.');
+    if ($nbsp === FALSE) $x = "Rp.".number_format($int, 0, '', '.');
+
+    if ($echo === NULL) echo $x;
+    if ($echo !== NULL) return $x;
   }
 }
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('start_time'))
+{
+	/**
+	 * Start timestamp for benchmarking time (microtime(TRUE))
+	 *
+	 * @param	int	Integer of the timestamp
+	*/
+  function start_time($timestamp = 0, $sessName = NULL)
+  {
+    $ci=&get_instance();
+    
+    $startTime = round($timestamp * 1000);
+    if ($sessName === NULL) $ci->session->set_userdata('benchmark_start_time', $startTime);
+    else $ci->session->set_userdata("benchmark_{$sessName}", $startTime);
+  }
+}
+
+if ( ! function_exists('end_time'))
+{
+	/**
+	 * End timestamp for benchmarking time (microtime(TRUE))
+	 *
+	 * @param	int	Integer of the timestamp
+	*/
+  function end_time($sessName = NULL)
+  {
+    $ci=&get_instance();
+    if ($sessName === NULL) $startTime = $ci->session->userdata('benchmark_start_time');
+    else $startTime = $ci->session->userdata("benchmark_{$sessName}");
+
+    if ($sessName === NULL) $name = 'benchmark_start_time';
+    else $name = "benchmark_{$sessName}";
+    
+    $endTime     = round(microtime(true) * 1000);
+    $elapsedTime = ($endTime - $startTime);
+    
+    echo '<script>';
+    echo "console.log('{$name}: Elapsed time: {$elapsedTime} miliseconds')";
+    echo '</script>';
+
+    if ($sessName === NULL) $ci->session->unset_userdata('benchmark_start_time');
+    else $ci->session->unset_userdata("benchmark_{$sessName}");
+  }
+}
+
+
+
+
+
+
 
 
 

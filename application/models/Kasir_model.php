@@ -320,7 +320,7 @@ class Kasir_model extends CI_Model
 
         // trans_number format, string build
         $code  = 'TRX/'; // kode untuk transaksi
-        $code .= mdate('%m/%y/', $timestamp); // kode untukhari bulan tahun
+        $code .= mdate('%m/%Y/', $timestamp); // kode untukhari bulan tahun
 
         // get last trans_number from table row
         $lastRow           = $this->db->select('trans_number')->order_by('id',"desc")->limit(1)->get($table);
@@ -491,6 +491,7 @@ class Kasir_model extends CI_Model
     }
 
 
+    
     /**
      * 
      * Insert new row to the database.
@@ -507,8 +508,6 @@ class Kasir_model extends CI_Model
         // | Urutan proses harusnya sih siapin transaksi, invoice, invoice item. (UPDATE: product_mutation, material_mutation, material_inventory, kas)
         // | Kemudian masukin ke tabel masing2 menggunakan konsep TRANSACTION dari MYSQL
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        // waktu mulai untuk debugging
-        $startTime = round(microtime(true) * 1000);
 
         // inisiasi nama tabel yg digunakan, lokal hanya untuk method ini
         $tb_transaction         = 'transaction';
@@ -729,8 +728,9 @@ class Kasir_model extends CI_Model
         }
         $data_material_inventory = $container;
 
+        // ! KERJAIN INI
         // pprintd($data_material_inventory);
-        // $isMaterialInventorySuccess = $this->db->insert_batch($tb_material_inventory, $data_material_inventory);
+        $isMaterialInventorySuccess = $this->db->insert_batch($tb_material_inventory, $data_material_inventory);
 
         
         // ============================================================ SELESAI PERSIAPAN DATA INVENTORY MATERIAL ===================
@@ -759,14 +759,6 @@ class Kasir_model extends CI_Model
 
 
         $this->db->trans_complete();
-    
-
-        $endTime     = round(microtime(true) * 1000);
-        $elapsedTime = ($endTime - $startTime);
-        echo '<script>';
-        echo "console.log('Elapsed time : {$elapsedTime} miliseconds')";
-        echo '</script>';
-
 
         $returnVal = [
             'invoice_id'        => $lastInvoiceId,

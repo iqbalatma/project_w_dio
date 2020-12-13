@@ -33,16 +33,15 @@ class Kasir extends CI_Controller
 
     public function insert_dio()
     {
-        // // cek apakah tombol cekout ditekan tanpa memilih satupun produk
-        // if ( ! isset($post['product']) )
-        // {
-        //     // flashdata untuk sweetalert
-        //     $this->session->set_flashdata('failed_message', 1);
-        //     $this->session->set_flashdata('title', "Pembelanjaan kosong!");
-        //     $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
-        //     redirect(base_url( getBeforeLastSegment($this->modules) ));
-        // }
-
+        if ( ! isset($this->session->dari_konfirmasi_kasir) )
+        {
+            // flashdata untuk sweetalert
+            $this->session->set_flashdata('failed_message', 1);
+            $this->session->set_flashdata('title', "Pembelanjaan kosong!");
+            $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
+            redirect(base_url( getBeforeLastSegment($this->modules) ));
+        }
+        
         $this->session->keep_flashdata('dari_konfirmasi_kasir');
         $cekoutData = $this->session->dari_konfirmasi_kasir;
         
@@ -51,7 +50,8 @@ class Kasir extends CI_Controller
         $cekoutData['total_harga']  = $post['total_harga'];
         $kembalian                  = ($post['paid_amount'] - $post['total_harga']) * (-1);
 
-        // seluruh proses checkout, termasuk interaksi dengan 7 tabel di database, return array yg (hanya) berisi invoice id dan nomor invoice terbaru
+        // seluruh proses checkout di satu baris ini, termasuk interaksi dengan 7 tabel di database
+        // return array yg (hanya) berisi invoice id dan nomor invoice terbaru
         $query = $this->Kasir_model->set_new_checkout($cekoutData);
         $query['paid_amount'] = $post['paid_amount'];
         $query['total_harga'] = $post['total_harga'];

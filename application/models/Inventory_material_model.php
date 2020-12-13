@@ -99,4 +99,32 @@ class Inventory_material_model extends CI_Model
         $this->db->where('material_id', $data['material_id']);
         return $this->db->update("material_inventory", $data);
     }
+
+
+
+    public function get_critical_material()
+    {
+        $query = $this->db->query("
+            SELECT mi.id, m.material_code, m.full_name, m.image, mi.quantity, s.store_name
+            FROM material AS m
+            JOIN material_inventory AS mi
+            ON mi.material_id = m.id
+            JOIN store AS s
+            ON s.id = mi.store_id
+            WHERE mi.quantity <= 10
+            AND m.is_deleted = 0
+            AND mi.is_deleted = 0
+            AND s.is_deleted = 0
+            ORDER BY mi.quantity ASC
+            LIMIT 5
+        ");
+
+        if ($query->num_rows() > 0) {
+        return $query->result_array();
+        }
+        return FALSE;
+    }
+
+
+
 }
