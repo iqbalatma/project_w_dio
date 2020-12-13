@@ -85,7 +85,7 @@ $mainMenu = array(
         'url'   => "{$_data_gudang}/data-inventory-barang-mentah",
       ], [
         'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
-        'name'  => 'Data Transaksi Barang',
+        'name'  => 'Data Mutasi Barang',
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
       ], [
@@ -119,11 +119,11 @@ $mainMenu = array(
         //   'name'  => 'Data Inventory Produk',
         //   'slug'  => 'data-inventory-produk',
         //   'url'   => "{$_data_produksi}/data-inventory-produk",
-        // ],[
-        //   'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        //   'name'  => 'Data Transaksi Produk',
-        //   'slug'  => 'data-transaksi-produk',
-        //   'url'   => "{$_data_produksi}/data-transaksi-produk",
+        ],[
+          'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+          'name'  => 'Data Mutasi Produk',
+          'slug'  => 'data-transaksi-produk',
+          'url'   => "{$_data_produksi}/data-transaksi-produk",
       ],
     )
   ],

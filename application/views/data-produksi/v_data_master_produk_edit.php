@@ -115,12 +115,14 @@
                                         Harga jual normal <span class="text-danger">*</span>
                                       </label>
                                       <input 
-                                        type        = "text" 
+                                        type        = "tel" 
                                         id          = "edit-sellingprice" 
                                         name        = "edit-sellingprice" 
                                         placeholder = "Harga normal" 
                                         value       = "<?= (set_value('edit-sellingprice') !== '') ? set_value('edit-sellingprice') : $product->selling_price ; ?>"
                                         class       = "sellingprice live-typing form-control <?php if(form_error('edit-sellingprice') !== ''){ echo 'is-invalid'; } ?>"
+                                        pattern     ="[0-9]{1,}" 
+                                        title       ="Harus angka dan minimal satu angka"
                                       >
                                       <?= form_error('edit-sellingprice') ?>
                                     </div>

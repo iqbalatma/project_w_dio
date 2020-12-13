@@ -282,23 +282,69 @@
         });
     </script> -->
 
-    <script>
-        // inisiasi variable
-        let input           = $('.live-typing'),
-            output          = $('.live-output'),
-            hpp             = $('.hpp'),
-            sellingprice    = $('.sellingprice');
 
-        // output prosentase margin
-        output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
+    <?php
+    // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
+    // untuk hitung prosentase margin keuntungan ketika edit harga jual produk
+    if ($submenuActive == 'data-master-produk') : ?>
+        <script>
+            // inisiasi variable
+            let input           = $('.live-typing'),
+                output          = $('.live-output'),
+                hpp             = $('.hpp'),
+                sellingprice    = $('.sellingprice');
 
-        // hitung PROSENTASE MARGIN DARI HPP DAN INPUT HARGA JUAL secara live
-        sellingprice.bind('keydown keypress', function() {
-            setTimeout(function() {
-                output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
-            }, 0);
-        });
-    </script>
+            // output prosentase margin
+            output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
+
+            // hitung PROSENTASE MARGIN DARI HPP DAN INPUT HARGA JUAL secara live
+            sellingprice.bind('keydown keypress', function() {
+                setTimeout(function() {
+                    output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
+                }, 0);
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php
+    // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
+    if ($submenuActive == 'kasir') : ?>
+        <script>
+            // fungsi enable/disabled qty dan harga custom
+            // btn diclick
+            $('.kasir-product').on('click', function() {
+                // ambil id btn
+                let btnId   = this.id;
+                // pecah id btn
+                let splitId = btnId.split("-");
+                // ambil hanya nomor id btn saja
+                let id      = splitId[1];
+                // tambahkan nomor id ke belakang nama id dari element quantity dan custom price
+                let kasirQuantity   = '#kasirquantity-' + id;
+                let customPrice     = '#kasircustomprice-' + id;
+                
+                // cek btn .kasir-product dengan id btn yg diclick
+                if ($(this).prop('checked')) {
+                    // ENABLE qty dan custom harga jika button dengan id yg sama diklik
+                    $(kasirQuantity).prop('disabled', false);
+                    $(customPrice).prop('disabled', false);
+                } else {
+                    // DISABLE qty dan custom harga jika button dengan id yg sama diklik
+                    $(kasirQuantity).prop('disabled', true);
+                    $(customPrice).prop('disabled', true);
+                }
+            });
+
+            //show or hide when the toggle-btn is clicked
+            $('.toggle-btn').on('click', function() {
+                if ($('.toggle-item').is(':hidden')) {
+                    $('.toggle-item').fadeIn();
+                } else {
+                    $('.toggle-item').fadeOut();
+                }
+            });
+        </script>
+    <?php endif; ?>
 
     <?php
     // cek hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)

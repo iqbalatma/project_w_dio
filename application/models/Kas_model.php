@@ -13,7 +13,7 @@ class Kas_model extends CI_Model
 //  ===============================================SETTER===============================================
   /**
    * 
-   * Insert new row to the database.
+   * Insert new row to the database. ['add-type] ['add-nominal] ['add-perihal] ['add-keterangan] ['add-date] ['created_by]
    * 
    * @param array $data [10 data]
    * The key and value in the array that will be inserted into the database.
@@ -51,21 +51,19 @@ class Kas_model extends CI_Model
     // kemudian masukan kembali ke string $code, dan kas_code selesai
     $codeNum   = ($codeMonth !== $currMonth) ? '0001' : $codeNum;
     $code     .= str_pad($codeNum, 4, "0", STR_PAD_LEFT);
-
-    // set final_balance yg baru
-    if ($data['add-type'] == 'kredit') $newFinalBalance = $lastFinalBalance - (int)$data['add-nominal'];
-    else $newFinalBalance = $lastFinalBalance + (int)$data['add-nominal'];
-
-    // set value untuk debet dan kredit
+    
+    // set value untuk debet dan kredit dan set final_balance
     if ($data['add-type'] == 'kredit')
     {
-      $debet  = 0;
-      $kredit = $data['add-nominal'];
+      $newFinalBalance = $lastFinalBalance - (int)$data['add-nominal'];
+      $debet           = 0;
+      $kredit          = $data['add-nominal'];
     }
     else
     {
-      $debet  = $data['add-nominal'];
-      $kredit = 0;
+      $newFinalBalance = $lastFinalBalance + (int)$data['add-nominal'];
+      $debet           = $data['add-nominal'];
+      $kredit          = 0;
     }
 
     $data = array(

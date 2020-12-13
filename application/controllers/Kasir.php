@@ -31,6 +31,50 @@ class Kasir extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
+    public function insert_dio()
+    {
+        // // cek apakah tombol cekout ditekan tanpa memilih satupun produk
+        // if ( ! isset($post['product']) )
+        // {
+        //     // flashdata untuk sweetalert
+        //     $this->session->set_flashdata('failed_message', 1);
+        //     $this->session->set_flashdata('title', "Pembelanjaan kosong!");
+        //     $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
+        //     redirect(base_url( getBeforeLastSegment($this->modules) ));
+        // }
+
+        $this->session->keep_flashdata('dari_konfirmasi_kasir');
+        $cekoutData = $this->session->dari_konfirmasi_kasir;
+        
+        $post                       = $this->input->post();
+        $cekoutData['paid_amount']  = $post['paid_amount'];
+        $cekoutData['total_harga']  = $post['total_harga'];
+        $kembalian                  = ($post['paid_amount'] - $post['total_harga']) * (-1);
+
+        // seluruh proses checkout, termasuk interaksi dengan 7 tabel di database, return array yg (hanya) berisi invoice id dan nomor invoice terbaru
+        $query = $this->Kasir_model->set_new_checkout($cekoutData);
+        $query['paid_amount'] = $post['paid_amount'];
+        $query['total_harga'] = $post['total_harga'];
+
+        $this->session->set_flashdata('dari_insert_dio', $query);
+
+        if ($query !== FALSE) {
+            // flashdata untuk sweetalert
+            $this->session->set_flashdata('success_message', 1);
+            $this->session->set_flashdata('title', "Pembelian sukses!");
+            $this->session->set_flashdata('text', 'Invoice juga udah siap!');
+            redirect(base_url('kasir/kembalian-kasir/' . $query['invoice_id'] . "/" . $kembalian));
+    
+          }else {
+            // flashdata untuk sweetalert
+            $this->session->set_flashdata('failed_message', 1);
+            $this->session->set_flashdata('title', "Pembelian gagal!");
+            $this->session->set_flashdata('text', 'Mohon hubungi administrator segera. kode: (C/K/ID)');
+            redirect(current_url('kasir'));
+          } // end if($query): success or failed
+        die;
+    }
+
     public function insert()
     {
         
@@ -46,14 +90,14 @@ class Kasir extends CI_Controller
         $customer_id = $this->input->post('customer_id');
         $data_customer = $this->Kasir_model->get_customer($customer_id);
         $customer_type = $data_customer['cust_type'];
-        pprintd($this->input->post());
-
+        
         if ($customer_type == "retail") {
             $customer_type = "KS";
         } else {
             $customer_type = "AR";
         }
-
+        // pprintd($this->input->post());
+        
         $due_at = unix_to_human(now() + (86400 * 7), true, 'europe');
         $trans_number = 'TRANS-' . date("m.d.y") . now(); //primary_key pada tabel transaksi format menyesuaikan
         $address = $this->input->post('address');
@@ -68,6 +112,7 @@ class Kasir extends CI_Controller
             'created_at' => $createdAt,
             'is_deleted' => 0
         ];
+        pprintd($data_transaction);
         $insert1 = $this->Kasir_model->insert_transaction($data_transaction);
 
         // // END PROSES INSERT DATA TRANSAKSI
@@ -303,7 +348,9 @@ class Kasir extends CI_Controller
 
     public function konfirmasi_kasir()
     {
+        // $startTime = round(microtime(true) * 1000);
         $post = $this->input->post();
+
         // cek apakah tombol cekout ditekan tanpa memilih satupun produk
         if ( ! isset($post['product']) )
         {
@@ -313,19 +360,26 @@ class Kasir extends CI_Controller
             $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
             redirect(base_url( getBeforeLastSegment($this->modules) ));
         }
+        // pprintd($post);
         
-        $zero = array_search(0, $post['quantity']);
-        // cek apakah dari pencarian ada yang qty == 1, kalo ada keluar
-        if ( $zero == 1 )
+        // sort array quantity produk dari kecil ke terbesar ambil indek pertama dan terakhir, kemudian cek
+        // jika
+        $__qty   = $post['quantity'];
+        // sort($__qty);
+        // $isZero    = $__qty[0];
+        // $notZero = end($__qty);
+        $isZero = array_search(0, $__qty);
+        // cek apakah array pertama yg udh disort bernilai 0, jika iya keluar karena ada produk yg qty == 0
+        if ( $isZero !== FALSE )
         {
             // flashdata untuk sweetalert
             $this->session->set_flashdata('failed_message', 1);
-            $this->session->set_flashdata('title', "Jumlah item nol!");
-            $this->session->set_flashdata('text', 'Jumlah produk tidak boleh semua nol.');
+            $this->session->set_flashdata('title', "Cek kuantitas produk!");
+            $this->session->set_flashdata('text', 'Kuantitas produk belum dipilih.');
             redirect(base_url( getBeforeLastSegment($this->modules) ));
         }
+        // pprintd($post);
 
-        
         $checkbox_value     = $this->input->post('product');
         $customer_id        = $this->input->post('nama_pelanggan');
         $address            = $this->input->post('alamat_pelanggan');
@@ -334,12 +388,14 @@ class Kasir extends CI_Controller
 
         // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
         // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get
+        // contoh  ==>  id=1 OR id=9 OR id=13
         $productQuery = '';
         foreach ($checkbox_value as $row) {
             // hanya tambah OR setelah iterasi pertama, dan hasil query tidak akan ada OR di blkg
             if ($productQuery !== '') $productQuery .= " OR ";
             $productQuery .= "id={$row}";
         }
+        // pprintd($productQuery);
 
         // var_dump($checkbox_value);
         // echo "<br>";
@@ -358,11 +414,12 @@ class Kasir extends CI_Controller
         // get data dari db yg dibutuhkan, dari tabel customer dan produk yg relevan dengan environment ketika cekout
         $data_customer  = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
         $data_product   = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
+        // pprintd($data_product);
 
         // inisiasi $container untuk menyimpan hasil iterasi di bawah
         $container      = [];
 
-        // cek custom harga dari inputan dengan key dari id produk
+        // MULAI : cek custom harga dari inputan dengan key dari id produk
         // untuk mengolah harga custom per produk di cekout
         foreach ($data_product as $row) 
         {
@@ -375,14 +432,15 @@ class Kasir extends CI_Controller
             // himpun kembali dalam array dengan bentuk yg sama seperti $data_product
             $container[] = $row;
         }
-        // kembalikan dari $container ke variabel awal
+        // SELESAI : kembalikan dari $container ke variabel awal
         $data_product = $container;
         
-        // reset kembali $container agar kosong untuk digunakan
+        // MULAI : reset kembali $container agar kosong untuk digunakan
         // proses di bawah sama seperti di atas, bedanya ini untuk quantity ketika cekout
         $container = [];
         foreach ($data_product as $row) 
         {
+            // jika ada harga custom = set custom_price, dan jika tidak ada set selling_price
             if ($quantity[$row['id']]) {
                 $row['kasir_qty'] = $quantity[$row['id']];
             } else {
@@ -391,7 +449,18 @@ class Kasir extends CI_Controller
             // himpun kembali dalam array dengan bentuk yg sama seperti $data_product
             $container[] = $row;
         }
-        // kembalikan dari $container ke variabel awal
+        // SELESAI : kembalikan dari $container ke variabel awal
+        $data_product = $container;
+
+        // MULAI : reset kembali $container agar kosong untuk digunakan
+        // proses di bawah sama seperti di atas, bedanya ini untuk total harga per item
+        $container = [];
+        foreach ($data_product as $row) {
+            $row['kasir_total_per_item'] = $row['kasir_price'] * $row['kasir_qty'];
+            // himpun kembali dalam array dengan bentuk yg sama seperti $data_product
+            $container[] = $row;
+        }
+        // SELESAI : kembalikan dari $container ke variabel awal
         $data_product = $container;
 
         $data = [
@@ -408,23 +477,44 @@ class Kasir extends CI_Controller
             // 'custom_harga'      => $custom_harga,
             'datatables'        => 1
         ];
-        // pprintd($data['data_product']);
+
+        $sessionTest['data_customer']   = (array)$data['data_customer'];
+        $sessionTest['data_product']    = $data['data_product'];
+        $sessionTest['deliv_address']   = $data['address'];
+        $sessionTest['store_id']        = $_SESSION['store_id'];
+        $sessionTest['employee_id']     = $_SESSION['id'];
+        $sessionTest['username']        = $_SESSION['username'];
+        $this->session->set_flashdata('dari_konfirmasi_kasir', $sessionTest);
+        // pprintd($post);
+
+
+        // $endTime     = round(microtime(true) * 1000);
+        // $elapsedTime = ($endTime - $startTime);
+        // echo '<script>';
+        // echo "console.log('Elapsed time : {$elapsedTime} miliseconds')";
+        // echo '</script>';
+
+
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
     public function kembalian_kasir($id_invoice, $kembalian)
     {
+        $this->session->keep_flashdata('dari_insert_dio');
+
         $data = [
             'title'             => 'Kasir',
             'content'           => 'kasir/v_kembalian.php',
             'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_customer' => $this->Customer_model->get_all(),
+            // 'data_customer' => $this->Customer_model->get_all(),
             // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
-            'data_product' => $this->Product_model->get_all2(),
+            // 'data_product' => $this->Product_model->get_all2(),
             'datatables' => 1,
             'id_invoice' => $id_invoice,
-            'kembalian' => $kembalian
+            'kembalian' => $kembalian,
+            
+            'cekout' => $this->session->dari_insert_dio,
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }

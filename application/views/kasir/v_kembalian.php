@@ -32,7 +32,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="#">Checkout Kasir</a>
                 </li>
             </ul>
         </div>
@@ -40,7 +40,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Konfirmasi Checkout</div>
+                        <div class="card-title font-weight-bold">Pembelian Sukses : INV <?= $cekout['invoice_number'] ?></div>
                     </div>
 
 
@@ -48,18 +48,21 @@
                         <div class="row">
 
                             <div class="col-md-12">
-                                <h3>Kembalian : Rp <?= $kembalian; ?></h3>
+                                <h3>Total belanja : <?= price_format($cekout['total_harga']) ?></h3>
+                                <h3>Total bayar : <?= price_format($cekout['paid_amount']) ?></h3>
+                                <hr width="90%">
+                                <h3>Kembalian : <?= price_format($kembalian) ?></h3>
                             </div>
                         </div>
                     </div>
                     <div class="card-action">
 
-                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $id_invoice); ?>" class="btn btn-primary">
+                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $id_invoice); ?>" class="btn btn-danger mx-1">
                             <i class="fas fa-print mr-2"></i> Cetak Surat Jalan
                         </a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
-                        <a href="<?= base_url("generate-report/invoice/generate/" . $id_invoice); ?>" class="btn btn-primary">
+                        <a href="<?= base_url("generate-report/invoice/generate/" . $id_invoice); ?>" class="btn btn-danger mx-1">
                             <i class="fas fa-print mr-2"></i> Cetak Invoice
                         </a>
 

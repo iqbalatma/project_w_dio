@@ -43,7 +43,7 @@
                         <div class="card-title">Konfirmasi Checkout</div>
                     </div>
 
-                    <?= form_open('Kasir/insert'); ?>
+                    <?= form_open('Kasir/insert-dio'); ?>
                     <div class="card-body">
                         <div class="row">
 
@@ -135,7 +135,7 @@
 
                                 <?php
 
-                                // ini dulu $checkbox_value, isinya sama2 id produk
+                                // ini dulunya nge-foreach $checkbox_value, isi dan bentuknya sama2 id produk, beda variabel aja dari method konfirmasi kasir
                                 foreach ($data_product as $row) {
                                     echo '<input type="hidden" name="checkbox_value[]" value="' . $row['id'] . '">';
                                 };
