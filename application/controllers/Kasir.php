@@ -48,13 +48,22 @@ class Kasir extends CI_Controller
         $post                       = $this->input->post();
         $cekoutData['paid_amount']  = $post['paid_amount'];
         $cekoutData['total_harga']  = $post['total_harga'];
-        $kembalian                  = ($post['paid_amount'] - $post['total_harga']) * (-1);
 
         // seluruh proses checkout di satu baris ini, termasuk interaksi dengan 7 tabel di database
-        // return array yg (hanya) berisi invoice id dan nomor invoice terbaru
+        // return array yg (hanya) berisi invoice id, nomor invoice terbaru, dan due_at
         $query = $this->Kasir_model->set_new_checkout($cekoutData);
-        $query['paid_amount'] = $post['paid_amount'];
-        $query['total_harga'] = $post['total_harga'];
+        
+        $query['paid_amount'] = $cekoutData['paid_amount'];
+        $query['total_harga'] = $cekoutData['total_harga'];
+
+        if ($post['paid_amount'] > $post['total_harga']) 
+        {
+            $query['kembalian'] = ($post['paid_amount'] - $post['total_harga']);
+            $query['sisa_bayar'] = 0;
+        } else {
+            $query['kembalian'] = 0;
+            $query['sisa_bayar'] = ($post['total_harga'] - $post['paid_amount']);
+        }
 
         $this->session->set_flashdata('dari_insert_dio', $query);
 
@@ -63,7 +72,7 @@ class Kasir extends CI_Controller
             $this->session->set_flashdata('success_message', 1);
             $this->session->set_flashdata('title', "Pembelian sukses!");
             $this->session->set_flashdata('text', 'Invoice juga udah siap!');
-            redirect(base_url('kasir/kembalian-kasir/' . $query['invoice_id'] . "/" . $kembalian));
+            redirect(base_url('kasir/kembalian-kasir/' . $query['invoice_id'] . "/" . $query['kembalian']));
     
           }else {
             // flashdata untuk sweetalert
@@ -514,6 +523,7 @@ class Kasir extends CI_Controller
             'id_invoice' => $id_invoice,
             'kembalian' => $kembalian,
             
+            // dio
             'cekout' => $this->session->dari_insert_dio,
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);

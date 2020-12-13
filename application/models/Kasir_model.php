@@ -518,7 +518,7 @@ class Kasir_model extends CI_Model
         $tb_material_inventory  = 'material_inventory';
         $tb_kas                 = 'kas';
 
-        $this->db->trans_start();
+        $this->db->trans_start(TRUE);
 
         // set waktu awal untuk method ini
         $now          = now();
@@ -722,15 +722,17 @@ class Kasir_model extends CI_Model
 
             $this->db->from($tb_material_inventory);
             $this->db->set("quantity", "quantity - {$row['mutation_qty']}", FALSE);
+            $this->db->set("updated_at", "{$createdAt}");
+            $this->db->set("updated_by", "{$data['username']}");
             $this->db->where('material_id', "{$row['material_id']}");
             $this->db->where('store_id', "{$data['store_id']}");
             $this->db->update();
         }
         $data_material_inventory = $container;
 
-        // ! KERJAIN INI
+        // ! KERJAIN INI - 13/12/20 - 17.00 udah beres harusnya dua line di bawah nanti dihapus kalo udh gada bug selama bbrp waktu
         // pprintd($data_material_inventory);
-        $isMaterialInventorySuccess = $this->db->insert_batch($tb_material_inventory, $data_material_inventory);
+        // $isMaterialInventorySuccess = $this->db->insert_batch($tb_material_inventory, $data_material_inventory);
 
         
         // ============================================================ SELESAI PERSIAPAN DATA INVENTORY MATERIAL ===================
@@ -763,6 +765,7 @@ class Kasir_model extends CI_Model
         $returnVal = [
             'invoice_id'        => $lastInvoiceId,
             'invoice_number'    => $invoiceNumber,
+            'due_at'            => $dueAt,
         ];
         // return ($this->db->trans_status() === FALSE) ? FALSE : 1;
         if ($this->db->trans_status() === FALSE)

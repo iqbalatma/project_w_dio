@@ -51,7 +51,23 @@
                                 <h3>Total belanja : <?= price_format($cekout['total_harga']) ?></h3>
                                 <h3>Total bayar : <?= price_format($cekout['paid_amount']) ?></h3>
                                 <hr width="90%">
-                                <h3>Kembalian : <?= price_format($kembalian) ?></h3>
+                                <table>
+                                    <?php if ($cekout['sisa_bayar'] != 0) : ?>
+                                    <tr>
+                                        <td><h3>Sisa yang harus dibayar</h3></td>
+                                        <td><h3>: <?= price_format($cekout['sisa_bayar']) ?></h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="65%"><h3>Tenggat waktu pembayaran</h3></td>
+                                        <td><h3>: <?= mdate('%d - %M - %Y', human_to_unix($cekout['due_at'])) ?></h3></td>
+                                    </tr>
+                                    <?php else : ?>
+                                    <tr>
+                                        <td><h3>Kembalian</h3></td>
+                                        <td><h3>: <?= price_format($cekout['kembalian']) ?></h3></td>
+                                    </tr>
+                                    <?php endif; ?>
+                                </table>
                             </div>
                         </div>
                     </div>

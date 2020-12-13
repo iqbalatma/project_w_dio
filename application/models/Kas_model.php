@@ -34,8 +34,8 @@ class Kas_model extends CI_Model
     $lastFinalBalance  = $lastRow->row()->final_balance;
     // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
     if ($lastRow->num_rows() > 0) $lastCode = $lastKasCode;
-    else $lastCode = $code.'0000';
-
+    else $lastCode = $code.'000000';
+    
     // $lastCode dari db, ambil hanya nomor urut di setelah "/" terakhir
     // increment 1
     // ambil kode bulan di sebelum "/" terakhir
@@ -47,10 +47,10 @@ class Kas_model extends CI_Model
 
     // jika data yang ingin diinput adalah data terbaru di bulan terkait, maka mulai dari 0001
     // jika tidak, maka gunakan angka yg sudah diincrement 1, yaitu $codeNum
-    // append 0 di depan dan sesuaikan total panjang angka yaitu 4
+    // append 0 di depan dan sesuaikan total panjang angka yaitu 6
     // kemudian masukan kembali ke string $code, dan kas_code selesai
-    $codeNum   = ($codeMonth !== $currMonth) ? '0001' : $codeNum;
-    $code     .= str_pad($codeNum, 4, "0", STR_PAD_LEFT);
+    $codeNum   = ($codeMonth !== $currMonth) ? '000001' : $codeNum;
+    $code     .= str_pad($codeNum, 6, "0", STR_PAD_LEFT);
     
     // set value untuk debet dan kredit dan set final_balance
     if ($data['add-type'] == 'kredit')
@@ -78,7 +78,8 @@ class Kas_model extends CI_Model
 		  "created_at"      => $createdAt,
 		  "created_by"      => $data['created_by'],
     );
-		return $this->db->insert($this->table, $data);
+
+    return $this->db->insert($this->table, $data);
   }
   
   /**
