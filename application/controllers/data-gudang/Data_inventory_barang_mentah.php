@@ -17,6 +17,7 @@ class Data_inventory_barang_mentah extends CI_Controller
         $this->load->model("Material_model");
         $this->load->model("Store_model");
         $this->load->model("Kasir_model");
+        $this->load->model("Product_mutation_model");
     }
 
     public function index()
@@ -103,14 +104,19 @@ class Data_inventory_barang_mentah extends CI_Controller
             // $update = $this->Inventory_material_model->update($data);
 
 
-
-
+            // prep untuk generate mutation code
+            $now = now();
+            $arr = [
+                'item_type' => 'material', // PRO=Product ; MAT=Material ;
+                'mutation_type' => 'masuk', // KEL=Keluar ; MSK=Masuk ;
+            ];
+            $materialMutationCode = $this->Product_mutation_model->generate_new_mutation_code($now, $arr);
 
             $data = [
                 'id' => '',
                 'material_id' => $material_id,
                 'store_id' => $store_id,
-                'mutation_code' => 'MUTATION-MATERIAL-' . date("Y-m-d") . rand(10, 1000),
+                'mutation_code' => $materialMutationCode,
                 'quantity' => $quantity,
                 'mutation_type' => 'masuk',
                 'created_by' => $_SESSION['username'],

@@ -40,7 +40,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title font-weight-bold">Pembelian Sukses : INV <?= $cekout['invoice_number'] ?></div>
+                        <div class="card-title font-weight-bold">Pembelian Sukses : INVOICE <?= $cekout['invoice_number'] ?></div>
                     </div>
 
 
@@ -71,7 +71,7 @@
                                     </tr>
                                     <?php else : ?>
                                     <tr>
-                                        <td><h3>Kembalian</h3></td>
+                                        <td><h3 class="font-weight-bold" width="70%">Kembalian</h3></td>
                                         <td><h3>: <?= price_format($cekout['kembalian']) ?>,-</h3></td>
                                     </tr>
                                     <?php endif; ?>

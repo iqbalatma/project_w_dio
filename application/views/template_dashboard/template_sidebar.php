@@ -57,7 +57,7 @@ $mainMenu = array(
   //   )
   // ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 1,
     'name'    => 'Dashboard',
     'slug'    => $_dashboard,

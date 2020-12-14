@@ -244,6 +244,72 @@ class Product_mutation_model extends CI_Model
     return FALSE;
   }
 
+  public function generate_new_mutation_code($timestamp, $arr = NULL)
+  {
+    // params ke-2 berupa:
+    // $arr['item_type'] ; $arr['mutation_type'] ;
+    
+    if ($arr === NULL) return FALSE;
+    
+    // +++++ FORMAT KODE MUTASI : no_urut/(P/M)/K/%d/%m/%Y
+    // +++++ 000001 / (PRO=Product ; MAT=Material ;) / (KEL=Keluar ; MSK=Masuk ;) / tgl / bln / thn
+
+    // set tabel yang digunakan dan kode jenis item, untuk build string mutation_code
+    if ($arr['item_type'] == 'product') 
+    {
+      $table      = 'product_mutation';
+      $itemCode   = 'PRO';
+
+    } elseif ($arr['item_type'] == 'material') 
+    {
+      $table      = 'material_mutation';
+      $itemCode   = 'MAT';
+
+    } else {
+      return FALSE;
+    }
+    
+    // set kode tipe mutasi, untuk build string mutation_code
+    if ($arr['mutation_type'] == 'masuk') 
+    {
+      $mutationCode   = 'MSK';
+
+    } elseif ($arr['mutation_type'] == 'keluar') 
+    {
+      $mutationCode   = 'KEL';
+
+    } else {
+      return FALSE;
+    }
+    
+    // get last mutation_code from table row
+    $lastRow           = $this->db->select('mutation_code')->order_by('id',"desc")->limit(1)->get($table);
+    // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
+    if ($lastRow->num_rows() > 0) $lastRowValue = $lastRow->row()->mutation_code;
+    else $lastRowValue = "0"; // panjang nomor kode ada (bebas) angka
+
+    // pecah $lastRowValue dari db yang isinya code
+    $lastCode  = explode('/', $lastRowValue);
+    // increment 1
+    $codeNum   = $lastCode[0] + 1; // ini kode nomor urut
+    end($lastCode); // pindahin pointer ke ujung array
+    $codeMonth = prev($lastCode); // ini kode bulan
+    // siapkan string bulan ini dari timestamp sekarang, untuk dicek sama apa engga nanti
+    $currMonth = mdate('%m', $timestamp);
+    
+    $dateCode  = mdate('%d/%m/%Y', $timestamp); // tambah string kode untuk hari bulan tahun
+    
+    // jika data yang ingin diinput adalah data terbaru di bulan terkait, maka mulai dari 1
+    // jika tidak, maka gunakan angka yg sudah diincrement 1, yaitu $codeNum
+    // append 0 di depan dan sesuaikan total panjang angka yaitu 6
+    // kemudian susun sesuai urutan dengan nomor/kode_customer/bulan/tahun, dan invoice_number selesai
+    $codeNum      = ($codeMonth !== $currMonth) ? '1' : $codeNum;
+    $codeNum      = str_pad($codeNum, 6, "0", STR_PAD_LEFT);
+    
+    $mutationCode = "{$codeNum}/{$itemCode}/{$mutationCode}/{$dateCode}";
+    return $mutationCode;
+  }
+
 
 
 }

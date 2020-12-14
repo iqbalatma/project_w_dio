@@ -178,6 +178,7 @@ if ( ! function_exists('start_time'))
 	*/
   function start_time($timestamp = 0, $sessName = NULL)
   {
+    if ($timestamp == 0) $timestamp = now();
     $ci=&get_instance();
     
     $startTime = round($timestamp * 1000);
@@ -204,7 +205,7 @@ if ( ! function_exists('end_time'))
     
     $endTime     = round(microtime(true) * 1000);
     $elapsedTime = ($endTime - $startTime);
-    
+
     echo '<script>';
     echo "console.log('{$name}: Elapsed time: {$elapsedTime} miliseconds')";
     echo '</script>';

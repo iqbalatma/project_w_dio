@@ -305,7 +305,7 @@
                             <?php 
                             $i = 0;
                             foreach ($lastInvoices1 as $row) :
-                                $status = $row['left_to_paid'];
+                                $isHutang = $row['left_to_paid'];
                                 $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
                                 $row['paid_amount']  = price_format($row['paid_amount'], FALSE, TRUE);
                                 $row['left_to_paid'] = price_format($row['left_to_paid'], FALSE, TRUE);
@@ -313,14 +313,14 @@
                                     <div class="separator-dashed"></div>
                                 <?php endif; ?>
                                 <div class="d-flex">
-                                    <div class="avatar avatar-online">
+                                    <div class="avatar <?= ($isHutang == 0) ? 'avatar-online' : 'avatar-offline' ; ?>">
                                         <a href="<?= base_url("generate-report/invoice/generate/{$row['id']}") ?>" class='btn-link'><span class="avatar-title rounded-circle border border-white bg-danger">pdf</span></a>
                                     </div>
                                     <div class="flex-1 ml-3 pt-1">
-                                        <?php if ($status == 0 ) $status = '<span class="text-success pl-3">Lunas</span>';
-                                        else $status = '<span class="text-warning pl-3">Belum lunas</span>';
+                                        <?php if ($isHutang == 0 ) $isHutang = '<span class="text-success pl-3">Lunas</span>';
+                                        else $isHutang = '<span class="text-warning pl-3">Belum lunas</span>';
                                         ?>
-                                        <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $status"?></h6>
+                                        <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $isHutang"?></h6>
                                         <span class="text-muted"><?= "Harga total:&nbsp;{$row['price_total']} - Dibayar:&nbsp;{$row['paid_amount']} - Sisa:&nbsp;{$row['left_to_paid']}" ?></span>
                                         <span class="text-muted d-block"><?= "Transaction id: {$row['trx_id']}" ?></span>
                                     </div>
@@ -345,7 +345,7 @@
                             <?php 
                             $i = 0;
                             foreach ($lastInvoices2 as $row) :
-                                $status = $row['left_to_paid'];
+                                $isHutang = $row['left_to_paid'];
                                 $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
                                 $row['paid_amount']  = price_format($row['paid_amount'], FALSE, TRUE);
                                 $row['left_to_paid'] = price_format($row['left_to_paid'], FALSE, TRUE);
@@ -357,10 +357,10 @@
                                         <a href="<?= base_url("generate-report/invoice/generate/{$row['id']}") ?>" class='btn-link'><span class="avatar-title rounded-circle border border-white bg-danger">pdf</span></a>
                                     </div>
                                     <div class="flex-1 ml-3 pt-1">
-                                        <?php if ($status == 0 ) $status = '<span class="text-success pl-3">Lunas</span>';
-                                        else $status = '<span class="text-warning pl-3">Belum lunas</span>';
+                                        <?php if ($isHutang == 0 ) $isHutang = '<span class="text-success pl-3">Lunas</span>';
+                                        else $isHutang = '<span class="text-warning pl-3">Belum lunas</span>';
                                         ?>
-                                        <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $status"?></h6>
+                                        <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $isHutang"?></h6>
                                         <span class="text-muted"><?= "Harga total:&nbsp;{$row['price_total']} - Dibayar:&nbsp;{$row['paid_amount']} - Sisa:&nbsp;{$row['left_to_paid']}" ?></span>
                                         <span class="text-muted d-block"><?= "Transaction id: {$row['trx_id']}" ?></span>
                                     </div>
