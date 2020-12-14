@@ -47,24 +47,32 @@
                     <div class="card-body">
                         <div class="row">
 
-                            <div class="col-md-12">
-                                <h3>Total belanja : <?= price_format($cekout['total_harga']) ?></h3>
-                                <h3>Total bayar : <?= price_format($cekout['paid_amount']) ?></h3>
+                            <div class="col-md-12 ml-3">
+                                <table>
+                                    <tr>
+                                        <td><h3 class="font-weight-bold">Total belanja</h3></td>
+                                        <td><h3>: <?= price_format($cekout['total_harga']) ?>,-</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="55%"><h3 class="font-weight-bold">Total bayar</h3></td>
+                                        <td><h3>: <?= price_format($cekout['paid_amount']) ?>,-</h3></td>
+                                    </tr>
+                                </table>
                                 <hr width="90%">
                                 <table>
                                     <?php if ($cekout['sisa_bayar'] != 0) : ?>
                                     <tr>
-                                        <td><h3>Sisa yang harus dibayar</h3></td>
-                                        <td><h3>: <?= price_format($cekout['sisa_bayar']) ?></h3></td>
+                                        <td><h3 class="font-weight-bold">Sisa yang harus dibayar</h3></td>
+                                        <td><h3>: <?= price_format($cekout['sisa_bayar']) ?>,-</h3></td>
                                     </tr>
                                     <tr>
-                                        <td width="65%"><h3>Tenggat waktu pembayaran</h3></td>
+                                        <td width="65%"><h3 class="font-weight-bold">Tenggat waktu pembayaran</h3></td>
                                         <td><h3>: <?= mdate('%d - %M - %Y', human_to_unix($cekout['due_at'])) ?></h3></td>
                                     </tr>
                                     <?php else : ?>
                                     <tr>
                                         <td><h3>Kembalian</h3></td>
-                                        <td><h3>: <?= price_format($cekout['kembalian']) ?></h3></td>
+                                        <td><h3>: <?= price_format($cekout['kembalian']) ?>,-</h3></td>
                                     </tr>
                                     <?php endif; ?>
                                 </table>
@@ -73,12 +81,12 @@
                     </div>
                     <div class="card-action">
 
-                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $id_invoice); ?>" class="btn btn-danger mx-1">
+                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $id_invoice); ?>" class="btn btn-secondary mx-1">
                             <i class="fas fa-print mr-2"></i> Cetak Surat Jalan
                         </a>
-                        <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
+                        <!-- <a href="#modal_kasir" class="btn btn-secondary">Keluar</a> -->
                         <!-- Button trigger modal -->
-                        <a href="<?= base_url("generate-report/invoice/generate/" . $id_invoice); ?>" class="btn btn-danger mx-1">
+                        <a href="<?= base_url("generate-report/invoice/generate/" . $id_invoice); ?>" class="btn btn-secondary mx-1">
                             <i class="fas fa-print mr-2"></i> Cetak Invoice
                         </a>
 

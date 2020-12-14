@@ -324,9 +324,8 @@ class Kasir_model extends CI_Model
 
         // get last trans_number from table row
         $lastRow           = $this->db->select('trans_number')->order_by('id',"desc")->limit(1)->get($table);
-        $lastRowValue      = $lastRow->row()->trans_number;
         // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
-        if ($lastRow->num_rows() > 0) $lastCode = $lastRowValue;
+        if ($lastRow->num_rows() > 0) $lastCode = $lastRow->row()->trans_number;
         else $lastCode = $code.'000000'; // panjang nomor kode ada 6 angka
         // pecah $lastCode dari db
         $lastCode  = explode('/', $lastCode);
@@ -366,9 +365,8 @@ class Kasir_model extends CI_Model
         
         // get last invoice_number from table row
         $lastRow           = $this->db->select('invoice_number')->order_by('id',"desc")->limit(1)->get($table);
-        $lastRowValue      = $lastRow->row()->invoice_number;
         // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
-        if ($lastRow->num_rows() > 0) $lastCode = $lastRowValue;
+        if ($lastRow->num_rows() > 0) $lastCode = $lastRow->row()->invoice_number;
         else $lastCode = "0/{$custAndDateCode}"; // panjang nomor kode ada (bebas) angka
         
         // pecah $lastCode dari db
@@ -439,11 +437,10 @@ class Kasir_model extends CI_Model
         
         // get last mutation_code from table row
         $lastRow           = $this->db->select('mutation_code')->order_by('id',"desc")->limit(1)->get($table);
-        $lastRowValue      = $lastRow->row()->mutation_code;
         // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
-        if ($lastRow->num_rows() > 0) $lastRowValue = $lastRowValue;
+        if ($lastRow->num_rows() > 0) $lastRowValue = $lastRow->row()->mutation_code;
         else $lastRowValue = "0"; // panjang nomor kode ada (bebas) angka
-        
+
         // pecah $lastRowValue dari db yang isinya code
         $lastCode  = explode('/', $lastRowValue);
         // increment 1
@@ -518,18 +515,23 @@ class Kasir_model extends CI_Model
         $tb_material_inventory  = 'material_inventory';
         $tb_kas                 = 'kas';
 
-        $this->db->trans_start(TRUE);
+        $this->db->trans_start();
 
         // set waktu awal untuk method ini
         $now          = now();
         $createdAt    = unix_to_human($now, true, 'europe');
 
+        // pprintd($data);
+
         
         // ============================================================ [1] MULAI SIAPKAN DATA-DATA UNTUK TRANSACTION ===================
 
 
-        $transNumber  = $this->__generate_new_trx_number($now);
+        $leftToPaid = $data['total_harga'] - $data['paid_amount'];
+
         $nextDue      = 86400 * 7; // tambah 7 hari
+        $nextDue      = ($leftToPaid == 0) ? 0 : $nextDue; // cek apakah lunas atau hutang, kalau lunas dueAt adalah waktu yg sama
+        $transNumber  = $this->__generate_new_trx_number($now);
         $dueAt        = $this->__generate_new_due_at($now, $nextDue);
 
         $data_transaction  = [
@@ -730,7 +732,7 @@ class Kasir_model extends CI_Model
         }
         $data_material_inventory = $container;
 
-        // ! KERJAIN INI - 13/12/20 - 17.00 udah beres harusnya dua line di bawah nanti dihapus kalo udh gada bug selama bbrp waktu
+        // ! KERJAIN INI. update: 13/12/20 - 17.00 = udah beres harusnya dua line di bawah nanti dihapus kalo udh gada bug selama bbrp waktu
         // pprintd($data_material_inventory);
         // $isMaterialInventorySuccess = $this->db->insert_batch($tb_material_inventory, $data_material_inventory);
 
@@ -762,22 +764,14 @@ class Kasir_model extends CI_Model
 
         $this->db->trans_complete();
 
+        // return value untuk dipake setelah ini
         $returnVal = [
             'invoice_id'        => $lastInvoiceId,
             'invoice_number'    => $invoiceNumber,
             'due_at'            => $dueAt,
         ];
-        // return ($this->db->trans_status() === FALSE) ? FALSE : 1;
-        if ($this->db->trans_status() === FALSE)
-        {
-            return FALSE;
-        }
-        else
-        {
-            return $returnVal;
-        }
 
-
+        return ($this->db->trans_status() === FALSE) ? FALSE : $returnVal;
 
     }
 

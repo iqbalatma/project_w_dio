@@ -216,4 +216,50 @@ class Customer_model extends CI_Model
     return FALSE;
   }
 
+  public function get_customer_price_by_cust_and_product_id($custId = NULL, $productCode = NULL, $select = '*')
+  {
+    if ( ($custId === NULL) OR ($productCode === NULL) ) return FALSE;
+
+    // get from table
+    $this->db->select($select);
+    $this->db->from("{$this->table} AS c");
+    $this->db->join("{$this->tb_custom_price} AS cp", 'cp.customer_id = c.id');
+    $this->db->join("{$this->tb_product} AS p", 'p.product_code = cp.product_code');
+
+    $isArrayCustId = is_array($custId);
+    // cek apakah code product array atau bukan, jika array maka looping untuk where, jika bukan maka hanya sekali
+    if ($isArrayCustId == 1) {
+      $where = '(';
+      foreach ($custId as $row) {
+        if ($where != '(') $where .= " OR ";
+        $where .= "cp.customer_id='{$row}'";
+      }
+      $where .= ')';
+      $this->db->where($where);
+    } else {
+      $this->db->where('cp.customer_id', $custId);
+    }
+    
+    $isArrayProductCode = is_array($productCode);
+    // cek apakah code product array atau bukan, jika array maka looping untuk where, jika bukan maka hanya sekali
+    if ($isArrayProductCode == 1) {
+      $where = '(';
+      foreach ($productCode as $row) {
+        if ($where != '(') $where .= " OR ";
+        $where .= "cp.product_code='{$row}'";
+      }
+      $where .= ')';
+      $this->db->where($where);
+    } else {
+      $this->db->where('cp.product_code', $productCode);
+    }
+    
+    $this->db->where('cp.is_deleted', 0);
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
 }

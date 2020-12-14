@@ -146,7 +146,7 @@
                                     <div class="d-flex selectgroup selectgroup-pills">
 
                                         <?php
-                                        // pprintd($data_product);
+                                        if (empty($data_product)) echo "<label class='form-label text-danger'>Terjadi kesalahan. Cek komposisi pada masing-masing produk.</label>";
                                         $i  = 0;
                                         $ii = 0;
                                         foreach ($data_product as $row) {

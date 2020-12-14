@@ -81,7 +81,6 @@ class Kasir extends CI_Controller
             $this->session->set_flashdata('text', 'Mohon hubungi administrator segera. kode: (C/K/ID)');
             redirect(current_url('kasir'));
           } // end if($query): success or failed
-        die;
     }
 
     public function insert()
@@ -357,7 +356,6 @@ class Kasir extends CI_Controller
 
     public function konfirmasi_kasir()
     {
-        // $startTime = round(microtime(true) * 1000);
         $post = $this->input->post();
 
         // cek apakah tombol cekout ditekan tanpa memilih satupun produk
@@ -394,18 +392,8 @@ class Kasir extends CI_Controller
         $address            = $this->input->post('alamat_pelanggan');
         $quantity           = $this->input->post('quantity');
         $custom_harga       = $this->input->post('custom_harga');
-
-        // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
-        // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get
-        // contoh  ==>  id=1 OR id=9 OR id=13
-        $productQuery = '';
-        foreach ($checkbox_value as $row) {
-            // hanya tambah OR setelah iterasi pertama, dan hasil query tidak akan ada OR di blkg
-            if ($productQuery !== '') $productQuery .= " OR ";
-            $productQuery .= "id={$row}";
-        }
-        // pprintd($productQuery);
-
+        
+        
         // var_dump($checkbox_value);
         // echo "<br>";
         // var_dump($customer_id);
@@ -420,21 +408,52 @@ class Kasir extends CI_Controller
         // echo "<br>";
         // pprintd($this->input->post());
 
+
+        // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
+        // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get
+        // contoh  ==>  id=1 OR id=9 OR id=13
+        $productQuery = '';
+        foreach ($checkbox_value as $row) {
+            // hanya tambah OR setelah iterasi pertama, dan hasil query tidak akan ada OR di blkg
+            if ($productQuery !== '') $productQuery .= " OR ";
+            $productQuery .= "id={$row}";
+        }
+        // pprintd($productQuery);
+        
         // get data dari db yg dibutuhkan, dari tabel customer dan produk yg relevan dengan environment ketika cekout
-        $data_customer  = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
-        $data_product   = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
-        // pprintd($data_product);
+        $data_customer      = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
+        $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
+
+        // build array yg isinya hanya kode product untuk keperluan where clause di db ketika get harga custom
+        foreach ($data_product as $row) {
+            $__productCode[] = $row['product_code'];
+        }
+        // get harga custom berdasarkan customer id dan seluruh product id yg dicekout
+        $data_custom_price  = $this->Customer_model->get_customer_price_by_cust_and_product_id($customer_id, $__productCode, 'c.id AS cust_id, p.id AS product_id, p.product_code, cp.price AS custom_price');
+        // looping untuk menjadikan product_id sebagai KEY, dan custom_price sebagai VALUE.
+        // agar logic yang digunakan di foreach untuk set kasir_price tetap seragam.
+        if ($data_custom_price){
+            foreach ($data_custom_price as $row) {
+                $customer_harga[$row['product_id']] = $row['custom_price'];
+            }
+        }
+        // pprintd($data_custom_price);
+
 
         // inisiasi $container untuk menyimpan hasil iterasi di bawah
         $container      = [];
-
-        // MULAI : cek custom harga dari inputan dengan key dari id produk
-        // untuk mengolah harga custom per produk di cekout
+        // MULAI : KEY:product_id dan VALUE:harga per item tergantung masing2 hirarkis
+        // set $data_product['kasir_price'] untuk digunakan sebagai harga total per item di step2 selanjutnya
         foreach ($data_product as $row) 
         {
-            // jika ada harga custom = set custom_price, dan jika tidak ada set selling_price
+            // HIRARKISnya yaitu:
+            // 1. harga custom per transaksi
+            // 2. harga custom per customer
+            // 3. harga normal jual produk
             if ($custom_harga[$row['id']]) {
                 $row['kasir_price'] = $custom_harga[$row['id']];
+            } elseif ( isset($customer_harga[$row['id']]) ) {
+                $row['kasir_price'] = $customer_harga[$row['id']];
             } else {
                 $row['kasir_price'] = $row['selling_price'];
             }
@@ -472,6 +491,7 @@ class Kasir extends CI_Controller
         // SELESAI : kembalikan dari $container ke variabel awal
         $data_product = $container;
 
+
         $data = [
             'title'             => 'Kasir',
             'content'           => 'kasir/v_konfirmasi_kasir.php',
@@ -479,7 +499,7 @@ class Kasir extends CI_Controller
             'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer'     => $data_customer,
             'data_product'      => $data_product,
-            'checkbox_value' => $checkbox_value,
+            'checkbox_value'    => $checkbox_value,
             // 'customer_id' => $customer_id,
             'address'           => $address,
             // 'quantity'          => $quantity,
@@ -494,15 +514,6 @@ class Kasir extends CI_Controller
         $sessionTest['employee_id']     = $_SESSION['id'];
         $sessionTest['username']        = $_SESSION['username'];
         $this->session->set_flashdata('dari_konfirmasi_kasir', $sessionTest);
-        // pprintd($post);
-
-
-        // $endTime     = round(microtime(true) * 1000);
-        // $elapsedTime = ($endTime - $startTime);
-        // echo '<script>';
-        // echo "console.log('Elapsed time : {$elapsedTime} miliseconds')";
-        // echo '</script>';
-
 
         $this->load->view('template_dashboard/template_wrapper', $data);
     }

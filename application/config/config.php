@@ -226,7 +226,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 2;
 
 /*
 |--------------------------------------------------------------------------
@@ -382,7 +382,7 @@ $config['encryption_key'] = '';
 */
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'sabunaryanz_session';
-$config['sess_expiration'] = 60*60*5;   // 5 hours will expire
+$config['sess_expiration'] = 60*60*2;   // 2 hours will expire
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 60*5;  // 5 minutes will update
