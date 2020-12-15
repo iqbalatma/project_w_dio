@@ -145,6 +145,11 @@ class Invoice extends CI_Controller
 		);
 		// $this->load->view('generate-report/v_invoice', $data);
 
+		// var_dump($data_invoice_item);
+		// var_dump($data_invoice);
+		// echo $id_invoice;
+
+
 		// view dijadiin raw bukan ditampilin
 		$html = $this->load->view('generate-report/v_invoice', $data, TRUE);
 		// instansiasi mpdf dan opsi. [A5-L] adalah kertas A5, orientasi Landscape

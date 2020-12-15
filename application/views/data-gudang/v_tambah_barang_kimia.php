@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="volumeinput">Volume</label>
-                                    <input type="text" class="form-control volumeinput" id="volumeinput" placeholder="Masukkan nama bahan" name="volumeinput" required>
+                                    <input type="text" class="form-control volumeinput" id="volumeinput" placeholder="Masukkan volume bahan" name="volumeinput" required>
                                     <?= form_error('volumeinput', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
@@ -55,6 +55,7 @@
                                     <select class="form-control unitbahan" id="unitbahan" name="unitbahan">
                                         <option value="gram">Gram</option>
                                         <option value="mililiter">Mililiter</option>
+                                        <option value="pcs">Pcs</option>
                                     </select>
                                     <?= form_error('unitbahan', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>

@@ -40,7 +40,7 @@
                             <select class="form-control material_id" id="material_id" name="material_id">
                                 <?php foreach ($data_barang_kimia as $row) {
                                 ?>
-                                    <option value="<?= $row->id; ?>"><?= $row->full_name; ?></option>
+                                    <option value="<?= $row->id; ?>"><?= $row->material_code . "-" . $row->full_name; ?></option>
                                 <?php
                                 }; ?>
 
@@ -100,7 +100,7 @@
                     <select class="form-control material_id" id="material_id" name="material_id">
                         <?php foreach ($data_barang_kimia as $row) {
                         ?>
-                            <option value="<?= $row->id; ?>"><?= $row->full_name; ?></option>
+                            <option value="<?= $row->id; ?>"><?= $row->id . "-" . $row->full_name; ?></option>
                         <?php
                         }; ?>
 

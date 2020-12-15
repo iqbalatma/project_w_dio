@@ -86,13 +86,13 @@
                                                 <?= $i + 1 ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row[0]['product_code'] ?>
+                                                <?= $row['product_code'] ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row[0]['full_name'] ?>
+                                                <?= $row['full_name'] ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row[0]['total'] ?>
+                                                <?= $row['freq'] ?>
                                             </td>
 
                                         </tr>

@@ -143,7 +143,7 @@
         <td width="15%" style="font-size:10px;"> HARGA </td>
         <td width="15%" style="font-size:10px;"> TOTAL </td>
       </tr>
-
+      <?php var_dump($rows); ?>
       <?php
       $i = 1;
       foreach ($rows as $row) : ?>

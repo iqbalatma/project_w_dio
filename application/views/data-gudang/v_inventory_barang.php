@@ -92,7 +92,16 @@
                                     <?php
                                     $i = 1;
                                     foreach ($data_barang_masuk as $row) : ?>
-                                        <tr>
+                                        <?php if ($row->quantity < 10) {
+                                        ?>
+                                            <tr class="bg-danger">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <tr>
+                                            <?php
+                                        } ?>
+
                                             <td class="px-3">
                                                 <?= $i++ ?>
                                             </td>
@@ -115,11 +124,11 @@
                                             <td class="px-3">
                                                 <div class="form-button-action">
                                                     <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-link btn-danger btn-delete" data-id="<?= $row->id; ?>"><i class="fa fa-times"></i></a>
+
                                                 </div>
                                             </td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
