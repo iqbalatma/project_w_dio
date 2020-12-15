@@ -102,7 +102,7 @@ class Inventory_material_model extends CI_Model
 
 
 
-    public function get_critical_material()
+    public function get_critical_material($n = 5)
     {
         $query = $this->db->query("
             SELECT mi.id, m.material_code, m.full_name, m.image, mi.quantity, s.store_name
@@ -116,7 +116,7 @@ class Inventory_material_model extends CI_Model
             AND mi.is_deleted = 0
             AND s.is_deleted = 0
             ORDER BY mi.quantity ASC
-            LIMIT 5
+            LIMIT {$n}
         ");
 
         if ($query->num_rows() > 0) {

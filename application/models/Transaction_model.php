@@ -54,7 +54,7 @@ class Transaction_model extends CI_Model
     return FALSE;
   }
 
-  public function get_some_last_invoice()
+  public function get_some_last_invoice($n = 10)
   {
     $query = $this->db->query("
       SELECT i.id, i.invoice_number, i.paid_amount, i.left_to_paid, i.paid_at, t.deliv_address, t.price_total, s.store_name, t.id AS trx_id
@@ -67,7 +67,7 @@ class Transaction_model extends CI_Model
       AND t.is_deleted = 0
       AND s.is_deleted = 0
       ORDER BY i.id DESC
-      LIMIT 10
+      LIMIT {$n}
     ");
 
     if ($query->num_rows() > 0) {
