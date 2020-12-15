@@ -270,9 +270,11 @@ class Product_model extends CI_Model
   public function get_all2($select = '*')
   {
     $query = $this->db->query("SELECT DISTINCTROW product.id, product.full_name, product.selling_price FROM product INNER JOIN product_composition ON product.id = product_composition.product_id WHERE product.is_deleted = 0");
-
-    $row = $query->result_array();
-    return $row;
+    
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
   }
 
 

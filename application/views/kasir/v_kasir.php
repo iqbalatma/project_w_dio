@@ -146,97 +146,87 @@
                                     <div class="d-flex selectgroup selectgroup-pills">
 
                                         <?php
-                                        if (empty($data_product)) echo "<label class='form-label text-danger'>Terjadi kesalahan. Cek komposisi pada masing-masing produk.</label>";
-                                        $i  = 0;
-                                        $ii = 0;
-                                        foreach ($data_product as $row) {
-                                        ?>
-                                            <script type="text/javascript">
-
-                                            </script>
-
-                                            <?php
-
-                                            $cek_kuantitas_material = $this->Kasir_model->cek_kuantitas_material($row['id']); //mencari data material berdasarkan id_product
-
-                                            $kuantitas_product = array();
-                                            $q = 0;
-                                            foreach ($cek_kuantitas_material as $data) {
-                                                $volume = $data['volume'];
-                                                $material_id = $data['material_id']; //id material pada satu product
-                                                
-                                                // kalo belum row di tabel inventory == FALSE == NULL
-                                                $cek_inventory = $this->Kasir_model->cek_inventory($material_id);
-                                                // foreach ($cek_inventory as $x) {
-                                                //     pprint($x); echo '  - <br>';
-                                                // }
-                                                // die;
-                                                // pprintd($cek_inventory);
-                                                // if ($cek_inventory === FALSE)
-                                                // {
-
-                                                // }
-                                                // jika NULL maka tetap akan menghasilkan NULL
-                                                $cek_inventory = $cek_inventory[0]['quantity'];
-                                                // jika NULL / $volume (int) == menjadi (int)0
-                                                // kalo error harusnya pasti 0, karena dari NULL di atas
-                                                $quantity = $cek_inventory / $volume;
-                                                
-                                                // echo $volume . " ---" . $material_id . "--- " . $cek_inventory . " ---- " . $quantity;
-                                                // echo "<br>";
-                                                $kuantitas_product[$q] = $quantity;
-                                                // pprintd($kuantitas_product);
-                                                $q++;
-                                            }
-                                            sort($kuantitas_product);
-                                            // pprint($kuantitas_product);
-                                            $kuantitas_material = $kuantitas_product[0];
+                                        if ($data_product !== FALSE) :
+                                            $i  = 0;
+                                            $ii = 0;
+                                            foreach ($data_product as $row) :
                                             ?>
+                                                <script type="text/javascript">
 
-                                            <?php if ($kuantitas_material >= 1) : ?>
-                                                <div class="d-flex flex-column col-sm-7 col-md-6 col-xl-4">
-                                                    <label class="selectgroup-item mt-2">
-                                                        <input type="checkbox" class="selectgroup-input kelas_product <?= "kasir-product" ?>" name="<?= "product[{$i}]" ?>" id="<?= "kasirproduct-{$ii}" ?>" value="<?= $row['id']; ?>">
-                                                        <!-- <input type="checkbox" name="product[<?= $i; ?>]" id="product" value="<?= $row['id']; ?>" class="selectgroup-input kelas_product"> -->
-                                                        <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | Rp <?= $row['selling_price']; ?></span>
+                                                </script>
 
-                                                        <div class="d-flex justify-content-center">
-                                                            <select disabled class="col-2 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
-                                                            <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
-                                                                <option value="0" selected>0</option>
-                                                                <?php
-                                                                $j = 1;
-                                                                $maxShowNumber = 200;
-                                                                while ($j <= $kuantitas_material) {
-                                                                    // maksimal tampil jumlah produk sekali cekout 200/produk/cekout. 
-                                                                    // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya sampe ribuan
-                                                                    if($j > $maxShowNumber) break;
-                                                                    ?>
-                                                                        <option value="<?= $j; ?>"><?= ($j == $maxShowNumber) ? 'Max.' : '' ?> <?= $j; ?></option>
+                                                <?php
+
+                                                $cek_kuantitas_material = $this->Kasir_model->cek_kuantitas_material($row['id']); //mencari data material berdasarkan id_product
+
+                                                $kuantitas_product = array();
+                                                $q = 0;
+                                                foreach ($cek_kuantitas_material as $data) {
+                                                    $volume = $data['volume'];
+                                                    $material_id = $data['material_id']; //id material pada satu product
+                                                    
+                                                    // kalo belum row di tabel inventory == FALSE == NULL
+                                                    $cek_inventory = $this->Kasir_model->cek_inventory($material_id);
+                                                    // jika NULL maka tetap akan menghasilkan NULL
+                                                    $cek_inventory = $cek_inventory[0]['quantity'];
+                                                    // jika NULL / $volume (int) == menjadi (int)0
+                                                    // kalo error harusnya pasti 0, karena dari NULL di atas
+                                                    $quantity = $cek_inventory / $volume;
+                                                    
+                                                    $kuantitas_product[$q] = $quantity;
+                                                    // pprintd($kuantitas_product);
+                                                    $q++;
+                                                }
+                                                sort($kuantitas_product);
+                                                // pprint($kuantitas_product);
+                                                $kuantitas_material = $kuantitas_product[0];
+                                                ?>
+
+                                                <?php if ($kuantitas_material >= 1) : ?>
+                                                    <div class="d-flex flex-column col-sm-7 col-md-6 col-xl-4">
+                                                        <label class="selectgroup-item mt-2">
+                                                            <input type="checkbox" class="selectgroup-input kelas_product <?= "kasir-product" ?>" name="<?= "product[{$i}]" ?>" id="<?= "kasirproduct-{$ii}" ?>" value="<?= $row['id']; ?>">
+                                                            <!-- <input type="checkbox" name="product[<?= $i; ?>]" id="product" value="<?= $row['id']; ?>" class="selectgroup-input kelas_product"> -->
+                                                            <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | Rp <?= $row['selling_price']; ?></span>
+
+                                                            <div class="d-flex justify-content-center">
+                                                                <select disabled class="col-2 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
+                                                                <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
+                                                                    <option value="0" selected>0</option>
                                                                     <?php
-                                                                    $j++;
-                                                                }; ?>
-                                                            </select>
-                                                            <input disabled type="text" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan">
-                                                            <!-- <input class="col-9 mx-1 mt-1 form-control form-control-sm" type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga"> -->
-                                                            </input>
-                                                        </div>
+                                                                    $j = 1;
+                                                                    $maxShowNumber = 200;
+                                                                    while ($j <= $kuantitas_material) {
+                                                                        // maksimal tampil jumlah produk sekali cekout 200/produk/cekout. 
+                                                                        // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya sampe ribuan
+                                                                        if($j > $maxShowNumber) break;
+                                                                        ?>
+                                                                            <option value="<?= $j; ?>"><?= ($j == $maxShowNumber) ? 'Max.' : '' ?> <?= $j; ?></option>
+                                                                        <?php
+                                                                        $j++;
+                                                                    }; ?>
+                                                                </select>
+                                                                <input disabled type="text" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan">
+                                                                <!-- <input class="col-9 mx-1 mt-1 form-control form-control-sm" type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga"> -->
+                                                                </input>
+                                                            </div>
 
-                                                    </label>
-                                                </div>
+                                                        </label>
+                                                    </div>
 
-                                                <input type="hidden" id="selling_price<?= $i; ?>" value="<?= $row['selling_price'];; ?>">
-                                            <?php
-                                            $ii++;
-                                            endif;
-                                            if ($kuantitas_material < 1) :
-                                                $notAvailableProduct[] = $row;
-                                            endif;
-                                            $i++;
-                                        };
-                                        // pprint($notAvailableProduct) ;
-                                        ?>
-                                        <input type="hidden" id="counter" value="<?= $i; ?>">
+                                                    <input type="hidden" id="selling_price<?= $i; ?>" value="<?= $row['selling_price'];; ?>">
+                                                <?php
+                                                $ii++;
+                                                endif;
+                                                if ($kuantitas_material < 1) :
+                                                    $notAvailableProduct[] = $row;
+                                                endif;
+                                                $i++;
+                                            endforeach;
+                                            echo "<input type='hidden' id='counter' value='{$i}'>";
+                                        else :
+                                            echo "<label class='form-label text-danger'>Terjadi kesalahan. Cek komposisi pada masing-masing produk.</label>";
+                                        endif; ?>
 
                                     </div>
 

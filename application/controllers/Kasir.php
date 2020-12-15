@@ -23,10 +23,10 @@ class Kasir extends CI_Controller
             'content'           => 'kasir/v_kasir.php',
             'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_customer' => $this->Customer_model->get_all(),
+            'data_customer'     => $this->Customer_model->get_all(),
             // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
-            'data_product' => $this->Product_model->get_all2(),
-            'datatables' => 1
+            'data_product'      => $this->Product_model->get_all2(),
+            'datatables'        => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }

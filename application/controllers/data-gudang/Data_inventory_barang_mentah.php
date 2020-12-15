@@ -42,7 +42,7 @@ class Data_inventory_barang_mentah extends CI_Controller
             'title'             => 'Data Barang Masuk',
             'content'           => 'data-gudang/v_tambah_barang_masuk.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
             'data_barang_kimia' => $this->Material_model->getAll(),
             'data_store' => $this->Store_model->getAll(),
@@ -145,7 +145,7 @@ class Data_inventory_barang_mentah extends CI_Controller
             'title'             => 'Data Barang Masuk',
             'content'           => 'data-gudang/v_ubah_inventory.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-barang-masuk', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_form' => $this->Inventory_material_model->getMaterialInventoryById($id_material),
 
             'datatables' => 1

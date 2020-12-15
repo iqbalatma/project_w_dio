@@ -36,7 +36,7 @@ class Data_master_produk extends CI_Controller
   public function tambah()
   {
     // set form rules
-    $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|trim|min_length[5]|max_length[100]|is_unique[product.product_code]');
+    $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|alpha_dash|trim|min_length[5]|max_length[100]|is_unique[product.product_code]');
     $this->form_validation->set_rules('add-fullname', 'nama pelanggan',	  'required|trim|min_length[3]|max_length[100]');
     $this->form_validation->set_rules('add-unit', 'unit', 						    'required');
     $this->form_validation->set_rules('add-volume', 'volume', 						'required');
@@ -167,7 +167,7 @@ class Data_master_produk extends CI_Controller
         'product'         => $result,
         'composition'     => $this->product_m->get_all_composition_by_id($id, 'pc.id AS pc_id, p.product_code, m.material_code, m.full_name, pc.volume'),
         'materials'       => $this->material_m->get_all('material_code, full_name'),
-        'select2'         => 1,
+        'select2'         => 1, // load library select2
       ];
       // pprintd($data);
       $this->load->view('template_dashboard/template_wrapper', $data);
