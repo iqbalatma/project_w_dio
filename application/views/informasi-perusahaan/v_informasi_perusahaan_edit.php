@@ -121,7 +121,7 @@
                         </div>
 
                         <div class="card-action row justify-content-center">
-                          <a href="<?= base_url( getBeforeLastSegment() ) ?>" class="btn btn-light btn-border col-3 mx-1">
+                          <a href="<?= base_url( getBeforeLastSegment() ) ?>" class="btn btn-outline-secondary col-3 mx-1">
                             Batal
                           </a>
                           <button type="submit" class="btn btn-success col-3 mx-1">

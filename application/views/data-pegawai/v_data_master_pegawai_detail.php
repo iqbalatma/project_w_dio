@@ -80,7 +80,7 @@
 
                             <!-- button -->
                             <div class="form-group row justify-content-center mt-5">
-                              <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-light btn-border col-5 mx-1">
+                              <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-5 mx-1">
                                 Kembali
                               </a>
                               <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-5 mx-1">

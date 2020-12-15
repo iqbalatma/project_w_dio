@@ -52,7 +52,7 @@ class Product_mutation_model extends CI_Model
     $this->db->join("{$this->tb_store} AS s", "s.id = pm.store_id");
     // $this->db->where("{$this->tb_product_composition}.product_id", $id);
     $this->db->where("pm.is_deleted", 0);
-    $this->db->order_by("pm.id", 'ASC');
+    $this->db->order_by("pm.id", 'DESC');
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

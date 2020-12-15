@@ -107,10 +107,10 @@
                             
                             <!-- button -->
                             <div class="form-group row justify-content-center mb-4">
-                              <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-light btn-border col-3 mx-1">
+                              <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-3 mx-1">
                                 Batal
                               </a>
-                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-primary btn-border col-3 mx-1">
+                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-outline-primary col-3 mx-1">
                                 Setting komposisi
                               </a>
                               <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-3 mx-1">
