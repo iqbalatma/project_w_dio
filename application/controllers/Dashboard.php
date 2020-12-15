@@ -31,16 +31,23 @@ class Dashboard extends CI_Controller
       // benchmark time start
       start_time(microtime(TRUE), 'dashboard');
 
+        // ambil 10 invoice, kemudian bagi jadi 2 array (isi 5). 5/card di dashboard
       $lastInvoices   = $this->trx_m->get_some_last_invoice();
-      $lastInvoices1  = array_slice($lastInvoices, 0, 5);
-      $lastInvoices2  = array_slice($lastInvoices, 5, 5);
+      if ($lastInvoices !== FALSE)
+      {
+          $lastInvoices1  = array_slice($lastInvoices, 0, 5);
+          $lastInvoices2  = array_slice($lastInvoices, 5, 5);
+      } else {
+        $lastInvoices1  = FALSE;
+        $lastInvoices2  = FALSE;
+      }
 
       $data = [
           'title'                 => 'Dashboard',
           'content'               => 'v_dashboard.php',
           'menuActive'            => 'dashboard',
           'submenuActive'         => 'dashboard',
-          // hanya untuk demo dashboard
+          // hanya untuk demo dashboard (harusnya diapus kl gapake chart)
           'chartjs'               => 1,
           'sparkline'             => 1,
           'chartcircle'           => 1,

@@ -210,11 +210,13 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title font-weight-bold">5 Bahan Baku Ter-kritis</div>
+                            <div class="card-title font-weight-bold">5 Bahan Baku Ter-kritis (<= 10)</div>
                         </div>
                         <div class="card-body pb-0">
 
-                            <?php foreach ($criticalMaterial as $row) : ?>
+                            <?php 
+                            if ($criticalMaterial !== FALSE) :
+                            foreach ($criticalMaterial as $row) : ?>
                             <div class="d-flex">
                                 <div class="avatar">
                                     <img src="<?= base_url("assets/img/material/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
@@ -228,7 +230,11 @@
                                 </div>
                             </div>
                             <div class="separator-dashed"></div>
-                            <?php endforeach; ?>
+                            <?php 
+                            endforeach;
+                            else : ?>
+                            <center><p class="text-danger">Data tidak ada.</p></center>
+                            <?php endif; ?>
                             <p><a href="<?= base_url("data-gudang/data-barang-kritis") ?>">Selengkapnya...</a></p>
                         </div>
                     </div>
@@ -242,7 +248,9 @@
                         </div>
                         <div class="card-body pb-0">
 
-                            <?php foreach ($mostBuy as $row) : ?>
+                            <?php 
+                            if ($mostBuy !== FALSE) :
+                            foreach ($mostBuy as $row) : ?>
                             <div class="d-flex">
                                 <div class="avatar">
                                     <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
@@ -256,7 +264,11 @@
                                 </div>
                             </div>
                             <div class="separator-dashed"></div>
-                            <?php endforeach; ?>
+                            <?php 
+                            endforeach; 
+                            else : ?>
+                            <center><p class="text-danger">Data tidak ada.</p></center>
+                            <?php endif; ?>
                             <p><a href="<?= base_url("data-gudang/data-barang-laku") ?>">Selengkapnya...</a></p>
                         </div>
                     </div>
@@ -270,7 +282,9 @@
                         </div>
                         <div class="card-body pb-0">
 
-                            <?php foreach ($leastBuy as $row) : ?>
+                            <?php 
+                            if ($leastBuy !== FALSE) :
+                            foreach ($leastBuy as $row) : ?>
                             <div class="d-flex">
                                 <div class="avatar">
                                     <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
@@ -284,7 +298,11 @@
                                 </div>
                             </div>
                             <div class="separator-dashed"></div>
-                            <?php endforeach; ?>
+                            <?php 
+                            endforeach;
+                            else : ?>
+                            <center><p class="text-danger">Data tidak ada.</p></center>
+                            <?php endif; ?>
                             <p><a href="<?= base_url("data-penjualan/data-penjualan") ?>">Selengkapnya...</a></p>
                         </div>
                     </div>
@@ -304,6 +322,7 @@
                         <div class="card-body">
                             <?php 
                             $i = 0;
+                            if ($lastInvoices1 !== FALSE) :
                             foreach ($lastInvoices1 as $row) :
                                 $isHutang = $row['left_to_paid'];
                                 $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
@@ -328,7 +347,9 @@
                                         <small class="text-muted"><?php $d = date_create($row['paid_at']); echo date_format($d,"d-M-Y") ?></small>
                                     </div>
                                 </div>
-                            <?php $i++; endforeach; ?>
+                            <?php $i++; endforeach; else : ?>
+                            <center><p class="text-danger">Data tidak ada.</p></center>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -344,6 +365,7 @@
                         <div class="card-body">
                             <?php 
                             $i = 0;
+                            if ($lastInvoices2 !== FALSE) :
                             foreach ($lastInvoices2 as $row) :
                                 $isHutang = $row['left_to_paid'];
                                 $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
@@ -368,7 +390,9 @@
                                         <small class="text-muted"><?php $d = date_create($row['paid_at']); echo date_format($d,"d-M-Y") ?></small>
                                     </div>
                                 </div>
-                            <?php $i++; endforeach; ?>
+                            <?php $i++; endforeach; else : ?>
+                            <center><p class="text-danger">Data tidak ada.</p></center>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

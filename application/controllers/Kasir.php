@@ -356,7 +356,7 @@ class Kasir extends CI_Controller
 
     public function konfirmasi_kasir()
     {
-        start_time(now());
+        start_time(microtime(TRUE), 'kasir');
         $post = $this->input->post();
 
         // cek apakah tombol cekout ditekan tanpa memilih satupun produk
@@ -540,6 +540,7 @@ class Kasir extends CI_Controller
         ];
 
         $this->load->view('template_dashboard/template_wrapper', $data);
+        end_time('kasir');
     }
 
     public function test()
