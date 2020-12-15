@@ -26,7 +26,7 @@ class Data_barang_laku extends CI_Controller
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-laku', // harus selalu ada, buat indikator sidebar menu yg aktif
             // 'data_barang_laku' => $this->Product_mutation_model->product_paling_laku(),
-            'data_barang_laku' => $this->get_paling_laku(),
+            'data_barang_laku' => $this->Product_mutation_model->get_most_buy_product2(),
             'datatables' => 1
         ];
 

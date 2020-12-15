@@ -29,7 +29,9 @@
                                 <th class="px-3">Jumlah dibayar</th>
                                 <th class="px-3">Sisa bayar</th>
                                 <th class="px-3">Tanggal transaksi</th>
-                                <th class="px-3" style="width: 20%"><center>Aksi</center></th>
+                                <th class="px-3" style="width: 20%">
+                                  <center>Aksi</center>
+                                </th>
                               </tr>
                             </thead>
                             <tfoot class="thead-light">
@@ -41,48 +43,55 @@
                                 <th class="px-3">Jumlah dibayar</th>
                                 <th class="px-3">Sisa bayar</th>
                                 <th class="px-3">Tanggal transaksi</th>
-                                <th class="px-3"><center>Aksi</center></th>
+                                <th class="px-3">
+                                  <center>Aksi</center>
+                                </th>
                               </tr>
                             </tfoot>
                             <tbody>
                               <?php
-                              $i = 1;
-                              foreach ($invoices as $row) : ?>
-                              <tr>
-                                <td class="px-3">
-                                  <?= $i++ ?>
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['invoice_number'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['deliv_address'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['price_total'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['paid_amount'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <?= $row['left_to_paid'] ?>
-                                </td>
-                                <td class="px-3">
-                                  <?php $d = date_create($row['created_at']); echo date_format($d,"d-M-Y") ?>
-                                </td>
+                              if (isset($invoices)) {
 
-                                <td class="">
-                                  <div class="form-button-action">
-                                    <a href="<?= base_url("generate-report/surat-jalan/generate/" . $row['id']) ?>" class="btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Surat jalan" data-original-title="Cetak Surat jalan">
-                                      <i class="fas fa-print mr-1"></i> Surat jalan
-                                    </a>
-                                    <a href="<?= base_url("generate-report/invoice/generate/" . $row['id']) ?>" class="btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Invoice" data-original-title="Cetak Invoice">
-                                      <i class="fa fa-print mr-1"></i> Invoice
-                                    </a>
-                                  </div>
-                                </td>
-                              </tr>
-                              <?php endforeach; ?>
+
+                                $i = 1;
+                                foreach ($invoices as $row) : ?>
+                                  <tr>
+                                    <td class="px-3">
+                                      <?= $i++ ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['invoice_number'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['deliv_address'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['price_total'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['paid_amount'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['left_to_paid'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?php $d = date_create($row['created_at']);
+                                      echo date_format($d, "d-M-Y") ?>
+                                    </td>
+
+                                    <td class="">
+                                      <div class="form-button-action">
+                                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $row['id']) ?>" class="btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Surat jalan" data-original-title="Cetak Surat jalan">
+                                          <i class="fas fa-print mr-1"></i> Surat jalan
+                                        </a>
+                                        <a href="<?= base_url("generate-report/invoice/generate/" . $row['id']) ?>" class="btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Invoice" data-original-title="Cetak Invoice">
+                                          <i class="fa fa-print mr-1"></i> Invoice
+                                        </a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                              <?php endforeach;
+                              } ?>
                             </tbody>
                           </table>
                         </div>
@@ -95,8 +104,9 @@
 
               </div>
             </div>
-            
-            <?php // modal untuk hapus data ?>
+
+            <?php // modal untuk hapus data 
+            ?>
             <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -119,4 +129,5 @@
                 </div>
               </div>
             </div>
-            <?php // /modal untuk hapus data ?>
+            <?php // /modal untuk hapus data 
+            ?>

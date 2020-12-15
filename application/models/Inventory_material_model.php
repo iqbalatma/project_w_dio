@@ -59,6 +59,14 @@ class Inventory_material_model extends CI_Model
         // return $this->db->get_where($this->table, array('is_deleted' => 0))->result();
     }
 
+    public function getMaterialInventoryById($id)
+    {
+        $query = $this->db->query("SELECT material_inventory.material_id, material.material_code, material.full_name, material_inventory.quantity FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id WHERE material_inventory.material_id = '$id'");
+
+        $row = $query->result();
+        return $row;
+    }
+
 
     public function insert($data)
     {
@@ -100,6 +108,14 @@ class Inventory_material_model extends CI_Model
         return $this->db->update("material_inventory", $data);
     }
 
+    public function ubah_quantity($data)
+    {
+        $id = $data['id'];
+        $quantity = $data['quantity'];
+        $query = $this->db->query("UPDATE  material_inventory SET quantity = $quantity WHERE material_id = $id");
+        return $query;
+    }
+
 
 
     public function get_critical_material()
@@ -120,11 +136,8 @@ class Inventory_material_model extends CI_Model
         ");
 
         if ($query->num_rows() > 0) {
-        return $query->result_array();
+            return $query->result_array();
         }
         return FALSE;
     }
-
-
-
 }
