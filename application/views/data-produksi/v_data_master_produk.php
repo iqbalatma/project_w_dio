@@ -51,43 +51,46 @@
                             </tfoot>
                             <tbody>
                               <?php
-                              $i = 1;
-                              foreach ($products as $row) : ?>
-                                <tr>
-                                  <td class="px-3">
-                                    <?= $i++ ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="<?= "Avatar {$row['full_name']}" ?>" width="100px">
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['product_code'] ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['full_name'] ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['volume'] ?> <?= $row['unit'] ?>
-                                  </td>
-                                  <td class="px-3">
-                                    Rp. <?= number_format($row['price_base'], 0, '', '.') ?>
-                                  </td>
-                                  <td class="px-3">
-                                    Rp. <?= number_format($row['selling_price'], 0, '', '.') ?>
-                                  </td>
+                              if ($products !== FALSE) :
+                                $i = 1;
+                                foreach ($products as $row) : ?>
+                                  <tr>
+                                    <td class="px-3">
+                                      <?= $i++ ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="<?= "Avatar {$row['full_name']}" ?>" width="100px">
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['product_code'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['full_name'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['volume'] ?> <?= $row['unit'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      Rp. <?= number_format($row['price_base'], 0, '', '.') ?>
+                                    </td>
+                                    <td class="px-3">
+                                      Rp. <?= number_format($row['selling_price'], 0, '', '.') ?>
+                                    </td>
 
 
-                                  <td class="">
-                                    <div class="form-button-action">
-                                      <a href="<?= current_url()."/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
-                                      <a href="<?= current_url()."/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                      <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                        <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
-                                      </span>
-                                    </div>
-                                  </td>
-                                </tr>
-                              <?php endforeach; ?>
+                                    <td class="">
+                                      <div class="form-button-action">
+                                        <a href="<?= current_url()."/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
+                                        <a href="<?= current_url()."/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                        <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
+                                          <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                        </span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                <?php 
+                                endforeach;
+                              endif; ?>
                             </tbody>
                           </table>
                         </div>

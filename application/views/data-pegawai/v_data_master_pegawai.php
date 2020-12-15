@@ -49,44 +49,47 @@
                             </tfoot>
                             <tbody>
                               <?php
-                              $i = 1;
-                              foreach ($employees as $row) : 
-                              if (($row['id'] == 0) OR ($row['username'] == 'superadmin')) continue; // skip ditampilin untuk superadmin
-                              ?>
-                                <tr>
-                                  <td class="px-3">
-                                    <?= $i++ ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="<?= "Avatar {$row['first_name']}" ?>" width="50px">
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['first_name'] ?> <?= $row['last_name'] ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <a href="tel:<?= $row['phone'] ?>" class="text-muted"><?= $row['phone'] ?></a>
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['address'] ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['store_name'] ?>
-                                  </td>
-                                  <td class="px-3">
-                                    <?= $row['role_name'] ?>
-                                  </td>
+                              if ($employees !== FALSE) :
+                                  $i = 1;
+                                foreach ($employees as $row) : 
+                                if (($row['id'] == 0) OR ($row['username'] == 'superadmin')) continue; // skip ditampilin untuk superadmin
+                                ?>
+                                  <tr>
+                                    <td class="px-3">
+                                      <?= $i++ ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <img src="<?= base_url("assets/img/avatar/{$row['avatar']}") ?>" alt="<?= "Avatar {$row['first_name']}" ?>" width="50px">
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['first_name'] ?> <?= $row['last_name'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <a href="tel:<?= $row['phone'] ?>" class="text-muted"><?= $row['phone'] ?></a>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['address'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['store_name'] ?>
+                                    </td>
+                                    <td class="px-3">
+                                      <?= $row['role_name'] ?>
+                                    </td>
 
-                                  <td class="px-3">
-                                    <div class="form-button-action">
-                                      <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
-                                      <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                      <!-- <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                        <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
-                                      </span> -->
-                                    </div>
-                                  </td>
-                                </tr>
-                              <?php endforeach; ?>
+                                    <td class="px-3">
+                                      <div class="form-button-action">
+                                        <a href="<?= current_url() . "/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
+                                        <a href="<?= current_url() . "/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                        <!-- <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
+                                          <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                        </span> -->
+                                      </div>
+                                    </td>
+                                  </tr>
+                                <?php 
+                                endforeach;
+                              endif; ?>
                             </tbody>
                           </table>
                         </div>

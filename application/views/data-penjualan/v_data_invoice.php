@@ -50,9 +50,7 @@
                             </tfoot>
                             <tbody>
                               <?php
-                              if (isset($invoices)) {
-
-
+                              if ($invoices !== FALSE) :
                                 $i = 1;
                                 foreach ($invoices as $row) : ?>
                                   <tr>
@@ -90,8 +88,9 @@
                                       </div>
                                     </td>
                                   </tr>
-                              <?php endforeach;
-                              } ?>
+                                <?php 
+                                endforeach;
+                              endif; ?>
                             </tbody>
                           </table>
                         </div>
