@@ -64,17 +64,16 @@
                                       <?= $row['deliv_address'] ?>
                                     </td>
                                     <td class="px-3">
-                                      <?= $row['price_total'] ?>
+                                      <?= price_format($row['price_total']) ?>
                                     </td>
                                     <td class="px-3">
-                                      <?= $row['paid_amount'] ?>
+                                      <?= price_format($row['paid_amount']) ?>
+                                    </td>
+                                    <td class="px-3 <?= ($row['left_to_paid'] != 0) ? 'text-danger' : '' ?>">
+                                      <?= price_format($row['left_to_paid']) ?>
                                     </td>
                                     <td class="px-3">
-                                      <?= $row['left_to_paid'] ?>
-                                    </td>
-                                    <td class="px-3">
-                                      <?php $d = date_create($row['created_at']);
-                                      echo date_format($d, "d-M-Y") ?>
+                                      <?php $d = date_create($row['created_at']); echo date_format($d, "d-M-Y") ?>
                                     </td>
 
                                     <td class="">

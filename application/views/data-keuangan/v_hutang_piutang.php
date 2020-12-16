@@ -100,10 +100,10 @@
                                                 <?= $row['invoice_number'] ?>
                                             </td>
                                             <td class="px-3">
-                                                Rp <?= $row['left_to_paid'] ?>
+                                                <?= price_format($row['left_to_paid']) ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row['paid_at'] ?>
+                                                <?php $dt = explode(' ', $row['paid_at']); $d = date_create($dt[0]); echo "{$dt[1]} <br>" . date_format($d,"d-M-Y") ?>
                                             </td>
                                             <td class="px-3">
 

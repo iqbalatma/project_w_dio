@@ -60,6 +60,7 @@
                                       placeholder = "Nama lengkap produk" 
                                       value       = "<?= (set_value('edit-fullname') !== '') ? set_value('edit-fullname') : $product->full_name ; ?>"
                                       class       = "form-control <?php if(form_error('edit-fullname') !== ''){ echo 'is-invalid'; } ?>"
+                                      maxlength   = 100
                                       autofocus
                                     >
                                     <?= form_error('edit-fullname') ?>
@@ -82,12 +83,14 @@
                                       Volume / Berat <span class="text-danger">*</span>
                                     </label>
                                     <input 
-                                      type        = "text" 
+                                      type        = "tel" 
                                       id          = "edit-volume" 
                                       name        = "edit-volume" 
                                       placeholder = "Komposisi / berat / ukuran per unit" 
                                       value       = "<?= (set_value('edit-volume') !== '') ? set_value('edit-volume') : $product->volume ; ?>"
                                       class       = "form-control <?php if(form_error('edit-volume') !== ''){ echo 'is-invalid'; } ?>"
+                                      pattern     = "[0-9]{1,5}" 
+                                      title       = "Harus angka minimal 1 dan maksimal 5 angka"
                                     >
                                     <?= form_error('edit-volume') ?>
                                   </div>
@@ -121,8 +124,9 @@
                                         placeholder = "Harga normal" 
                                         value       = "<?= (set_value('edit-sellingprice') !== '') ? set_value('edit-sellingprice') : $product->selling_price ; ?>"
                                         class       = "sellingprice live-typing form-control <?php if(form_error('edit-sellingprice') !== ''){ echo 'is-invalid'; } ?>"
-                                        pattern     ="[0-9]{1,}" 
-                                        title       ="Harus angka dan minimal satu angka"
+                                        pattern     = "[0-9]{1,8}" 
+                                        title       = "Harus angka minimal satu dan maksimal 8 angka"
+                                        data-filter = "\+?\d{0,8}"
                                       >
                                       <?= form_error('edit-sellingprice') ?>
                                     </div>

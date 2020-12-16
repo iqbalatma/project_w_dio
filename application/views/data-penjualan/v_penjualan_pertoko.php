@@ -113,7 +113,7 @@
                                                 <?= $row['mutation_type'] ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row['created_at'] ?>
+                                                <?php $dt = explode(' ', $row['created_at']); $d = date_create($dt[0]); echo "{$dt[1]} <br>" . date_format($d,"d-M-Y") ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row['created_by'] ?>

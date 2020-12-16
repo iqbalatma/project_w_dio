@@ -17,7 +17,7 @@
                           <table id="add-row" class="display table table-sm  table-hover">
                             <thead class="thead-light">
                               <tr>
-                                <th class="px-3" rowspan="2" width="20px">No</th>
+                                <th class="px-3" rowspan="2" width="10px">No</th>
                                 <th class="px-3" rowspan="2">Kode mutasi</th>
                                 <th class="px-3" rowspan="2">Kode produk</th>
                                 <th class="px-3" rowspan="2">Nama produk</th>
@@ -27,7 +27,7 @@
                                 <th class="px-3" colspan="2"><center>Update terakhir</center></th>
                               </tr>
                               <tr>
-                                <th class="px-3">Tanggal</th>
+                                <th class="px-3" width="100px">Tanggal</th>
                                 <th class="px-3">Oleh siapa</th>
                               </tr>
                             </thead>
@@ -77,11 +77,11 @@
                                     <td class="px-3">
                                       <?= $row['quantity'] ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 text-uppercase font-weight-bold <?= ($row['mutation_type'] == 'masuk') ? 'text-success' : 'text-danger' ?>">
                                       <?= $row['mutation_type'] ?>
                                     </td>
                                     <td class="px-3">
-                                      <?= $date[0] ?>
+                                      <?php $d = date_create($date[0]); echo date_format($d,"d-M-Y") ?>
                                     </td>
                                     <td class="px-3">
                                       <?php // null coalescing operator ?>

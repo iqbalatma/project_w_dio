@@ -47,8 +47,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-sm  table-hover">
@@ -57,8 +55,8 @@
                                         <th class="px-3" width="20px">No</th>
                                         <th class="px-3" width="30px">Kode Bahan</th>
                                         <th class="px-3">Nama Bahan</th>
-                                        <th class="px-3">Volume</th>
-                                        <th class="px-3">Satuan</th>
+                                        <!-- <th class="px-3">Volume</th>
+                                        <th class="px-3">Satuan</th> -->
                                         <th class="px-3">Harga</th>
                                         <th class="px-3">Gambar</th>
 
@@ -70,8 +68,8 @@
                                         <th class="px-3" width="20px">No</th>
                                         <th class="px-3" width="30px">Kode Bahan</th>
                                         <th class="px-3">Nama Bahan</th>
-                                        <th class="px-3">Volume</th>
-                                        <th class="px-3">Satuan</th>
+                                        <!-- <th class="px-3">Volume</th>
+                                        <th class="px-3">Satuan</th> -->
                                         <th class="px-3">Harga</th>
                                         <th class="px-3">Gambar</th>
                                         <th class="px-3" style="width: 10%">Aksi</th>
@@ -91,14 +89,14 @@
                                             <td class="px-3">
                                                 <?= $row->full_name ?>
                                             </td>
-                                            <td class="px-3">
+                                            <!-- <td class="px-3 <?= ($row->volume != 0) ? '' : 'text-danger' ?>">
                                                 <?= $row->volume ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->unit ?>
-                                            </td>
-                                            <td class="px-3">
-                                                Rp <?= $row->price_base ?>
+                                            </td> -->
+                                            <td class="px-3 <?= ($row->price_base != 0) ? '' : 'text-danger' ?>">
+                                                <?= price_format($row->price_base)." / ".$row->unit ?>
                                             </td>
                                             <td class="px-3">
                                                 <img src="<?= base_url(); ?>/assets/img/material/<?= $row->image; ?>" width="50px" alt="">
@@ -106,13 +104,7 @@
                                             <td class="px-3">
                                                 <div class="form-button-action">
                                                     <a href="<?= base_url('data-gudang/Data_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-
-
                                                     <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-link btn-danger btn-delete" data-id="<?= $row->id; ?>"><i class="fa fa-times"></i></a>
-
-
-
-
                                                 </div>
                                             </td>
                                         </tr>

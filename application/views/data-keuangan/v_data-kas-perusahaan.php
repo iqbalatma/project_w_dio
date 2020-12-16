@@ -81,16 +81,16 @@
                                     <td class="px-3">
                                       <?= $row['title'] ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 <?= ($row['type'] == 'debet') ? 'text-success' : '' ?>">
                                       Rp. <?= number_format($row['debet'], 0, '', '.') ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 <?= ($row['type'] == 'debet') ? '' : 'text-danger' ?>">
                                       Rp. <?= number_format($row['kredit'], 0, '', '.') ?>
                                     </td>
                                     <td class="px-3">
                                       Rp. <?= number_format($row['final_balance'], 0, '', '.') ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 text-uppercase font-weight-bold <?= ($row['type'] == 'debet') ? 'text-success' : 'text-danger' ?>">
                                       <?= $row['type'] ?>
                                     </td>
                                     <td class="px-3">

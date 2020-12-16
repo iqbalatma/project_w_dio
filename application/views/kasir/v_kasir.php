@@ -94,7 +94,7 @@
                                 <div id="form_custom_kasir">
                                     <div class="form-group">
                                         <label for="alamat_pelanggan">Alamat Pelanggan</label>
-                                        <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" readonly>
+                                        <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" maxlength=250 readonly>
                                         </input>
                                     </div>
                                     <div class="form-group">
@@ -206,7 +206,7 @@
                                                                         $j++;
                                                                     }; ?>
                                                                 </select>
-                                                                <input disabled type="text" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan">
+                                                                <input disabled type="tel" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan" data-filter = "\+?\d{0,8}" pattern = "[0-9]{1,8}" title = "Harus angka minimal satu dan maksimal 8 angka" maxlength = 8>
                                                                 <!-- <input class="col-9 mx-1 mt-1 form-control form-control-sm" type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga"> -->
                                                                 </input>
                                                             </div>

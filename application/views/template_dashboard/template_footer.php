@@ -156,126 +156,6 @@
         });
     </script>
 
-    <!-- <script>
-        // $(document).on("click", ".open-modal-kasir", function() {
-
-        //     // var x = new Date();
-        //     // var myHeading = "<p>Total Belanjaan adalah : Rp ";
-
-        //     // var total_final = 0;
-        //     // var counter = $("#counter").val();
-
-        //     // var id_total_bayar = "#total_harga";
-        //     // var total_bayar_final = $(id_total_bayar).val();
-
-        //     // console.log(total_bayar_final);
-
-        //     // $("#total_bayar").html(myHeading + total_bayar_final);
-        //     // // $("#total_bayar").html(myHeading + "Nilai Custom Harga " + nilai_custom_harga + " Nilai Total Belanja" + total_belanjaan);
-        //     // $("#modal").modal("show");
-            
-        // });
-    </script> -->
-
-    <!-- <script>
-        $(document).on("click", ".open-modal-kasir", function() {
-
-
-
-
-            // -------------------------------------------
-
-            var x = new Date();
-            var myHeading = "<p>Total Belanjaan adalah : Rp ";
-
-            var total_final = 0;
-            var counter = $("#counter").val();
-
-            for (let j = 0; j < counter; j++) {
-                var total_belanjaan = 0;
-                var nilai_custom_harga = 0;
-
-
-
-
-
-                // TESTING
-
-                // var is_checked = $(checked_array).checked;
-                // var is_checked = $(checked_array).attr.
-
-
-
-                // console.log(is_checked);
-                // if (is_checked == 1) {
-                //     console.log("INI DI CHECK");
-
-                // } else {
-                //     console.log("TIDAK DI CHECK");
-                // }
-                // TESTING
-
-
-
-
-
-                var id_custom_harga = "#custom_harga";
-                var custom_harga_final = id_custom_harga + j;
-                var custom_harga = $(custom_harga_final).val();
-                console.log(custom_harga);
-                if (custom_harga > 0) {
-                    nilai_custom_harga = parseInt(custom_harga);
-                } else {
-                    var id_selling_price = "#selling_price";
-                    var selling_price = id_selling_price + j;
-                    var selling_price_final = $(selling_price).val();
-                    nilai_custom_harga = parseInt(selling_price_final);
-                }
-
-
-
-
-
-
-                var id_quantity = "#quantity";
-                var id_quantity_final = id_quantity + j;
-                var p = $(id_quantity_final + " option:selected").val();
-                if (p > 0) {
-                    total_belanjaan = parseInt(p);
-                }
-
-                var status = $(".kelas_product")[j].checked;
-                if (status == false) {
-                    total_belanjaan = 0;
-                }
-
-
-                var o = (nilai_custom_harga * total_belanjaan);
-                // if (custom_harga === 0) {
-                //     o = parseInt(0);
-                // }
-                // console.log(custom_harga_final);
-                total_final = total_final + o;
-
-            }
-
-
-
-            // for (let i = 0; i < counter; i++) {
-
-            // }
-
-
-
-            // + total_belanjaan
-            console.log(custom_harga);
-            $("#total_bayar").html(myHeading + total_final);
-            // $("#total_bayar").html(myHeading + "Nilai Custom Harga " + nilai_custom_harga + " Nilai Total Belanja" + total_belanjaan);
-            $("#modal").modal("show");
-        });
-    </script> -->
-
-
     <?php
     // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
     // untuk hitung prosentase margin keuntungan ketika edit harga jual produk
@@ -490,17 +370,17 @@
                                 <label>Kode bahan baku (${nextindex}) <span class="text-danger">*</span></label>
                                     <select required class="form-control select2" id='add-bahanbaku-${nextindex}' name='custom[${nextindex}][material_code]'>
                                     <option selected disabled>-- Pilih bahan baku --</option>
-                                    <?php foreach ($materials as $row): ?>
+                                    <?php if (isset($materials)) : foreach ($materials as $row): ?>
                                         <option value=<?= "{$row['material_code']}" ?>>
                                             <?= "{$row['material_code']} - {$row['full_name']}" ?>
                                         </option>
-                                    <?php endforeach; ?>
+                                    <?php endforeach; endif; ?>
                                     </select>
                                 </label>
                             </div>
                             <div class='form-group row mx-auto'>
                                 <label>Total volume / qty (${nextindex}) <span class="text-danger">*</span></label>
-                                <input required type='tel' pattern="[0-9]{1,}" title="Total harus angka dan minimal 1 angka" placeholder='Input volume / qty' id='add-komposisi-${nextindex}' name='custom[${nextindex}][volume]' class='form-control'>
+                                <input required type='tel' pattern="[0-9]{1,6}" title="Harus angka minimal 1 dan maksimal 6 angka" placeholder='Input volume / qty' id='add-komposisi-${nextindex}' name='custom[${nextindex}][volume]' class='form-control' data-filter="\+?\d{0,8}">
                             </div>
                             <div class='py-4 h1'>
                                 <span id='remove-${nextindex}' class='remove h2 text-danger'>&times</span>
@@ -529,110 +409,148 @@
     <?php endif; ?>
 
 
+    <?php // input filter for all numbers input and data-filter properties ?>
+    <script>
+        // Apply filter to all inputsFilter with data-filter:
+        var inputsFilter = document.querySelectorAll('input[data-filter]');
+        console.log(inputsFilter)
+
+        for (var i = 0; i < inputsFilter.length; i++) {
+            var inputs = inputsFilter[i];
+            var state = {
+                value: inputs.value,
+                start: inputs.selectionStart,
+                end: inputs.selectionEnd,
+                pattern: RegExp('^' + inputs.dataset.filter + '$')
+            };
+        
+            inputs.addEventListener('input', function(event) {
+                if (state.pattern.test(inputs.value)) {
+                    state.value = inputs.value;
+                } else {
+                    inputs.value = state.value;
+                    inputs.setSelectionRange(state.start, state.end);
+                }
+            });
+
+            inputs.addEventListener('keydown', function(event) {
+                state.start = inputs.selectionStart;
+                state.end = inputs.selectionEnd;
+            });
+        }
+    </script>
+
+
+
+
+
+
+
+
 
     <?php
     // cek hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
     if ($submenuActive == 'demooo') : ?>
-    <?php // script bawaan template (jangan dihapus dulu dipake buat contoh bikin chart) ?>
-    <?php // =========================================================================== ?>
-    <!-- Atlantis DEMO methods, don't include it in your project! -->
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
-    
-    <script>
-        Circles.create({
-            id: 'circles-1',
-            radius: 45,
-            value: 60,
-            maxValue: 100,
-            width: 7,
-            text: 5,
-            colors: ['#f1f1f1', '#FF9E27'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            textClass: 'circles-text',
-            styleWrapper: true,
-            styleText: true
-        })
+        <?php // script bawaan template (jangan dihapus dulu dipake buat contoh bikin chart) ?>
+        <?php // =========================================================================== ?>
+        <!-- Atlantis DEMO methods, don't include it in your project! -->
+        <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
+        <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
+        
+        <script>
+            Circles.create({
+                id: 'circles-1',
+                radius: 45,
+                value: 60,
+                maxValue: 100,
+                width: 7,
+                text: 5,
+                colors: ['#f1f1f1', '#FF9E27'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
 
-        Circles.create({
-            id: 'circles-2',
-            radius: 45,
-            value: 70,
-            maxValue: 100,
-            width: 7,
-            text: 36,
-            colors: ['#f1f1f1', '#2BB930'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            textClass: 'circles-text',
-            styleWrapper: true,
-            styleText: true
-        })
+            Circles.create({
+                id: 'circles-2',
+                radius: 45,
+                value: 70,
+                maxValue: 100,
+                width: 7,
+                text: 36,
+                colors: ['#f1f1f1', '#2BB930'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
 
-        Circles.create({
-            id: 'circles-3',
-            radius: 45,
-            value: 40,
-            maxValue: 100,
-            width: 7,
-            text: 12,
-            colors: ['#f1f1f1', '#F25961'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            textClass: 'circles-text',
-            styleWrapper: true,
-            styleText: true
-        })
+            Circles.create({
+                id: 'circles-3',
+                radius: 45,
+                value: 40,
+                maxValue: 100,
+                width: 7,
+                text: 12,
+                colors: ['#f1f1f1', '#F25961'],
+                duration: 400,
+                wrpClass: 'circles-wrp',
+                textClass: 'circles-text',
+                styleWrapper: true,
+                styleText: true
+            })
 
-        var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+            var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
 
-        var mytotalIncomeChart = new Chart(totalIncomeChart, {
-            type: 'bar',
-            data: {
-                labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-                datasets: [{
-                    label: "Total Income",
-                    backgroundColor: '#ff9e27',
-                    borderColor: 'rgb(23, 125, 255)',
-                    data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            display: false //this will remove only the label
-                        },
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        }
+            var mytotalIncomeChart = new Chart(totalIncomeChart, {
+                type: 'bar',
+                data: {
+                    labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+                    datasets: [{
+                        label: "Total Income",
+                        backgroundColor: '#ff9e27',
+                        borderColor: 'rgb(23, 125, 255)',
+                        data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
                     }],
-                    xAxes: [{
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        }
-                    }]
                 },
-            }
-        });
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                display: false //this will remove only the label
+                            },
+                            gridLines: {
+                                drawBorder: false,
+                                display: false
+                            }
+                        }],
+                        xAxes: [{
+                            gridLines: {
+                                drawBorder: false,
+                                display: false
+                            }
+                        }]
+                    },
+                }
+            });
 
-        $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
-            type: 'line',
-            height: '70',
-            width: '100%',
-            lineWidth: '2',
-            lineColor: '#ffa534',
-            fillColor: 'rgba(255, 165, 52, .14)'
-        });
-    </script>
+            $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
+                type: 'line',
+                height: '70',
+                width: '100%',
+                lineWidth: '2',
+                lineColor: '#ffa534',
+                fillColor: 'rgba(255, 165, 52, .14)'
+            });
+        </script>
     <?php endif; ?>
     <?php // =========================================================================== ?>
 
