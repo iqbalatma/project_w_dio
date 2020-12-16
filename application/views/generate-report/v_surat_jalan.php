@@ -163,8 +163,8 @@
       <tr class="total" style="background: #eee;">
         <td></td>
         <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 5LTR&nbsp;&nbsp;&nbsp;90 pcs</strong></td>
-        <td style="font-size:10px; margin-top:10px; text-align:right;"><strong>450 Ltr</strong></td>
+        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 5LTR&nbsp;&nbsp;&nbsp;0 pcs</strong></td>
+        <td style="font-size:10px; margin-top:10px; text-align:right;"><strong>0 Ltr</strong></td>
       </tr>
 
       <tr class="total" style="background: #eee;">

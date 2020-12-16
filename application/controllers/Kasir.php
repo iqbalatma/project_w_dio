@@ -46,6 +46,9 @@ class Kasir extends CI_Controller
         $cekoutData = $this->session->dari_konfirmasi_kasir;
         
         $post                       = $this->input->post();
+        // hapus titik, kemudian hapus koma, kemudian cast/ubah jadi (int)
+        $post['paid_amount']        = (int)str_replace(',', '', str_replace('.', '', $post['paid_amount']));
+        
         $cekoutData['paid_amount']  = $post['paid_amount'];
         $cekoutData['total_harga']  = $post['total_harga'];
 

@@ -137,7 +137,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 4,
     'name'    => 'Data Penjualan',
     'slug'    => $_data_penjualan,
@@ -155,7 +155,7 @@ $mainMenu = array(
         'slug'  => 'data-penjualan-per-toko',
         'url'   => "{$_data_penjualan}/data-penjualan-pertoko/index/1",
       ], [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Invoice',
         'slug'  => 'data-invoice',
         'url'   => "{$_data_penjualan}/data-invoice",
@@ -176,17 +176,17 @@ $mainMenu = array(
         'slug'  => 'data-hutang-piutang',
         'url'   => "{$_data_keuangan}/data-hutang-piutang",
       ], [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        'name'  => 'Data Pengeluaran',
-        'slug'  => 'data-pengeluaran',
-        'url'   => "{$_data_keuangan}/data-pengeluaran",
-      ], [
+      //   'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+      //   'name'  => 'Data Pengeluaran',
+      //   'slug'  => 'data-pengeluaran',
+      //   'url'   => "{$_data_keuangan}/data-pengeluaran",
+      // ], [
         'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Laba / Rugi',
         'slug'  => 'data-laba-rugi',
         'url'   => "{$_data_keuangan}/data-laba-rugi",
       ], [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
         'name'  => 'Data Kas Perusahaan',
         'slug'  => 'data-kas-perusahaan',
         'url'   => "{$_data_keuangan}/data-kas-perusahaan",

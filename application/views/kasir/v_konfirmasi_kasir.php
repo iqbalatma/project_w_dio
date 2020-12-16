@@ -181,7 +181,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body" id="modal-body">
-                                    <label class="form-label" id="total_bayar">Total Bayar</label>
+                                    <label class="form-label" id="total_bayars">Total Belanjaan adalah: <?= price_format($harga_total) ?></label>
                                     <div class="form-group">
                                         <label class="form-label">Yang Dibayarkan</label>
                                         <div class="input-group mb-3">

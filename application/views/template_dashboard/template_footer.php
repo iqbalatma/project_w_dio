@@ -156,33 +156,26 @@
         });
     </script>
 
-    <script>
-        $(document).on("click", ".open-modal-kasir", function() {
+    <!-- <script>
+        // $(document).on("click", ".open-modal-kasir", function() {
 
+        //     // var x = new Date();
+        //     // var myHeading = "<p>Total Belanjaan adalah : Rp ";
 
+        //     // var total_final = 0;
+        //     // var counter = $("#counter").val();
 
+        //     // var id_total_bayar = "#total_harga";
+        //     // var total_bayar_final = $(id_total_bayar).val();
 
-            // -------------------------------------------
+        //     // console.log(total_bayar_final);
 
-            var x = new Date();
-            var myHeading = "<p>Total Belanjaan adalah : Rp ";
-
-            var total_final = 0;
-            var counter = $("#counter").val();
-
-
-            var id_total_bayar = "#total_harga";
-            var total_bayar_final = $(id_total_bayar).val();
-            console.log(total_bayar_final);
-
-
-
-
-            $("#total_bayar").html(myHeading + total_bayar_final);
-            // $("#total_bayar").html(myHeading + "Nilai Custom Harga " + nilai_custom_harga + " Nilai Total Belanja" + total_belanjaan);
-            $("#modal").modal("show");
-        });
-    </script>
+        //     // $("#total_bayar").html(myHeading + total_bayar_final);
+        //     // // $("#total_bayar").html(myHeading + "Nilai Custom Harga " + nilai_custom_harga + " Nilai Total Belanja" + total_belanjaan);
+        //     // $("#modal").modal("show");
+            
+        // });
+    </script> -->
 
     <!-- <script>
         $(document).on("click", ".open-modal-kasir", function() {
@@ -342,6 +335,25 @@
                 } else {
                     $('.toggle-item').fadeOut();
                 }
+            });
+            
+            // Add dot(s) automagically to input text
+            $('#paid_amount').on( "keyup", function( event ) {
+                var selection = window.getSelection().toString();
+                // kalo buat pilihan atau pencet panah, maka keluar
+                if ( selection !== '' ) return;
+                if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
+
+                var $this = $( this );
+                var input = $this.val();
+                var input = input.replace(/[\D\s\._\-]+/g, "");
+                input = input ? parseInt( input, 10 ) : 0;
+                
+                $this.val( function() {
+                    // format ke INDONESIA = id-ID
+                    return ( input === 0 ) ? "" : input.toLocaleString( "id-ID" );
+                });
+
             });
         </script>
     <?php endif; ?>

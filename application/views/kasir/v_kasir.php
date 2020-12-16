@@ -187,7 +187,7 @@
                                                         <label class="selectgroup-item mt-2">
                                                             <input type="checkbox" class="selectgroup-input kelas_product <?= "kasir-product" ?>" name="<?= "product[{$i}]" ?>" id="<?= "kasirproduct-{$ii}" ?>" value="<?= $row['id']; ?>">
                                                             <!-- <input type="checkbox" name="product[<?= $i; ?>]" id="product" value="<?= $row['id']; ?>" class="selectgroup-input kelas_product"> -->
-                                                            <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | Rp <?= $row['selling_price']; ?></span>
+                                                            <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | <?= price_format($row['selling_price']) ?></span>
 
                                                             <div class="d-flex justify-content-center">
                                                                 <select disabled class="col-2 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
@@ -247,7 +247,7 @@
                                                         <div class="d-flex flex-column col-sm-7 col-md-6 col-xl-4">
                                                             <label class="selectgroup-item mt-2">
                                                                     <input type="checkbox" class="selectgroup-input" disabled>
-                                                                    <span class="selectgroup-button bg-light"><?= $row['full_name']; ?> | Rp. <?= $row['selling_price']; ?></span>
+                                                                    <span class="selectgroup-button bg-light"><?= $row['full_name']; ?> | <?= price_format($row['selling_price']) ?></span>
 
                                                                     <!-- <select class="col-11 mx-auto mt-1 text-danger form-control form-control-sm" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" disabled>
                                                                         <option class="mx-auto">Stok habis!</option>
