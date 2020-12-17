@@ -10,7 +10,7 @@ class Kas_model extends CI_Model
 
   var $table = 'kas';
 
-//  ===============================================SETTER===============================================
+  //  ===============================================SETTER===============================================
   /**
    * 
    * Insert new row to the database. ['add-type] ['add-nominal] ['add-perihal] ['add-keterangan] ['add-date] ['created_by]
@@ -23,19 +23,19 @@ class Kas_model extends CI_Model
   {
     $now        = now();
     $createdAt  = unix_to_human($now, true, 'europe');
-    
+
     // kas_code format, string build
     $code  = ($data['add-type'] == 'kredit') ? 'K' : 'D'; // K= Kredit ; D = Debet
     $code .= mdate('/%y/%m/', $now); // kode untuk tahun dan bulan
 
     // get last kas_code from table row
-    $lastRow           = $this->db->select('kas_code, final_balance')->order_by('id',"desc")->limit(1)->get($this->table);
+    $lastRow           = $this->db->select('kas_code, final_balance')->order_by('id', "desc")->limit(1)->get($this->table);
     $lastKasCode       = $lastRow->row()->kas_code;
     $lastFinalBalance  = $lastRow->row()->final_balance;
     // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
     if ($lastRow->num_rows() > 0) $lastCode = $lastKasCode;
-    else $lastCode = $code.'000000';
-    
+    else $lastCode = $code . '000000';
+
     // $lastCode dari db, ambil hanya nomor urut di setelah "/" terakhir
     // increment 1
     // ambil kode bulan di sebelum "/" terakhir
@@ -51,37 +51,34 @@ class Kas_model extends CI_Model
     // kemudian masukan kembali ke string $code, dan kas_code selesai
     $codeNum   = ($codeMonth !== $currMonth) ? '000001' : $codeNum;
     $code     .= str_pad($codeNum, 6, "0", STR_PAD_LEFT);
-    
+
     // set value untuk debet dan kredit dan set final_balance
-    if ($data['add-type'] == 'kredit')
-    {
+    if ($data['add-type'] == 'kredit') {
       $newFinalBalance = $lastFinalBalance - (int)$data['add-nominal'];
       $debet           = 0;
       $kredit          = $data['add-nominal'];
-    }
-    else
-    {
+    } else {
       $newFinalBalance = $lastFinalBalance + (int)$data['add-nominal'];
       $debet           = $data['add-nominal'];
       $kredit          = 0;
     }
 
     $data = array(
-		  "kas_code"        => $code,
-		  "title"           => $data['add-perihal'],
-		  "description"     => ($data['add-keterangan'] !== '') ? $data['add-keterangan'] : NULL,
-		  "date"            => $data['add-date'],
-		  "debet"           => $debet,
-		  "kredit"          => $kredit,
-		  "final_balance"   => $newFinalBalance,
-		  "type"            => $data['add-type'],
-		  "created_at"      => $createdAt,
-		  "created_by"      => $data['created_by'],
+      "kas_code"        => $code,
+      "title"           => $data['add-perihal'],
+      "description"     => ($data['add-keterangan'] !== '') ? $data['add-keterangan'] : NULL,
+      "date"            => $data['add-date'],
+      "debet"           => $debet,
+      "kredit"          => $kredit,
+      "final_balance"   => $newFinalBalance,
+      "type"            => $data['add-type'],
+      "created_at"      => $createdAt,
+      "created_by"      => $data['created_by'],
     );
 
     return $this->db->insert($this->table, $data);
   }
-  
+
   /**
    * 
    * Delete kas dara row, entirely
@@ -98,7 +95,7 @@ class Kas_model extends CI_Model
 
 
 
-//  ===============================================GETTER===============================================
+  //  ===============================================GETTER===============================================
   /**
    * 
    * Get all rows from certain table
@@ -114,11 +111,38 @@ class Kas_model extends CI_Model
     $this->db->from("{$this->table}");
     $this->db->order_by($order_by, $asc_desc);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
   }
 
 
+  public function get_data_terjual($id_invoice)
+  {
+    $query = $this->db->query("SELECT * FROM invoice_item WHERE invoice_id = $id_invoice");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
+  public function get_invoice_perhari($tanggal)
+  {
+    $query = $this->db->query("SELECT * FROM `invoice` WHERE DATE(created_at)='$tanggal'");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
+  public function get_invoice_perbulan()
+  {
+    $query = $this->db->query("SELECT * FROM invoice WHERE MONTH(created_at) = '12' AND YEAR(created_at) = '2020'");
+
+    $row = $query->result_array();
+
+
+    return $row;
+  }
 }
