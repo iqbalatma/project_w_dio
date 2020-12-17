@@ -8,10 +8,22 @@
                       <div class="card-header">
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
-                          <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
-                            <i class="fa fa-plus mr-2"></i>
-                            <span class="h6">Tambah data</span>
-                          </a>
+                          <div class="ml-auto">
+                            <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto ">
+                              <i class="fa fa-plus mr-2"></i>
+                              <span class="h6">Tambah data</span>
+                            </a>
+                            <div class="btn-group dropleft" data-toggle="tooltip" title="Opsi">
+                              <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_produk") ?>" target=_blank><i class="fas fa-file-pdf mr-2 text-danger"></i>Export to PDF</a>
+                                <!-- <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_produk") ?>" target=_blank><i class="fas fa-file-excel mr-2 text-success"></i>Generate Excel</a> -->
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 

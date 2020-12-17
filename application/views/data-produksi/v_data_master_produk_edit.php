@@ -89,7 +89,7 @@
                                       placeholder = "Komposisi / berat / ukuran per unit" 
                                       value       = "<?= (set_value('edit-volume') !== '') ? set_value('edit-volume') : $product->volume ; ?>"
                                       class       = "form-control <?php if(form_error('edit-volume') !== ''){ echo 'is-invalid'; } ?>"
-                                      pattern     = "[0-9]{1,5}" 
+                                      pattern     = "[0-9]{1,6}" 
                                       title       = "Harus angka minimal 1 dan maksimal 5 angka"
                                     >
                                     <?= form_error('edit-volume') ?>

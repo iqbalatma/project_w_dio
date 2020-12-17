@@ -26,7 +26,7 @@ class Kasir extends CI_Controller
             'data_customer'     => $this->Customer_model->get_all_sort_by_name(),
             // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
             'data_product'      => $this->Product_model->get_all2(),
-            'datatables'        => 1
+            'select2'        => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }

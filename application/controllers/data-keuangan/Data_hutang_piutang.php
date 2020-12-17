@@ -57,7 +57,8 @@ class Data_hutang_piutang extends CI_Controller
             $passing_data = $this->input->post('id');
             $passing_data = explode(" ", $passing_data);
             $id_invoice = $passing_data[0];
-            $paid_amount = $this->input->post('pembayaran');
+            // $paid_amount = $this->input->post('pembayaran');
+            $paid_amount    = (int)str_replace(',', '', str_replace('.', '', $this->input->post('pembayaran') ));
 
 
             $transaction_id = $passing_data[1];
