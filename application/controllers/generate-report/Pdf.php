@@ -218,16 +218,16 @@ class Pdf extends CI_Controller
 
 		$createdAt	= date('H:i:s, d-M-Y', $now);
 
-		$data = array(
+		$data_pdf = array(
 			'filename'			=> $outputName,
 			'created_at' 		=> $createdAt,
 			'created_by' 		=> $this->session->username,
 			'data'					=> $resultSet, 
 		);
-		// pprintd($resultSet);
+		// pprintd($data);
 
 		// view dijadiin RAW bukan ditampilin
-		$html = $this->load->view('generate-report/v_pdf', $data, TRUE);
+		$html = $this->load->view('generate-report/v_pdf', $data_pdf, TRUE);
 
 		if ($data['menu'] == 'kas_perusahaan'){
 			// instansiasi mpdf dan opsi. [A4-L] adalah kertas A4, orientasi Landscape

@@ -74,6 +74,12 @@
                                       <option disabled selected>-- pilih unit --</option>
                                         <option value="gram" <?php echo ($product->unit == 'gram')?('selected'):('') ?>> Gram </option>
                                         <option value="mililiter" <?php echo ($product->unit == 'mililiter')?('selected'):('') ?>> Mililiter </option>
+                                        <option value="liter" <?php echo ($product->unit == 'liter')?('selected'):('') ?>> Liter </option>
+                                        <option value="pcs" <?php echo ($product->unit == 'pcs')?('selected'):('') ?>> Pcs </option>
+                                        <option value="sachet" <?php echo ($product->unit == 'sachet')?('selected'):('') ?>> Sachet </option>
+                                        <option value="galon" <?php echo ($product->unit == 'galon')?('selected'):('') ?>> Galon </option>
+                                        <option value="drum" <?php echo ($product->unit == 'drum')?('selected'):('') ?>> Drum </option>
+                                        <option value="pile" <?php echo ($product->unit == 'pile')?('selected'):('') ?>> Pile </option>
                                     </select>
                                     <?= form_error('edit-unit') ?>
                                   </div>
