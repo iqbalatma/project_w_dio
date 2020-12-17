@@ -127,7 +127,7 @@ class Kas_model extends CI_Model
 
     return $row;
   }
-  public function get_invoice_perminggu($tanggal)
+  public function get_invoice_perhari($tanggal)
   {
     $query = $this->db->query("SELECT * FROM `invoice` WHERE DATE(created_at)='$tanggal'");
 
@@ -136,9 +136,9 @@ class Kas_model extends CI_Model
 
     return $row;
   }
-  public function get_invoice_perbulan($bulan)
+  public function get_invoice_perbulan()
   {
-    $query = $this->db->query("SELECT * FROM `invoice` WHERE MONTH(created_at)='$bulan'");
+    $query = $this->db->query("SELECT * FROM invoice WHERE MONTH(created_at) = '12' AND YEAR(created_at) = '2020'");
 
     $row = $query->result_array();
 

@@ -74,20 +74,61 @@
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    $i = 0;
-                                    while ($i < count($total_modal)) {
-                                    ?>
+
+
+                                    // echo "<pre>";
+                                    // echo (date("m-Y", $tanggal_hari_ini[0]));
+                                    // echo "<br>";
+                                    // echo (date("m-Y", $tanggal_hari_ini[8]));
+                                    // echo "</pre>";
+                                    $counter = count($tanggal_hari_ini);
+                                    $j = 0;
+                                    $bulan = array();
+
+
+                                    while ($j < $counter) {
+                                        if (array_search(date("m-Y", $tanggal_hari_ini[$j]), $bulan) === false) {
+                                            array_push($bulan, date("m-Y", $tanggal_hari_ini[$j]));
+                                        }
+                                        $j++;
+                                    }
+
+                                    $x = 0;
+
+                                    // if (date("m-Y", $tanggal_hari_ini[2]) == $bulan[0]) {
+                                    //     echo "BETUL";
+                                    // }
+                                    $status = false;
+                                    while ($x < count($bulan)) {
+
+                                        // echo count($bulan);
+                                        $tes = $bulan[$x];
+                                        $total_modalx = 0;
+                                        $total_pemasukanx = 0;
+                                        $hutang_arrayx = 0;
+                                        $nilai_finalx = 0;
+                                        $i = 0;
+                                        while ($i < count($total_modal)) {
+                                            if (date("m-Y", $tanggal_hari_ini[$i]) == $tes) {
+                                                $total_modalx += $total_modal[$i];
+                                                $total_pemasukanx += $total_pemasukan[$i];
+                                                $hutang_arrayx += $hutang_array[$i];
+                                                $nilai_finalx += $nilai_final[$i];
+                                            }
+                                            $i++;
+                                        }; ?>
 
                                         <tr>
                                             <td class="px-3" width="5%px"><?= $i + 1; ?></td>
-                                            <td class="px-3" width="40px"><?= date("d-M-Y", $tanggal_hari_ini[$i]); ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($total_modal[$i]); ?></td>
-                                            <td class="px-3" width="30px"> <?= price_format($total_pemasukan[$i]); ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($hutang_array[$i]); ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($nilai_final[$i]); ?></td>
+                                            <td class="px-3" width="40px"><?= $tes ?></td>
+                                            <td class="px-3" width="30px"><?= price_format($total_modalx); ?></td>
+                                            <td class="px-3" width="30px"><?= price_format($total_pemasukanx); ?></td>
+                                            <td class="px-3" width="30px"><?= price_format($hutang_arrayx); ?></td>
+                                            <td class="px-3" width="30px"><?= price_format($nilai_finalx); ?></td>
                                         </tr>
+
                                     <?php
-                                        $i++;
+                                        $x++;
                                     }; ?>
                                 </tbody>
                             </table>

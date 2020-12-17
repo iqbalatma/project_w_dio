@@ -32,6 +32,143 @@ class Data_laba_rugi extends CI_Controller
         $tanggal_array = array();
         $hutang_array = array();
         $total_hutang = 0;
+        $total_pemasukan = 0;
+        $total_modal = 0;
+        // $data_invoice = $this->Kas_model->get_invoice_perhari("2020-12-17");
+        $data_invoice = $this->Kas_model->get_invoice_perhari(date("Y-m-d", $tanggal_pertama));
+        if (count($data_invoice) > 1) {
+            foreach ($data_invoice as $row) {
+                if ($row['left_to_paid'] > 0) {
+                    $total_hutang += $row['left_to_paid'];
+                }
+
+                $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+
+
+                foreach ($invoice_item as $row2) {
+                    $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                    $total_modal += $data_produk[0]['price_base'];
+                    $total_pemasukan += $row2['item_price'];
+                }
+                $total_pemasukan = $total_pemasukan - $total_hutang;
+                $nilai_final = $total_pemasukan - $total_modal;
+                if ($total_modal !== 0) {
+                    array_push($hutang_array, $total_hutang);
+                    array_push($nilai_final_array, $nilai_final);
+                    array_push($tanggal_array, $tanggal_pertama);
+                    array_push($total_modal_array, $total_modal);
+                    array_push($total_pemasukan_array, $total_pemasukan);
+                }
+            }
+        } else {
+            foreach ($data_invoice as $row) {
+                if ($row['left_to_paid'] > 0) {
+                    $total_hutang += $row['left_to_paid'];
+                }
+
+                $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+                foreach ($invoice_item as $row2) {
+                    $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                    $total_modal += $data_produk[0]['price_base'];
+                    $total_pemasukan += $row2['item_price'];
+                }
+                $total_pemasukan = $total_pemasukan - $total_hutang;
+                $nilai_final = $total_pemasukan - $total_modal;
+                if ($total_modal !== 0) {
+                    array_push($hutang_array, $total_hutang);
+                    array_push($nilai_final_array, $nilai_final);
+                    array_push($tanggal_array, $tanggal_pertama);
+                    array_push($total_modal_array, $total_modal);
+                    array_push($total_pemasukan_array, $total_pemasukan);
+                }
+            }
+        }
+
+        while ($tanggal_pertama < $tanggal_hari_ini) {
+            $tanggal_pertama = $tanggal_pertama + (86400 * 1);
+            $data_invoice = $this->Kas_model->get_invoice_perhari(date("Y-m-d", $tanggal_pertama));
+            if (count($data_invoice) > 1) {
+                foreach ($data_invoice as $row) {
+                    if ($row['left_to_paid'] > 0) {
+                        $total_hutang += $row['left_to_paid'];
+                    }
+
+                    $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+
+
+                    foreach ($invoice_item as $row2) {
+                        $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                        $total_modal += $data_produk[0]['price_base'];
+                        $total_pemasukan += $row2['item_price'];
+                    }
+                    $total_pemasukan = $total_pemasukan - $total_hutang;
+                    $nilai_final = $total_pemasukan - $total_modal;
+                    if ($total_modal !== 0) {
+                        array_push($hutang_array, $total_hutang);
+                        array_push($nilai_final_array, $nilai_final);
+                        array_push($tanggal_array, $tanggal_pertama);
+                        array_push($total_modal_array, $total_modal);
+                        array_push($total_pemasukan_array, $total_pemasukan);
+                    }
+                }
+            } else {
+                foreach ($data_invoice as $row) {
+                    if ($row['left_to_paid'] > 0) {
+                        $total_hutang += $row['left_to_paid'];
+                    }
+
+                    $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+                    foreach ($invoice_item as $row2) {
+                        $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                        $total_modal += $data_produk[0]['price_base'];
+                        $total_pemasukan += $row2['item_price'];
+                    }
+                    $total_pemasukan = $total_pemasukan - $total_hutang;
+                    $nilai_final = $total_pemasukan - $total_modal;
+                    if ($total_modal !== 0) {
+                        array_push($hutang_array, $total_hutang);
+                        array_push($nilai_final_array, $nilai_final);
+                        array_push($tanggal_array, $tanggal_pertama);
+                        array_push($total_modal_array, $total_modal);
+                        array_push($total_pemasukan_array, $total_pemasukan);
+                    }
+                }
+            }
+        }
+
+
+        $matrix = [];
+        $data = [
+            'title'             => 'Data Laba Rugi',
+            'content'           => 'data-keuangan/v_laba_rugi.php',
+            'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+            // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
+            'total_modal' => $total_modal_array,
+            'total_pemasukan' => $total_pemasukan_array,
+            'nilai_final' => $nilai_final_array,
+            'tanggal_hari_ini' => $tanggal_array,
+            'hutang_array' => $hutang_array,
+            'datatables' => 1
+        ];
+
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+
+
+    public function index22()
+    {
+        $date = new DateTime();
+        $tanggal_hari_ini = $date->getTimestamp();
+        $tanggal_pertama = $date->getTimestamp() - (386400 * 10);
+        $x = 0;
+        $nilai_final_array = array();
+        $total_pemasukan_array = array();
+        $total_modal_array = array();
+        $tanggal_array = array();
+        $hutang_array = array();
+        $total_hutang = 0;
         $tanggal_hari_ini = $tanggal_hari_ini - (86400 * 0);
         $data_invoice = $this->Kas_model->get_invoice_perminggu(date("Y-m-d", $tanggal_hari_ini));
         $id_invoice = array();
@@ -63,11 +200,12 @@ class Data_laba_rugi extends CI_Controller
                 $i++;
             }
         };
+        $total_pemasukan = $total_pemasukan - $total_hutang;
         $nilai_final = $total_pemasukan - $total_modal;
         if ($total_modal !== 0) {
             array_push($hutang_array, $total_hutang);
             array_push($nilai_final_array, $nilai_final);
-            array_push($tanggal_array, $tanggal_hari_ini);
+            array_push($tanggal_array, date("Y-M-d", $tanggal_hari_ini));
             array_push($total_modal_array, $total_modal);
             array_push($total_pemasukan_array, $total_pemasukan);
         }
@@ -75,47 +213,98 @@ class Data_laba_rugi extends CI_Controller
 
 
 
+
+
+
         while ($tanggal_hari_ini > $tanggal_pertama) {
             $tanggal_hari_ini = $tanggal_hari_ini - (86400 * 1);
             $data_invoice = $this->Kas_model->get_invoice_perminggu(date("Y-m-d", $tanggal_hari_ini));
-            $id_invoice = array();
-            $total_pemasukan = 0;
-            $total_modal = 0;
-            $total_hutang = 0;
-            foreach ($data_invoice as $row) {
-                array_push($id_invoice, $row['id']);
-                if ($row['left_to_paid'] > 0) {
-                    $total_hutang += $row['left_to_paid'];
+
+
+
+            if (count($data_invoice) > 1) {
+                $v = 0;
+                $id_invoice = array();
+                $total_pemasukan = 0;
+                $total_modal = 0;
+                $total_hutang = 0;
+                // echo "<pre>";
+                // var_dump($data_invoice);
+                // echo "</pre>";
+
+
+                foreach ($data_invoice as $row) {
+
+                    // array_push($id_invoice, $row['id']);
+
+                    if ($row['left_to_paid'] > 0) {
+                        $total_hutang += $row['left_to_paid'];
+                    }
+                    $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+                    $i = 0;
+                    foreach ($invoice_item as $row2) {
+
+                        // var_dump($invoice_item);
+                        // echo $invoice_item[$i]['item_price'];
+                        // echo $invoice_item[$i]['product_id'];
+
+                        $data_produk = $this->Kasir_model->get_code_product($invoice_item[$i]['product_id']);
+                        // echo $data_produk[0]['price_base'];
+
+                        // echo "<br>";
+                        $total_modal += $data_produk[0]['price_base'];
+                        $total_pemasukan += $invoice_item[$i]['item_price'];
+                        $i++;
+                    }
+                    $v++;
+                };
+                $total_pemasukan = $total_pemasukan - $total_hutang;
+                $nilai_final = $total_pemasukan - $total_modal;
+                if ($total_modal !== 0) {
+                    array_push($hutang_array, $total_hutang);
+                    array_push($nilai_final_array, $nilai_final);
+                    array_push($total_modal_array, $total_modal);
+                    array_push($tanggal_array, date("Y-M-d", $tanggal_hari_ini));
+                    array_push($total_pemasukan_array, $total_pemasukan);
                 }
-                $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
-                $i = 0;
-                foreach ($invoice_item as $row2) {
+            } else {
+                $id_invoice = array();
+                $total_pemasukan = 0;
+                $total_modal = 0;
+                $total_hutang = 0;
+                foreach ($data_invoice as $row) {
+                    array_push($id_invoice, $row['id']);
+                    if ($row['left_to_paid'] > 0) {
+                        $total_hutang += $row['left_to_paid'];
+                    }
+                    $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+                    $i = 0;
+                    foreach ($invoice_item as $row2) {
 
-                    // var_dump($invoice_item);
-                    // echo $invoice_item[$i]['item_price'];
-                    // echo $invoice_item[$i]['product_id'];
+                        // var_dump($invoice_item);
+                        // echo $invoice_item[$i]['item_price'];
+                        // echo $invoice_item[$i]['product_id'];
 
-                    $data_produk = $this->Kasir_model->get_code_product($invoice_item[$i]['product_id']);
-                    // echo $data_produk[0]['price_base'];
+                        $data_produk = $this->Kasir_model->get_code_product($invoice_item[$i]['product_id']);
+                        // echo $data_produk[0]['price_base'];
 
-                    // echo "<br>";
-                    $total_modal += $data_produk[0]['price_base'];
-                    $total_pemasukan += $invoice_item[$i]['item_price'];
-                    $i++;
+                        // echo "<br>";
+                        $total_modal += $data_produk[0]['price_base'];
+                        $total_pemasukan += $invoice_item[$i]['item_price'];
+                        $i++;
+                    }
+                };
+                $total_pemasukan = $total_pemasukan - $total_hutang;
+                $nilai_final = $total_pemasukan - $total_modal;
+                if ($total_modal !== 0) {
+                    array_push($hutang_array, $total_hutang);
+                    array_push($nilai_final_array, $nilai_final);
+                    array_push($total_modal_array, $total_modal);
+                    array_push($tanggal_array, date("Y-M-d", $tanggal_hari_ini));
+                    array_push($total_pemasukan_array, $total_pemasukan);
                 }
-            };
-            $nilai_final = $total_pemasukan - $total_modal;
-            if ($total_modal !== 0) {
-                array_push($hutang_array, $total_hutang);
-                array_push($nilai_final_array, $nilai_final);
-                array_push($total_modal_array, $total_modal);
-                array_push($tanggal_array, $tanggal_hari_ini);
-                array_push($total_pemasukan_array, $total_pemasukan);
             }
 
-            // echo "<pre>";
-            // var_dump($tanggal_array);
-            // echo "</pre>";
 
 
             // echo $x . '-';
@@ -126,10 +315,16 @@ class Data_laba_rugi extends CI_Controller
             // echo "<br>";
 
             $x++;
+            // echo "<pre>";
+            // var_dump($data_invoice);
+            // echo "</pre>";
         }
 
+        // $data_invoice = $this->Kas_model->get_invoice_perminggu("2020-12-11");
 
-
+        echo "<pre>";
+        var_dump($total_modal_array);
+        echo "</pre>";
 
 
         // echo "MARGIN PENJUALAN ADALAH {$total_pemasukan} - {$total_modal} = {$nilai_final}";
@@ -151,11 +346,7 @@ class Data_laba_rugi extends CI_Controller
             'datatables' => 1
         ];
 
-        // echo date("Y-m-d", $date->getTimestamp() - (86400 * 3));
-        // echo date_timestamp_get("2020-12-14");
-        // var_dump($data_invoice);
-        // echo $total_hutang;
-        $this->load->view('template_dashboard/template_wrapper', $data);
+        // $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
 
@@ -304,7 +495,7 @@ class Data_laba_rugi extends CI_Controller
     }
 
 
-    public function perbulan()
+    public function perbulan_tester()
     {
         $date = new DateTime();
         $tanggal_hari_ini = $date->getTimestamp();
@@ -472,5 +663,276 @@ class Data_laba_rugi extends CI_Controller
 
 
         // $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+
+    public function perbulan_tester2()
+    {
+        $date = new DateTime();
+        $tanggal_hari_ini = $date->getTimestamp();
+        $tanggal_pertama = $date->getTimestamp() - (386400 * 10);
+        $x = 0;
+        $nilai_final_array = array();
+        $total_pemasukan_array = array();
+        $total_modal_array = array();
+        $tanggal_array = array();
+        $hutang_array = array();
+        $total_hutang = 0;
+        $tanggal_hari_ini = $tanggal_hari_ini - (86400 * 0);
+        $data_invoice = $this->Kas_model->get_invoice_perbulan();
+        $id_invoice = array();
+        $total_pemasukan = 0;
+        $total_modal = 0;
+        foreach ($data_invoice as $row) {
+            array_push($id_invoice, $row['id']);
+
+            if ($row['left_to_paid'] > 0) {
+                $total_hutang += $row['left_to_paid'];
+            }
+
+
+            $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+            $i = 0;
+            foreach ($invoice_item as $row2) {
+
+                // var_dump($invoice_item);
+                // echo $invoice_item[$i]['item_price'];
+                // echo $invoice_item[$i]['product_id'];
+
+                $data_produk = $this->Kasir_model->get_code_product($invoice_item[$i]['product_id']);
+                // echo $data_produk[0]['price_base'];
+
+                // echo "<br>";
+                $total_modal += $data_produk[0]['price_base'];
+
+                $total_pemasukan += $invoice_item[$i]['item_price'];
+                $i++;
+            }
+        };
+        $nilai_final = $total_pemasukan - $total_modal;
+        if ($total_modal !== 0) {
+            array_push($hutang_array, $total_hutang);
+            array_push($nilai_final_array, $nilai_final);
+            array_push($tanggal_array, $tanggal_hari_ini);
+            array_push($total_modal_array, $total_modal);
+            array_push($total_pemasukan_array, $total_pemasukan);
+        }
+
+
+
+
+        while ($tanggal_hari_ini > $tanggal_pertama) {
+            $tanggal_hari_ini = $tanggal_hari_ini - (86400 * 1);
+            $data_invoice = $this->Kas_model->get_invoice_perminggu(date("Y-m-d", $tanggal_hari_ini));
+            $id_invoice = array();
+            $total_pemasukan = 0;
+            $total_modal = 0;
+            $total_hutang = 0;
+            foreach ($data_invoice as $row) {
+                array_push($id_invoice, $row['id']);
+                if ($row['left_to_paid'] > 0) {
+                    $total_hutang += $row['left_to_paid'];
+                }
+                $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+                $i = 0;
+                foreach ($invoice_item as $row2) {
+
+                    // var_dump($invoice_item);
+                    // echo $invoice_item[$i]['item_price'];
+                    // echo $invoice_item[$i]['product_id'];
+
+                    $data_produk = $this->Kasir_model->get_code_product($invoice_item[$i]['product_id']);
+                    // echo $data_produk[0]['price_base'];
+
+                    // echo "<br>";
+                    $total_modal += $data_produk[0]['price_base'];
+                    $total_pemasukan += $invoice_item[$i]['item_price'];
+                    $i++;
+                }
+            };
+            $nilai_final = $total_pemasukan - $total_modal;
+            if ($total_modal !== 0) {
+                array_push($hutang_array, $total_hutang);
+                array_push($nilai_final_array, $nilai_final);
+                array_push($total_modal_array, $total_modal);
+                array_push($tanggal_array, $tanggal_hari_ini);
+                array_push($total_pemasukan_array, $total_pemasukan);
+            }
+
+            // echo "<pre>";
+            // var_dump($tanggal_array);
+            // echo "</pre>";
+
+
+            // echo $x . '-';
+            // echo date("Y-m-d", $tanggal_hari_ini) . "-";
+            // echo $nilai_final = $total_pemasukan - $total_modal;
+            // echo "<br>";
+            // echo $total_pemasukan;
+            // echo "<br>";
+
+            $x++;
+        }
+
+
+
+
+
+        // echo "MARGIN PENJUALAN ADALAH {$total_pemasukan} - {$total_modal} = {$nilai_final}";
+
+        // id_invoice berisi id dari invoice hanya saja belum dipisahkan berdasarkan tanggalnya
+
+
+        $data = [
+            'title'             => 'Data Laba Rugi',
+            'content'           => 'data-keuangan/v_laba_rugi_perbulan.php',
+            'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+            // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
+            'total_modal' => $total_modal_array,
+            'total_pemasukan' => $total_pemasukan_array,
+            'nilai_final' => $nilai_final_array,
+            'tanggal_hari_ini' => $tanggal_array,
+            'hutang_array' => $hutang_array,
+            'datatables' => 1
+        ];
+
+
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+    public function perbulan()
+    {
+        $date = new DateTime();
+        $tanggal_hari_ini = $date->getTimestamp();
+        $tanggal_pertama = $date->getTimestamp() - (386400 * 10);
+        $x = 0;
+        $nilai_final_array = array();
+        $total_pemasukan_array = array();
+        $total_modal_array = array();
+        $tanggal_array = array();
+        $hutang_array = array();
+        $total_hutang = 0;
+        $total_pemasukan = 0;
+        $total_modal = 0;
+        // $data_invoice = $this->Kas_model->get_invoice_perhari("2020-12-17");
+        $data_invoice = $this->Kas_model->get_invoice_perhari(date("Y-m-d", $tanggal_pertama));
+        if (count($data_invoice) > 1) {
+            foreach ($data_invoice as $row) {
+                if ($row['left_to_paid'] > 0) {
+                    $total_hutang += $row['left_to_paid'];
+                }
+
+                $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+
+
+                foreach ($invoice_item as $row2) {
+                    $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                    $total_modal += $data_produk[0]['price_base'];
+                    $total_pemasukan += $row2['item_price'];
+                }
+                $total_pemasukan = $total_pemasukan - $total_hutang;
+                $nilai_final = $total_pemasukan - $total_modal;
+                if ($total_modal !== 0) {
+                    array_push($hutang_array, $total_hutang);
+                    array_push($nilai_final_array, $nilai_final);
+                    array_push($tanggal_array, $tanggal_pertama);
+                    array_push($total_modal_array, $total_modal);
+                    array_push($total_pemasukan_array, $total_pemasukan);
+                }
+            }
+        } else {
+            foreach ($data_invoice as $row) {
+                if ($row['left_to_paid'] > 0) {
+                    $total_hutang += $row['left_to_paid'];
+                }
+
+                $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+                foreach ($invoice_item as $row2) {
+                    $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                    $total_modal += $data_produk[0]['price_base'];
+                    $total_pemasukan += $row2['item_price'];
+                }
+                $total_pemasukan = $total_pemasukan - $total_hutang;
+                $nilai_final = $total_pemasukan - $total_modal;
+                if ($total_modal !== 0) {
+                    array_push($hutang_array, $total_hutang);
+                    array_push($nilai_final_array, $nilai_final);
+                    array_push($tanggal_array, $tanggal_pertama);
+                    array_push($total_modal_array, $total_modal);
+                    array_push($total_pemasukan_array, $total_pemasukan);
+                }
+            }
+        }
+
+        while ($tanggal_pertama < $tanggal_hari_ini) {
+            $tanggal_pertama = $tanggal_pertama + (86400 * 1);
+            $data_invoice = $this->Kas_model->get_invoice_perhari(date("Y-m-d", $tanggal_pertama));
+            if (count($data_invoice) > 1) {
+                foreach ($data_invoice as $row) {
+                    if ($row['left_to_paid'] > 0) {
+                        $total_hutang += $row['left_to_paid'];
+                    }
+
+                    $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+
+
+                    foreach ($invoice_item as $row2) {
+                        $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                        $total_modal += $data_produk[0]['price_base'];
+                        $total_pemasukan += $row2['item_price'];
+                    }
+                    $total_pemasukan = $total_pemasukan - $total_hutang;
+                    $nilai_final = $total_pemasukan - $total_modal;
+                    if ($total_modal !== 0) {
+                        array_push($hutang_array, $total_hutang);
+                        array_push($nilai_final_array, $nilai_final);
+                        array_push($tanggal_array, $tanggal_pertama);
+                        array_push($total_modal_array, $total_modal);
+                        array_push($total_pemasukan_array, $total_pemasukan);
+                    }
+                }
+            } else {
+                foreach ($data_invoice as $row) {
+                    if ($row['left_to_paid'] > 0) {
+                        $total_hutang += $row['left_to_paid'];
+                    }
+
+                    $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
+                    foreach ($invoice_item as $row2) {
+                        $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
+                        $total_modal += $data_produk[0]['price_base'];
+                        $total_pemasukan += $row2['item_price'];
+                    }
+                    $total_pemasukan = $total_pemasukan - $total_hutang;
+                    $nilai_final = $total_pemasukan - $total_modal;
+                    if ($total_modal !== 0) {
+                        array_push($hutang_array, $total_hutang);
+                        array_push($nilai_final_array, $nilai_final);
+                        array_push($tanggal_array, $tanggal_pertama);
+                        array_push($total_modal_array, $total_modal);
+                        array_push($total_pemasukan_array, $total_pemasukan);
+                    }
+                }
+            }
+        }
+
+
+        $matrix = [];
+        $data = [
+            'title'             => 'Data Laba Rugi',
+            'content'           => 'data-keuangan/v_laba_rugi_perbulan.php',
+            'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+            // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
+            'total_modal' => $total_modal_array,
+            'total_pemasukan' => $total_pemasukan_array,
+            'nilai_final' => $nilai_final_array,
+            'tanggal_hari_ini' => $tanggal_array,
+            'hutang_array' => $hutang_array,
+            'datatables' => 1
+        ];
+
+        $this->load->view('template_dashboard/template_wrapper', $data);
     }
 }
