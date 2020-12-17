@@ -216,24 +216,33 @@
                     $('.toggle-item').fadeOut();
                 }
             });
-            
+
             // Add dot(s) automagically to input text
             $('#paid_amount').on( "keyup", function( event ) {
+                let maxLength = 9;
                 var selection = window.getSelection().toString();
+
                 // kalo buat pilihan atau pencet panah, maka keluar
                 if ( selection !== '' ) return;
                 if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
 
+                // ambil value skrg di inputan
                 var $this = $( this );
-                var input = $this.val();
-                var input = input.replace(/[\D\s\._\-]+/g, "");
-                input = input ? parseInt( input, 10 ) : 0;
+                var inputz = $this.val();
+
+                // replace sama kosong kalo selain Digits
+                var inputz = inputz.replace(/[\D\s\._\-]+/g, "");
+
+                // kalo panjangnya lebih dari maxLength, maka ambil sejumlah maxLength
+                if (inputz.length > maxLength) inputz = inputz.substr(0, maxLength);
+
+                // jaddiin integer
+                inputz = inputz ? parseInt( inputz, 10 ) : 0;
                 
                 $this.val( function() {
                     // format ke INDONESIA = id-ID
-                    return ( input === 0 ) ? "" : input.toLocaleString( "id-ID" );
+                    return ( inputz === 0 ) ? "" : inputz.toLocaleString( "id-ID" );
                 });
-
             });
         </script>
     <?php endif; ?>
@@ -295,7 +304,7 @@
                             </div>
                             <div class='col-4 form-group row mx-auto'>
                                 <label>Harga kustom (${nextindex}) <span class="text-danger">*</span></label>
-                                <input required type='tel' pattern="[0-9]{1,}" title="Harga harus angka dan minimal 1 angka" placeholder='Input harga' id='add-customprice-${nextindex}' name='custom[${nextindex}][price]' class='form-control form-control-sm'>
+                                <input required type='tel' pattern="[0-9]{1,8}" title="Harga harus angka minimal 1 dan maksimal angka" placeholder='Input harga' id='add-customprice-${nextindex}' name='custom[${nextindex}][price]' class='form-control form-control-sm'>
                             </div>
                             <div class='py-4 h1'>
                                 <span id='remove-${nextindex}' class='remove h2 text-danger'>&times</span>
@@ -408,12 +417,69 @@
         </script>
     <?php endif; ?>
 
+    <?php
+    // cek hanya untuk controller Data_kas_perusahaan ($submenuActive itu isinya nama controller)
+    if ($submenuActive == 'data-kas-perusahaan') : ?>
+        <script>
+            // Add dot(s) automagically to input text
+            $('#add-nominal').on( "keyup", function( event ) {
+                let maxLength = 9;
+                var selection = window.getSelection().toString();
 
-    <?php // input filter for all numbers input and data-filter properties ?>
+                // kalo buat pilihan atau pencet panah, maka keluar
+                if ( selection !== '' ) return;
+                if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
+
+                // ambil value skrg di inputan
+                var $this = $( this );
+                var inputz = $this.val();
+
+                // replace sama kosong kalo selain Digits
+                var inputz = inputz.replace(/[\D\s\._\-]+/g, "");
+
+                // kalo panjangnya lebih dari maxLength, maka ambil sejumlah maxLength
+                if (inputz.length > maxLength) inputz = inputz.substr(0, maxLength);
+
+                // jaddiin integer
+                inputz = inputz ? parseInt( inputz, 10 ) : 0;
+                
+                $this.val( function() {
+                    // format ke INDONESIA = id-ID
+                    return ( inputz === 0 ) ? "" : inputz.toLocaleString( "id-ID" );
+                });
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php
+    // cek hanya untuk controller Data_kas_perusahaan ($submenuActive itu isinya nama controller)
+    if ($submenuActive == 'data-hutang-piutang') : ?>
+        <script>
+            // Add dot(s) automagically to input text
+            $('#pembayaran').on( "keydown", function( event ) {
+                var selection = window.getSelection().toString();
+                // kalo buat pilihan atau pencet panah, maka keluar
+                if ( selection !== '' ) return;
+                if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
+
+                var $this = $( this );
+                var input = $this.val();
+                var input = input.replace(/[\D\s\._\-]+/g, "");
+                input = input ? parseInt( input, 10 ) : 0;
+                
+                $this.val( function() {
+                    // format ke INDONESIA = id-ID
+                    return ( input === 0 ) ? "" : input.toLocaleString( "id-ID" );
+                });
+            });
+        </script>
+    <?php endif; ?>
+
+
+    <?php // input filter for all input with data-filter properties ?>
     <script>
-        // Apply filter to all inputsFilter with data-filter:
+        // Apply filter to all inputsFilter with data-filter. The filter is depend on RegEx in every data-filter on input tag
         var inputsFilter = document.querySelectorAll('input[data-filter]');
-        console.log(inputsFilter)
 
         for (var i = 0; i < inputsFilter.length; i++) {
             var inputs = inputsFilter[i];

@@ -82,7 +82,7 @@
                                   placeholder = "Komposisi / berat / ukuran per unit" 
                                   value       = "<?= set_value('add-volume') ?>"
                                   class       = "form-control <?php if (form_error('add-volume') !== '') {echo 'is-invalid';} ?>" 
-                                  data-filter = "\+?\d{0,5}"
+                                  data-filter = "\+?\d{0,6}"
                                   required
                                 >
                                 <?= form_error('add-volume') ?>

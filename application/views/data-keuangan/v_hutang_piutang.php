@@ -145,7 +145,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="pembayaran">Pembayaran</label>
-                                                    <input type="text" class="form-control pembayaran" id="pembayaran" placeholder="Masukkan uang yang dibayarkan" name="pembayaran" required>
+                                                    <input type="tel" class="form-control pembayaran" id="pembayaran" placeholder="Masukkan uang yang dibayarkan" name="pembayaran"  minlength=1  maxlength=11 autofocus required>
                                                     <?= form_error('fullname', '<small class="text-danger pl-3">', '</small>'); ?>
                                                 </div>
                                                 <div id="alert-msg"></div>
@@ -158,7 +158,7 @@
                                         <input type="hidden" name="id" class="id"></input>
                                         <input type="hidden" name="transaction" class="transaction"></input>
                                         <input type="hidden" name="xaja" class="xaja"></input>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Keluar</button>
                                         <button class="btn btn-primary">Konfirmasi Pembayaran</button>
                                     </div>
                                 </form>

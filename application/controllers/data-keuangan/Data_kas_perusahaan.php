@@ -60,7 +60,7 @@ class Data_kas_perusahaan extends CI_Controller
   {
     // set form rules
     $this->form_validation->set_rules('add-perihal', 'perihal',	  'required|trim|min_length[3]|max_length[200]');
-    $this->form_validation->set_rules('add-nominal', 'nominal',   'required|trim|is_numeric|min_length[1]');
+    $this->form_validation->set_rules('add-nominal', 'nominal',   'required|trim|min_length[1]|callback_regex');
     $this->form_validation->set_error_delimiters('<small class="form-text text-danger text-nowrap"><em>', '</em></small>');
 
     // run the form validation
@@ -105,7 +105,7 @@ class Data_kas_perusahaan extends CI_Controller
   {
     // set form rules
     $this->form_validation->set_rules('add-perihal', 'perihal',	  'required|trim|min_length[3]|max_length[200]');
-    $this->form_validation->set_rules('add-nominal', 'nominal',   'required|trim|is_numeric|min_length[1]');
+    $this->form_validation->set_rules('add-nominal', 'nominal',   'required|trim|min_length[1]|callback_regex');
     $this->form_validation->set_error_delimiters('<small class="form-text text-danger text-nowrap"><em>', '</em></small>');
 
     // run the form validation
@@ -145,6 +145,15 @@ class Data_kas_perusahaan extends CI_Controller
       } // end if($query): success or failed
     } // end form_validation->run()
 
+  }
+
+  public function regex($data)
+  {
+    // cek apakah sesuai dengan format penulisan uang rupiah
+    // dengan pola hanya angka {0,3} dan/ ada titik di depannya
+    // return angka integer tanpa titik
+    if (preg_match("/^\d{1,3}(?:\.\d{3})*?$/", $data)) return (int)str_replace(',', '', str_replace('.', '', $data));
+    else return FALSE;
   }
 
 

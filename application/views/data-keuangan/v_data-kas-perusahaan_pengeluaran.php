@@ -24,7 +24,7 @@
                                 <label for="add-date">
                                   Tanggal <span class="text-danger">*</span>
                                 </label>
-                                <input type="date" name="add-date" id="add-date" class="form-control" required>
+                                <input type="date" name="add-date" id="add-date" class="form-control" required autofocus>
                               </div>
                               <!-- 2 -->
                               <div class="form-group row">
@@ -38,6 +38,8 @@
                                   placeholder = "Perihal" 
                                   value       = "<?= set_value('add-perihal') ?>"
                                   class       = "form-control <?php if(form_error('add-perihal') !== ''){ echo 'is-invalid'; } ?>"
+                                  minlength   = 3 
+                                  maxlength   = 100
                                   required
                                 >
                                 <?= form_error('add-perihal') ?>
@@ -54,12 +56,12 @@
                                   <input 
                                     type        = "tel" 
                                     minlength   = "1"
-                                    maxlength   = "14"
+                                    maxlength   = "11"
                                     id          = "add-nominal" 
                                     name        = "add-nominal" 
                                     placeholder = "cth: 250.000" 
                                     value       = "<?= set_value('add-nominal') ?>"
-                                    class       = "form-control <?php if(form_error('add-nominal') !== ''){ echo 'is-invalid'; } ?>"
+                                    class       = "form-control <?php if(form_error('add-nominal') !== ''){ echo 'is-invalid'; } ?>" 
                                     required
                                   >
                                 </div>
@@ -77,6 +79,8 @@
                                   name        = "add-keterangan" 
                                   placeholder = "OPSIONAL. Tidak harus diisi." 
                                   class       = "form-control <?php if(form_error('add-keterangan') !== ''){ echo 'is-invalid'; } ?>"
+                                  minlength   = 3 
+                                  maxlength   = 500
                                 ><?= set_value('add-keterangan') ?></textarea>
                                 <?= form_error('add-keterangan') ?>
                               </div>

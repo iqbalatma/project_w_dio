@@ -81,7 +81,7 @@
                                     <td class="px-3">
                                       <?= $row['title'] ?>
                                     </td>
-                                    <td class="px-3 <?= ($row['type'] == 'debet') ? 'text-success' : '' ?>">
+                                    <td class="px-3 <?= ($row['type'] == 'debet') ? 'text-primary' : '' ?>">
                                       Rp. <?= number_format($row['debet'], 0, '', '.') ?>
                                     </td>
                                     <td class="px-3 <?= ($row['type'] == 'debet') ? '' : 'text-danger' ?>">
@@ -90,7 +90,7 @@
                                     <td class="px-3">
                                       Rp. <?= number_format($row['final_balance'], 0, '', '.') ?>
                                     </td>
-                                    <td class="px-3 text-uppercase font-weight-bold <?= ($row['type'] == 'debet') ? 'text-success' : 'text-danger' ?>">
+                                    <td class="px-3 text-uppercase font-weight-bold <?= ($row['type'] == 'debet') ? 'text-primary' : 'text-danger' ?>">
                                       <?= $row['type'] ?>
                                     </td>
                                     <td class="px-3">

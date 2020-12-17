@@ -77,7 +77,7 @@
                                     <td class="px-3">
                                       <?= $row['quantity'] ?>
                                     </td>
-                                    <td class="px-3 text-uppercase font-weight-bold <?= ($row['mutation_type'] == 'masuk') ? 'text-success' : 'text-danger' ?>">
+                                    <td class="px-3 text-uppercase font-weight-bold <?= ($row['mutation_type'] == 'masuk') ? 'text-primary' : 'text-danger' ?>">
                                       <?= $row['mutation_type'] ?>
                                     </td>
                                     <td class="px-3">
