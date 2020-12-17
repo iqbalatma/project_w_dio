@@ -67,13 +67,13 @@
                                     <td class="px-3">
                                       <?= $row['full_name'] ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 <?= ($row['volume'] != 0) ? '' : 'text-danger' ?>">
                                       <?= $row['volume'] ?> <?= $row['unit'] ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 <?= ($row['price_base'] != 0) ? '' : 'text-danger' ?>">
                                       Rp. <?= number_format($row['price_base'], 0, '', '.') ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 <?= ($row['selling_price'] != 0) ? '' : 'text-danger' ?>">
                                       Rp. <?= number_format($row['selling_price'], 0, '', '.') ?>
                                     </td>
 

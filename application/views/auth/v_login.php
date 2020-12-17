@@ -25,7 +25,7 @@
 
                                             <div class="form-group">
                                                 <label for="username">Username</label>
-                                                <input type="text" name="username" class="form-control" id="username" placeholder="Enter username">
+                                                <input type="text" name="username" class="form-control" id="username" placeholder="Enter username" autofocus>
                                                 <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group">

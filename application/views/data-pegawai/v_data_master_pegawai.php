@@ -73,7 +73,7 @@
                                     <td class="px-3">
                                       <?= $row['store_name'] ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 text-capitalize">
                                       <?= $row['role_name'] ?>
                                     </td>
 

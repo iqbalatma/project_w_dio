@@ -40,7 +40,7 @@
                             <select class="form-control material_id" id="material_id" name="material_id">
                                 <?php foreach ($data_barang_kimia as $row) {
                                 ?>
-                                    <option value="<?= $row->id; ?>"><?= $row->material_code . "-" . $row->full_name; ?></option>
+                                    <option value="<?= $row->id; ?>"><?= $row->material_code . " - " . $row->full_name; ?></option>
                                 <?php
                                 }; ?>
 
@@ -49,13 +49,13 @@
                             <?= form_error('material_code', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">
-                            <label for="store">Toko</label>
+                            <label for="store">Lokasi</label>
                             <input type="text" class="form-control store    " name="store" id="store" value="Gudang Pusat" readonly disabled>
 
                         </div>
                         <div class="form-group">
                             <label for="quantity">Jumlah</label>
-                            <input type="text" class="form-control quantity" id="quantity" placeholder="Masukkan jumlah barang" name="quantity" required>
+                            <input type="tel" class="form-control quantity" id="quantity" placeholder="Masukkan jumlah bahan baku" name="quantity" data-filter="\+?\d{0,7}" autofocus required>
                             <?= form_error('quantity', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <!-- <div class="form-group">

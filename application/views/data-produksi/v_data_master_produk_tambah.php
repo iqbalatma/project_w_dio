@@ -33,6 +33,9 @@
                                   placeholder = "Kode produk" 
                                   value       = "<?= set_value('add-kodeproduk') ?>"
                                   class       = "form-control <?php if (form_error('add-kodeproduk') !== '') {echo 'is-invalid';} ?>" 
+                                  minlength   = 3 
+                                  maxlength   = 10 
+                                  required
                                   autofocus
                                 >
                                 <?= form_error('add-kodeproduk') ?>
@@ -49,6 +52,8 @@
                                   placeholder = "Nama lengkap produk" 
                                   value       = "<?= set_value('add-fullname') ?>"
                                   class       = "form-control <?php if (form_error('add-fullname') !== '') {echo 'is-invalid';} ?>" 
+                                  maxlength   = 100
+                                  required
                                 >
                                 <?= form_error('add-fullname') ?>
                               </div>
@@ -60,6 +65,7 @@
                                 <select class="form-control <?php if (form_error('add-unit') !== '') {echo 'is-invalid';} ?>" name="add-unit">
                                   <option disabled selected>-- pilih unit --</option>
                                     <option value="gram"> Gram </option>
+                                    <option value="pcs"> Pcs </option>
                                     <option value="mililiter"> Mililiter </option>
                                 </select>
                                 <?= form_error('add-unit') ?>
@@ -70,13 +76,14 @@
                                   Volume <span class="text-danger">*</span>
                                 </label>
                                 <input 
-                                  type        = "text"
+                                  type        = "tel"
                                   id          = "add-volume"
                                   name        = "add-volume" 
                                   placeholder = "Komposisi / berat / ukuran per unit" 
                                   value       = "<?= set_value('add-volume') ?>"
                                   class       = "form-control <?php if (form_error('add-volume') !== '') {echo 'is-invalid';} ?>" 
-                                  autofocus
+                                  data-filter = "\+?\d{0,6}"
+                                  required
                                 >
                                 <?= form_error('add-volume') ?>
                               </div>

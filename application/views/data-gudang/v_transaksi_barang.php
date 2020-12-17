@@ -103,11 +103,11 @@
                                             <td class="px-3">
                                                 <?= $row->quantity ?>
                                             </td>
-                                            <td class="px-3">
+                                            <td class="px-3 text-uppercase font-weight-bold <?= ($row->mutation_type == 'masuk') ? 'text-primary' : 'text-danger' ?>">
                                                 <?= $row->mutation_type ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row->created_at ?>
+                                                <?php $dt = explode(' ', $row->created_at); $d = date_create($dt[0]); echo date_format($d,"d-M-Y") ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->created_by ?>

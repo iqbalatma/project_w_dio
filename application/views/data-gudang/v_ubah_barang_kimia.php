@@ -39,30 +39,31 @@
                                 <input type="hidden" name="id" class="id" value="<?= $data_form[0]->id; ?>"></input>
                                 <div class="form-group">
                                     <label for="material">Kode Bahan</label>
-                                    <input type="text" class="form-control material" id="material" placeholder="Masukkan kode bahan" name="material" required value="<?= $data_form[0]->material_code; ?>">
+                                    <input type="text" class="form-control material" id="material" placeholder="Masukkan kode bahan" name="material" minlength=3 maxlength=10 required value="<?= $data_form[0]->material_code; ?>">
                                     <?= form_error('material', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="fullname">Nama Bahan</label>
-                                    <input type="text" class="form-control fullname" id="fullname" placeholder="Masukkan nama bahan" name="fullname" required value="<?= $data_form[0]->full_name; ?>">
+                                    <input type="text" class="form-control fullname" id="fullname" placeholder="Masukkan nama bahan" name="fullname" maxlength=100 required autofocus value="<?= $data_form[0]->full_name; ?>">
                                     <?= form_error('fullname', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="volumeinput">Volume</label>
                                     <input type="text" class="form-control volumeinput" id="volumeinput" placeholder="Masukkan nama bahan" name="volumeinput" required value="<?= $data_form[0]->volume; ?>">
                                     <?= form_error('volumeinput', '<small class="text-danger pl-3">', '</small>'); ?>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label for="unitbahan">Satuan Bahan</label>
                                     <select class="form-control unitbahan" id="unitbahan" name="unitbahan" value="<?= $data_form[0]->unit; ?>">
                                         <option value="gram">Gram</option>
-                                        <option value="milimeter">Milimeter</option>
+                                        <option value="pcs">Pcs</option>
+                                        <option value="mililiter">Mililiter</option>
                                     </select>
                                     <?= form_error('unitbahan', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="pricebase">Harga</label>
-                                    <input type="text" class="form-control pricebase" id="pricebase" placeholder="Masukkan Harga Bahan" name="pricebase" value="<?= $data_form[0]->price_base; ?>">
+                                    <input type="tel" class="form-control pricebase" id="pricebase" placeholder="Masukkan Harga Bahan" name="pricebase" data-filter="\+?\d{0,6}" value="<?= $data_form[0]->price_base; ?>">
                                     <?= form_error('pricebase', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">

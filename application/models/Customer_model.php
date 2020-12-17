@@ -183,6 +183,22 @@ class Customer_model extends CI_Model
     return FALSE;
   }
 
+  // get all customer
+  // parameter pertama untuk tabel yg akan diquery
+  public function get_all_sort_by_name($select = '*')
+  {
+    // get from table
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where('is_deleted', 0);
+    $this->db->order_by('full_name', 'ASC');
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
   // get 1 customer berdasarkan id
   // parameter pertama untuk id sebagai acuan
   // parameter kedua untuk tabel yg akan diquery

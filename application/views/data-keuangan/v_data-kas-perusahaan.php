@@ -10,14 +10,18 @@
                           <!-- <span class="h3"><?= $title ?></span> -->
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
                           <div>
+                            <?php if (role_access($this->session->role_id, ['0','1','2']) == 1) :?>
                             <a href=<?= current_url() . '/pengeluaran' ?> class="btn btn-default btn-sm ml-auto mr-2">
                               <i class="fa fa-minus mr-2"></i>
                               <span class="h4">Input pengeluaran kas</span>
                             </a>
+                            <?php endif; ?>
+                            <?php if (role_access($this->session->role_id, ['0','1']) == 1) :?>
                             <a href=<?= current_url() . '/pemasukan' ?> class="btn btn-default btn-sm ml-auto">
                               <i class="fa fa-plus mr-2"></i>
                               <span class="h4">Input pemasukan kas</span>
                             </a>
+                            <?php endif; ?>
                           </div>
                         </div>
                       </div>
@@ -77,16 +81,16 @@
                                     <td class="px-3">
                                       <?= $row['title'] ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 <?= ($row['type'] == 'debet') ? 'text-primary' : '' ?>">
                                       Rp. <?= number_format($row['debet'], 0, '', '.') ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 <?= ($row['type'] == 'debet') ? '' : 'text-danger' ?>">
                                       Rp. <?= number_format($row['kredit'], 0, '', '.') ?>
                                     </td>
                                     <td class="px-3">
                                       Rp. <?= number_format($row['final_balance'], 0, '', '.') ?>
                                     </td>
-                                    <td class="px-3">
+                                    <td class="px-3 text-uppercase font-weight-bold <?= ($row['type'] == 'debet') ? 'text-primary' : 'text-danger' ?>">
                                       <?= $row['type'] ?>
                                     </td>
                                     <td class="px-3">

@@ -47,8 +47,8 @@
                                     <?= form_error('fullname', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="quantity">Quantity</label>
-                                    <input type="text" class="form-control quantity" id="quantity" placeholder="Masukkan quantity bahan" name="quantity" required value="<?= $data_form[0]->quantity; ?>">
+                                    <label for="quantity">Jumlah</label>
+                                    <input type="tel" class="form-control quantity" id="quantity" placeholder="Masukkan jumlah bahan baku" name="quantity" data-filter="\+?\d{0,7}" autofocus required value="<?= $data_form[0]->quantity; ?>">
                                     <?= form_error('quantity', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
 

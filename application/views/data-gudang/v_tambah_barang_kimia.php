@@ -37,31 +37,31 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="material">Kode Bahan</label>
-                                    <input type="text" class="form-control material" id="material" placeholder="Masukkan kode bahan" name="material" required>
+                                    <input type="text" class="form-control material" id="material" placeholder="Masukkan kode bahan" name="material" minlength=3 maxlength=10 required autofocus>
                                     <?= form_error('material', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="fullname">Nama Bahan</label>
-                                    <input type="text" class="form-control fullname" id="fullname" placeholder="Masukkan nama bahan" name="fullname" required>
+                                    <input type="text" class="form-control fullname" id="fullname" placeholder="Masukkan nama bahan" name="fullname" maxlength=100 required>
                                     <?= form_error('fullname', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="volumeinput">Volume</label>
                                     <input type="text" class="form-control volumeinput" id="volumeinput" placeholder="Masukkan volume bahan" name="volumeinput" required>
                                     <?= form_error('volumeinput', '<small class="text-danger pl-3">', '</small>'); ?>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label for="unitbahan">Satuan Bahan</label>
                                     <select class="form-control unitbahan" id="unitbahan" name="unitbahan">
                                         <option value="gram">Gram</option>
-                                        <option value="mililiter">Mililiter</option>
                                         <option value="pcs">Pcs</option>
+                                        <option value="mililiter">Mililiter</option>
                                     </select>
                                     <?= form_error('unitbahan', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="pricebase">Harga</label>
-                                    <input type="text" class="form-control pricebase" id="pricebase" placeholder="Masukkan Harga Bahan" name="pricebase">
+                                    <input type="tel" class="form-control pricebase" id="pricebase" placeholder="Masukkan Harga Bahan" name="pricebase" data-filter="\+?\d{0,6}">
                                     <?= form_error('pricebase', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">

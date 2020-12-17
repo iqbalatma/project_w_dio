@@ -23,7 +23,7 @@ class Kasir extends CI_Controller
             'content'           => 'kasir/v_kasir.php',
             'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_customer'     => $this->Customer_model->get_all(),
+            'data_customer'     => $this->Customer_model->get_all_sort_by_name(),
             // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
             'data_product'      => $this->Product_model->get_all2(),
             'datatables'        => 1
@@ -46,6 +46,9 @@ class Kasir extends CI_Controller
         $cekoutData = $this->session->dari_konfirmasi_kasir;
         
         $post                       = $this->input->post();
+        // hapus titik, kemudian hapus koma, kemudian cast/ubah jadi (int)
+        $post['paid_amount']        = (int)str_replace(',', '', str_replace('.', '', $post['paid_amount']));
+        
         $cekoutData['paid_amount']  = $post['paid_amount'];
         $cekoutData['total_harga']  = $post['total_harga'];
 
