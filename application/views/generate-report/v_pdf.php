@@ -118,9 +118,9 @@
       </tr>
 
       <tr class="heading">
-          <td style="font-size:12px;"> No </td>
+          <td style="font-size:12px;text-align:left;"> No </td>
         <?php foreach ($data['columns'] as $row) : ?>
-          <td style="font-size:12px;"> <?= $row ?> </td>
+          <td style="font-size:12px;text-align:left;"> <?= $row ?> </td>
           <!-- <td style="font-size:12px;"> Kode Produk </td>
           <td style="font-size:12px;"> Nama Produk </td>
           <td style="font-size:12px;"> Volume/Unit </td>
@@ -134,9 +134,9 @@
       $no = 1;
       foreach ($data['db_res'] as $row) : ?>
         <tr class="item">
-          <td style="font-size:11px;"> <?= $no++ ?></td>
+          <td style="font-size:11px;text-align:left;"> <?= $no++ ?></td>
           <?php foreach ($row as $r) : ?>
-            <td style="font-size:11px;"> <?= $r ?></td>
+            <td style="font-size:11px;text-align:left;"> <?= $r ?></td>
           <?php endforeach; ?>
         </tr>
       <?php endforeach; ?>

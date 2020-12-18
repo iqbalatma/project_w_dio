@@ -60,9 +60,9 @@ class Pdf extends CI_Controller
 			// 	'mode'					=> 'all',
 			// 	'menu'					=> 'master_bahan_mentah',
 			// 	'model'					=> 'Material_model',
-			// 	'query_select'	=> "product_code, full_name, CONCAT(volume, ' ', unit) AS vol_unit, price_base, selling_price, DATE_FORMAT(created_at, '%H:%i, %d %M %Y') AS date",
+			// 	'query_select'	=> "",
 			// 	'asc_desc'			=> 'ASC',
-			// 	'order_by'			=> 'product_code',
+			// 	'order_by'			=> '',
 			// 	'columns'				=> [],
 			// ],[
 			// 	'no' 						=> 2,
@@ -94,9 +94,9 @@ class Pdf extends CI_Controller
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'pm.id',
 				'columns'				=> ['Kode Mutasi', 'Kode Produk', 'Nama Produk', 'Toko Cabang', 'Kuantitas', 'Tipe', 'Tanggal', 'Oleh Siapa'],
-			],[
+			// ],[
 			// 	'no' 						=> 5,
-			// 	'name'					=> 'All penjualan per toko',
+			// 	'name'					=> 'Data Penjualan per Toko',
 			// 	'mode'					=> 'all',
 			// 	'menu'					=> 'penjualan_per_toko',
 			// 	'model'					=> '',
@@ -104,17 +104,17 @@ class Pdf extends CI_Controller
 			// 	'asc_desc'			=> 'ASC',
 			// 	'order_by'			=> 'product_code',
 			// 	'columns'				=> [],
-			// ],[
-			// 	'no' 						=> 6,
-			// 	'name'					=> 'All hutang piutang',
-			// 	'mode'					=> 'all',
-			// 	'menu'					=> 'hutang_piutang',
-			// 	'model'					=> '',
-			// 	'query_select'	=> "product_code, full_name, CONCAT(volume, ' ', unit) AS vol_unit, price_base, selling_price, DATE_FORMAT(created_at, '%H:%i, %d %M %Y') AS date",
-			// 	'asc_desc'			=> 'ASC',
-			// 	'order_by'			=> 'product_code',
-			// 	'columns'				=> [],
-			// ],[
+			],[
+				'no' 						=> 6,
+				'name'					=> 'Data Master Utang Piutang',
+				'mode'					=> 'all',
+				'menu'					=> 'hutang_piutang',
+				'model'					=> 'Kasir_model',
+				'query_select'	=> "i.invoice_number, c.full_name, c.address, c.phone, DATE_FORMAT(i.paid_at, '%H:%i, %d %M %Y'), DATE_FORMAT(t.due_at, '%H:%i, %d %M %Y'), i.left_to_paid",
+				'asc_desc'			=> 'ASC',
+				'order_by'			=> 'i.id',
+				'columns'				=> ['No. Invoice', 'Nama Pelanggan', 'Alamat Pelanggan', 'No. Handphone', 'Dibayar Pada', 'Tenggat Waktu', 'Sisa Bayar'],
+			],[
 				'no' 						=> 7,
 				'name'					=> 'Data Master Kas Perusahaan',
 				'mode'					=> 'all',
@@ -160,13 +160,6 @@ class Pdf extends CI_Controller
 		// }
 		// $x = recursive_array_search('kl65', $arr);
 
-
-		// // get all the array value with the key params
-		// $arrCol = array_column($arr, 'menu');
-		// // search in the array_columns values, and get that particular array
-		// $foundKey = array_search($get['menu'], $arrCol);
-
-		// pprintd($arr[$foundKey]);
 
 		// cek dulu parameter getnya ada ngga
 		if (isset($get['mode']) && isset($get['menu']))
@@ -229,7 +222,7 @@ class Pdf extends CI_Controller
 		// view dijadiin RAW bukan ditampilin
 		$html = $this->load->view('generate-report/v_pdf', $data_pdf, TRUE);
 
-		if ($data['menu'] == 'kas_perusahaan'){
+		if ( ($data['menu'] == 'kas_perusahaan') OR ($data['menu'] == 'hutang_piutang') ){
 			// instansiasi mpdf dan opsi. [A4-L] adalah kertas A4, orientasi Landscape
 			$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L']);
 		} else {

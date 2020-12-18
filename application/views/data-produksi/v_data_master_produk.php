@@ -9,10 +9,12 @@
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
                           <div class="ml-auto">
+                          <?php if ( role_access($this->session->role_id, ['0', '1', '2']) ) : ?>
                             <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto ">
                               <i class="fa fa-plus mr-2"></i>
                               <span class="h6">Tambah data</span>
                             </a>
+                            <?php endif; ?>
                             <div class="btn-group dropleft" data-toggle="tooltip" title="Opsi">
                               <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>

@@ -42,8 +42,19 @@
 
 
                     <div class="card-header">
-                        <div class="col-md-4 pt-3">
+                        <div class="pt-3">
                             <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_mentah/v_insert'); ?>" type="button">Tambah Data</a>
+
+                            <div class="btn-group dropleft float-right" data-toggle="tooltip" title="Opsi">
+                                <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-pdf mr-2 text-danger"></i>Export to PDF</a>
+                                <!-- <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-excel mr-2 text-success"></i>Generate Excel</a> -->
+                                </div>
+                            </div>
                         </div>
                     </div>
 

@@ -3,10 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2020 at 05:13 PM
+-- Generation Time: Dec 18, 2020 at 12:09 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
+--
+-- Author: @Galaxxdev
+--
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -27,7 +30,10 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `basic_info_meta`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `basic_info_meta`;
 CREATE TABLE `basic_info_meta` (
   `id` int(11) NOT NULL,
   `fullname` varchar(100) NOT NULL,
@@ -43,6 +49,11 @@ CREATE TABLE `basic_info_meta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Truncate table before insert `basic_info_meta`
+--
+
+TRUNCATE TABLE `basic_info_meta`;
+--
 -- Dumping data for table `basic_info_meta`
 --
 
@@ -54,7 +65,10 @@ INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contac
 --
 -- Table structure for table `customer`
 --
+-- Creation: Dec 14, 2020 at 08:21 AM
+--
 
+DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
   `full_name` varchar(128) NOT NULL,
@@ -65,6 +79,11 @@ CREATE TABLE `customer` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncate table before insert `customer`
+--
+
+TRUNCATE TABLE `customer`;
 --
 -- Dumping data for table `customer`
 --
@@ -10091,7 +10110,10 @@ INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `cust_type`, `cre
 --
 -- Table structure for table `custom_price`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `custom_price`;
 CREATE TABLE `custom_price` (
   `id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
@@ -10101,6 +10123,11 @@ CREATE TABLE `custom_price` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `custom_price`
+--
+
+TRUNCATE TABLE `custom_price`;
 --
 -- Dumping data for table `custom_price`
 --
@@ -10140,7 +10167,10 @@ INSERT INTO `custom_price` (`id`, `price`, `customer_id`, `product_code`, `creat
 --
 -- Table structure for table `employee`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `id` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
@@ -10158,11 +10188,16 @@ CREATE TABLE `employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Truncate table before insert `employee`
+--
+
+TRUNCATE TABLE `employee`;
+--
 -- Dumping data for table `employee`
 --
 
 INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `phone`, `address`, `avatar`, `role_id`, `store_id`, `created_at`, `is_deleted`) VALUES
-(0, 'kaisar', 'superadmin@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'Kaisar', 'Sihir', '080000000000', 'Langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
+(0, 'kaisar', 'kaisar@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'Kaisar', 'Sihir', '080000000000', 'Langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
 (1, 'pemilik', 'pemilik@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', '', 'Pemilik', '081111111111', 'Headquarters', 'avatar-1.png', 1, 1, '2020-11-10 22:48:27', 0),
 (2, 'gudang1', 'gudang1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 1', '082222222222', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
 (3, 'gudang2', 'gudang2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 2', '083333333333', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
@@ -10177,7 +10212,10 @@ INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `la
 --
 -- Table structure for table `invoice`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `invoice`;
 CREATE TABLE `invoice` (
   `id` int(11) NOT NULL,
   `invoice_number` varchar(100) NOT NULL,
@@ -10190,6 +10228,11 @@ CREATE TABLE `invoice` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `invoice`
+--
+
+TRUNCATE TABLE `invoice`;
 --
 -- Dumping data for table `invoice`
 --
@@ -10221,7 +10264,10 @@ INSERT INTO `invoice` (`id`, `invoice_number`, `paid_amount`, `left_to_paid`, `p
 --
 -- Table structure for table `invoice_item`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `invoice_item`;
 CREATE TABLE `invoice_item` (
   `id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -10230,6 +10276,11 @@ CREATE TABLE `invoice_item` (
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `invoice_item`
+--
+
+TRUNCATE TABLE `invoice_item`;
 --
 -- Dumping data for table `invoice_item`
 --
@@ -10267,7 +10318,10 @@ INSERT INTO `invoice_item` (`id`, `quantity`, `item_price`, `invoice_id`, `produ
 --
 -- Table structure for table `kas`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `kas`;
 CREATE TABLE `kas` (
   `id` int(11) NOT NULL,
   `kas_code` varchar(100) NOT NULL,
@@ -10283,39 +10337,47 @@ CREATE TABLE `kas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Truncate table before insert `kas`
+--
+
+TRUNCATE TABLE `kas`;
+--
 -- Dumping data for table `kas`
 --
 
 INSERT INTO `kas` (`id`, `kas_code`, `title`, `description`, `date`, `debet`, `kredit`, `final_balance`, `type`, `created_at`, `created_by`) VALUES
-(1, 'D/20/12/000001', 'Uang kas awal', NULL, '2020-12-12', 200000, 0, 200000, 'debet', '2020-12-11 20:15:12', 'superadmin'),
-(7, 'D/20/12/000002', 'Checkout: INV 1/AR/12/2020', 'Total harga:529500 ; Total bayar:529500 ; Sisa harus dibayar:0 ; Oleh:superadmin', '2020-12-13', 529500, 0, 729500, 'debet', '2020-12-13 01:46:42', 'superadmin'),
-(8, 'D/20/12/000003', 'Checkout: INV 2/KS/12/2020', 'Total harga:242000 ; Total bayar:200000 ; Sisa harus dibayar:42000 ; Oleh:superadmin', '2020-12-13', 200000, 0, 929500, 'debet', '2020-12-13 01:48:22', 'superadmin'),
-(9, 'D/20/12/000004', 'Checkout: INV 3/KS/12/2020', 'Total harga:299000 ; Total bayar:299000 ; Sisa harus dibayar:0 ; Oleh:superadmin', '2020-12-13', 299000, 0, 1228500, 'debet', '2020-12-13 01:50:48', 'superadmin'),
-(10, 'D/20/12/000005', 'Checkout: INV 4/KS/12/2020', 'Total harga:162000 ; Total bayar:100000 ; Sisa harus dibayar:62000 ; Oleh:superadmin', '2020-12-13', 100000, 0, 1328500, 'debet', '2020-12-13 01:53:28', 'superadmin'),
+(1, 'D/20/12/000001', 'Uang kas awal', NULL, '2020-12-12', 200000, 0, 200000, 'debet', '2020-12-11 20:15:12', 'kaisar'),
+(7, 'D/20/12/000002', 'Checkout: INV 1/AR/12/2020', 'Total harga:529500 ; Total bayar:529500 ; Sisa harus dibayar:0 ; Oleh:kaisar', '2020-12-13', 529500, 0, 729500, 'debet', '2020-12-13 01:46:42', 'kaisar'),
+(8, 'D/20/12/000003', 'Checkout: INV 2/KS/12/2020', 'Total harga:242000 ; Total bayar:200000 ; Sisa harus dibayar:42000 ; Oleh:kaisar', '2020-12-13', 200000, 0, 929500, 'debet', '2020-12-13 01:48:22', 'kaisar'),
+(9, 'D/20/12/000004', 'Checkout: INV 3/KS/12/2020', 'Total harga:299000 ; Total bayar:299000 ; Sisa harus dibayar:0 ; Oleh:kaisar', '2020-12-13', 299000, 0, 1228500, 'debet', '2020-12-13 01:50:48', 'kaisar'),
+(10, 'D/20/12/000005', 'Checkout: INV 4/KS/12/2020', 'Total harga:162000 ; Total bayar:100000 ; Sisa harus dibayar:62000 ; Oleh:kaisar', '2020-12-13', 100000, 0, 1328500, 'debet', '2020-12-13 01:53:28', 'kaisar'),
 (11, 'D/20/12/000006', 'Checkout: INV 5/KS/12/2020', 'Total harga:356000 ; Total bayar:356000 ; Sisa harus dibayar:0 ; Oleh:kasir_cica', '2020-12-14', 356000, 0, 1684500, 'debet', '2020-12-14 03:13:31', 'kasir_cica'),
 (12, 'D/20/12/000007', 'Checkout: INV 6/KS/12/2020', 'Total harga:126000 ; Total bayar:126000 ; Sisa harus dibayar:0 ; Oleh:kasir_cica', '2020-12-14', 126000, 0, 1810500, 'debet', '2020-12-14 03:29:26', 'kasir_cica'),
 (13, 'D/20/12/000008', 'Checkout: INV 7/KS/12/2020', 'Total harga:120500 ; Total bayar:120500 ; Sisa harus dibayar:0 ; Oleh:kasir_cica', '2020-12-15', 120500, 0, 1931000, 'debet', '2020-12-15 03:38:10', 'kasir_cica'),
-(14, 'D/20/12/000009', 'Checkout: INV 8/KS/12/2020', 'Total harga:2210000 ; Total bayar:2000000 ; Sisa harus dibayar:210000 ; Oleh:superadmin', '2020-12-15', 2000000, 0, 3931000, 'debet', '2020-12-15 08:24:23', 'superadmin'),
+(14, 'D/20/12/000009', 'Checkout: INV 8/KS/12/2020', 'Total harga:2210000 ; Total bayar:2000000 ; Sisa harus dibayar:210000 ; Oleh:kaisar', '2020-12-15', 2000000, 0, 3931000, 'debet', '2020-12-15 08:24:23', 'kaisar'),
 (15, 'K/20/12/000010', 'Bayar cicilan mobil', NULL, '2020-12-16', 0, 2500000, 1431000, 'kredit', '2020-12-16 02:34:46', 'kaisar'),
 (16, 'K/20/12/000011', 'Sedekah', NULL, '2020-12-16', 0, 650000, 781000, 'kredit', '2020-12-16 02:34:57', 'kaisar'),
 (17, 'D/20/12/000012', 'Checkout: INV 9/KS/12/2020', 'Total harga:162000 ; Total bayar:150.000 ; Sisa harus dibayar:161850 ; Oleh:gudang', '2020-12-17', 150, 0, 781150, 'debet', '2020-12-16 17:05:39', 'gudang'),
 (18, 'D/20/12/000013', 'Checkout: INV 10/KS/12/2020', 'Total harga:108000 ; Total bayar:100.000 ; Sisa harus dibayar:107900 ; Oleh:gudang', '2020-12-17', 100, 0, 781250, 'debet', '2020-12-16 17:19:54', 'gudang'),
 (19, 'D/20/12/000014', 'Checkout: INV 11/KS/12/2020', 'Total harga:97000 ; Total bayar:12.570 ; Sisa harus dibayar:96987.43 ; Oleh:gudang', '2020-12-17', 13, 0, 781262, 'debet', '2020-12-16 17:21:22', 'gudang'),
 (20, 'D/20/12/000015', 'Checkout: INV 12/KS/12/2020', 'Total harga:2738000 ; Total bayar:2349500 ; Sisa harus dibayar:388500 ; Oleh:gudang', '2020-12-17', 2349500, 0, 3130762, 'debet', '2020-12-16 17:29:50', 'gudang'),
-(21, 'D/20/12/000016', 'Checkout: INV 13/KS/12/2020', 'Total harga:13000 ; Total bayar:13000 ; Sisa harus dibayar:0 ; Oleh:superadmin', '2020-12-17', 13000, 0, 3143762, 'debet', '2020-12-16 18:55:58', 'superadmin'),
+(21, 'D/20/12/000016', 'Checkout: INV 13/KS/12/2020', 'Total harga:13000 ; Total bayar:13000 ; Sisa harus dibayar:0 ; Oleh:kaisar', '2020-12-17', 13000, 0, 3143762, 'debet', '2020-12-16 18:55:58', 'kaisar'),
 (22, 'K/20/12/000017', 'qwerty', NULL, '2020-12-11', 0, 15000, 3128762, 'kredit', '2020-12-16 23:37:08', 'pemilik'),
 (23, 'D/20/12/000018', 'Checkout: INV 14/AR/12/2020', 'Total harga:45000 ; Total bayar:32500 ; Sisa harus dibayar:12500 ; Oleh:kasir_cica', '2020-12-17', 32500, 0, 3161262, 'debet', '2020-12-17 02:07:58', 'kasir_cica'),
 (24, 'K/20/12/000019', 'uang tes', NULL, '2020-12-17', 0, 1257500, 1903762, 'kredit', '2020-12-17 03:45:35', 'admins'),
 (25, 'D/20/12/000020', 'Tester', NULL, '2020-12-17', 127500, 0, 2031262, 'debet', '2020-12-17 03:46:26', 'admins'),
-(26, 'K/20/12/000021', 'Investor 1', NULL, '2020-12-17', 0, 526750, 1504512, 'kredit', '2020-12-17 15:45:55', 'superadmin'),
-(27, 'D/20/12/000022', 'Sedekah', NULL, '2020-12-17', 526750, 0, 2031262, 'debet', '2020-12-17 15:46:24', 'superadmin');
+(26, 'K/20/12/000021', 'Investor 1', NULL, '2020-12-17', 0, 526750, 1504512, 'kredit', '2020-12-17 15:45:55', 'kaisar'),
+(27, 'D/20/12/000022', 'Sedekah', NULL, '2020-12-17', 526750, 0, 2031262, 'debet', '2020-12-17 15:46:24', 'kaisar');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `material`
 --
+-- Creation: Dec 13, 2020 at 08:11 PM
+--
 
+DROP TABLE IF EXISTS `material`;
 CREATE TABLE `material` (
   `id` int(11) NOT NULL,
   `material_code` varchar(100) NOT NULL,
@@ -10329,6 +10391,11 @@ CREATE TABLE `material` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `material`
+--
+
+TRUNCATE TABLE `material`;
 --
 -- Dumping data for table `material`
 --
@@ -10351,6 +10418,7 @@ INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `c
 (17, 'cup_gelas', 'Cup plastik', 'pcs', 1, 'bahan', 'default.png', 3000, '2020-12-15 21:46:43', 0),
 (9, 'KMS001', 'Kemasan 500 ml', 'pcs', 1, 'kemasan', 'avatar-4.png', 12500, '2020-12-01 16:43:11', 0),
 (10, 'KMS002', 'Kemasan 1 Liter', 'pcs', 1, 'kemasan', 'jerigen_1l.png', 17500, '2020-12-09 21:05:14', 0),
+(20, 'LPTP001', 'laptop 1', 'gram', 1, 'bahan', 'default.png', 40000, '2020-12-17 23:22:18', 0),
 (16, 'sedotan', 'Sedotan plastik', 'pcs', 1, 'bahan', 'default.png', 100, '2020-12-15 21:43:59', 0),
 (19, 'SPD001', 'Sepeda 1', 'gram', 1, 'bahan', 'default.png', 1400, '2020-12-17 22:14:23', 0);
 
@@ -10359,7 +10427,10 @@ INSERT INTO `material` (`id`, `material_code`, `full_name`, `unit`, `volume`, `c
 --
 -- Table structure for table `material_inventory`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `material_inventory`;
 CREATE TABLE `material_inventory` (
   `id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
@@ -10373,32 +10444,41 @@ CREATE TABLE `material_inventory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Truncate table before insert `material_inventory`
+--
+
+TRUNCATE TABLE `material_inventory`;
+--
 -- Dumping data for table `material_inventory`
 --
 
 INSERT INTO `material_inventory` (`id`, `material_id`, `store_id`, `quantity`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`) VALUES
-(1, 10, 1, 944, '2020-12-14 03:13:44', '2020-12-17 01:55:57', 'superadmin', 'superadmin', 0),
-(2, 11, 1, -20, '2020-12-14 03:13:50', '2020-12-17 00:29:49', 'superadmin', 'gudang', 0),
-(3, 12, 1, 970, '2020-12-14 03:13:55', '2020-12-17 00:29:49', 'superadmin', 'gudang', 0),
-(4, 9, 1, 8, '2020-12-14 03:14:04', '2020-12-17 00:29:49', 'superadmin', 'gudang', 0),
-(5, 7, 1, 59, '2020-12-14 03:14:09', '2020-12-17 00:29:49', 'superadmin', 'gudang', 0),
-(6, 2, 1, 200, '2020-12-14 06:47:38', '2020-12-14 06:47:38', 'superadmin', 'superadmin', 0),
-(7, 3, 1, 276, '2020-12-14 06:47:44', '2020-12-17 00:21:22', 'superadmin', 'gudang', 0),
-(8, 4, 1, 200, '2020-12-14 06:47:49', '2020-12-14 06:47:49', 'superadmin', 'superadmin', 0),
-(9, 5, 1, 200, '2020-12-14 06:47:54', '2020-12-14 06:47:54', 'superadmin', 'superadmin', 0),
-(10, 6, 1, 200, '2020-12-14 06:47:58', '2020-12-14 06:47:58', 'superadmin', 'superadmin', 0),
-(11, 8, 1, 16, '2020-12-14 06:48:06', '2020-12-17 00:29:49', 'superadmin', 'gudang', 0),
-(12, 15, 1, 230, '2020-12-14 06:48:33', '2020-12-14 06:48:33', 'superadmin', 'superadmin', 0),
-(13, 1, 1, 654, '2020-12-14 09:55:12', '2020-12-14 09:55:12', 'superadmin', 'superadmin', 0),
-(14, 18, 1, 3, '2020-12-17 20:10:40', '2020-12-17 20:10:46', 'superadmin', 'superadmin', 0),
-(15, 19, 1, 120, '2020-12-17 22:17:45', '2020-12-17 22:17:45', 'superadmin', 'superadmin', 0);
+(1, 10, 1, 944, '2020-12-14 03:13:44', '2020-12-17 01:55:57', 'kaisar', 'kaisar', 0),
+(2, 11, 1, -20, '2020-12-14 03:13:50', '2020-12-17 00:29:49', 'kaisar', 'gudang', 0),
+(3, 12, 1, 970, '2020-12-14 03:13:55', '2020-12-17 00:29:49', 'kaisar', 'gudang', 0),
+(4, 9, 1, 8, '2020-12-14 03:14:04', '2020-12-17 00:29:49', 'kaisar', 'gudang', 0),
+(5, 7, 1, 59, '2020-12-14 03:14:09', '2020-12-17 00:29:49', 'kaisar', 'gudang', 0),
+(6, 2, 1, 200, '2020-12-14 06:47:38', '2020-12-14 06:47:38', 'kaisar', 'kaisar', 0),
+(7, 3, 1, 276, '2020-12-14 06:47:44', '2020-12-17 00:21:22', 'kaisar', 'gudang', 0),
+(8, 4, 1, 200, '2020-12-14 06:47:49', '2020-12-14 06:47:49', 'kaisar', 'kaisar', 0),
+(9, 5, 1, 200, '2020-12-14 06:47:54', '2020-12-14 06:47:54', 'kaisar', 'kaisar', 0),
+(10, 6, 1, 200, '2020-12-14 06:47:58', '2020-12-14 06:47:58', 'kaisar', 'kaisar', 0),
+(11, 8, 1, 16, '2020-12-14 06:48:06', '2020-12-17 00:29:49', 'kaisar', 'gudang', 0),
+(12, 15, 1, 230, '2020-12-14 06:48:33', '2020-12-14 06:48:33', 'kaisar', 'kaisar', 0),
+(13, 1, 1, 654, '2020-12-14 09:55:12', '2020-12-14 09:55:12', 'kaisar', 'kaisar', 0),
+(14, 18, 1, 3, '2020-12-17 20:10:40', '2020-12-17 20:10:46', 'kaisar', 'kaisar', 0),
+(15, 19, 1, 120, '2020-12-17 22:17:45', '2020-12-17 22:17:45', 'kaisar', 'kaisar', 0),
+(16, 20, 1, 80, '2020-12-17 23:22:45', '2020-12-17 23:23:20', 'kaisar', 'kaisar', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `material_mutation`
 --
+-- Creation: Dec 14, 2020 at 01:41 AM
+--
 
+DROP TABLE IF EXISTS `material_mutation`;
 CREATE TABLE `material_mutation` (
   `id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
@@ -10412,32 +10492,37 @@ CREATE TABLE `material_mutation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Truncate table before insert `material_mutation`
+--
+
+TRUNCATE TABLE `material_mutation`;
+--
 -- Dumping data for table `material_mutation`
 --
 
 INSERT INTO `material_mutation` (`id`, `material_id`, `store_id`, `mutation_code`, `quantity`, `mutation_type`, `created_at`, `created_by`, `is_deleted`) VALUES
-(30, 10, 1, '000001/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(31, 3, 1, '000002/MAT/KEL/14/12/2020', 86, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(32, 9, 1, '000003/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(33, 12, 1, '000004/MAT/KEL/14/12/2020', 200, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(34, 7, 1, '000005/MAT/KEL/14/12/2020', 140, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(35, 9, 1, '000006/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(36, 11, 1, '000007/MAT/KEL/14/12/2020', 200, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(37, 12, 1, '000008/MAT/KEL/14/12/2020', 240, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(38, 10, 1, '000009/MAT/KEL/14/12/2020', 3, 'keluar', '2020-12-14 08:48:22', 'superadmin', 0),
-(39, 9, 1, '000010/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:48:22', 'superadmin', 0),
-(40, 10, 1, '000011/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(41, 3, 1, '000012/MAT/KEL/14/12/2020', 86, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(42, 9, 1, '000013/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(43, 12, 1, '000014/MAT/KEL/14/12/2020', 50, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(44, 7, 1, '000015/MAT/KEL/14/12/2020', 35, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(45, 9, 1, '000016/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(46, 11, 1, '000017/MAT/KEL/14/12/2020', 50, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(47, 12, 1, '000018/MAT/KEL/14/12/2020', 60, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(48, 10, 1, '000019/MAT/KEL/14/12/2020', 5, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(49, 10, 1, '000020/MAT/KEL/14/12/2020', 6, 'keluar', '2020-12-14 08:53:28', 'superadmin', 0),
-(50, 12, 1, '000021/MAT/MSK/14/12/2020', 1500, 'masuk', '2020-12-14 09:53:25', 'superadmin', 0),
-(51, 1, 1, '000022/MAT/MSK/14/12/2020', 6, 'masuk', '2020-12-14 09:55:13', 'superadmin', 0),
+(30, 10, 1, '000001/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(31, 3, 1, '000002/MAT/KEL/14/12/2020', 86, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(32, 9, 1, '000003/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(33, 12, 1, '000004/MAT/KEL/14/12/2020', 200, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(34, 7, 1, '000005/MAT/KEL/14/12/2020', 140, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(35, 9, 1, '000006/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(36, 11, 1, '000007/MAT/KEL/14/12/2020', 200, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(37, 12, 1, '000008/MAT/KEL/14/12/2020', 240, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(38, 10, 1, '000009/MAT/KEL/14/12/2020', 3, 'keluar', '2020-12-14 08:48:22', 'kaisar', 0),
+(39, 9, 1, '000010/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:48:22', 'kaisar', 0),
+(40, 10, 1, '000011/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(41, 3, 1, '000012/MAT/KEL/14/12/2020', 86, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(42, 9, 1, '000013/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(43, 12, 1, '000014/MAT/KEL/14/12/2020', 50, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(44, 7, 1, '000015/MAT/KEL/14/12/2020', 35, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(45, 9, 1, '000016/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(46, 11, 1, '000017/MAT/KEL/14/12/2020', 50, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(47, 12, 1, '000018/MAT/KEL/14/12/2020', 60, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(48, 10, 1, '000019/MAT/KEL/14/12/2020', 5, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(49, 10, 1, '000020/MAT/KEL/14/12/2020', 6, 'keluar', '2020-12-14 08:53:28', 'kaisar', 0),
+(50, 12, 1, '000021/MAT/MSK/14/12/2020', 1500, 'masuk', '2020-12-14 09:53:25', 'kaisar', 0),
+(51, 1, 1, '000022/MAT/MSK/14/12/2020', 6, 'masuk', '2020-12-14 09:55:13', 'kaisar', 0),
 (54, 10, 2, '000023/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 10:13:31', 'kasir_cica', 0),
 (55, 9, 2, '000024/MAT/KEL/14/12/2020', 4, 'keluar', '2020-12-14 10:13:31', 'kasir_cica', 0),
 (56, 3, 1, '000025/MAT/MSK/14/12/2020', 210, 'masuk', '2020-12-14 10:14:39', 'kasir_cica', 0),
@@ -10445,11 +10530,11 @@ INSERT INTO `material_mutation` (`id`, `material_id`, `store_id`, `mutation_code
 (58, 10, 2, '000027/MAT/KEL/14/12/2020', 3, 'keluar', '2020-12-14 10:38:10', 'kasir_cica', 0),
 (59, 10, 2, '000028/MAT/KEL/14/12/2020', 1, 'keluar', '2020-12-14 10:38:10', 'kasir_cica', 0),
 (60, 3, 2, '000029/MAT/KEL/14/12/2020', 86, 'keluar', '2020-12-14 10:38:10', 'kasir_cica', 0),
-(61, 9, 1, '000030/MAT/KEL/14/12/2020', 13, 'keluar', '2020-12-14 15:24:22', 'superadmin', 0),
-(62, 12, 1, '000031/MAT/KEL/14/12/2020', 60, 'keluar', '2020-12-14 15:24:22', 'superadmin', 0),
-(63, 11, 1, '000032/MAT/KEL/14/12/2020', 60, 'keluar', '2020-12-14 15:24:22', 'superadmin', 0),
-(64, 7, 1, '000033/MAT/KEL/14/12/2020', 108, 'keluar', '2020-12-14 15:24:22', 'superadmin', 0),
-(65, 8, 1, '000034/MAT/KEL/14/12/2020', 92, 'keluar', '2020-12-14 15:24:22', 'superadmin', 0),
+(61, 9, 1, '000030/MAT/KEL/14/12/2020', 13, 'keluar', '2020-12-14 15:24:22', 'kaisar', 0),
+(62, 12, 1, '000031/MAT/KEL/14/12/2020', 60, 'keluar', '2020-12-14 15:24:22', 'kaisar', 0),
+(63, 11, 1, '000032/MAT/KEL/14/12/2020', 60, 'keluar', '2020-12-14 15:24:22', 'kaisar', 0),
+(64, 7, 1, '000033/MAT/KEL/14/12/2020', 108, 'keluar', '2020-12-14 15:24:22', 'kaisar', 0),
+(65, 8, 1, '000034/MAT/KEL/14/12/2020', 92, 'keluar', '2020-12-14 15:24:22', 'kaisar', 0),
 (66, 10, 1, '000035/MAT/KEL/17/12/2020', 6, 'keluar', '2020-12-17 00:05:37', 'gudang', 0),
 (67, 10, 1, '000036/MAT/KEL/17/12/2020', 4, 'keluar', '2020-12-17 00:19:54', 'gudang', 0),
 (68, 10, 1, '000037/MAT/KEL/17/12/2020', 2, 'keluar', '2020-12-17 00:21:22', 'gudang', 0),
@@ -10462,18 +10547,36 @@ INSERT INTO `material_mutation` (`id`, `material_id`, `store_id`, `mutation_code
 (75, 11, 1, '000044/MAT/KEL/17/12/2020', 60, 'keluar', '2020-12-17 00:29:49', 'gudang', 0),
 (76, 7, 1, '000045/MAT/KEL/17/12/2020', 108, 'keluar', '2020-12-17 00:29:49', 'gudang', 0),
 (77, 8, 1, '000046/MAT/KEL/17/12/2020', 92, 'keluar', '2020-12-17 00:29:49', 'gudang', 0),
-(78, 10, 1, '000047/MAT/KEL/17/12/2020', 13, 'keluar', '2020-12-17 01:55:57', 'superadmin', 0),
+(78, 10, 1, '000047/MAT/KEL/17/12/2020', 13, 'keluar', '2020-12-17 01:55:57', 'kaisar', 0),
 (79, 10, 2, '000048/MAT/KEL/17/12/2020', 3, 'keluar', '2020-12-17 09:07:58', 'kasir_cica', 0),
-(80, 18, 1, '000049/MAT/MSK/17/12/2020', 120, 'masuk', '2020-12-17 20:10:40', 'superadmin', 0),
-(81, 18, 1, '000050/MAT/MSK/17/12/2020', 254, 'masuk', '2020-12-17 20:10:46', 'superadmin', 0),
-(82, 19, 1, '000051/MAT/MSK/17/12/2020', 12, 'masuk', '2020-12-17 22:17:45', 'superadmin', 0),
+(80, 18, 1, '000049/MAT/MSK/17/12/2020', 120, 'masuk', '2020-12-17 20:10:40', 'kaisar', 0),
+(81, 18, 1, '000050/MAT/MSK/17/12/2020', 254, 'masuk', '2020-12-17 20:10:46', 'kaisar', 0),
+(82, 19, 1, '000051/MAT/MSK/17/12/2020', 12, 'masuk', '2020-12-17 22:17:45', 'kaisar', 0),
+(83, 20, 1, '000052/MAT/MSK/17/12/2020', 125, 'masuk', '2020-12-17 23:22:45', 'kaisar', 0),
+(84, 20, 1, '000053/MAT/MSK/17/12/2020', 30, 'masuk', '2020-12-17 23:23:21', 'kaisar', 0),
+(3, 12, 1, 'MUTATION-MATERIAL-2020-12-13248', 500, 'masuk', '2020-12-14 03:13:55', 'kaisar', 0),
+(1, 10, 1, 'MUTATION-MATERIAL-2020-12-13355', 1000, 'masuk', '2020-12-14 03:13:44', 'kaisar', 0),
+(5, 7, 1, 'MUTATION-MATERIAL-2020-12-13358', 250, 'masuk', '2020-12-14 03:14:09', 'kaisar', 0),
+(4, 9, 1, 'MUTATION-MATERIAL-2020-12-13937', 50, 'masuk', '2020-12-14 03:14:04', 'kaisar', 0),
+(2, 11, 1, 'MUTATION-MATERIAL-2020-12-13948', 500, 'masuk', '2020-12-14 03:13:50', 'kaisar', 0),
+(9, 5, 1, 'MUTATION-MATERIAL-2020-12-1434', 200, 'masuk', '2020-12-14 06:47:54', 'kaisar', 0),
+(13, 15, 1, 'MUTATION-MATERIAL-2020-12-14361', 230, 'masuk', '2020-12-14 06:48:33', 'kaisar', 0),
+(7, 3, 1, 'MUTATION-MATERIAL-2020-12-14406', 200, 'masuk', '2020-12-14 06:47:44', 'kaisar', 0),
+(8, 4, 1, 'MUTATION-MATERIAL-2020-12-14408', 200, 'masuk', '2020-12-14 06:47:49', 'kaisar', 0),
+(6, 2, 1, 'MUTATION-MATERIAL-2020-12-14687', 200, 'masuk', '2020-12-14 06:47:39', 'kaisar', 0),
+(12, 8, 1, 'MUTATION-MATERIAL-2020-12-14693', 200, 'masuk', '2020-12-14 06:48:06', 'kaisar', 0),
+(10, 6, 1, 'MUTATION-MATERIAL-2020-12-14732', 200, 'masuk', '2020-12-14 06:47:58', 'kaisar', 0),
+(11, 7, 1, 'MUTATION-MATERIAL-2020-12-14864', 200, 'masuk', '2020-12-14 06:48:02', 'kaisar', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `product`
 --
+-- Creation: Dec 17, 2020 at 03:31 PM
+--
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `product_code` varchar(100) NOT NULL,
@@ -10487,6 +10590,11 @@ CREATE TABLE `product` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `product`
+--
+
+TRUNCATE TABLE `product`;
 --
 -- Dumping data for table `product`
 --
@@ -10516,7 +10624,10 @@ INSERT INTO `product` (`id`, `product_code`, `full_name`, `unit`, `volume`, `ima
 --
 -- Table structure for table `product_composition`
 --
+-- Creation: Dec 15, 2020 at 03:06 PM
+--
 
+DROP TABLE IF EXISTS `product_composition`;
 CREATE TABLE `product_composition` (
   `id` int(11) NOT NULL,
   `volume` int(11) NOT NULL COMMENT 'Jumlah dalam ml / gr',
@@ -10527,6 +10638,11 @@ CREATE TABLE `product_composition` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `product_composition`
+--
+
+TRUNCATE TABLE `product_composition`;
 --
 -- Dumping data for table `product_composition`
 --
@@ -10585,7 +10701,10 @@ INSERT INTO `product_composition` (`id`, `volume`, `product_id`, `material_id`, 
 --
 -- Table structure for table `product_mutation`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `product_mutation`;
 CREATE TABLE `product_mutation` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -10599,27 +10718,32 @@ CREATE TABLE `product_mutation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Truncate table before insert `product_mutation`
+--
+
+TRUNCATE TABLE `product_mutation`;
+--
 -- Dumping data for table `product_mutation`
 --
 
 INSERT INTO `product_mutation` (`id`, `product_id`, `store_id`, `mutation_code`, `quantity`, `mutation_type`, `created_at`, `created_by`, `is_deleted`) VALUES
-(14, 9, 1, '000001/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(15, 10, 1, '000002/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(16, 12, 1, '000003/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'superadmin', 0),
-(17, 1, 1, '000004/PRO/KEL/14/12/2020', 3, 'keluar', '2020-12-14 08:48:22', 'superadmin', 0),
-(18, 5, 1, '000005/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:48:22', 'superadmin', 0),
-(19, 9, 1, '000006/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(20, 10, 1, '000007/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(21, 12, 1, '000008/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(22, 13, 1, '000009/PRO/KEL/14/12/2020', 5, 'keluar', '2020-12-14 08:50:48', 'superadmin', 0),
-(23, 1, 1, '000010/PRO/KEL/14/12/2020', 6, 'keluar', '2020-12-14 08:53:28', 'superadmin', 0),
+(14, 9, 1, '000001/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(15, 10, 1, '000002/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(16, 12, 1, '000003/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:46:42', 'kaisar', 0),
+(17, 1, 1, '000004/PRO/KEL/14/12/2020', 3, 'keluar', '2020-12-14 08:48:22', 'kaisar', 0),
+(18, 5, 1, '000005/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 08:48:22', 'kaisar', 0),
+(19, 9, 1, '000006/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(20, 10, 1, '000007/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(21, 12, 1, '000008/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(22, 13, 1, '000009/PRO/KEL/14/12/2020', 5, 'keluar', '2020-12-14 08:50:48', 'kaisar', 0),
+(23, 1, 1, '000010/PRO/KEL/14/12/2020', 6, 'keluar', '2020-12-14 08:53:28', 'kaisar', 0),
 (26, 1, 2, '000011/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 10:13:31', 'kasir_cica', 0),
 (27, 5, 2, '000012/PRO/KEL/14/12/2020', 4, 'keluar', '2020-12-14 10:13:31', 'kasir_cica', 0),
 (28, 6, 2, '000013/PRO/KEL/14/12/2020', 3, 'keluar', '2020-12-14 10:29:26', 'kasir_cica', 0),
 (29, 1, 2, '000014/PRO/KEL/14/12/2020', 3, 'keluar', '2020-12-14 10:38:10', 'kasir_cica', 0),
 (30, 9, 2, '000015/PRO/KEL/14/12/2020', 1, 'keluar', '2020-12-14 10:38:10', 'kasir_cica', 0),
-(31, 5, 1, '000016/PRO/KEL/14/12/2020', 13, 'keluar', '2020-12-14 15:24:22', 'superadmin', 0),
-(32, 7, 1, '000017/PRO/KEL/14/12/2020', 2, 'keluar', '2020-12-14 15:24:22', 'superadmin', 0),
+(31, 5, 1, '000016/PRO/KEL/14/12/2020', 13, 'keluar', '2020-12-14 15:24:22', 'kaisar', 0),
+(32, 7, 1, '000017/PRO/KEL/14/12/2020', 2, 'keluar', '2020-12-14 15:24:22', 'kaisar', 0),
 (33, 1, 1, '000018/PRO/KEL/17/12/2020', 6, 'keluar', '2020-12-17 00:05:37', 'gudang', 0),
 (34, 1, 1, '000019/PRO/KEL/17/12/2020', 4, 'keluar', '2020-12-17 00:19:54', 'gudang', 0),
 (35, 9, 1, '000020/PRO/KEL/17/12/2020', 2, 'keluar', '2020-12-17 00:21:22', 'gudang', 0),
@@ -10627,7 +10751,7 @@ INSERT INTO `product_mutation` (`id`, `product_id`, `store_id`, `mutation_code`,
 (37, 4, 1, '000022/PRO/KEL/17/12/2020', 1, 'keluar', '2020-12-17 00:29:49', 'gudang', 0),
 (38, 5, 1, '000023/PRO/KEL/17/12/2020', 15, 'keluar', '2020-12-17 00:29:49', 'gudang', 0),
 (39, 7, 1, '000024/PRO/KEL/17/12/2020', 2, 'keluar', '2020-12-17 00:29:49', 'gudang', 0),
-(40, 13, 1, '000025/PRO/KEL/17/12/2020', 13, 'keluar', '2020-12-17 01:55:57', 'superadmin', 0),
+(40, 13, 1, '000025/PRO/KEL/17/12/2020', 13, 'keluar', '2020-12-17 01:55:57', 'kaisar', 0),
 (41, 1, 2, '000026/PRO/KEL/17/12/2020', 3, 'keluar', '2020-12-17 09:07:58', 'kasir_cica', 0);
 
 -- --------------------------------------------------------
@@ -10635,7 +10759,10 @@ INSERT INTO `product_mutation` (`id`, `product_id`, `store_id`, `mutation_code`,
 --
 -- Table structure for table `role`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
   `role_name` varchar(100) NOT NULL,
@@ -10644,11 +10771,16 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Truncate table before insert `role`
+--
+
+TRUNCATE TABLE `role`;
+--
 -- Dumping data for table `role`
 --
 
 INSERT INTO `role` (`id`, `role_name`, `created_at`, `is_deleted`) VALUES
-(0, 'superadmin', '2020-11-10 22:46:29', 0),
+(0, 'kaisar', '2020-11-10 22:46:29', 0),
 (1, 'owner', '2020-11-10 22:46:29', 0),
 (2, 'admin', '2020-11-10 22:46:29', 0),
 (3, 'cashier', '2020-11-10 22:46:29', 0);
@@ -10658,7 +10790,10 @@ INSERT INTO `role` (`id`, `role_name`, `created_at`, `is_deleted`) VALUES
 --
 -- Table structure for table `store`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `store`;
 CREATE TABLE `store` (
   `id` int(11) NOT NULL,
   `store_name` varchar(128) NOT NULL,
@@ -10667,6 +10802,11 @@ CREATE TABLE `store` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncate table before insert `store`
+--
+
+TRUNCATE TABLE `store`;
 --
 -- Dumping data for table `store`
 --
@@ -10681,7 +10821,10 @@ INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) 
 --
 -- Table structure for table `transaction`
 --
+-- Creation: Dec 13, 2020 at 06:26 PM
+--
 
+DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `id` int(11) NOT NULL,
   `trans_number` varchar(100) NOT NULL,
@@ -10695,6 +10838,11 @@ CREATE TABLE `transaction` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `transaction`
+--
+
+TRUNCATE TABLE `transaction`;
 --
 -- Dumping data for table `transaction`
 --
@@ -10894,19 +11042,19 @@ ALTER TABLE `kas`
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `material_inventory`
 --
 ALTER TABLE `material_inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `material_mutation`
 --
 ALTER TABLE `material_mutation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `product`
