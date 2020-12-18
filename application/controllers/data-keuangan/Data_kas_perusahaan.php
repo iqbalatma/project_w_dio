@@ -149,9 +149,9 @@ class Data_kas_perusahaan extends CI_Controller
 
   public function regex($data)
   {
-    // cek apakah sesuai dengan format penulisan uang rupiah
-    // dengan pola hanya angka {0,3} dan/ ada titik di depannya
-    // return angka integer tanpa titik
+    // cek apakah sesuai dengan format penulisan uang rupiah,
+    // dengan pola hanya angka {0,3} dan/ ada titik di depannya.
+    // return hasil hapus titik, kemudian hapus koma, kemudian cast/ubah jadi (int)
     if (preg_match("/^\d{1,3}(?:\.\d{3})*?$/", $data)) return (int)str_replace(',', '', str_replace('.', '', $data));
     else return FALSE;
   }

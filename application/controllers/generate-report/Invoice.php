@@ -18,6 +18,7 @@ class Invoice extends CI_Controller
 
 	public function index()
 	{
+		redirect();
 		// set data untuk digunakan pada view
 		$data = [
 			'title'           => 'PDF',
@@ -36,10 +37,10 @@ class Invoice extends CI_Controller
 	// KALO ADA CARA LEBIH EFEKTIF LEBIH BAGUS BERARTI
 	public function generate($id_invoice)
 	{
-		$data_invoice = $this->Kasir_model->generate_invoice($id_invoice);
-		$data_invoice_item = $this->Kasir_model->generate_invoice_item($id_invoice);
+		$data_invoice 			= $this->Kasir_model->generate_invoice($id_invoice);
+		$data_invoice_item 	= $this->Kasir_model->generate_invoice_item($id_invoice);
 
-		$fullpath 	= FCPATH . ("assets/img/logo.png");
+		$fullpath 					= FCPATH . ("assets/img/logo.png");
 		// $fullpath 	= FCPATH.("assets/img/upload/invoice/superadmin_invoicelogo.png");
 		// $type 			= pathinfo($fullpath, PATHINFO_EXTENSION);
 		// $data 			= file_get_contents($fullpath);

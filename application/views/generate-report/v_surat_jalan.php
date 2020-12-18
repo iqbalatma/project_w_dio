@@ -182,9 +182,9 @@
         <td width="40%" style="font-size:12px; text-align:left;">Hormat Kami</td>
       </tr>
       <tr>
-        <td style="f0nt-size:12px; text-align:right;">(...........)</td>
+        <td style="font-size:12px; text-align:right;">(...........)</td>
         <td width="20%"></td>
-        <td style="f0nt-size:12px; text-align:left;">(................)</td>
+        <td style="font-size:12px; text-align:left;">(................)</td>
       </tr>
     </table>
   </div>

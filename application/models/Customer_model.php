@@ -169,13 +169,13 @@ class Customer_model extends CI_Model
 
   // get all customer
   // parameter pertama untuk tabel yg akan diquery
-  public function get_all($select = '*')
+  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id')
   {
     // get from table
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);
-    $this->db->order_by('id', 'DESC');
+    $this->db->order_by($order_by, $asc_desc);
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

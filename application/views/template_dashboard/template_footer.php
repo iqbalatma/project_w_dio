@@ -114,6 +114,7 @@
     <?php } ?>
 
     <?php if (isset($select2)) { ?>
+        <!-- Select2 -->
         <script src="<?= base_url('vendor/select2/select2/dist/js/select2.min.js') ?>"></script>
     <?php } ?>
 
@@ -183,6 +184,11 @@
     // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
     if ($submenuActive == 'kasir') : ?>
         <script>
+            // untuk set select2 libs, jgn lupa lempar parameter {'select2' => 1}  di method
+            $(document).ready(function() {
+                $('.select2').select2();
+            });
+
             // fungsi enable/disabled qty dan harga custom
             // btn diclick
             $('.kasir-product').on('click', function() {
@@ -456,20 +462,30 @@
     if ($submenuActive == 'data-hutang-piutang') : ?>
         <script>
             // Add dot(s) automagically to input text
-            $('#pembayaran').on( "keydown", function( event ) {
+            $('#pembayaran').on( "keyup", function( event ) {
+                let maxLength = 9;
                 var selection = window.getSelection().toString();
+
                 // kalo buat pilihan atau pencet panah, maka keluar
                 if ( selection !== '' ) return;
                 if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
 
+                // ambil value skrg di inputan
                 var $this = $( this );
-                var input = $this.val();
-                var input = input.replace(/[\D\s\._\-]+/g, "");
-                input = input ? parseInt( input, 10 ) : 0;
+                var inputz = $this.val();
+
+                // replace sama kosong kalo selain Digits
+                var inputz = inputz.replace(/[\D\s\._\-]+/g, "");
+
+                // kalo panjangnya lebih dari maxLength, maka ambil sejumlah maxLength
+                if (inputz.length > maxLength) inputz = inputz.substr(0, maxLength);
+
+                // jaddiin integer
+                inputz = inputz ? parseInt( inputz, 10 ) : 0;
                 
                 $this.val( function() {
                     // format ke INDONESIA = id-ID
-                    return ( input === 0 ) ? "" : input.toLocaleString( "id-ID" );
+                    return ( inputz === 0 ) ? "" : inputz.toLocaleString( "id-ID" );
                 });
             });
         </script>

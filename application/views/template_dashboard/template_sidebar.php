@@ -50,6 +50,12 @@ $mainMenu = array(
   //     ],
   //     [
   //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+  //       'name'  => 'PDF - Export report',
+  //       'slug'  => 'pages/generate',
+  //       'url'   => "generate-report/pages/generate",
+  //     ],
+  //     [
+  //       'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
   //       'name'  => 'Semua menu ini cuma buat developing, nanti generate pdf gaakan dari sini tapi ketika udah cekout',
   //       'slug'  => $_dashboard,
   //       'url'   => $_dashboard,

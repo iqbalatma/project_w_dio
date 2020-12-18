@@ -65,8 +65,13 @@
                                 <select class="form-control <?php if (form_error('add-unit') !== '') {echo 'is-invalid';} ?>" name="add-unit">
                                   <option disabled selected>-- pilih unit --</option>
                                     <option value="gram"> Gram </option>
-                                    <option value="pcs"> Pcs </option>
                                     <option value="mililiter"> Mililiter </option>
+                                    <option value="liter"> Liter </option>
+                                    <option value="pcs"> Pcs </option>
+                                    <option value="sachet"> Sachet </option>
+                                    <option value="galon"> Galon </option>
+                                    <option value="drum"> Drum </option>
+                                    <option value="pile"> Pile </option>
                                 </select>
                                 <?= form_error('add-unit') ?>
                               </div>

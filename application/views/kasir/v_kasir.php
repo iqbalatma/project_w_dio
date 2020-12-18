@@ -50,10 +50,8 @@
 
                                 <div class="form-group">
                                     <label for="nama_pelanggan">Nama Pelanggan</label>
-                                    <select class="form-control" id="nama_pelanggan" name="nama_pelanggan" onchange='changeValue(this.value)' required>
+                                    <select class="form-control select2 col-11 col-xl-12" id="nama_pelanggan" name="nama_pelanggan" onchange='changeValue(this.value)' required>
                                         <option value="" selected disabled>-Pilih Pelanggan-</option>
-
-
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
                                         foreach ($data_customer as $row) {
@@ -67,10 +65,6 @@
 
                                     </select>
                                 </div>
-
-
-
-
                                 <!-- <div>
                                     <div class="form-group">
                                         <label for="custom_alamat">Custom Alamat ? </label>
@@ -90,20 +84,16 @@
                                     </div>
                                 </div>
 
-
                                 <div id="form_custom_kasir">
                                     <div class="form-group">
                                         <label for="alamat_pelanggan">Alamat Pelanggan</label>
                                         <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" maxlength=250 readonly>
-                                        </input>
                                     </div>
                                     <div class="form-group">
                                         <label for="phone">Nomor Telepon</label>
                                         <input type="text" class="form-control" id="phone" name="phone" readonly>
-                                        </input>
                                     </div>
                                 </div>
-
 
                                 <script type="text/javascript">
                                     <?php echo $jsArray; ?>
@@ -139,7 +129,6 @@
                                     };
                                 </script>
 
-
                                 <div class="form-group">
 
                                     <label class="form-label">Barang yang dibeli</label>
@@ -156,10 +145,9 @@
                                                 </script>
 
                                                 <?php
-
                                                 $cek_kuantitas_material = $this->Kasir_model->cek_kuantitas_material($row['id']); //mencari data material berdasarkan id_product
-
                                                 $kuantitas_product = array();
+
                                                 $q = 0;
                                                 foreach ($cek_kuantitas_material as $data) {
                                                     $volume = $data['volume'];
@@ -190,7 +178,7 @@
                                                             <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | <?= price_format($row['selling_price']) ?></span>
 
                                                             <div class="d-flex justify-content-center">
-                                                                <select disabled class="col-2 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
+                                                                <select disabled class="col-3 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
                                                                 <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
                                                                     <option value="0" selected>0</option>
                                                                     <?php
@@ -267,12 +255,8 @@
                                         </div>
                                     <?php endif; ?>
 
-
-
                                 </div>
                                 <!-- / form group -->
-
-
 
                             </div>
                         </div>

@@ -50,6 +50,7 @@
                                     <input type="text" class="form-control volumeinput" id="volumeinput" placeholder="Masukkan volume bahan" name="volumeinput" required>
                                     <?= form_error('volumeinput', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div> -->
+                                <input type="hidden" name="volumeinput" value=1>
                                 <div class="form-group">
                                     <label for="unitbahan">Satuan Bahan</label>
                                     <select class="form-control unitbahan" id="unitbahan" name="unitbahan">

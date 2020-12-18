@@ -58,7 +58,7 @@ class Data_barang_mentah extends CI_Controller
 
 
     public function insert()
-    {
+    {        
         $this->form_validation->set_rules(
             'material',
             'Kode Bahan',

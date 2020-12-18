@@ -61,7 +61,7 @@ class Inventory_material_model extends CI_Model
 
     public function getMaterialInventoryById($id)
     {
-        $query = $this->db->query("SELECT material_inventory.material_id, material.material_code, material.full_name, material_inventory.quantity FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id WHERE material_inventory.material_id = '$id'");
+        $query = $this->db->query("SELECT material_inventory.material_id, material.material_code, material.full_name, material_inventory.quantity FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id WHERE material_inventory.id = '$id'");
 
         $row = $query->result();
         return $row;

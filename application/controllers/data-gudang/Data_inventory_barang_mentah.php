@@ -139,17 +139,19 @@ class Data_inventory_barang_mentah extends CI_Controller
     }
     public function v_update($id)
     {
-        $id_material = $id;
+        // $id_material = $id;
+        $id_inventory = $id;
 
         $data = [
             'title'             => 'Data Barang Masuk',
             'content'           => 'data-gudang/v_ubah_inventory.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_form' => $this->Inventory_material_model->getMaterialInventoryById($id_material),
-
+            'data_form' => $this->Inventory_material_model->getMaterialInventoryById($id_inventory),
+            
             'datatables' => 1
         ];
+        
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 

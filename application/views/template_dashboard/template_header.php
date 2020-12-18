@@ -81,10 +81,12 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
     <?php if (isset($datatables)) { ?>
+        <!-- Datatables -->
         <link rel="stylesheet" href="<?= base_url('assets/css/datatables/jquery.dataTables.min.css') ?>">
         <link rel="stylesheet" href="<?= base_url('assets/css/datatables/responsive.dataTables.min.css') ?>">
     <?php } ?>
     <?php if (isset($select2)) { ?>
+        <!-- Select2 -->
         <link rel="stylesheet" href="<?= base_url('vendor/select2/select2/dist/css/select2.min.css') ?>">
     <?php } ?>
     

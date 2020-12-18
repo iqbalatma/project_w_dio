@@ -114,7 +114,7 @@ class Employee_model extends CI_Model
    * to select some field(s) name of your choice.
    * 
    */
-  public function get_all($select = '*')
+  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'e.id')
   {
     // get from table
     $this->db->select($select);
@@ -122,7 +122,7 @@ class Employee_model extends CI_Model
     $this->db->join("{$this->tb_role} AS r", "r.id=e.role_id");
     $this->db->join("{$this->tb_store} AS s", "s.id=e.store_id");
     $this->db->where('e.is_deleted', 0);
-    $this->db->order_by('e.id', 'DESC');
+    $this->db->order_by("{$order_by}", $asc_desc);
     $query = $this->db->get();
     if ( $query->num_rows() > 0) {
       return $query->result_array();
