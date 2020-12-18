@@ -267,6 +267,35 @@ class Kasir_model extends CI_Model
         return $row;
     }
 
+    /**
+     * Get all rows from certain table
+     * 
+     * @param string $select 
+     * Default value is '*', but you can input some string
+     * to select some table(s) name of your choice.
+     * 
+     */
+    public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id')
+    {
+        // local table names variables
+        $tb_invoice     = 'invoice';
+        $tb_transaction = 'transaction';
+        $tb_customer    = 'customer';
+
+        $this->db->select($select);
+        $this->db->from("{$tb_invoice} AS i");
+        $this->db->join("{$tb_transaction} AS t", "i.transaction_id=t.id");
+        $this->db->join("{$tb_customer} AS c", "t.customer_id=c.id");
+        $this->db->where('i.left_to_paid >', 0);
+        $this->db->where("i.status", '0');
+        $this->db->where('i.is_deleted', 0);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
+
     public function edit_invoice($data)
     {
         $id_invoice = $data['id_invoice'];
@@ -300,25 +329,7 @@ class Kasir_model extends CI_Model
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // ====================================================================== TESTING KASIR DIO =============================================================
+    // ====================================================================== SELURUH PROSES CHECKOUT KASIR DIO =============================================================
 
     private function __generate_new_trx_number($timestamp)
     {

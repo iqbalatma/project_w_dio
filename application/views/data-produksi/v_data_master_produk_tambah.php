@@ -64,7 +64,7 @@
                                 </label>
                                 <select class="form-control <?php if (form_error('add-unit') !== '') {echo 'is-invalid';} ?>" name="add-unit">
                                   <option disabled selected>-- pilih unit --</option>
-                                    <option value="gram"> Gram </option>
+                                    <?php // <option value="gram"> Gram </option> ?>
                                     <option value="mililiter"> Mililiter </option>
                                     <option value="liter"> Liter </option>
                                     <option value="pcs"> Pcs </option>
@@ -78,13 +78,13 @@
                               <!-- 4 -->
                               <div class="form-group row">
                                 <label for="add-volume">
-                                  Volume <span class="text-danger">*</span>
+                                  Volume / Berat / Jumlah <span class="text-danger">*</span>
                                 </label>
                                 <input 
                                   type        = "tel"
                                   id          = "add-volume"
                                   name        = "add-volume" 
-                                  placeholder = "Komposisi / berat / ukuran per unit" 
+                                  placeholder = "Volume / berat / jumlah per unit" 
                                   value       = "<?= set_value('add-volume') ?>"
                                   class       = "form-control <?php if (form_error('add-volume') !== '') {echo 'is-invalid';} ?>" 
                                   data-filter = "\+?\d{0,6}"

@@ -3,10 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2020 at 05:13 PM
+-- Generation Time: Dec 18, 2020 at 06:47 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
+--
+-- Author: @Galaxxdev
+--
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -27,7 +30,10 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `basic_info_meta`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `basic_info_meta`;
 CREATE TABLE `basic_info_meta` (
   `id` int(11) NOT NULL,
   `fullname` varchar(100) NOT NULL,
@@ -43,18 +49,18 @@ CREATE TABLE `basic_info_meta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `basic_info_meta`
+-- RELATIONSHIPS FOR TABLE `basic_info_meta`:
 --
-
-INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contact_2`, `email`, `website`, `logo`, `created_at`, `updated_at`, `updated_by`) VALUES
-(1, 'Sabun Aryanz', 'Jabar, Indonesia', '08123981232', '1231231232', 'halo@sabun-aryanz.com', 'http://sabun-aryanz.com', 'logo.png', '2020-11-16 03:02:30', '2020-12-02 02:40:37', 'gudang');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `customer`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
   `full_name` varchar(128) NOT NULL,
@@ -65,12 +71,19 @@ CREATE TABLE `customer` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- RELATIONSHIPS FOR TABLE `customer`:
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `custom_price`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `custom_price`;
 CREATE TABLE `custom_price` (
   `id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
@@ -80,12 +93,23 @@ CREATE TABLE `custom_price` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `custom_price`:
+--   `customer_id`
+--       `customer` -> `id`
+--   `product_code`
+--       `product` -> `product_code`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `employee`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `id` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
@@ -103,26 +127,22 @@ CREATE TABLE `employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `employee`
+-- RELATIONSHIPS FOR TABLE `employee`:
+--   `role_id`
+--       `role` -> `id`
+--   `store_id`
+--       `store` -> `id`
 --
-
-INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `phone`, `address`, `avatar`, `role_id`, `store_id`, `created_at`, `is_deleted`) VALUES
-(0, 'kaisar', 'superadmin@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'Kaisar', 'Sihir', '080000000000', 'Langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
-(1, 'pemilik', 'pemilik@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', '', 'Pemilik', '081111111111', 'Headquarters', 'avatar-1.png', 1, 1, '2020-11-10 22:48:27', 0),
-(2, 'gudang1', 'gudang1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 1', '082222222222', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
-(3, 'gudang2', 'gudang2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 2', '083333333333', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
-(4, 'kasircica1', 'kasir_cica1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Cica 1', NULL, '084444444444', 'Cicalengka', 'avatar-3.png', 3, 2, '2020-11-10 22:54:23', 0),
-(5, 'kasircica2', 'kasir_cica2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Cica 2', NULL, '084444444445', 'Cicalengka', 'avatar-3.png', 3, 2, '2020-11-10 22:54:23', 0),
-(6, 'kasiruber1', 'kasir_uber1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Uber 1', NULL, '085555555555', 'Ujung Beruang', 'avatar-3.png', 3, 3, '2020-11-10 22:54:23', 0),
-(7, 'kasiruber2', 'kasir_uber2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Uber 2', NULL, '085555555556', 'Ujung Beruang', 'avatar-3.png', 3, 3, '2020-11-10 22:54:23', 0),
-(8, 'admins', 'admin1@jp.com', '$2a$08$HVX6fm.h9nJlfgYJxOlHOuKxvNB8ZJhWdB/qmuksTxaIJuT2RyoCG', 'dios', 'Ilham', '081236137132', 'Dipatiukur', 'avatar-1.png', 1, 1, '2020-11-17 03:19:40', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `invoice`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `invoice`;
 CREATE TABLE `invoice` (
   `id` int(11) NOT NULL,
   `invoice_number` varchar(100) NOT NULL,
@@ -135,12 +155,21 @@ CREATE TABLE `invoice` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `invoice`:
+--   `transaction_id`
+--       `transaction` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `invoice_item`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `invoice_item`;
 CREATE TABLE `invoice_item` (
   `id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -149,12 +178,23 @@ CREATE TABLE `invoice_item` (
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `invoice_item`:
+--   `product_id`
+--       `product` -> `id`
+--   `invoice_id`
+--       `invoice` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `kas`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `kas`;
 CREATE TABLE `kas` (
   `id` int(11) NOT NULL,
   `kas_code` varchar(100) NOT NULL,
@@ -169,12 +209,19 @@ CREATE TABLE `kas` (
   `created_by` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `kas`:
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `material`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `material`;
 CREATE TABLE `material` (
   `id` int(11) NOT NULL,
   `material_code` varchar(100) NOT NULL,
@@ -188,17 +235,25 @@ CREATE TABLE `material` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `material`:
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `material_inventory`
 --
+-- Creation: Dec 18, 2020 at 05:38 PM
+--
 
+DROP TABLE IF EXISTS `material_inventory`;
 CREATE TABLE `material_inventory` (
   `id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
   `store_id` int(11) DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT '0',
+  `critical_point` int(11) NOT NULL DEFAULT '10',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   `created_by` varchar(15) DEFAULT NULL,
@@ -206,12 +261,23 @@ CREATE TABLE `material_inventory` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `material_inventory`:
+--   `material_id`
+--       `material` -> `id`
+--   `store_id`
+--       `store` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `material_mutation`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `material_mutation`;
 CREATE TABLE `material_mutation` (
   `id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
@@ -224,12 +290,23 @@ CREATE TABLE `material_mutation` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `material_mutation`:
+--   `material_id`
+--       `material` -> `id`
+--   `store_id`
+--       `store` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `product`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `product_code` varchar(100) NOT NULL,
@@ -243,12 +320,19 @@ CREATE TABLE `product` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `product`:
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `product_composition`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `product_composition`;
 CREATE TABLE `product_composition` (
   `id` int(11) NOT NULL,
   `volume` int(11) NOT NULL COMMENT 'Jumlah dalam ml / gr',
@@ -259,12 +343,23 @@ CREATE TABLE `product_composition` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `product_composition`:
+--   `product_id`
+--       `product` -> `id`
+--   `material_id`
+--       `material` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `product_mutation`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `product_mutation`;
 CREATE TABLE `product_mutation` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -277,12 +372,23 @@ CREATE TABLE `product_mutation` (
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `product_mutation`:
+--   `product_id`
+--       `product` -> `id`
+--   `store_id`
+--       `store` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `role`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
   `role_name` varchar(100) NOT NULL,
@@ -291,21 +397,18 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `role`
+-- RELATIONSHIPS FOR TABLE `role`:
 --
-
-INSERT INTO `role` (`id`, `role_name`, `created_at`, `is_deleted`) VALUES
-(0, 'superadmin', '2020-11-10 22:46:29', 0),
-(1, 'owner', '2020-11-10 22:46:29', 0),
-(2, 'admin', '2020-11-10 22:46:29', 0),
-(3, 'cashier', '2020-11-10 22:46:29', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `store`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `store`;
 CREATE TABLE `store` (
   `id` int(11) NOT NULL,
   `store_name` varchar(128) NOT NULL,
@@ -315,20 +418,18 @@ CREATE TABLE `store` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `store`
+-- RELATIONSHIPS FOR TABLE `store`:
 --
-
-INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) VALUES
-(1, 'Gudang Pusat', 'Jawa Barat, Indonesia', '2020-11-08 13:07:02', 0),
-(2, 'Toko Cabang Cicalengka', 'Cicalengka', '2020-11-08 13:07:02', 0),
-(3, 'Toko Cabang Ujung Berung', 'Ujung Berung', '2020-11-08 13:07:02', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `transaction`
 --
+-- Creation: Dec 18, 2020 at 11:36 AM
+--
 
+DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `id` int(11) NOT NULL,
   `trans_number` varchar(100) NOT NULL,
@@ -341,6 +442,16 @@ CREATE TABLE `transaction` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- RELATIONSHIPS FOR TABLE `transaction`:
+--   `store_id`
+--       `store` -> `id`
+--   `customer_id`
+--       `customer` -> `id`
+--   `employee_id`
+--       `employee` -> `id`
+--
 
 --
 -- Indexes for dumped tables
