@@ -72,31 +72,31 @@
                                     </label>
                                     <select class="form-control <?php if (form_error('edit-unit') !== '') {echo 'is-invalid';} ?>" name="edit-unit">
                                       <option disabled selected>-- pilih unit --</option>
-                                        <option value="gram" <?php echo ($product->unit == 'gram')?('selected'):('') ?>> Gram </option>
+                                        <?php // <option value="gram"  echo ($product->unit == 'gram')?('selected'):('') > Gram </option> ?>
                                         <option value="mililiter" <?php echo ($product->unit == 'mililiter')?('selected'):('') ?>> Mililiter </option>
-                                        <option value="liter" <?php echo ($product->unit == 'liter')?('selected'):('') ?>> Liter </option>
-                                        <option value="pcs" <?php echo ($product->unit == 'pcs')?('selected'):('') ?>> Pcs </option>
-                                        <option value="sachet" <?php echo ($product->unit == 'sachet')?('selected'):('') ?>> Sachet </option>
-                                        <option value="galon" <?php echo ($product->unit == 'galon')?('selected'):('') ?>> Galon </option>
-                                        <option value="drum" <?php echo ($product->unit == 'drum')?('selected'):('') ?>> Drum </option>
-                                        <option value="pile" <?php echo ($product->unit == 'pile')?('selected'):('') ?>> Pile </option>
+                                        <option value="liter"     <?php echo ($product->unit == 'liter')?('selected'):('') ?>> Liter </option>
+                                        <option value="pcs"       <?php echo ($product->unit == 'pcs')?('selected'):('') ?>> Pcs </option>
+                                        <option value="sachet"    <?php echo ($product->unit == 'sachet')?('selected'):('') ?>> Sachet </option>
+                                        <option value="galon"     <?php echo ($product->unit == 'galon')?('selected'):('') ?>> Galon </option>
+                                        <option value="drum"      <?php echo ($product->unit == 'drum')?('selected'):('') ?>> Drum </option>
+                                        <option value="pile"      <?php echo ($product->unit == 'pile')?('selected'):('') ?>> Pile </option>
                                     </select>
                                     <?= form_error('edit-unit') ?>
                                   </div>
                                   <!-- 4 -->
                                   <div class="form-group row">
                                     <label for="edit-volume">
-                                      Volume / Berat <span class="text-danger">*</span>
+                                      Volume / Berat / Jumlah <span class="text-danger">*</span>
                                     </label>
                                     <input 
                                       type        = "tel" 
                                       id          = "edit-volume" 
                                       name        = "edit-volume" 
-                                      placeholder = "Komposisi / berat / ukuran per unit" 
+                                      placeholder = "Volume / berat / jumlah per unit" 
                                       value       = "<?= (set_value('edit-volume') !== '') ? set_value('edit-volume') : $product->volume ; ?>"
                                       class       = "form-control <?php if(form_error('edit-volume') !== ''){ echo 'is-invalid'; } ?>"
                                       pattern     = "[0-9]{1,6}" 
-                                      title       = "Harus angka minimal 1 dan maksimal 5 angka"
+                                      title       = "Harus angka minimal 1 dan maksimal 6 angka"
                                     >
                                     <?= form_error('edit-volume') ?>
                                   </div>
