@@ -71,7 +71,7 @@
                             <label for="store">Status</label>
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input class="form-check form-check-inline" type="radio" name="status" id="tambah" value="tambah">
+                                    <input class="form-check form-check-inline" type="radio" name="status" id="tambah" value="tambah" checked>
                                     <label class="form-check-label" for="tambah">
                                         Penambahan Barang
                                     </label>
