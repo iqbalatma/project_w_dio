@@ -20,7 +20,7 @@ class Inventory_material_model extends CI_Model
 
     public function getAll()
     {
-        $query = $this->db->query("SELECT  material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material_inventory.updated_at, material.full_name,  material_inventory.quantity, material_inventory.updated_by FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id INNER JOIN store ON material_inventory.store_id = store.id WHERE material_inventory.is_deleted=0 ORDER BY updated_at DESC");
+        $query = $this->db->query("SELECT  material_inventory.critical_point, material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material_inventory.updated_at, material.full_name,  material_inventory.quantity, material_inventory.updated_by FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id INNER JOIN store ON material_inventory.store_id = store.id WHERE material_inventory.is_deleted=0 ORDER BY updated_at DESC");
 
         $row = $query->result();
         return $row;
@@ -61,14 +61,14 @@ class Inventory_material_model extends CI_Model
 
     public function getMaterialInventoryById($id)
     {
-        $query = $this->db->query("SELECT material_inventory.material_id, material.material_code, material.full_name, material_inventory.quantity FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id WHERE material_inventory.id = '$id'");
+        $query = $this->db->query("SELECT material_inventory.critical_point,material_inventory.material_id, material.material_code, material.full_name, material_inventory.quantity FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id WHERE material_inventory.id = '$id'");
 
         $row = $query->result();
         return $row;
     }
 
 
-    public function insert($data)
+    public function insert($data, $status)
     {
         // $this->db->get_where
         // $this->db->select('count(id) AS total');
@@ -91,7 +91,12 @@ class Inventory_material_model extends CI_Model
             $quantity_form = $data['quantity'];
             $quantitiy_table = $cek_data[0]->quantity;
             $quantity_final = $quantity_form + $quantitiy_table;
+            if ($status === "kurang") {
+                $quantity_final = $quantitiy_table - $quantity_form;
+            }
+
             $updated_at = $data['updated_at'];
+
             $slq = $this->db->query("UPDATE $this->table SET quantity = $quantity_final, updated_at = '$updated_at' WHERE id=$id");
             return $slq;
 
@@ -115,6 +120,13 @@ class Inventory_material_model extends CI_Model
         $query = $this->db->query("UPDATE  material_inventory SET quantity = $quantity WHERE material_id = $id");
         return $query;
     }
+    public function ubah_critical_point($data)
+    {
+        $id = $data['id'];
+        $critical_point = $data['critical_point'];
+        $query = $this->db->query("UPDATE  material_inventory SET critical_point = $critical_point WHERE material_id = $id");
+        return $query;
+    }
 
 
 
@@ -127,7 +139,7 @@ class Inventory_material_model extends CI_Model
             ON mi.material_id = m.id
             JOIN store AS s
             ON s.id = mi.store_id
-            WHERE mi.quantity <= 10
+            WHERE mi.quantity <= mi.critical_point
             AND m.is_deleted = 0
             AND mi.is_deleted = 0
             AND s.is_deleted = 0

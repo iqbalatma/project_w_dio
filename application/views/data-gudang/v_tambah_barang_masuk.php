@@ -1,4 +1,18 @@
 <div class="content">
+    <?php if ($this->session->flashdata('message_berhasil')) {
+    ?>
+        <div class="alert alert-success" role="alert">
+            <?= $this->session->flashdata('message_berhasil'); ?>
+        </div>
+    <?php
+    }; ?>
+    <?php if ($this->session->flashdata('message_gagal')) {
+    ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $this->session->flashdata('message_gagal'); ?>
+        </div>
+    <?php
+    }; ?>
     <div class="page-inner">
         <div class="page-header">
             <h4 class="page-title">Data Barang</h4>
@@ -51,8 +65,25 @@
                         <div class="form-group">
                             <label for="store">Lokasi</label>
                             <input type="text" class="form-control store    " name="store" id="store" value="Gudang Pusat" readonly disabled>
-
                         </div>
+
+                        <div class="form-group">
+                            <label for="store">Status</label>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check form-check-inline" type="radio" name="status" id="tambah" value="tambah">
+                                    <label class="form-check-label" for="tambah">
+                                        Penambahan Barang
+                                    </label>
+
+                                    <input class="form-check form-check-inline" type="radio" name="status" id="kurang" value="kurang">
+                                    <label class="form-check-label" for="kurang">
+                                        Pengurangan Barang
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="quantity">Jumlah</label>
                             <input type="tel" class="form-control quantity" id="quantity" placeholder="Masukkan jumlah bahan baku" name="quantity" data-filter="\+?\d{0,7}" autofocus required>

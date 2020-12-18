@@ -99,6 +99,7 @@
                                     //     echo "BETUL";
                                     // }
                                     $status = false;
+                                    $counter = 1;
                                     while ($x < count($bulan)) {
 
                                         // echo count($bulan);
@@ -119,7 +120,7 @@
                                         }; ?>
 
                                         <tr>
-                                            <td class="px-3" width="5%px"><?= $i + 1; ?></td>
+                                            <td class="px-3" width="5%px"><?= $counter; ?></td>
                                             <td class="px-3" width="40px"><?= $tes ?></td>
                                             <td class="px-3" width="30px"><?= price_format($total_modalx); ?></td>
                                             <td class="px-3" width="30px"><?= price_format($total_pemasukanx); ?></td>
@@ -129,6 +130,7 @@
 
                                     <?php
                                         $x++;
+                                        $counter++;
                                     }; ?>
                                 </tbody>
                             </table>

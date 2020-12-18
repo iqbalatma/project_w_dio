@@ -210,30 +210,32 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title font-weight-bold">5 Bahan Baku Ter-kritis (<= 10)</div>
+                            <div class="card-title font-weight-bold">5 Bahan Baku Ter-kritis</div>
                         </div>
                         <div class="card-body pb-0">
 
-                            <?php 
+                            <?php
                             if ($criticalMaterial !== FALSE) :
-                            foreach ($criticalMaterial as $row) : ?>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="<?= base_url("assets/img/material/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1"><?= $row['full_name'] ?></h6>
-                                    <small class="text-muted"><?= $row['material_code'] ?> / <?= $row['store_name'] ?></small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-danger fw-bold"><?= $row['quantity'] ?></h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <?php 
-                            endforeach;
+                                foreach ($criticalMaterial as $row) : ?>
+                                    <div class="d-flex">
+                                        <div class="avatar">
+                                            <img src="<?= base_url("assets/img/material/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
+                                        </div>
+                                        <div class="flex-1 pt-1 ml-2">
+                                            <h6 class="fw-bold mb-1"><?= $row['full_name'] ?></h6>
+                                            <small class="text-muted"><?= $row['material_code'] ?> / <?= $row['store_name'] ?></small>
+                                        </div>
+                                        <div class="d-flex ml-auto align-items-center">
+                                            <h3 class="text-danger fw-bold"><?= $row['quantity'] ?></h3>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                <?php
+                                endforeach;
                             else : ?>
-                            <center><p class="text-danger">Data tidak ada.</p></center>
+                                <center>
+                                    <p class="text-danger">Data tidak ada.</p>
+                                </center>
                             <?php endif; ?>
                             <p><a href="<?= base_url("data-gudang/data-barang-kritis") ?>">Selengkapnya...</a></p>
                         </div>
@@ -248,26 +250,28 @@
                         </div>
                         <div class="card-body pb-0">
 
-                            <?php 
+                            <?php
                             if ($mostBuy !== FALSE) :
-                            foreach ($mostBuy as $row) : ?>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1"><?= $row['full_name'] ?></h6>
-                                    <small class="text-muted"><?= $row['product_code'] ?> / <?= $row['store_name'] ?></small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold"><?= $row['freq'] ?></h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <?php 
-                            endforeach; 
+                                foreach ($mostBuy as $row) : ?>
+                                    <div class="d-flex">
+                                        <div class="avatar">
+                                            <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
+                                        </div>
+                                        <div class="flex-1 pt-1 ml-2">
+                                            <h6 class="fw-bold mb-1"><?= $row['full_name'] ?></h6>
+                                            <small class="text-muted"><?= $row['product_code'] ?> / <?= $row['store_name'] ?></small>
+                                        </div>
+                                        <div class="d-flex ml-auto align-items-center">
+                                            <h3 class="text-info fw-bold"><?= $row['freq'] ?></h3>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                <?php
+                                endforeach;
                             else : ?>
-                            <center><p class="text-danger">Data tidak ada.</p></center>
+                                <center>
+                                    <p class="text-danger">Data tidak ada.</p>
+                                </center>
                             <?php endif; ?>
                             <p><a href="<?= base_url("data-gudang/data-barang-laku") ?>">Selengkapnya...</a></p>
                         </div>
@@ -282,26 +286,28 @@
                         </div>
                         <div class="card-body pb-0">
 
-                            <?php 
+                            <?php
                             if ($leastBuy !== FALSE) :
-                            foreach ($leastBuy as $row) : ?>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1"><?= $row['full_name'] ?></h6>
-                                    <small class="text-muted"><?= $row['product_code'] ?> / <?= $row['store_name'] ?></small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-warning fw-bold"><?= $row['freq'] ?></h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <?php 
-                            endforeach;
+                                foreach ($leastBuy as $row) : ?>
+                                    <div class="d-flex">
+                                        <div class="avatar">
+                                            <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
+                                        </div>
+                                        <div class="flex-1 pt-1 ml-2">
+                                            <h6 class="fw-bold mb-1"><?= $row['full_name'] ?></h6>
+                                            <small class="text-muted"><?= $row['product_code'] ?> / <?= $row['store_name'] ?></small>
+                                        </div>
+                                        <div class="d-flex ml-auto align-items-center">
+                                            <h3 class="text-warning fw-bold"><?= $row['freq'] ?></h3>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                <?php
+                                endforeach;
                             else : ?>
-                            <center><p class="text-danger">Data tidak ada.</p></center>
+                                <center>
+                                    <p class="text-danger">Data tidak ada.</p>
+                                </center>
                             <?php endif; ?>
                             <p><a href="<?= base_url("data-penjualan/data-penjualan") ?>">Selengkapnya...</a></p>
                         </div>
@@ -320,35 +326,40 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <?php 
+                            <?php
                             $i = 0;
                             if ($lastInvoices1 !== FALSE) :
-                            foreach ($lastInvoices1 as $row) :
-                                $isHutang = $row['left_to_paid'];
-                                $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
-                                $row['paid_amount']  = price_format($row['paid_amount'], FALSE, TRUE);
-                                $row['left_to_paid'] = price_format($row['left_to_paid'], FALSE, TRUE);
-                                if ($i != 0) : ?>
-                                    <div class="separator-dashed"></div>
-                                <?php endif; ?>
-                                <div class="d-flex">
-                                    <div class="avatar <?= ($isHutang == 0) ? 'avatar-online' : 'avatar-offline' ; ?>">
-                                        <a href="<?= base_url("generate-report/invoice/generate/{$row['id']}") ?>" class='btn-link'><span class="avatar-title rounded-circle border border-white bg-danger">pdf</span></a>
+                                foreach ($lastInvoices1 as $row) :
+                                    $isHutang = $row['left_to_paid'];
+                                    $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
+                                    $row['paid_amount']  = price_format($row['paid_amount'], FALSE, TRUE);
+                                    $row['left_to_paid'] = price_format($row['left_to_paid'], FALSE, TRUE);
+                                    if ($i != 0) : ?>
+                                        <div class="separator-dashed"></div>
+                                    <?php endif; ?>
+                                    <div class="d-flex">
+                                        <div class="avatar <?= ($isHutang == 0) ? 'avatar-online' : 'avatar-offline'; ?>">
+                                            <a href="<?= base_url("generate-report/invoice/generate/{$row['id']}") ?>" class='btn-link'><span class="avatar-title rounded-circle border border-white bg-danger">pdf</span></a>
+                                        </div>
+                                        <div class="flex-1 ml-3 pt-1">
+                                            <?php if ($isHutang == 0) $isHutang = '<span class="text-success pl-3">Lunas</span>';
+                                            else $isHutang = '<span class="text-warning pl-3">Belum lunas</span>';
+                                            ?>
+                                            <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $isHutang" ?></h6>
+                                            <span class="text-muted"><?= "Harga total:&nbsp;{$row['price_total']} - Dibayar:&nbsp;{$row['paid_amount']} - Sisa:&nbsp;{$row['left_to_paid']}" ?></span>
+                                            <span class="text-muted d-block"><?= "Transaction id: {$row['trx_id']}" ?></span>
+                                        </div>
+                                        <div class="float-right pt-1">
+                                            <small class="text-muted"><?php $d = date_create($row['paid_at']);
+                                                                        echo date_format($d, "d-M-Y") ?></small>
+                                        </div>
                                     </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <?php if ($isHutang == 0 ) $isHutang = '<span class="text-success pl-3">Lunas</span>';
-                                        else $isHutang = '<span class="text-warning pl-3">Belum lunas</span>';
-                                        ?>
-                                        <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $isHutang"?></h6>
-                                        <span class="text-muted"><?= "Harga total:&nbsp;{$row['price_total']} - Dibayar:&nbsp;{$row['paid_amount']} - Sisa:&nbsp;{$row['left_to_paid']}" ?></span>
-                                        <span class="text-muted d-block"><?= "Transaction id: {$row['trx_id']}" ?></span>
-                                    </div>
-                                    <div class="float-right pt-1">
-                                        <small class="text-muted"><?php $d = date_create($row['paid_at']); echo date_format($d,"d-M-Y") ?></small>
-                                    </div>
-                                </div>
-                            <?php $i++; endforeach; else : ?>
-                            <center><p class="text-danger">Data tidak ada.</p></center>
+                                <?php $i++;
+                                endforeach;
+                            else : ?>
+                                <center>
+                                    <p class="text-danger">Data tidak ada.</p>
+                                </center>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -363,35 +374,40 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <?php 
+                            <?php
                             $i = 0;
                             if ($lastInvoices2 !== FALSE) :
-                            foreach ($lastInvoices2 as $row) :
-                                $isHutang = $row['left_to_paid'];
-                                $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
-                                $row['paid_amount']  = price_format($row['paid_amount'], FALSE, TRUE);
-                                $row['left_to_paid'] = price_format($row['left_to_paid'], FALSE, TRUE);
-                                if ($i != 0) : ?>
-                                    <div class="separator-dashed"></div>
-                                <?php endif; ?>
-                                <div class="d-flex">
-                                    <div class="avatar avatar-online">
-                                        <a href="<?= base_url("generate-report/invoice/generate/{$row['id']}") ?>" class='btn-link'><span class="avatar-title rounded-circle border border-white bg-danger">pdf</span></a>
+                                foreach ($lastInvoices2 as $row) :
+                                    $isHutang = $row['left_to_paid'];
+                                    $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
+                                    $row['paid_amount']  = price_format($row['paid_amount'], FALSE, TRUE);
+                                    $row['left_to_paid'] = price_format($row['left_to_paid'], FALSE, TRUE);
+                                    if ($i != 0) : ?>
+                                        <div class="separator-dashed"></div>
+                                    <?php endif; ?>
+                                    <div class="d-flex">
+                                        <div class="avatar avatar-online">
+                                            <a href="<?= base_url("generate-report/invoice/generate/{$row['id']}") ?>" class='btn-link'><span class="avatar-title rounded-circle border border-white bg-danger">pdf</span></a>
+                                        </div>
+                                        <div class="flex-1 ml-3 pt-1">
+                                            <?php if ($isHutang == 0) $isHutang = '<span class="text-success pl-3">Lunas</span>';
+                                            else $isHutang = '<span class="text-warning pl-3">Belum lunas</span>';
+                                            ?>
+                                            <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $isHutang" ?></h6>
+                                            <span class="text-muted"><?= "Harga total:&nbsp;{$row['price_total']} - Dibayar:&nbsp;{$row['paid_amount']} - Sisa:&nbsp;{$row['left_to_paid']}" ?></span>
+                                            <span class="text-muted d-block"><?= "Transaction id: {$row['trx_id']}" ?></span>
+                                        </div>
+                                        <div class="float-right pt-1">
+                                            <small class="text-muted"><?php $d = date_create($row['paid_at']);
+                                                                        echo date_format($d, "d-M-Y") ?></small>
+                                        </div>
                                     </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <?php if ($isHutang == 0 ) $isHutang = '<span class="text-success pl-3">Lunas</span>';
-                                        else $isHutang = '<span class="text-warning pl-3">Belum lunas</span>';
-                                        ?>
-                                        <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $isHutang"?></h6>
-                                        <span class="text-muted"><?= "Harga total:&nbsp;{$row['price_total']} - Dibayar:&nbsp;{$row['paid_amount']} - Sisa:&nbsp;{$row['left_to_paid']}" ?></span>
-                                        <span class="text-muted d-block"><?= "Transaction id: {$row['trx_id']}" ?></span>
-                                    </div>
-                                    <div class="float-right pt-1">
-                                        <small class="text-muted"><?php $d = date_create($row['paid_at']); echo date_format($d,"d-M-Y") ?></small>
-                                    </div>
-                                </div>
-                            <?php $i++; endforeach; else : ?>
-                            <center><p class="text-danger">Data tidak ada.</p></center>
+                                <?php $i++;
+                                endforeach;
+                            else : ?>
+                                <center>
+                                    <p class="text-danger">Data tidak ada.</p>
+                                </center>
                             <?php endif; ?>
                         </div>
                     </div>

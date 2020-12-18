@@ -43,7 +43,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="col-md-4 pt-3">
-                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Masukkan Barang</a>
+                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Barang</a>
                         </div>
                     </div>
                     <?php
@@ -70,6 +70,7 @@
                                         <th class="px-3">Nama Bahan</th>
 
                                         <th class="px-3">Jumlah</th>
+                                        <th class="px-3">Titik Kritis</th>
                                         <th class="px-3">Tanggal Update</th>
                                         <th class="px-3">Diinput Oleh</th>
                                         <th class="px-3" style="width: 10%">Aksi</th>
@@ -81,7 +82,9 @@
                                         <th class="px-3" width="30px">Kode Bahan</th>
                                         <th class="px-3">Nama Bahan</th>
 
+
                                         <th class="px-3">Jumlah</th>
+                                        <th class="px-3">Titik Kritis</th>
                                         <th class="px-3">Tanggal Update</th>
                                         <th class="px-3">Diinput Oleh</th>
                                         <th class="px-3" style="width: 10%">Aksi</th>
@@ -97,25 +100,30 @@
                                             <td class="px-3">
                                                 <?= $i++ ?>
                                             </td>
-                                            <td class="px-3 <?= ($row->quantity > 10) ? '' : 'text-danger' ?>">
+                                            <td class="px-3 <?= ($row->quantity > $row->critical_point) ? '' : 'text-danger' ?>">
                                                 <?= $row->material_code ?>
                                             </td>
-                                            <td class="px-3 <?= ($row->quantity > 10) ? '' : 'text-danger' ?>">
+                                            <td class="px-3 <?= ($row->quantity > $row->critical_point) ? '' : 'text-danger' ?>">
                                                 <?= $row->full_name ?>
                                             </td>
 
-                                            <td class="px-3 <?= ($row->quantity > 10) ? '' : 'text-danger' ?>">
+                                            <td class="px-3 <?= ($row->quantity > $row->critical_point) ? '' : 'text-danger' ?>">
                                                 <?= $row->quantity ?>
                                             </td>
+                                            <td class="px-3 <?= ($row->quantity > $row->critical_point) ? '' : 'text-danger' ?>">
+                                                <?= $row->critical_point ?>
+                                            </td>
                                             <td class="px-3">
-                                                <?php $dt = explode(' ', $row->updated_at); $d = date_create($dt[0]); echo "{$dt[1]} <br>" . date_format($d,"d-M-Y") ?>
+                                                <?php $dt = explode(' ', $row->updated_at);
+                                                $d = date_create($dt[0]);
+                                                echo "{$dt[1]} <br>" . date_format($d, "d-M-Y") ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->created_by ?>
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah Critical Point" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

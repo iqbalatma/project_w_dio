@@ -66,22 +66,23 @@ class Data_inventory_barang_mentah extends CI_Controller
             )
         );
 
-        // $this->form_validation->set_rules(
-        //     'updated_by',
-        //     'Dimasukkan oleh',
-        //     'trim|required|max_length[100]',
-        //     array(
-        //         'required' => 'Data tidak boleh kosong',
-        //         'max_length'     => 'Data maksimal 15 karakter',
-        //     )
-        // );
+
+
+        $this->form_validation->set_rules(
+            'status',
+            'Status',
+            'required',
+            array(
+                'required' => 'Pilih Salah Satu Status',
+            )
+        );
 
 
 
         if ($this->form_validation->run() == FALSE) {
 
             $this->session->set_flashdata('message_gagal', validation_errors());
-            redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
+            redirect(base_url('data-gudang/Data_inventory_barang_mentah/v_insert'));
         } else {
 
             $material_id = $this->input->post('material_id');
@@ -100,7 +101,9 @@ class Data_inventory_barang_mentah extends CI_Controller
                 'is_deleted' => 0
             ];
 
-            $insert = $this->Inventory_material_model->insert($data);
+            $status = $this->input->post('status');
+            // echo $status;
+            $insert = $this->Inventory_material_model->insert($data, $status);
             // $update = $this->Inventory_material_model->update($data);
 
 
@@ -127,11 +130,11 @@ class Data_inventory_barang_mentah extends CI_Controller
 
 
             if ($insert == 1) {
-                $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
+                $this->session->set_flashdata('message_berhasil', 'Berhasil Mengubah Kuantitas');
                 redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
                 // echo 'berhasil';
             } else {
-                $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
+                $this->session->set_flashdata('message_gagal', 'Gagal Mengubah Kuantitas');
                 redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
                 // echo 'gagal';
             }
@@ -148,10 +151,10 @@ class Data_inventory_barang_mentah extends CI_Controller
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_form' => $this->Inventory_material_model->getMaterialInventoryById($id_inventory),
-            
+
             'datatables' => 1
         ];
-        
+
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
@@ -160,9 +163,9 @@ class Data_inventory_barang_mentah extends CI_Controller
         var_dump($_POST);
 
         $id = $_POST['id'];
-        $quantity = $_POST['quantity'];
-
-        $update = $this->Inventory_material_model->ubah_quantity($_POST);
+        // $quantity = $_POST['quantity'];
+        $critical_point = $_POST['critical_point'];
+        $update = $this->Inventory_material_model->ubah_critical_point($_POST);
         if ($update == 1) {
             $this->session->set_flashdata('message_berhasil', 'Berhasil Mengubah data');
             redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
