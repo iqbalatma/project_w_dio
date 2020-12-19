@@ -83,7 +83,7 @@ class Kasir extends CI_Controller
         } // end if($query): success or failed
     }
 
-    public function insert()
+    public function ________________________insert()
     {
 
         $createdAt = unix_to_human(now(), true, 'europe');
@@ -393,22 +393,6 @@ class Kasir extends CI_Controller
         $quantity           = $this->input->post('quantity');
         $custom_harga       = $this->input->post('custom_harga');
 
-
-        // var_dump($checkbox_value);
-        // echo "<br>";
-        // var_dump($customer_id);
-        // echo "<br>";
-        // var_dump($address);
-        // echo "<br>";
-        // var_dump($paid_amount);
-        // echo "<br>";
-        // var_dump($quantity);
-        // echo "<br>";
-        // var_dump($custom_harga);
-        // echo "<br>";
-        // pprintd($this->input->post());
-
-
         // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
         // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get
         // contoh  ==>  id=1 OR id=9 OR id=13
@@ -445,7 +429,7 @@ class Kasir extends CI_Controller
         // MULAI : KEY:product_id dan VALUE:harga per item tergantung masing2 hirarkis
         // set $data_product['kasir_price'] untuk digunakan sebagai harga total per item di step2 selanjutnya
         foreach ($data_product as $row) {
-            // HIRARKISnya yaitu:
+            // HIRARKI-nya yaitu:
             // 1. harga custom per transaksi
             // 2. harga custom per customer
             // 3. harga normal jual produk

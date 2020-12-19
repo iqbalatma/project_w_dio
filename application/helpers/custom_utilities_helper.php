@@ -194,7 +194,7 @@ if ( ! function_exists('end_time'))
 	 *
 	 * @param	int	Integer of the timestamp
 	*/
-  function end_time($sessName = NULL)
+  function end_time($sessName = NULL, $timeType = 'ms')
   {
     $ci=&get_instance();
     if ($sessName === NULL) $startTime = $ci->session->userdata('benchmark_start_time');
@@ -203,11 +203,20 @@ if ( ! function_exists('end_time'))
     if ($sessName === NULL) $name = 'benchmark_start_time';
     else $name = "benchmark_{$sessName}";
     
-    $endTime     = round(microtime(true) * 1000);
-    $elapsedTime = ($endTime - $startTime);
+    
+    if ($timeType == 'ms') {
+      $timeType = 'miliseconds';
+      $endTime     = round(microtime(true) * 1000);
+      $elapsedTime = ($endTime - $startTime);
+    }
+    else {
+      $timeType = 'seconds';
+      $endTime     = round(microtime(true) * 1000);
+      $elapsedTime = ($endTime - $startTime) / 100;
+    }
 
     echo '<script>';
-    echo "console.log('{$name}: Elapsed time: {$elapsedTime} miliseconds')";
+    echo "console.log(`{$name}: Elapsed time: {$elapsedTime} {$timeType}`);";
     echo '</script>';
 
     if ($sessName === NULL) $ci->session->unset_userdata('benchmark_start_time');

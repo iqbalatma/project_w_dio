@@ -317,7 +317,7 @@ class Kasir_model extends CI_Model
     }
     public function generate_invoice_item($invoice_id)
     {
-        $query = $this->db->query("SELECT product.full_name, product.unit,invoice_item.quantity, invoice_item.item_price FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
+        $query = $this->db->query("SELECT product.full_name, product.unit, invoice_item.quantity, invoice_item.item_price, product.volume FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
 
         $row = $query->result_array();
 

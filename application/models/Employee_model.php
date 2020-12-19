@@ -63,6 +63,24 @@ class Employee_model extends CI_Model
 		return $this->db->update($this->table, $data);
   }
 
+  /**
+   * Update employee that already registered and still active (not deleted).
+   * 
+   * @param array $id
+   * Set the $id from the employee id to fetch the data relatives to the id.
+   * @param array $data [6 data]
+   * The key and value in the array that will be inserted into the database.
+   * 
+   */
+  public function set_update_pw_by_id($id, $data)
+  {
+    $data = array(
+		  "password"    => $this->bcrypt->hash_password($data['edit-pwnew']),
+    );
+    $this->db->where('id', $id);
+		return $this->db->update($this->table, $data);
+  }
+
   // update is_deleted employee by id
 
   /**

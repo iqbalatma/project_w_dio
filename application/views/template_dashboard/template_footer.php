@@ -158,7 +158,7 @@
     </script>
 
     <?php
-    // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
+    // cek hanya untuk controller data-master-produk ($submenuActive itu isinya nama controller)
     // untuk hitung prosentase margin keuntungan ketika edit harga jual produk
     if ($submenuActive == 'data-master-produk') : ?>
         <script>
@@ -641,3 +641,15 @@
 </body>
 
 </html>
+
+
+<?php 
+$xxx  = (memory_get_usage() - $start_memory) / 1000000;
+$xxx .= ' MB memory terpakai';
+
+echo '<script>';
+echo 'console.log("' . $xxx . '");';
+echo '</script>';
+
+end_time('kasir_limit_10000', 's');
+?>

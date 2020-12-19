@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2020 at 06:47 PM
+-- Generation Time: Dec 19, 2020 at 06:02 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -51,6 +51,18 @@ CREATE TABLE `basic_info_meta` (
 --
 -- RELATIONSHIPS FOR TABLE `basic_info_meta`:
 --
+
+--
+-- Truncate table before insert `basic_info_meta`
+--
+
+TRUNCATE TABLE `basic_info_meta`;
+--
+-- Dumping data for table `basic_info_meta`
+--
+
+INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contact_2`, `email`, `website`, `logo`, `created_at`, `updated_at`, `updated_by`) VALUES
+(1, 'Sabun Aryanz', 'Jabar, Indonesia', '08123981232', '1231231232', 'halo@sabun-aryanz.com', 'http://sabun-aryanz.com', 'logo.png', '2020-11-16 03:02:30', '2020-12-02 02:40:37', 'gudang');
 
 -- --------------------------------------------------------
 
@@ -133,6 +145,26 @@ CREATE TABLE `employee` (
 --   `store_id`
 --       `store` -> `id`
 --
+
+--
+-- Truncate table before insert `employee`
+--
+
+TRUNCATE TABLE `employee`;
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `phone`, `address`, `avatar`, `role_id`, `store_id`, `created_at`, `is_deleted`) VALUES
+(0, 'kaisar', 'kaisar@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'Kaisar', 'Sihir', '080000000000', 'Langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
+(1, 'pemilik', 'pemilik@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', '', 'Pemilik', '081111111111', 'Headquarters', 'avatar-1.png', 1, 1, '2020-11-10 22:48:27', 0),
+(2, 'gudang1', 'gudang1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 1', '082222222222', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
+(3, 'gudang2', 'gudang2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 2', '083333333333', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
+(4, 'kasircica1', 'kasir_cica1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Cica 1', NULL, '084444444444', 'Cicalengka', 'avatar-3.png', 3, 2, '2020-11-10 22:54:23', 0),
+(5, 'kasircica2', 'kasir_cica2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Cica 2', NULL, '084444444445', 'Cicalengka', 'avatar-3.png', 3, 2, '2020-11-10 22:54:23', 0),
+(6, 'kasiruber1', 'kasir_uber1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Uber 1', NULL, '085555555555', 'Ujung Beruang', 'avatar-3.png', 3, 3, '2020-11-10 22:54:23', 0),
+(7, 'kasiruber2', 'kasir_uber2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Kasir Uber 2', NULL, '085555555556', 'Ujung Beruang', 'avatar-3.png', 3, 3, '2020-11-10 22:54:23', 0),
+(8, 'admins', 'admin1@jp.com', '$2a$08$eDBmz5BisfYClwo.rs5k.Ot8pqR.3Ub/X1.1ANTc5bbaMJyy0H9Y.', 'dios', 'Ilham', '081236137132', 'Dipatiukur', 'avatar-1.png', 1, 1, '2020-11-17 03:19:40', 0);
 
 -- --------------------------------------------------------
 
@@ -400,6 +432,21 @@ CREATE TABLE `role` (
 -- RELATIONSHIPS FOR TABLE `role`:
 --
 
+--
+-- Truncate table before insert `role`
+--
+
+TRUNCATE TABLE `role`;
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id`, `role_name`, `created_at`, `is_deleted`) VALUES
+(0, 'kaisar', '2020-11-10 22:46:29', 0),
+(1, 'owner', '2020-11-10 22:46:29', 0),
+(2, 'admin', '2020-11-10 22:46:29', 0),
+(3, 'cashier', '2020-11-10 22:46:29', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -420,6 +467,20 @@ CREATE TABLE `store` (
 --
 -- RELATIONSHIPS FOR TABLE `store`:
 --
+
+--
+-- Truncate table before insert `store`
+--
+
+TRUNCATE TABLE `store`;
+--
+-- Dumping data for table `store`
+--
+
+INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) VALUES
+(1, 'Gudang Pusat', 'Jawa Barat, Indonesia', '2020-11-08 13:07:02', 0),
+(2, 'Toko Cabang Cicalengka', 'Cicalengka', '2020-11-08 13:07:02', 0),
+(3, 'Toko Cabang Ujung Berung', 'Ujung Berung', '2020-11-08 13:07:02', 0);
 
 -- --------------------------------------------------------
 

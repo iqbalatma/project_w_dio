@@ -20,6 +20,7 @@ class Data_master_pegawai extends CI_Controller
         $this->controller = "data-master-pegawai";
     }
 
+
     public function index()
     {
         $data = [
@@ -34,6 +35,7 @@ class Data_master_pegawai extends CI_Controller
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     } // end method
+
 
     public function _tambah() // private, harus edit nama method untuk bisa akses
     {
@@ -88,6 +90,7 @@ class Data_master_pegawai extends CI_Controller
         } // end if($query): success or failed
       } // end form_validation->run()
     } // end method
+
 
     public function edit($id = NULL)
     {
@@ -145,6 +148,64 @@ class Data_master_pegawai extends CI_Controller
       } // end form_validation->run()
     } // end method
 
+
+    public function edit_pass()
+    {
+      $id = $this->input->post('id');
+
+      if ($id == FALSE ) redirect(base_url( getBeforeLastSegment($this->modules, 2) ));
+      if ($id === NULL) redirect(base_url( getBeforeLastSegment($this->modules) ));
+      if ($id == 0) redirect(base_url( getBeforeLastSegment($this->modules, 2) )); // redirect keluar untuk akses superadmin
+      // set form rules
+      $this->form_validation->set_rules('edit-pwnew', 'password', 							  'required|min_length[5]|max_length[250]');
+      $this->form_validation->set_rules('edit-pwnewconf', 'konfirmasi password',  'required|matches[edit-pwnew]');
+      $this->form_validation->set_error_delimiters('<small class="form-text text-danger text-nowrap"><em>', '</em></small>');
+
+      // run the form validation
+      if ($this->form_validation->run() == FALSE) {
+        // query data dari database
+        $result = $this->employee_m->get_by_id($id);
+        // validasi jika data tidak ada (return FALSE) maka redirect keluar
+        ($result !== FALSE) ?: redirect(base_url( getBeforeLastSegment($this->modules, 2) )) ;
+
+        // set data untuk digunakan pada view
+        $data = [
+          'title'           => 'Perbarui password pegawai',
+          'content'         => 'data-pegawai/v_data_master_pegawai_edit_password.php',
+          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'employee'        => $result,
+        ];
+        $this->load->view('template_dashboard/template_wrapper', $data);
+
+      }else {
+        // insert data to db
+        $post  = $this->input->post();
+        // kalo inpunya gasesuai maka redirect ke detail. Tapi harusnya ini gapernah kepake karena udah validasi dari form CI3
+        if ($post['edit-pwnew'] != $post['edit-pwnewconf']) redirect(base_url( getBeforeLastSegment($this->modules)."/detail/{$id}" ));
+
+        $query = $this->employee_m->set_update_pw_by_id($id, $post);
+
+        if ($query) {
+          // flashdata untuk sweetalert
+          $this->session->set_flashdata('success_message', 1);
+          $this->session->set_flashdata('title', "Pembaruan sukses!");
+          $this->session->set_flashdata('text', 'Password akun pegawai telah berhasil diperbarui!');
+          // kembali ke laman sebelumnya sesuai hirarki controller
+          redirect(base_url( getBeforeLastSegment($this->modules)."/detail/{$id}" ));
+
+        }else {
+          // flashdata untuk sweetalert
+          $this->session->set_flashdata('failed_message', 1);
+          $this->session->set_flashdata('title', "Pembaruan gagal!");
+          $this->session->set_flashdata('text', 'Mohon cek kembali password anda.');
+          // kembali ke laman sebelumnya sesuai hirarki controller
+          redirect(base_url( getBeforeLastSegment($this->modules)."/detail/{$id}" ));
+        } // end if($query): success or failed
+      } // end form_validation->run()
+    } // end method
+
+
     public function hapus()
     {
       $id  = $this->input->post('id');
@@ -172,6 +233,7 @@ class Data_master_pegawai extends CI_Controller
       } // end if($query): success or failed
       
     } // end method
+
 
     // ============================== DETAL =========================
     public function detail($id = NULL)

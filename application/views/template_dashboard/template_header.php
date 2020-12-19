@@ -45,6 +45,10 @@
     // <body>
 ?>
 
+<?php 
+start_time(microtime(TRUE), 'kasir_limit_10000');
+$start_memory = memory_get_usage(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
