@@ -644,12 +644,12 @@
 
 
 <?php 
-$xxx  = (memory_get_usage() - $start_memory) / 1000000;
-$xxx .= ' MB memory terpakai';
+// $xxx  = (memory_get_usage() - $start_memory) / 1000000;
+// $xxx .= ' MB memory terpakai';
 
-echo '<script>';
-echo 'console.log("' . $xxx . '");';
-echo '</script>';
+// echo '<script>';
+// echo 'console.log("' . $xxx . '");';
+// echo '</script>';
 
-end_time('kasir_limit_10000', 's');
+// end_time('kasir_limit_10000', 's');
 ?>
