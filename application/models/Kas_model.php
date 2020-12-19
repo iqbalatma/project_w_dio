@@ -52,14 +52,17 @@ class Kas_model extends CI_Model
     $codeNum   = ($codeMonth !== $currMonth) ? '000001' : $codeNum;
     $code     .= str_pad($codeNum, 6, "0", STR_PAD_LEFT);
 
+
+
+    $price_akhir = $data['add-nominal'];
     // set value untuk debet dan kredit dan set final_balance
     if ($data['add-type'] == 'kredit') {
-      $newFinalBalance = $lastFinalBalance - (int)$data['add-nominal'];
+      $newFinalBalance = $lastFinalBalance - (int)$price_akhir;
       $debet           = 0;
-      $kredit          = $data['add-nominal'];
+      $kredit          = $price_akhir;
     } else {
-      $newFinalBalance = $lastFinalBalance + (int)$data['add-nominal'];
-      $debet           = $data['add-nominal'];
+      $newFinalBalance = $lastFinalBalance + (int)$price_akhir;
+      $debet           = $price_akhir;
       $kredit          = 0;
     }
 
