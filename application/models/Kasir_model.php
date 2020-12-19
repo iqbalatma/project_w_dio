@@ -751,10 +751,14 @@ class Kasir_model extends CI_Model
         $this->load->model('Kas_model', 'kas_m');
 
         $leftToPaid = $data['total_harga'] - $data['paid_amount'];
+        $price_final = $data['paid_amount'];
+        if ($price_final > $data['total_harga']) {
+            $price_final = $data['total_harga'];
+        }
 
         $data_kas = [
             'add-type'       => 'debet',
-            'add-nominal'    => $data['paid_amount'],
+            'add-nominal'    => $price_final,
             'add-perihal'    => "Checkout: INV {$invoiceNumber}",
             'add-keterangan' => "Total harga:{$data['total_harga']} ; Total bayar:{$data['paid_amount']} ; Sisa harus dibayar:{$leftToPaid} ; Oleh:{$data['username']}",
             'add-date'       => $createdAt,
