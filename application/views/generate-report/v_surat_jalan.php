@@ -163,14 +163,14 @@
       <tr class="total" style="background: #eee;">
         <td></td>
         <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 5LTR&nbsp;&nbsp;&nbsp;<?= $tot5Liter ?> pcs</strong></td>
+        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 5LTR&nbsp;&nbsp;&nbsp;<?= number_format($tot5Liter, ',', '.') ?> pcs</strong></td>
         <td style="font-size:10px; margin-top:10px; text-align:right;"><strong><?= number_format($totLiter, ',', '.') ?> Ltr</strong></td>
       </tr>
 
       <tr class="total" style="background: #eee;">
         <td></td>
         <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= $tot1Liter ?> pcs</strong></td>
+        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= number_format($tot1Liter, ',', '.') ?> pcs</strong></td>
         <td></td>
       </tr>
     </table>

@@ -83,6 +83,7 @@ class Pdf extends CI_Controller
 				'query_select'	=> "product_code, full_name, CONCAT(volume, ' ', unit) AS vol_unit, price_base, selling_price, DATE_FORMAT(created_at, '%H:%i, %d %M %Y') AS date",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'product_code',
+				'limit'					=> 1000,
 				'columns'				=> ['Kode Produk', 'Nama Produk', 'Volume/Unit', 'HPP', 'Harga Jual', 'Dibuat Pada']
 			],[
 				'no' 						=> 4,
@@ -93,6 +94,7 @@ class Pdf extends CI_Controller
 				'query_select'	=> "pm.mutation_code, p.product_code, p.full_name, s.store_name, pm.quantity, pm.mutation_type, DATE_FORMAT(pm.created_at, '%H:%i, %d %M %Y') AS date, pm.created_by",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'pm.id',
+				'limit'					=> 1000,
 				'columns'				=> ['Kode Mutasi', 'Kode Produk', 'Nama Produk', 'Toko Cabang', 'Kuantitas', 'Tipe', 'Tanggal', 'Oleh Siapa'],
 			// ],[
 			// 	'no' 						=> 5,
@@ -113,6 +115,7 @@ class Pdf extends CI_Controller
 				'query_select'	=> "i.invoice_number, c.full_name, c.address, c.phone, DATE_FORMAT(i.paid_at, '%H:%i, %d %M %Y'), DATE_FORMAT(t.due_at, '%H:%i, %d %M %Y'), i.left_to_paid",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'i.id',
+				'limit'					=> 1000,
 				'columns'				=> ['No. Invoice', 'Nama Pelanggan', 'Alamat Pelanggan', 'No. Handphone', 'Dibayar Pada', 'Tenggat Waktu', 'Sisa Bayar'],
 			],[
 				'no' 						=> 7,
@@ -123,6 +126,7 @@ class Pdf extends CI_Controller
 				'query_select'	=> "kas_code, title, description, date AS kas_date, debet, kredit, final_balance, type, created_by, DATE_FORMAT(created_at, '%H:%i, %d %M %Y') AS created_date",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'id',
+				'limit'					=> 1000,
 				'columns'				=> ['Kode', 'Judul Kas', 'Deskripsi / Ket.', 'Tgl Transaksi', 'Debet', 'Kredit', 'Saldo Akhir', 'Tipe', 'Dibuat oleh', 'Dibuat pada'],
 			],[
 				'no' 						=> 8,
@@ -133,6 +137,7 @@ class Pdf extends CI_Controller
 				'query_select'	=> "full_name, phone, address, cust_type",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'full_name',
+				'limit'					=> 1000,
 				'columns'				=> ['Nama Lengkap', 'No. Handphone', 'Alamat', 'Tipe'],
 			],[
 				'no' 						=> 9,
@@ -194,7 +199,13 @@ class Pdf extends CI_Controller
 				$resultSet['name'] 		= $data['name'];
 
 				// call get_all() method with the custom model
-				$resultSet['db_res'] 	= $this->{$data['model']}->get_all($data['query_select'], $data['asc_desc'], $data['order_by']);
+				// jika gada key 'limit' di dalam array, maka get_all tanpa limit, kalo ada 'limit' berarti masukin params limit ke method model
+				if ( ! isset($data['limit']) ) {
+					$resultSet['db_res'] 	= $this->{$data['model']}->get_all($data['query_select'], $data['asc_desc'], $data['order_by']);
+				}
+				else {
+					$resultSet['db_res'] 	= $this->{$data['model']}->get_all($data['query_select'], $data['asc_desc'], $data['order_by'], $data['limit']);
+				}
 				// set output pdf name
 				$outputName						= strtoupper("Report-{$data['menu']}-" . mdate('%d%m%y', now()) . '.pdf');
 				
