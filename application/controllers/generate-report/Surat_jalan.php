@@ -131,7 +131,7 @@ class Surat_jalan extends CI_Controller
 		// $this->load->view('generate-report/v_surat_jalan', $data);
 
 		
-		// pprintd($data_invoice_item);
+		// echo '<pre>';var_dump($data);die;
 
 
 		// view dijadiin raw bukan ditampilin

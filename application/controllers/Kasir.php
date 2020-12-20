@@ -489,6 +489,8 @@ class Kasir extends CI_Controller
             'datatables'        => 1
         ];
 
+        // pprint($data);
+
         $sessionTest['data_customer']   = (array)$data['data_customer'];
         $sessionTest['data_product']    = $data['data_product'];
         $sessionTest['deliv_address']   = $data['address'];

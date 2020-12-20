@@ -109,7 +109,7 @@
                                                     <td><?= $row['full_name'] ?></td>
                                                     <td><?= $row['kasir_qty'] ?></td>
                                                     <td><?= price_format($row['kasir_price']) ?></td>
-                                                    <?php $harga_jumlah += $row['kasir_price'] * $row['kasir_qty']; ?>
+                                                    <?php $harga_jumlah = $row['kasir_price'] * $row['kasir_qty']; ?>
                                                     <td><?= price_format($harga_jumlah) ?></td>
                                                 </tr>
                                             <?php
@@ -118,7 +118,8 @@
 
                                                 $harga_total += $harga_jumlah;
                                                 $i++;
-                                                endforeach;
+                                            endforeach;
+
 
                                             // echo '<input type="hidden" name="harga_total" value="' . $harga_total . '">';
                                             ?>

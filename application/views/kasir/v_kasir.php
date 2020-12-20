@@ -183,7 +183,7 @@
                                                                 <option value="0" selected>0</option>
                                                                 <?php
                                                                 $j = 1;
-                                                                $maxShowNumber = 4000;
+                                                                $maxShowNumber = 2000;
                                                                 while ($j <= $kuantitas_material) {
                                                                     // maksimal tampil jumlah produk sekali cekout 200/produk/cekout. 
                                                                     // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya sampe ribuan
