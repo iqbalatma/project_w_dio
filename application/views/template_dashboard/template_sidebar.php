@@ -62,15 +62,15 @@ $mainMenu = array(
   //     ],
   //   )
   // ],
-  [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0]),
-    'no'      => 1,
-    'name'    => 'SUPERADMIN HUB',
-    'slug'    => 'superadmin',
-    'url'     => 'superadmin/hub',
-    'icon'    => 'fas fa-atom',
-    'submenu' => FALSE,
-  ],
+  // [
+  //   'hasAccess' => role_access($this->session->role_id, [$_role_0]),
+  //   'no'      => 1,
+  //   'name'    => 'SUPERADMIN HUB',
+  //   'slug'    => 'superadmin',
+  //   'url'     => 'superadmin/hub',
+  //   'icon'    => 'fas fa-atom',
+  //   'submenu' => FALSE,
+  // ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 1,
