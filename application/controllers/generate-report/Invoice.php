@@ -41,6 +41,7 @@ class Invoice extends CI_Controller
 		// $base64 		= 'data:image/' . $type . ';base64,' . base64_encode($data);
 
 
+		// pprintd($data_invoice_item);
 
 		// semua dikonversi ke liter
 		$__mililiter	= 0.001; // dalam liter

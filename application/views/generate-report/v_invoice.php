@@ -151,19 +151,19 @@
           <td style="font-size:10px;"> <?= $i++ ?></td>
           <td style="font-size:10px;"> <?= $row['full_name'] ?></td>
           <td style="font-size:10px;"> <?= $row['unit'] ?></td>
-          <td style="font-size:10px;"> <?= number_format($row['quantity'], ',', '.') ?></td>
+          <td style="font-size:10px;"> <?= number_format($row['quantity'], 0, ',', '.') ?></td>
           <td style="font-size:10px;"> <?= $row['totLiterItem'] ?></td>
+          <td style="font-size:10px;"> <?= price_format($row['selling_price']) ?></td>
           <td style="font-size:10px;"> <?= price_format($row['item_price']) ?></td>
-          <td style="font-size:10px;"> <?= price_format($row['item_price'] * $row['quantity']) ?></td>
         </tr>
       <?php
-        $total_harga += $row['item_price'] * $row['quantity'];
+        $total_harga += $row['item_price'];
       endforeach; ?>
 
       <tr class="total" style="background: #eee;">
         <td></td>
         <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 5LTR&nbsp;&nbsp;&nbsp;<?= number_format($tot5Liter, ',', '.') ?> pcs</strong></td>
+        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 5LTR&nbsp;&nbsp;&nbsp;<?= $tot5Liter ?> pcs</strong></td>
         <td style="font-size:10px;"><strong><?= $totLiter ?> Ltr</strong></td>
         <td colspan="2" style="font-size:10px; margin-top:10px; text-align:right;">
           <strong>Total: <?= price_format($total_harga) ?></strong>
@@ -173,7 +173,7 @@
       <tr class="total" style="background: #eee;">
         <td></td>
         <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= number_format($tot1Liter, ',', '.') ?> pcs</strong></td>
+        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= $tot1Liter ?> pcs</strong></td>
         <td colspan="3">
         </td>
       </tr>
@@ -183,4 +183,4 @@
 
 </html>
 
-<?php //die; ?>
+<?php die; ?>
