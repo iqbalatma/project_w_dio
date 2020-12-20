@@ -48,13 +48,12 @@
                                 <th class="px-3" rowspan="2">Debet</th>
                                 <th class="px-3" rowspan="2">Kredit</th>
                                 <th class="px-3" rowspan="2">Saldo akhir</th>
-                                <th class="px-3" colspan="5"><center>Keterangan</center></th>
+                                <th class="px-3" colspan="4"><center>Keterangan</center></th>
                               </tr>
                               <tr>
                                 <th class="px-3">Tipe</th>
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
-                                <th class="px-3">Aksi</th>
                                 <th></th>
                               </tr>
                             </thead>
@@ -66,13 +65,12 @@
                                 <th class="px-3" rowspan="2">Debet</th>
                                 <th class="px-3" rowspan="2">Kredit</th>
                                 <th class="px-3" rowspan="2">Saldo akhir</th>
-                                <th class="px-3" colspan="5"><center>Keterangan</center></th>
+                                <th class="px-3" colspan="4"><center>Keterangan</center></th>
                               </tr>
                               <tr>
                                 <th class="px-3">Tipe</th>
                                 <th class="px-3">Kode</th>
                                 <th class="px-3">Ket. tambahan</th>
-                                <th class="px-3">Aksi</th>
                                 <th></th>
                               </tr>
                             </tfoot>
@@ -108,14 +106,6 @@
                                     </td>
                                     <td class="px-3">
                                       <?= $row['description'] ?>
-                                    </td>
-                                    
-                                    <td class="">
-                                      <div class="form-button-action d-flex">
-                                        <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                          <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
-                                        </span>
-                                      </div>
                                     </td>
                                     <td></td>
 

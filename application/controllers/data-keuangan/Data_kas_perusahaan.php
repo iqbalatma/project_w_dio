@@ -28,7 +28,7 @@ class Data_kas_perusahaan extends CI_Controller
     $this->load->view('template_dashboard/template_wrapper', $data);
   }
 
-  public function hapus()
+  public function _______________________________hapus()
   {
     $id  = $this->input->post('id');
     if ($id === NULL)
