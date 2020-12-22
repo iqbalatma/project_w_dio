@@ -43,7 +43,7 @@
                         <div class="card-title">Checkout Station</div>
                     </div>
 
-                    <?= form_open('Kasir/konfirmasi_kasir'); ?>
+                    <?= form_open('Data_mutasi_barang/konfirmasi_kasir'); ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -54,6 +54,7 @@
                                         <option value="" selected disabled>-Pilih Pelanggan-</option>
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
+
                                         foreach ($data_customer as $row) {
                                         ?>
                                             <option name="id_customer" value="<?= $row['id']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
@@ -281,40 +282,6 @@
                     </div>
 
 
-
-
-                    <!-- Modal -->
-                    <!-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi Checkout</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body" id="modal-body">
-                                    <label class="form-label" id="total_bayar">Total Bayar</label>
-                                    <div class="form-group">
-                                        <label class="form-label">Yang Dibayarkan</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Rp</span>
-                                            </div>
-                                            <input type="text" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
-                                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
 
                     <?= form_close(); ?>
 

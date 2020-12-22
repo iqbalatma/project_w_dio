@@ -16,10 +16,10 @@ class Customer_model extends CI_Model
    * 
    * @param array $data [berisi 5 data]
    */
-  public function set_new_customer($data)
+  public function set_new_customer($data, $store_id)
   {
     $createdAt = unix_to_human(now(), true, 'europe');
-    $store_id = $_SESSION['store_id'];
+    // $store_id = $_SESSION['store_id'];
     $data = array(
       "full_name"   => $data['add-fullname'],
       "address"     => $data['add-address'],
@@ -166,14 +166,28 @@ class Customer_model extends CI_Model
   public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
   {
     // get from table
-    $store_id = $_SESSION['store_id'];
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where('is_deleted', 0);
+    $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+  public function get_all_by_store_id($store_id = 1, $select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
+  {
+    // get from table
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);
     $this->db->where('store_id', $store_id);
     $this->db->order_by($order_by, $asc_desc);
     $this->db->limit($limit);
-    
+
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
@@ -186,7 +200,22 @@ class Customer_model extends CI_Model
   public function get_all_sort_by_name($select = '*')
   {
     // get from table
-    $store_id = $_SESSION['store_id'];
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where('is_deleted', 0);
+    $this->db->order_by('full_name', 'ASC');
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+  // get all customer by store id
+  // parameter pertama untuk tabel yg akan diquery
+  public function get_all_by_store_id_sort_by_name($select = '*', $store_id)
+  {
+    // get from table
+
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);

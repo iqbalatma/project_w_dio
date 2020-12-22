@@ -1,7 +1,7 @@
 <?php
 
 
-class Kasir extends CI_Controller
+class Data_mutasi_barang extends CI_Controller
 {
 
     public function __construct()
@@ -19,10 +19,10 @@ class Kasir extends CI_Controller
     public function index()
     {
         $data = [
-            'title'             => 'Kasir',
-            'content'           => 'kasir/v_kasir.php',
-            'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'title'             => 'Mutasi Barang',
+            'content'           => 'data-gudang/v_mutasi_barang.php',
+            'menuActive'        => 'Gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-mutasi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer'     => $this->Customer_model->get_all_by_store_id_sort_by_name("*", $this->session->store_id),
             // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
             'data_product'      => $this->Product_model->get_all2(),
