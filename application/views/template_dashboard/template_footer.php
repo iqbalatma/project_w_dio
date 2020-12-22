@@ -163,18 +163,18 @@
     if ($submenuActive == 'data-master-produk') : ?>
         <script>
             // inisiasi variable
-            let input           = $('.live-typing'),
-                output          = $('.live-output'),
-                hpp             = $('.hpp'),
-                sellingprice    = $('.sellingprice');
+            let input = $('.live-typing'),
+                output = $('.live-output'),
+                hpp = $('.hpp'),
+                sellingprice = $('.sellingprice');
 
             // output prosentase margin
-            output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
+            output.text(((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
 
             // hitung PROSENTASE MARGIN DARI HPP DAN INPUT HARGA JUAL secara live
             sellingprice.bind('keydown keypress', function() {
                 setTimeout(function() {
-                    output.text( ((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
+                    output.text(((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
                 }, 0);
             });
         </script>
@@ -182,7 +182,7 @@
 
     <?php
     // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
-    if ($submenuActive == 'kasir') : ?>
+    if ($submenuActive == 'kasir' || $submenuActive == 'data-mutasi-barang') : ?>
         <script>
             // untuk set select2 libs, jgn lupa lempar parameter {'select2' => 1}  di method
             $(document).ready(function() {
@@ -193,15 +193,15 @@
             // btn diclick
             $('.kasir-product').on('click', function() {
                 // ambil id btn
-                let btnId   = this.id;
+                let btnId = this.id;
                 // pecah id btn
                 let splitId = btnId.split("-");
                 // ambil hanya nomor id btn saja
-                let id      = splitId[1];
+                let id = splitId[1];
                 // tambahkan nomor id ke belakang nama id dari element quantity dan custom price
-                let kasirQuantity   = '#kasirquantity-' + id;
-                let customPrice     = '#kasircustomprice-' + id;
-                
+                let kasirQuantity = '#kasirquantity-' + id;
+                let customPrice = '#kasircustomprice-' + id;
+
                 // cek btn .kasir-product dengan id btn yg diclick
                 if ($(this).prop('checked')) {
                     // ENABLE qty dan custom harga jika button dengan id yg sama diklik
@@ -224,16 +224,16 @@
             });
 
             // Add dot(s) automagically to input text
-            $('#paid_amount').on( "keyup", function( event ) {
+            $('#paid_amount').on("keyup", function(event) {
                 let maxLength = 9;
                 var selection = window.getSelection().toString();
 
                 // kalo buat pilihan atau pencet panah, maka keluar
-                if ( selection !== '' ) return;
-                if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
+                if (selection !== '') return;
+                if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
 
                 // ambil value skrg di inputan
-                var $this = $( this );
+                var $this = $(this);
                 var inputz = $this.val();
 
                 // replace sama kosong kalo selain Digits
@@ -243,11 +243,11 @@
                 if (inputz.length > maxLength) inputz = inputz.substr(0, maxLength);
 
                 // jaddiin integer
-                inputz = inputz ? parseInt( inputz, 10 ) : 0;
-                
-                $this.val( function() {
+                inputz = inputz ? parseInt(inputz, 10) : 0;
+
+                $this.val(function() {
                     // format ke INDONESIA = id-ID
-                    return ( inputz === 0 ) ? "" : inputz.toLocaleString( "id-ID" );
+                    return (inputz === 0) ? "" : inputz.toLocaleString("id-ID");
                 });
             });
         </script>
@@ -300,7 +300,7 @@
                                 <label>Kode produk (${nextindex}) <span class="text-danger">*</span></label>
                                     <select required class="form-control select2" id='add-customproduct-${nextindex}' name='custom[${nextindex}][product_code]'>
                                     <option selected disabled>-- Pilih produk --</option>
-                                    <?php foreach ($products as $row): ?>
+                                    <?php foreach ($products as $row) : ?>
                                         <option value=<?= "{$row['product_code']}" ?>>
                                             <?= "{$row['product_code']} - {$row['full_name']} (Rp.&nbsp;" . number_format($row['selling_price'], 0, '', '.') . ")"; ?>
                                         </option>
@@ -385,11 +385,12 @@
                                 <label>Kode bahan baku (${nextindex}) <span class="text-danger">*</span></label>
                                     <select required class="form-control select2" id='add-bahanbaku-${nextindex}' name='custom[${nextindex}][material_code]'>
                                     <option selected disabled>-- Pilih bahan baku --</option>
-                                    <?php if (isset($materials)) : foreach ($materials as $row): ?>
+                                    <?php if (isset($materials)) : foreach ($materials as $row) : ?>
                                         <option value=<?= "{$row['material_code']}" ?>>
                                             <?= "{$row['material_code']} - {$row['full_name']}" ?>
                                         </option>
-                                    <?php endforeach; endif; ?>
+                                    <?php endforeach;
+                                    endif; ?>
                                     </select>
                                 </label>
                             </div>
@@ -428,16 +429,16 @@
     if ($submenuActive == 'data-kas-perusahaan') : ?>
         <script>
             // Add dot(s) automagically to input text
-            $('#add-nominal').on( "keyup", function( event ) {
+            $('#add-nominal').on("keyup", function(event) {
                 let maxLength = 9;
                 var selection = window.getSelection().toString();
 
                 // kalo buat pilihan atau pencet panah, maka keluar
-                if ( selection !== '' ) return;
-                if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
+                if (selection !== '') return;
+                if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
 
                 // ambil value skrg di inputan
-                var $this = $( this );
+                var $this = $(this);
                 var inputz = $this.val();
 
                 // replace sama kosong kalo selain Digits
@@ -447,11 +448,11 @@
                 if (inputz.length > maxLength) inputz = inputz.substr(0, maxLength);
 
                 // jaddiin integer
-                inputz = inputz ? parseInt( inputz, 10 ) : 0;
-                
-                $this.val( function() {
+                inputz = inputz ? parseInt(inputz, 10) : 0;
+
+                $this.val(function() {
                     // format ke INDONESIA = id-ID
-                    return ( inputz === 0 ) ? "" : inputz.toLocaleString( "id-ID" );
+                    return (inputz === 0) ? "" : inputz.toLocaleString("id-ID");
                 });
             });
         </script>
@@ -462,16 +463,16 @@
     if ($submenuActive == 'data-hutang-piutang') : ?>
         <script>
             // Add dot(s) automagically to input text
-            $('#pembayaran').on( "keyup", function( event ) {
+            $('#pembayaran').on("keyup", function(event) {
                 let maxLength = 9;
                 var selection = window.getSelection().toString();
 
                 // kalo buat pilihan atau pencet panah, maka keluar
-                if ( selection !== '' ) return;
-                if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) return;
+                if (selection !== '') return;
+                if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
 
                 // ambil value skrg di inputan
-                var $this = $( this );
+                var $this = $(this);
                 var inputz = $this.val();
 
                 // replace sama kosong kalo selain Digits
@@ -481,18 +482,19 @@
                 if (inputz.length > maxLength) inputz = inputz.substr(0, maxLength);
 
                 // jaddiin integer
-                inputz = inputz ? parseInt( inputz, 10 ) : 0;
-                
-                $this.val( function() {
+                inputz = inputz ? parseInt(inputz, 10) : 0;
+
+                $this.val(function() {
                     // format ke INDONESIA = id-ID
-                    return ( inputz === 0 ) ? "" : inputz.toLocaleString( "id-ID" );
+                    return (inputz === 0) ? "" : inputz.toLocaleString("id-ID");
                 });
             });
         </script>
     <?php endif; ?>
 
 
-    <?php // input filter for all input with data-filter properties ?>
+    <?php // input filter for all input with data-filter properties 
+    ?>
     <script>
         // Apply filter to all inputsFilter with data-filter. The filter is depend on RegEx in every data-filter on input tag
         var inputsFilter = document.querySelectorAll('input[data-filter]');
@@ -505,7 +507,7 @@
                 end: inputs.selectionEnd,
                 pattern: RegExp('^' + inputs.dataset.filter + '$')
             };
-        
+
             inputs.addEventListener('input', function(event) {
                 if (state.pattern.test(inputs.value)) {
                     state.value = inputs.value;
@@ -533,12 +535,14 @@
     <?php
     // cek hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
     if ($submenuActive == 'demooo') : ?>
-        <?php // script bawaan template (jangan dihapus dulu dipake buat contoh bikin chart) ?>
-        <?php // =========================================================================== ?>
+        <?php // script bawaan template (jangan dihapus dulu dipake buat contoh bikin chart) 
+        ?>
+        <?php // =========================================================================== 
+        ?>
         <!-- Atlantis DEMO methods, don't include it in your project! -->
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/setting-demo.js"></script>
         <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/demo.js"></script>
-        
+
         <script>
             Circles.create({
                 id: 'circles-1',
@@ -634,22 +638,23 @@
             });
         </script>
     <?php endif; ?>
-    <?php // =========================================================================== ?>
+    <?php // =========================================================================== 
+    ?>
 
 
 
-</body>
+    </body>
 
-</html>
+    </html>
 
 
-<?php 
-// $xxx  = (memory_get_usage() - $start_memory) / 1000000;
-// $xxx .= ' MB memory terpakai';
+    <?php
+    // $xxx  = (memory_get_usage() - $start_memory) / 1000000;
+    // $xxx .= ' MB memory terpakai';
 
-// echo '<script>';
-// echo 'console.log("' . $xxx . '");';
-// echo '</script>';
+    // echo '<script>';
+    // echo 'console.log("' . $xxx . '");';
+    // echo '</script>';
 
-// end_time('kasir_limit_10000', 's');
-?>
+    // end_time('kasir_limit_10000', 's');
+    ?>

@@ -16,15 +16,17 @@ class Customer_model extends CI_Model
    * 
    * @param array $data [berisi 5 data]
    */
-  public function set_new_customer($data)
+  public function set_new_customer($data, $store_id)
   {
     $createdAt = unix_to_human(now(), true, 'europe');
+    // $store_id = $_SESSION['store_id'];
     $data = array(
       "full_name"   => $data['add-fullname'],
       "address"     => $data['add-address'],
       "phone"       => $data['add-phone'],
       "cust_type"   => $data['add-tipe'],
       "created_at"  => $createdAt,
+      "store_id" => $store_id,
     );
     $this->db->insert($this->table, $data);
 
@@ -33,7 +35,7 @@ class Customer_model extends CI_Model
 
     return $lastId;
   }
-  
+
 
 
   /**
@@ -54,12 +56,12 @@ class Customer_model extends CI_Model
     $this->db->where('customer_id', $id);
     $this->db->where('product_code', $code);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return TRUE;
     }
     return FALSE;
   }
-  
+
   /**
    * setter untuk menambahkan harga kustom pada pelanggan
    * 
@@ -68,10 +70,9 @@ class Customer_model extends CI_Model
   public function set_new_customer_price_by_id($id, $data)
   {
     $createdAt = unix_to_human(now(), true, 'europe');
-    
+
     $this->db->trans_start();
-    foreach ($data['custom'] as $c)
-    {
+    foreach ($data['custom'] as $c) {
       $cek = $this->__get_by_id_and_product_code($id, $c['product_code']);
       $data = array(
         "price"         => $c['price'],
@@ -81,25 +82,19 @@ class Customer_model extends CI_Model
       );
       // cek apakah data sudah ada atau belum
       // kalo udah ada berarti update, kalo belum berarti insert baru
-      if ($cek)
-      {
+      if ($cek) {
         $this->db->where('customer_id', $id);
         $this->db->where('product_code', $c['product_code']);
         $this->db->update($this->tb_custom_price, $data);
-      }
-      else
-      {
+      } else {
         $this->db->insert($this->tb_custom_price, $data);
       }
     }
     $this->db->trans_complete();
-    
-    if ($this->db->trans_status() === FALSE)
-    {
+
+    if ($this->db->trans_status() === FALSE) {
       return FALSE;
-    }
-    else
-    {
+    } else {
       return 1;
     }
   }
@@ -146,7 +141,7 @@ class Customer_model extends CI_Model
 
 
 
-//  ===============================================GETTER===============================================
+  //  ===============================================GETTER===============================================
   /**
    * Get total rows from certain table
    * 
@@ -159,8 +154,7 @@ class Customer_model extends CI_Model
   {
     $total = $this->db->count_all_results($this->table);
 
-    if ($keyName !== NULL)
-    {
+    if ($keyName !== NULL) {
       if ($keyName === '') $keyName = 'key';
       $total = [$keyName => $total];
     }
@@ -177,7 +171,23 @@ class Customer_model extends CI_Model
     $this->db->where('is_deleted', 0);
     $this->db->order_by($order_by, $asc_desc);
     $this->db->limit($limit);
-    
+
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+  public function get_all_by_store_id($store_id = 1, $select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
+  {
+    // get from table
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where('is_deleted', 0);
+    $this->db->where('store_id', $store_id);
+    $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
@@ -193,6 +203,23 @@ class Customer_model extends CI_Model
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);
+    $this->db->order_by('full_name', 'ASC');
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+  // get all customer by store id
+  // parameter pertama untuk tabel yg akan diquery
+  public function get_all_by_store_id_sort_by_name($select = '*', $store_id)
+  {
+    // get from table
+
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where('is_deleted', 0);
+    $this->db->where('store_id', $store_id);
     $this->db->order_by('full_name', 'ASC');
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
@@ -236,7 +263,7 @@ class Customer_model extends CI_Model
 
   public function get_customer_price_by_cust_and_product_id($custId = NULL, $productCode = NULL, $select = '*')
   {
-    if ( ($custId === NULL) OR ($productCode === NULL) ) return FALSE;
+    if (($custId === NULL) or ($productCode === NULL)) return FALSE;
 
     // get from table
     $this->db->select($select);
@@ -257,7 +284,7 @@ class Customer_model extends CI_Model
     } else {
       $this->db->where('cp.customer_id', $custId);
     }
-    
+
     $isArrayProductCode = is_array($productCode);
     // cek apakah code product array atau bukan, jika array maka looping untuk where, jika bukan maka hanya sekali
     if ($isArrayProductCode == 1) {
@@ -271,7 +298,7 @@ class Customer_model extends CI_Model
     } else {
       $this->db->where('cp.product_code', $productCode);
     }
-    
+
     $this->db->where('cp.is_deleted', 0);
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
@@ -279,5 +306,4 @@ class Customer_model extends CI_Model
     }
     return FALSE;
   }
-
 }
