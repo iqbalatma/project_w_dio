@@ -43,7 +43,16 @@
                 <div class="card">
 
 
+                    <div class="card-head">
+                        <div class="col-md-12 pt-3">
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/'); ?>">Tampil Semua Data Transaksi</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Transaksi Gudang</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Transaksi Toko Cicalengka</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Transaksi Toko Ujungberung</a>
 
+                        </div>
+
+                    </div>
 
 
                     <div class="card-body">
@@ -107,7 +116,9 @@
                                                 <?= $row->mutation_type ?>
                                             </td>
                                             <td class="px-3">
-                                                <?php $dt = explode(' ', $row->created_at); $d = date_create($dt[0]); echo date_format($d,"d-M-Y") ?>
+                                                <?php $dt = explode(' ', $row->created_at);
+                                                $d = date_create($dt[0]);
+                                                echo date_format($d, "d-M-Y") ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->created_by ?>

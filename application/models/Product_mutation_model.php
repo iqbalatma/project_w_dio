@@ -54,7 +54,7 @@ class Product_mutation_model extends CI_Model
     $this->db->where("pm.is_deleted", 0);
     $this->db->order_by($order_by, $asc_desc);
     $this->db->limit($limit);
-    
+
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
@@ -217,6 +217,25 @@ class Product_mutation_model extends CI_Model
       JOIN store AS s
       ON s.id = pm.store_id
       WHERE pm.mutation_type='keluar' 
+      GROUP BY pm.product_id 
+      ORDER BY freq DESC 
+    ");
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+  public function get_most_buy_product_by_store_id($store_id)
+  {
+    $query = $this->db->query("
+      SELECT pm.id, p.product_code, p.full_name, p.image, s.store_name, pm.mutation_code, SUM(pm.quantity) AS freq, pm.mutation_type 
+      FROM product AS p
+      JOIN product_mutation AS pm
+      ON pm.product_id = p.id
+      JOIN store AS s
+      ON s.id = pm.store_id
+      WHERE pm.mutation_type='keluar' AND pm.store_id = $store_id
       GROUP BY pm.product_id 
       ORDER BY freq DESC 
     ");

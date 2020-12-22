@@ -46,7 +46,16 @@
                             <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Masukkan Barang</a>
                         </div>
                     </div> -->
+                    <div class="card-header">
+                        <div class="col-md-12 pt-3">
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/'); ?>">Tampil Semua Data</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/1'); ?>">Data Gudang</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/2'); ?>">Data Toko Cicalengka</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/3'); ?>">Data Toko Ujungberung</a>
 
+                        </div>
+
+                    </div>
 
 
 

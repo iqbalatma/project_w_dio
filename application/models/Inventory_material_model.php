@@ -24,17 +24,13 @@ class Inventory_material_model extends CI_Model
 
         $row = $query->result();
         return $row;
+    }
+    public function get_inventory_by_store_id($store_id)
+    {
+        $query = $this->db->query("SELECT  material_inventory.critical_point, material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material_inventory.updated_at, material.full_name,  material_inventory.quantity, material_inventory.updated_by FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id INNER JOIN store ON material_inventory.store_id = store.id WHERE material_inventory.is_deleted=0 AND material_inventory.store_id = '$store_id' ORDER BY updated_at DESC");
 
-        // $this->db->select('material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material.full_name,  material_inventory.quantity, material_inventory.updated_by');
-        // $this->db->from('material_inventory');
-        // $this->db->join('material', 'material_inventory.material_id = material.id');
-        // // $this->db->join('material', 'material_inventory.material_id = material.material_code');
-        // // $this->db->join('store', 'material_inventory.store_id = store.id');
-        // $this->db->where('material_inventory.is_deleted', 0);
-        // $query = $this->db->get();
-        // return $query->result();
-        // return $_SESSION;
-        // return $this->db->get_where($this->table, array('is_deleted' => 0))->result();
+        $row = $query->result();
+        return $row;
     }
     public function getKritis()
     {

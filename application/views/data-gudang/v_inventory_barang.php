@@ -42,8 +42,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="col-md-4 pt-3">
-                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Barang</a>
+                        <div class="pt-3">
+                            <a class=" px-3 btn btn-success rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Barang</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/'); ?>">Tampil Semua Data Inventory</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/1'); ?>">Tampil Inventory Gudang</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Cicalengka</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Ujungberung</a>
                         </div>
                     </div>
                     <?php
@@ -94,7 +98,7 @@
 
                                     <?php
                                     $i = 1;
-                                    foreach ($data_barang_masuk as $row) : ?>
+                                    foreach ($data_inventory_barang as $row) : ?>
                                         <tr>
 
                                             <td class="px-3">

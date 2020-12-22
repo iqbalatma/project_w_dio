@@ -27,13 +27,26 @@ class Data_inventory_barang_mentah extends CI_Controller
             'content'           => 'data-gudang/v_inventory_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_barang_masuk' => $this->Inventory_material_model->getAll(),
-            'data_barang_kimia' => $this->Material_model->getAll(),
-            'data_store' => $this->Store_model->getAll(),
+            'data_inventory_barang' => $this->Inventory_material_model->getAll(),
+
             'datatables' => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
+    public function v_data_by_store($store_id)
+    {
+        $data = [
+            'title'             => 'Data Barang Mentah',
+            'content'           => 'data-gudang/v_inventory_barang.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'data_inventory_barang' => $this->Inventory_material_model->get_inventory_by_store_id($store_id),
+
+            'datatables' => 1
+        ];
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
 
 
     public function v_insert()

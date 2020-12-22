@@ -30,10 +30,21 @@ class Data_barang_laku extends CI_Controller
             'datatables' => 1
         ];
 
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+    public function v_by_store($store_id)
+    {
 
 
-
-
+        $data = [
+            'title'             => 'Data Barang',
+            'content'           => 'data-gudang/v_barang_laku.php',
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-barang-laku', // harus selalu ada, buat indikator sidebar menu yg aktif
+            // 'data_barang_laku' => $this->Product_mutation_model->product_paling_laku(),
+            'data_barang_laku' => $this->Product_mutation_model->get_most_buy_product_by_store_id($store_id),
+            'datatables' => 1
+        ];
 
         $this->load->view('template_dashboard/template_wrapper', $data);
     }

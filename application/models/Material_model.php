@@ -34,11 +34,11 @@ class Material_model extends CI_Model
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
-        return $query->result_array();
+            return $query->result_array();
         }
         return FALSE;
     }
-  
+
     public function getAll()
     {
         $this->db->order_by('id', 'DESC');
@@ -88,6 +88,24 @@ class Material_model extends CI_Model
         $this->db->join("material", "material_mutation.material_id = material.id");
         $this->db->join("store", "material_mutation.store_id = store.id");
         $this->db->where("material_mutation.is_deleted", 0);
+        $this->db->order_by("material_mutation.created_at", "DESC");
+        $query = $this->db->get();
+
+        return $query->result();
+        // if ($query->num_rows() == 1) {
+        //     return $query->row();
+        // }
+        // return FALSE;
+    }
+    public function get_transaksi_barang_by_store_id($store_id)
+    {
+        // get from tb_department
+        $this->db->select("material.material_code, material.full_name, store.store_name, material_mutation.mutation_code, material_mutation.quantity, material_mutation.mutation_type, material_mutation.created_at, material_mutation.created_by");
+        $this->db->from("material_mutation");
+        $this->db->join("material", "material_mutation.material_id = material.id");
+        $this->db->join("store", "material_mutation.store_id = store.id");
+        $this->db->where("material_mutation.is_deleted", 0);
+        $this->db->where("material_mutation.store_id", $store_id);
         $this->db->order_by("material_mutation.created_at", "DESC");
         $query = $this->db->get();
 
