@@ -47,8 +47,8 @@
                         <div class="col-md-12 pt-3">
                             <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/'); ?>">Tampil Semua Data Transaksi</a>
                             <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Transaksi Gudang</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Transaksi Toko Cicalengka</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Transaksi Toko Ujungberung</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/2'); ?>">Transaksi Toko Cicalengka</a>
+                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/3'); ?>">Transaksi Toko Ujungberung</a>
 
                         </div>
 
