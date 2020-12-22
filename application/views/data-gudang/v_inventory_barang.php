@@ -114,9 +114,16 @@
                                                 <?= $row->critical_point ?>
                                             </td>
                                             <td class="px-3">
-                                                <?php $dt = explode(' ', $row->updated_at);
-                                                $d = date_create($dt[0]);
-                                                echo "{$dt[1]} <br>" . date_format($d, "d-M-Y") ?>
+
+                                                <?php
+                                                if ($row->updated_at !== NULL) {
+                                                    $dt = explode(' ', $row->updated_at);
+                                                    $d = date_create($dt[0]);
+                                                    echo "{$dt[1]} <br>" . date_format($d, "d-M-Y");
+                                                } else {
+                                                    echo "-";
+                                                }
+                                                ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->created_by ?>

@@ -77,10 +77,10 @@
                                 </div> -->
                                 <div class="form-group">
                                     <div class="form-check">
-                                    <label class="form-check-label d-flex flex-col">
-                                        <input class="form-check-input" id="custom_alamat" name="custom_alamat" onclick="myFunction()" type="checkbox" value="scheckbox">
-                                        <span class="form-check-sign">Custom Alamat ?</span>
-                                    </label>
+                                        <label class="form-check-label d-flex flex-col">
+                                            <input class="form-check-input" id="custom_alamat" name="custom_alamat" onclick="myFunction()" type="checkbox" value="scheckbox">
+                                            <span class="form-check-sign">Custom Alamat ?</span>
+                                        </label>
                                     </div>
                                 </div>
 
@@ -139,7 +139,7 @@
                                             $i  = 0;
                                             $ii = 0;
                                             foreach ($data_product as $row) :
-                                            ?>
+                                        ?>
                                                 <script type="text/javascript">
 
                                                 </script>
@@ -152,22 +152,30 @@
                                                 foreach ($cek_kuantitas_material as $data) {
                                                     $volume = $data['volume'];
                                                     $material_id = $data['material_id']; //id material pada satu product
-                                                    
-                                                    // kalo belum row di tabel inventory == FALSE == NULL
-                                                    $cek_inventory = $this->Kasir_model->cek_inventory($material_id);
-                                                    // jika NULL maka tetap akan menghasilkan NULL
-                                                    $cek_inventory = $cek_inventory[0]['quantity'];
-                                                    // jika NULL / $volume (int) == menjadi (int)0
-                                                    // kalo error harusnya pasti 0, karena dari NULL di atas
-                                                    $quantity = $cek_inventory / $volume;
-                                                    
-                                                    $kuantitas_product[$q] = $quantity;
-                                                    // pprintd($kuantitas_product);
-                                                    $q++;
+
+
+                                                    if ($this->Kasir_model->cek_inventory($material_id) !== false) {
+                                                        // kalo belum row di tabel inventory == FALSE == NULL
+                                                        $cek_inventory = $this->Kasir_model->cek_inventory($material_id);
+                                                        // jika NULL maka tetap akan menghasilkan NULL
+                                                        $cek_inventory = $cek_inventory[0]['quantity'];
+                                                        // jika NULL / $volume (int) == menjadi (int)0
+                                                        // kalo error harusnya pasti 0, karena dari NULL di atas
+                                                        $quantity = $cek_inventory / $volume;
+
+                                                        $kuantitas_product[$q] = $quantity;
+                                                    } else {
+                                                        // echo "FALSE";
+                                                        $kuantitas_product[$q] = 0;
+                                                    }
                                                 }
                                                 sort($kuantitas_product);
-                                                // pprint($kuantitas_product);
                                                 $kuantitas_material = $kuantitas_product[0];
+
+
+
+
+
                                                 ?>
 
                                                 <?php if ($kuantitas_material >= 1) : ?>
@@ -179,7 +187,7 @@
 
                                                             <div class="d-flex justify-content-center">
                                                                 <select disabled class="col-3 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
-                                                                <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
+                                                                    <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
                                                                     <option value="0" selected>0</option>
                                                                     <?php
                                                                     $j = 1;
@@ -187,14 +195,14 @@
                                                                     while ($j <= $kuantitas_material) {
                                                                         // maksimal tampil jumlah produk sekali cekout 200/produk/cekout. 
                                                                         // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya sampe ribuan
-                                                                        if($j > $maxShowNumber) break;
-                                                                        ?>
-                                                                            <option value="<?= $j; ?>"><?= ($j == $maxShowNumber) ? 'Max.' : '' ?> <?= $j; ?></option>
-                                                                        <?php
+                                                                        if ($j > $maxShowNumber) break;
+                                                                    ?>
+                                                                        <option value="<?= $j; ?>"><?= ($j == $maxShowNumber) ? 'Max.' : '' ?> <?= $j; ?></option>
+                                                                    <?php
                                                                         $j++;
                                                                     }; ?>
                                                                 </select>
-                                                                <input disabled type="tel" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan" data-filter = "\+?\d{0,8}" pattern = "[0-9]{1,8}" title = "Harus angka minimal satu dan maksimal 8 angka" maxlength = 8>
+                                                                <input disabled type="tel" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan" data-filter="\+?\d{0,8}" pattern="[0-9]{1,8}" title="Harus angka minimal satu dan maksimal 8 angka" maxlength=8>
                                                                 <!-- <input class="col-9 mx-1 mt-1 form-control form-control-sm" type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga"> -->
                                                                 </input>
                                                             </div>
@@ -203,8 +211,8 @@
                                                     </div>
 
                                                     <input type="hidden" id="selling_price<?= $i; ?>" value="<?= $row['selling_price'];; ?>">
-                                                <?php
-                                                $ii++;
+                                        <?php
+                                                    $ii++;
                                                 endif;
                                                 if ($kuantitas_material < 1) :
                                                     $notAvailableProduct[] = $row;
@@ -232,21 +240,21 @@
                                                 <?php
                                                 $i = 0;
                                                 foreach ($notAvailableProduct as $row) { ?>
-                                                        <div class="d-flex flex-column col-sm-7 col-md-6 col-xl-4">
-                                                            <label class="selectgroup-item mt-2">
-                                                                    <input type="checkbox" class="selectgroup-input" disabled>
-                                                                    <span class="selectgroup-button bg-light"><?= $row['full_name']; ?> | <?= price_format($row['selling_price']) ?></span>
+                                                    <div class="d-flex flex-column col-sm-7 col-md-6 col-xl-4">
+                                                        <label class="selectgroup-item mt-2">
+                                                            <input type="checkbox" class="selectgroup-input" disabled>
+                                                            <span class="selectgroup-button bg-light"><?= $row['full_name']; ?> | <?= price_format($row['selling_price']) ?></span>
 
-                                                                    <!-- <select class="col-11 mx-auto mt-1 text-danger form-control form-control-sm" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" disabled>
+                                                            <!-- <select class="col-11 mx-auto mt-1 text-danger form-control form-control-sm" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" disabled>
                                                                         <option class="mx-auto">Stok habis!</option>
                                                                     </select> -->
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <input type="text" class="col-3 mx-1 mt-1 text-danger form-control form-control-sm" placeholder="Stok habis!" disabled>
-                                                                        <input type="text" class="col-8 mx-1 mt-1 form-control form-control-sm" placeholder="Custom harga" disabled>
-                                                                    </div>
-                                                            </label>
-                                                        </div>
-                                                    <?php
+                                                            <div class="d-flex justify-content-center">
+                                                                <input type="text" class="col-3 mx-1 mt-1 text-danger form-control form-control-sm" placeholder="Stok habis!" disabled>
+                                                                <input type="text" class="col-8 mx-1 mt-1 form-control form-control-sm" placeholder="Custom harga" disabled>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                <?php
                                                     $i++;
                                                 };;
                                                 ?>
