@@ -8,6 +8,8 @@ application/logs/*
 
 !application/*/.htaccess
 
+application/config/development/database.php
+
 application/config/production/
 application/config/production
 

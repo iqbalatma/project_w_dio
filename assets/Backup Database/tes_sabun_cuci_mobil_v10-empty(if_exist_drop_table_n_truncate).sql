@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2020 at 08:31 PM
+-- Generation Time: Dec 22, 2020 at 09:34 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `tes_sabun_cuci_mobil_empty`
+-- Database: `tes_sabun_cuci_mobil`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `basic_info_meta`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `basic_info_meta`;
@@ -69,7 +69,7 @@ INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contac
 --
 -- Table structure for table `customer`
 --
--- Creation: Dec 19, 2020 at 06:08 AM
+-- Creation: Dec 22, 2020 at 07:57 AM
 --
 
 DROP TABLE IF EXISTS `customer`;
@@ -79,6 +79,7 @@ CREATE TABLE `customer` (
   `address` varchar(250) NOT NULL,
   `phone` varchar(16) NOT NULL,
   `cust_type` enum('retail','reseller') NOT NULL DEFAULT 'retail',
+  `store_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -92,7 +93,7 @@ CREATE TABLE `customer` (
 --
 -- Table structure for table `custom_price`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `custom_price`;
@@ -118,7 +119,7 @@ CREATE TABLE `custom_price` (
 --
 -- Table structure for table `employee`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `employee`;
@@ -171,7 +172,7 @@ INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `la
 --
 -- Table structure for table `invoice`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 08:31 AM
 --
 
 DROP TABLE IF EXISTS `invoice`;
@@ -181,6 +182,8 @@ CREATE TABLE `invoice` (
   `paid_amount` int(11) NOT NULL,
   `left_to_paid` bigint(20) NOT NULL,
   `paid_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paid_type` enum('cash','transfer','kontrabon') NOT NULL COMMENT 'paid_amount ; cash=normal ; transfer=0 ; kontrabon=0 ;',
+  `payment_img` varchar(250) DEFAULT NULL COMMENT 'Nama img.ext dari bukti bayar invoice ini',
   `transaction_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('0','1') NOT NULL DEFAULT '0',
@@ -198,7 +201,7 @@ CREATE TABLE `invoice` (
 --
 -- Table structure for table `invoice_item`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `invoice_item`;
@@ -223,7 +226,7 @@ CREATE TABLE `invoice_item` (
 --
 -- Table structure for table `kas`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `kas`;
@@ -250,7 +253,7 @@ CREATE TABLE `kas` (
 --
 -- Table structure for table `material`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `material`;
@@ -276,7 +279,7 @@ CREATE TABLE `material` (
 --
 -- Table structure for table `material_inventory`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `material_inventory`;
@@ -306,7 +309,7 @@ CREATE TABLE `material_inventory` (
 --
 -- Table structure for table `material_mutation`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `material_mutation`;
@@ -335,7 +338,7 @@ CREATE TABLE `material_mutation` (
 --
 -- Table structure for table `product`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 07:56 AM
 --
 
 DROP TABLE IF EXISTS `product`;
@@ -344,10 +347,11 @@ CREATE TABLE `product` (
   `product_code` varchar(100) NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `unit` enum('gram','mililiter','liter','pcs','sachet','galon','drum','pile') NOT NULL DEFAULT 'mililiter',
-  `volume` int(11) NOT NULL DEFAULT '0' COMMENT 'Jumlah dalam ml / gr',
+  `volume` int(11) NOT NULL DEFAULT '0' COMMENT 'Jumlah dalam ''gram'',''mililiter'',''liter'',''pcs'',''sachet'',''galon'',''drum'',''pile''',
   `image` varchar(250) DEFAULT 'default.png',
   `price_base` int(11) NOT NULL DEFAULT '0' COMMENT 'Harga dasar / Harga beli / HPP',
-  `selling_price` int(11) NOT NULL DEFAULT '0' COMMENT 'Harga jual yang dibuat dari harga total komposisi untuk membuatnya',
+  `selling_price` int(11) NOT NULL DEFAULT '0' COMMENT 'Harga jual normal untuk customer biasa',
+  `reseller_price` int(11) NOT NULL DEFAULT '0' COMMENT 'Harga jual untuk customer reseller',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -361,7 +365,7 @@ CREATE TABLE `product` (
 --
 -- Table structure for table `product_composition`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `product_composition`;
@@ -388,7 +392,7 @@ CREATE TABLE `product_composition` (
 --
 -- Table structure for table `product_mutation`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `product_mutation`;
@@ -417,7 +421,7 @@ CREATE TABLE `product_mutation` (
 --
 -- Table structure for table `role`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `role`;
@@ -452,7 +456,7 @@ INSERT INTO `role` (`id`, `role_name`, `created_at`, `is_deleted`) VALUES
 --
 -- Table structure for table `store`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `store`;
@@ -487,7 +491,7 @@ INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) 
 --
 -- Table structure for table `transaction`
 --
--- Creation: Dec 19, 2020 at 05:03 AM
+-- Creation: Dec 22, 2020 at 06:07 AM
 --
 
 DROP TABLE IF EXISTS `transaction`;
@@ -528,7 +532,8 @@ ALTER TABLE `basic_info_meta`
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `store_id` (`store_id`);
 
 --
 -- Indexes for table `custom_price`
