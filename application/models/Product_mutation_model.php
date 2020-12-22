@@ -44,7 +44,7 @@ class Product_mutation_model extends CI_Model
    * to select some table(s) name of your choice.
    * 
    */
-  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'pm.id')
+  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'pm.id', $limit = 20000)
   {
     $this->db->select($select);
     $this->db->from("{$this->tb_product} AS p");
@@ -53,6 +53,8 @@ class Product_mutation_model extends CI_Model
     // $this->db->where("{$this->tb_product_composition}.product_id", $id);
     $this->db->where("pm.is_deleted", 0);
     $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+    
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

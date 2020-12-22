@@ -108,11 +108,13 @@ class Kas_model extends CI_Model
    * to select some table(s) name of your choice.
    * 
    */
-  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id')
+  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
   {
     $this->db->select($select);
     $this->db->from("{$this->table}");
     $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

@@ -79,14 +79,20 @@
                             </div>
 
                             <!-- button -->
-                            <div class="form-group row justify-content-center mt-5">
-                              <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-5 mx-1">
-                                Kembali
-                              </a>
-                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-5 mx-1">
-                                Perbarui data
-                              </a>
-                            </div>
+                            <form action="<?= base_url("{$menuActive}/{$submenuActive}/edit-pass") ?>" method="post">
+                              <div class="form-group row justify-content-center mt-5">
+                                <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-3 mx-1">
+                                  Kembali
+                                </a>
+                                <button type="submit" class="btn btn-outline-danger col-4 mx-1">
+                                  Ubah password
+                                </button>
+                                <input type="hidden" name="id" value="<?= $employee->id ?>">
+                                <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-3 mx-1">
+                                  Perbarui data
+                                </a>
+                              </div>
+                            </form>
 
                           </div>
                         </div>

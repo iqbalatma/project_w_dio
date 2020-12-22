@@ -179,35 +179,33 @@
                                                 ?>
 
                                                 <?php if ($kuantitas_material >= 1) : ?>
-                                                    <div class="d-flex flex-column col-sm-7 col-md-6 col-xl-4">
-                                                        <label class="selectgroup-item mt-2">
+                                                    <div class="d-flex flex-column col-sm-7 col-md-6 col-xl-4 mt-4">
+                                                        <label class="selectgroup-item">
                                                             <input type="checkbox" class="selectgroup-input kelas_product <?= "kasir-product" ?>" name="<?= "product[{$i}]" ?>" id="<?= "kasirproduct-{$ii}" ?>" value="<?= $row['id']; ?>">
                                                             <!-- <input type="checkbox" name="product[<?= $i; ?>]" id="product" value="<?= $row['id']; ?>" class="selectgroup-input kelas_product"> -->
                                                             <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | <?= price_format($row['selling_price']) ?></span>
-
-                                                            <div class="d-flex justify-content-center">
-                                                                <select disabled class="col-3 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
-                                                                    <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
-                                                                    <option value="0" selected>0</option>
-                                                                    <?php
-                                                                    $j = 1;
-                                                                    $maxShowNumber = 200;
-                                                                    while ($j <= $kuantitas_material) {
-                                                                        // maksimal tampil jumlah produk sekali cekout 200/produk/cekout. 
-                                                                        // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya sampe ribuan
-                                                                        if ($j > $maxShowNumber) break;
-                                                                    ?>
-                                                                        <option value="<?= $j; ?>"><?= ($j == $maxShowNumber) ? 'Max.' : '' ?> <?= $j; ?></option>
-                                                                    <?php
-                                                                        $j++;
-                                                                    }; ?>
-                                                                </select>
-                                                                <input disabled type="tel" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan" data-filter="\+?\d{0,8}" pattern="[0-9]{1,8}" title="Harus angka minimal satu dan maksimal 8 angka" maxlength=8>
-                                                                <!-- <input class="col-9 mx-1 mt-1 form-control form-control-sm" type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga"> -->
-                                                                </input>
-                                                            </div>
-
                                                         </label>
+                                                        <div class="d-flex justify-content-center">
+                                                            <select disabled class="select2 col-3 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
+                                                                <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
+                                                                <option value="0" selected>0</option>
+                                                                <?php
+                                                                $j = 1;
+                                                                $maxShowNumber = 2000;
+                                                                while ($j <= $kuantitas_material) {
+                                                                    // maksimal tampil jumlah produk sekali cekout 200/produk/cekout. 
+                                                                    // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya sampe ribuan
+                                                                    if ($j > $maxShowNumber) break;
+                                                                ?>
+                                                                    <option value="<?= $j; ?>"><?= ($j == $maxShowNumber) ? 'Max.' : '' ?> <?= $j; ?></option>
+                                                                <?php
+                                                                    $j++;
+                                                                }; ?>
+                                                            </select>
+                                                            <input disabled type="tel" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan" data-filter="\+?\d{0,8}" pattern="[0-9]{1,8}" title="Harus angka minimal satu dan maksimal 8 angka" maxlength=8>
+                                                            <!-- <input class="col-9 mx-1 mt-1 form-control form-control-sm" type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga"> -->
+                                                            </input>
+                                                        </div>
                                                     </div>
 
                                                     <input type="hidden" id="selling_price<?= $i; ?>" value="<?= $row['selling_price'];; ?>">

@@ -28,13 +28,7 @@ class Invoice extends CI_Controller
 		];
 		$this->load->view('template_dashboard/template_wrapper', $data);
 	}
-
-
-	// ------------------------------------------------------- NOTE
-	// 
-	// 
-	// DATA DARI CEKOUT DIOLAH DI DALAM METHOD INI, BIAR GAMPANG MASUKIN SESSION TRUS PINDAHIN KE VARIABEL DI DALEM METHOD
-	// KALO ADA CARA LEBIH EFEKTIF LEBIH BAGUS BERARTI
+	
 	public function generate($id_invoice)
 	{
 		$data_invoice 			= $this->Kasir_model->generate_invoice($id_invoice);
@@ -46,93 +40,81 @@ class Invoice extends CI_Controller
 		// $data 			= file_get_contents($fullpath);
 		// $base64 		= 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-		// INI CUMA DATA DUMMY, NANTI APUS KALO DATA DARI CEKOUT UDAH DIINTEGRASIIN
-		$rows = array(
-			[
-				'full_name'		=> 'Barang 1',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '12',
-				'keterangan'	=> '-',
-				'harga'				=> '10.000',
-				'total'				=> '120.000',
-			],
-			[
-				'full_name'		=> 'Barang 2',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '3',
-				'keterangan'	=> '-',
-				'harga'				=> '20.000',
-				'total'				=> '60.000',
-			],
-			[
-				'full_name'		=> 'Barang 3',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '5',
-				'keterangan'	=> '-',
-				'harga'				=> '12.000',
-				'total'				=> '60.000',
-			],
-			[
-				'full_name'		=> 'Barang 4',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '15',
-				'keterangan'	=> '-',
-				'harga'				=> '20.000',
-				'total'				=> '300.000',
-			], [
-				'full_name'		=> 'Barang 1',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '12',
-				'keterangan'	=> '-',
-				'harga'				=> '10.000',
-				'total'				=> '120.000',
-			],
-			[
-				'full_name'		=> 'Barang 2',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '3',
-				'keterangan'	=> '-',
-				'harga'				=> '20.000',
-				'total'				=> '60.000',
-			],
-			[
-				'full_name'		=> 'Barang 3',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '5',
-				'keterangan'	=> '-',
-				'harga'				=> '12.000',
-				'total'				=> '60.000',
-			],
-			[
-				'full_name'		=> 'Barang 4',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '15',
-				'keterangan'	=> '-',
-				'harga'				=> '20.000',
-				'total'				=> '300.000',
-			], [
-				'full_name'		=> 'Barang 1',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '12',
-				'keterangan'	=> '-',
-				'harga'				=> '10.000',
-				'total'				=> '120.000',
-			],
-			[
-				'full_name'		=> 'Barang 2',
-				'kemasan'			=> 'Galon',
-				'jumlah'			=> '3',
-				'keterangan'	=> '-',
-				'harga'				=> '20.000',
-				'total'				=> '60.000',
-			],
 
-		);
+		// pprintd($data_invoice_item);
 
-		$noInvoice = $data_invoice[0]['invoice_number'];
-		// $noInvoice = "x";
+		// semua dikonversi ke liter
+		$__mililiter	= 0.001; // dalam liter
+		$__liter			= 1; // dalam liter
+		$__galon			= 5; // dalam liter
+		$__pile				= 20; // dalam liter
+		$__drum				= 200; // dalam liter
+
+		// inisiasi array kosong dan nilai awal
+		$container = [];
+		$totLiter  = 0;
+		$tot1Liter = 0;
+		$tot5Liter = 0;
+		// untuk lakukan perkalian dan semua diconvert menjadi satuan liter dan masuk ke array.
+		foreach ($data_invoice_item as $row) {
+			// perhitungan liter tergantung unit dari masing2 produk
+			switch ($row['unit']) {
+				case 'mililiter':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__mililiter * $row['volume']);
+					break;
+
+				case 'liter':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__liter * $row['volume']);
+					$row['tot1Liter'] 		= $row['quantity'];
+					$tot1Liter 	 					= $tot1Liter + $row['tot1Liter'];
+					break;
+
+				case 'galon':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__galon * $row['volume']);
+					$row['tot5Liter'] 		= $row['quantity'];
+					$tot5Liter 	 					= $tot5Liter + $row['tot5Liter'];
+					break;
+
+				case 'pile':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__pile * $row['volume']);
+					break;
+
+				case 'drum':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__drum * $row['volume']);
+					break;
+
+				case 'pcs':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__mililiter * $row['volume']); // itungannya mililiter
+					break;
+					
+				case 'sachet':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__mililiter * $row['volume']); // itungannya mililiter
+					break;
+				
+				default:
+					$row['totLiterItem'] 	= 0;
+					break;
+			}
+			// totalin setiap liter si masing2 item untuk itung total liter per invoice, per 1 liter, dan per 5 liter
+			// masukin variabel sendiri2, bukan ke array yg udah ada
+			$totLiter 	 = $totLiter + $row['totLiterItem'];
+			// jika tipe = float, format untuk angka yg ada koma2an, else format menjadi ada titik tanpa ada 0 di belakang koma
+			if ( is_float($row['totLiterItem']) ) $row['totLiterItem'] = number_format($row['totLiterItem'], 2, ',', '.');
+			else $row['totLiterItem'] = number_format($row['totLiterItem'], 0, ',', '.');
+			// masukin array di $row ke dalem $container
+			$container[] = $row;
+		}
+		// total liter selalu dikasih 3 nol di belakang koma, biar hasil akhir lebih detail aja
+		$totLiter = number_format($totLiter, 2, ',', '.');
+		// balikin value $data_invoice_item yg sudah ditambah key baru di dalamnya dari $container
+		$data_invoice_item = $container;
 
 
+		// pprintd($data_invoice_item);
+
+		
+
+		$noInvoice 				= $data_invoice[0]['invoice_number'];
 		$tanggal_sekarang = explode(" ", $data_invoice[0]['created_at']);
 		$tanggal_sekarang = $tanggal_sekarang[0];
 		$date = date_create($tanggal_sekarang);
@@ -143,12 +125,14 @@ class Invoice extends CI_Controller
 			'custLocation' 	=> $data_invoice[0]['address'],
 			'date' 					=> date_format($date, "d M Y"),
 			'rows'					=> $data_invoice_item, // MASUKIN DARI SESSION KE SINI, NANTI FOREACH DI "GENERATE-REPORT/V_INVOICE.PHP"
+			'totLiter'			=> $totLiter,
+			'tot1Liter' 		=> $tot1Liter,
+			'tot5Liter' 		=> $tot5Liter,
 		);
 		// $this->load->view('generate-report/v_invoice', $data);
 
-		// var_dump($data_invoice_item);
-		// var_dump($data_invoice);
-		// echo $id_invoice;
+
+		// pprintd($data_invoice_item);
 
 
 		// view dijadiin raw bukan ditampilin
@@ -158,7 +142,7 @@ class Invoice extends CI_Controller
 		// view raw tadi di tulis jadi pdf sama mpdf
 		$mpdf->WriteHTML($html);
 		// keluarin hasilnya dengan set nama file dan tipe output. INLINE = harusnya tampil di browser ga otomatis donlot
-		$mpdf->Output('invoice-' . $noInvoice . '-' . mdate('%d%m%y', now()) . '.pdf', \Mpdf\Output\Destination::INLINE);
+		$mpdf->Output('INVOICE-' . $noInvoice . '-' . mdate('%d%m%y', now()) . '.pdf', \Mpdf\Output\Destination::INLINE);
 	}
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2020 at 06:02 AM
+-- Generation Time: Dec 20, 2020 at 08:31 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `tes_sabun_cuci_mobil`
+-- Database: `tes_sabun_cuci_mobil_empty`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `basic_info_meta`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `basic_info_meta`;
@@ -69,7 +69,7 @@ INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contac
 --
 -- Table structure for table `customer`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 06:08 AM
 --
 
 DROP TABLE IF EXISTS `customer`;
@@ -92,7 +92,7 @@ CREATE TABLE `customer` (
 --
 -- Table structure for table `custom_price`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `custom_price`;
@@ -118,7 +118,7 @@ CREATE TABLE `custom_price` (
 --
 -- Table structure for table `employee`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `employee`;
@@ -156,7 +156,7 @@ TRUNCATE TABLE `employee`;
 --
 
 INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `phone`, `address`, `avatar`, `role_id`, `store_id`, `created_at`, `is_deleted`) VALUES
-(0, 'kaisar', 'kaisar@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'Kaisar', 'Sihir', '080000000000', 'Langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
+-- (0, 'kaisar', 'kaisar@msn.com', '$2a$08$g6axSKDVOvmKJOTOYUbK/OO1DP5vsSRPNtRBowHc.nQs2v5VGsoky', 'Kaisar', 'Sihir', '080000000000', 'Langit', 'avatar-7.png', 0, 1, '2020-11-18 22:55:22', 0),
 (1, 'pemilik', 'pemilik@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', '', 'Pemilik', '081111111111', 'Headquarters', 'avatar-1.png', 1, 1, '2020-11-10 22:48:27', 0),
 (2, 'gudang1', 'gudang1@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 1', '082222222222', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
 (3, 'gudang2', 'gudang2@msn.com', '$2a$08$TewpSs2aYottWdQaZLCHjeNpMdTPBV.xizhqPrHCiuWC3aHIwfGpy', 'Admin', 'Gudang 2', '083333333333', 'Di gudang', 'avatar-2.png', 2, 1, '2020-11-10 22:52:15', 0),
@@ -171,15 +171,15 @@ INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `la
 --
 -- Table structure for table `invoice`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `invoice`;
 CREATE TABLE `invoice` (
   `id` int(11) NOT NULL,
   `invoice_number` varchar(100) NOT NULL,
-  `paid_amount` int(21) NOT NULL,
-  `left_to_paid` int(21) NOT NULL,
+  `paid_amount` int(11) NOT NULL,
+  `left_to_paid` bigint(20) NOT NULL,
   `paid_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `transaction_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -198,7 +198,7 @@ CREATE TABLE `invoice` (
 --
 -- Table structure for table `invoice_item`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `invoice_item`;
@@ -223,7 +223,7 @@ CREATE TABLE `invoice_item` (
 --
 -- Table structure for table `kas`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `kas`;
@@ -250,7 +250,7 @@ CREATE TABLE `kas` (
 --
 -- Table structure for table `material`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `material`;
@@ -276,7 +276,7 @@ CREATE TABLE `material` (
 --
 -- Table structure for table `material_inventory`
 --
--- Creation: Dec 18, 2020 at 05:38 PM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `material_inventory`;
@@ -306,7 +306,7 @@ CREATE TABLE `material_inventory` (
 --
 -- Table structure for table `material_mutation`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `material_mutation`;
@@ -335,7 +335,7 @@ CREATE TABLE `material_mutation` (
 --
 -- Table structure for table `product`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `product`;
@@ -361,7 +361,7 @@ CREATE TABLE `product` (
 --
 -- Table structure for table `product_composition`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `product_composition`;
@@ -388,7 +388,7 @@ CREATE TABLE `product_composition` (
 --
 -- Table structure for table `product_mutation`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `product_mutation`;
@@ -417,7 +417,7 @@ CREATE TABLE `product_mutation` (
 --
 -- Table structure for table `role`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `role`;
@@ -452,7 +452,7 @@ INSERT INTO `role` (`id`, `role_name`, `created_at`, `is_deleted`) VALUES
 --
 -- Table structure for table `store`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `store`;
@@ -487,7 +487,7 @@ INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) 
 --
 -- Table structure for table `transaction`
 --
--- Creation: Dec 18, 2020 at 11:36 AM
+-- Creation: Dec 19, 2020 at 05:03 AM
 --
 
 DROP TABLE IF EXISTS `transaction`;
@@ -495,7 +495,7 @@ CREATE TABLE `transaction` (
   `id` int(11) NOT NULL,
   `trans_number` varchar(100) NOT NULL,
   `deliv_address` varchar(250) NOT NULL,
-  `price_total` int(11) NOT NULL,
+  `price_total` bigint(20) NOT NULL,
   `store_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,

@@ -277,7 +277,7 @@ class Kasir_model extends CI_Model
      * to select some table(s) name of your choice.
      * 
      */
-    public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id')
+    public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
     {
         // local table names variables
         $tb_invoice     = 'invoice';
@@ -291,6 +291,8 @@ class Kasir_model extends CI_Model
         $this->db->where('i.left_to_paid >', 0);
         $this->db->where("i.status", '0');
         $this->db->where('i.is_deleted', 0);
+        $this->db->limit($limit);
+
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -319,7 +321,7 @@ class Kasir_model extends CI_Model
     }
     public function generate_invoice_item($invoice_id)
     {
-        $query = $this->db->query("SELECT product.full_name, product.unit,invoice_item.quantity, invoice_item.item_price FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
+        $query = $this->db->query("SELECT product.full_name, product.unit, product.selling_price, invoice_item.quantity, invoice_item.item_price, product.volume FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
 
         $row = $query->result_array();
 

@@ -163,7 +163,7 @@ class Customer_model extends CI_Model
 
   // get all customer
   // parameter pertama untuk tabel yg akan diquery
-  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id')
+  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
   {
     // get from table
     $store_id = $_SESSION['store_id'];
@@ -172,6 +172,8 @@ class Customer_model extends CI_Model
     $this->db->where('is_deleted', 0);
     $this->db->where('store_id', $store_id);
     $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+    
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
