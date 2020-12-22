@@ -153,7 +153,7 @@
                                                     $volume = $data['volume'];
                                                     $material_id = $data['material_id']; //id material pada satu product
 
-
+                                                    // urang nambahin ini kalau engga, ntar line 161 $cek_inventory[0][quantity] ngasih false malah muncul error
                                                     if ($this->Kasir_model->cek_inventory($material_id) !== false) {
                                                         // kalo belum row di tabel inventory == FALSE == NULL
                                                         $cek_inventory = $this->Kasir_model->cek_inventory($material_id);
