@@ -954,6 +954,45 @@ class Kasir_model extends CI_Model
 
         $isProductMutationSuccess = $this->db->insert_batch($tb_product_mutation, $data_product_mutation);
 
+        $arr = [
+            'item_type' => 'product', // PRO=Product ; MAT=Material ;
+            'mutation_type' => 'masuk', // KEL=Keluar ; MSK=Masuk ;
+        ];
+        $productMutationCode = $this->__generate_new_mutation_code($now, $arr);
+
+        $container = [];
+        $i = 0;
+        $id_toko = 1;
+        if ($data['nama_toko'] == "Toko Cicalengka") {
+            $id_toko = 2;
+        } else {
+            $id_toko = 3;
+        }
+        foreach ($data['data_product'] as $row) {
+            // pecah mutation code yang asli, untuk dilooping increment 1 si nomor depannya
+            $__exploded     = explode('/', $productMutationCode);
+            $__exploded[0]  = $__exploded[0] + $i;
+            $__exploded[0]  = str_pad($__exploded[0], 6, "0", STR_PAD_LEFT);
+            // gabungin lagi yang udah dipecah dan diincrement 1
+            $__productMutationCode = implode('/', $__exploded);
+
+
+            $data_product_mutation = [
+                'product_id'    => $row['id'],
+                'store_id'      => $id_toko,
+                'mutation_code' => $__productMutationCode,
+                'quantity'      => $row['kasir_qty'],
+                'mutation_type' => $arr['mutation_type'],
+                'created_at'    => $createdAt,
+                'created_by'    => $data['username'],
+            ];
+            $container[] = $data_product_mutation;
+            $i++;
+        }
+        $data_product_mutation = $container;
+
+        $isProductMutationSuccess = $this->db->insert_batch($tb_product_mutation, $data_product_mutation);
+
 
         // ============================================================ SELESAI PERSIAPAN DATA MUTASI PRODUK ===================
         // ============================================================ [5] MULAI SIAPKAN DATA-DATA UNTUK MUTASI MATERIAL ===================
@@ -1020,12 +1059,72 @@ class Kasir_model extends CI_Model
             $i++;
         }
         $data_material_mutation = $container;
-
         $isMaterialMutationSuccess = $this->db->insert_batch($tb_material_mutation, $data_material_mutation);
 
 
+
+        // MASUK
+        $materialMutationCode = $this->__generate_new_mutation_code($now, $arr);
+
+        // get seluruh material dari seluruh produk id yang di cekout
+        // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
+        // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get
+        // contoh  ==>  id=1 OR id=9 OR id=13
+        $productQuery = '';
+        foreach ($data['data_product'] as $__product) {
+            // hanya tambah OR setelah iterasi pertama, dan hasil query tidak akan ada OR di blkg
+            if ($productQuery !== '') $productQuery .= " OR ";
+            $productQuery .= "product_id={$__product['id']}";
+        }
+        // get data dari db dengan klausa where di atas
+        $data['product_composition'] = $this->__get_by_where($productQuery, 'id, volume, product_id, material_id');
+
+        $container = [];
+        foreach ($data['data_product'] as $__prod) {
+            foreach ($data['product_composition'] as $__pc) {
+                if ($__prod['id'] == $__pc['product_id']) {
+                    $temp['product_id']    = $__prod['id'];
+                    $temp['material_id']   = $__pc['material_id'];
+                    $temp['mutation_qty']  = $__prod['kasir_qty'] * $__pc['volume'];
+                    $container[] = $temp;
+                    // break;
+                }
+            }
+        }
+        // variabel untuk digunakan di sub-bab material mutation
+        $data_material_mutation  = $container;
+        // variabel untuk digunakan di sub-bab material inventory, biar gaproses 2kali, jadi cukup di sini
+        $data_material_inventory = $container;
+        $container = [];
+        $i = 0;
+        foreach ($data_material_mutation as $row) {
+            // pecah mutation code yang asli, untuk dilooping increment 1 si nomor depannya
+            $__exploded     = explode('/', $materialMutationCode);
+            $__exploded[0]  = $__exploded[0] + $i;
+            $__exploded[0]  = str_pad($__exploded[0], 6, "0", STR_PAD_LEFT);
+            // gabungin lagi yang udah dipecah dan diincrement 1
+            $__materialMutationCode = implode('/', $__exploded);
+
+            $data_material_mutation = [
+                'material_id'   => $row['material_id'],
+                'store_id'      => $id_toko,
+                'mutation_code' => $__materialMutationCode,
+                'quantity'      => $row['mutation_qty'],
+                'mutation_type' => 'masuk',
+                'created_at'    => $createdAt,
+                'created_by'    => $data['username'],
+            ];
+            $container[] = $data_material_mutation;
+            $i++;
+        }
+        $data_material_mutation = $container;
+
+        $isMaterialMutationSuccess = $this->db->insert_batch($tb_material_mutation, $data_material_mutation);
         // ============================================================ SELESAI PERSIAPAN DATA MUTASI MATERIAL ===================
         // ============================================================ [6] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY MATERIAL ===================
+
+
+
 
 
         $container = [];
@@ -1034,6 +1133,13 @@ class Kasir_model extends CI_Model
             $data_material_inventory = [
                 'material_id'   => $row['material_id'],
                 'store_id'      => $data['store_id'],
+                'quantity'      => $row['mutation_qty'],
+                'updated_at'    => $createdAt,
+                'updated_by'    => $data['username'],
+            ];
+            $data_material_inventory2 = [
+                'material_id'   => $row['material_id'],
+                'store_id'      => $id_toko,
                 'quantity'      => $row['mutation_qty'],
                 'updated_at'    => $createdAt,
                 'updated_by'    => $data['username'],
@@ -1048,8 +1154,34 @@ class Kasir_model extends CI_Model
             $this->db->where('material_id', "{$row['material_id']}");
             $this->db->where('store_id', "{$data['store_id']}");
             $this->db->update();
+            $cek_data = $this->db->get_where($tb_material_inventory, array('material_id' => $row['material_id'], 'store_id' => $id_toko))->result();
+            if ($cek_data) {
+                $this->db->from($tb_material_inventory);
+                $this->db->set("quantity", "quantity + {$row['mutation_qty']}", FALSE);
+                $this->db->set("updated_at", "{$createdAt}");
+                $this->db->set("updated_by", "{$data['username']}");
+                $this->db->where('material_id', "{$row['material_id']}");
+                $this->db->where('store_id', $id_toko);
+                $this->db->update();
+            } else {
+                $this->db->insert($tb_material_inventory, $data_material_inventory2);
+            }
         }
         $data_material_inventory = $container;
+
+        // $i = 0;
+        // foreach ($data_material_inventory as $row) {
+        //     $data_material_inventory = [
+        //         'material_id'   => $row['material_id'],
+        //         'store_id'      => $id_toko,
+        //         'quantity'      => $row['mutation_qty'],
+        //         'updated_at'    => $createdAt,
+        //         'updated_by'    => $data['username'],
+        //     ];
+        //     $container[] = $data_material_inventory;
+        //     $i++;
+        // }
+
 
         // ! KERJAIN INI. update: 13/12/20 - 17.00 = udah beres harusnya dua line di bawah nanti dihapus kalo udh gada bug selama bbrp waktu
         // pprintd($data_material_inventory);

@@ -184,6 +184,7 @@
                                 <div class="modal-body" id="modal-body">
                                     <label class="form-label" id="total_bayars">Total Belanjaan adalah: <?= price_format($harga_total) ?></label>
                                     <input autofocus type="hidden" name="paid_amount" value="0" id="paid_amount" class="form-control" aria-label="Pembayaran" required maxlength=11>
+                                    <input autofocus type="hidden" name="customer" value="<?= $data_customer->full_name;; ?>" id="customer" class="form-control" aria-label="Pembayaran" required maxlength=11>
                                     <!-- <div class="form-group">
                                         <label class="form-label">Yang Dibayarkan</label>
                                         <div class="input-group mb-3">
