@@ -182,7 +182,7 @@
 
     <?php
     // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
-    if ($submenuActive == 'kasir' || $submenuActive == 'data-mutasi-barang') : ?>
+    if ($submenuActive == 'kasir' || $submenuActive == 'data-transaksi-barang') : ?>
         <script>
             // untuk set select2 libs, jgn lupa lempar parameter {'select2' => 1}  di method
             $(document).ready(function() {

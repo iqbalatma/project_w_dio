@@ -146,14 +146,20 @@
       <?php
       $i = 1;
       $total_harga = 0;
+      $selling_price = 0;
       foreach ($rows as $row) : ?>
         <tr class="item">
           <td style="font-size:10px;"> <?= $i++ ?></td>
           <td style="font-size:10px;"> <?= $row['full_name'] ?></td>
           <td style="font-size:10px;"> <?= $row['unit'] ?></td>
           <td style="font-size:10px;"> <?= number_format($row['quantity'], 0, ',', '.') ?></td>
-          <td style="font-size:10px;"> <?= $row['totLiterItem'] ?></td>
-          <td style="font-size:10px;"> <?= price_format($row['selling_price']) ?></td>
+          <td style="font-size:10px;"> <?= $row['totLiterItem'] ?></td>\
+          <?php if ($custName == 'Toko Cicalengka' || $custName == 'Toko Ujung Berung') {
+            $selling_price = ($row['price_base']);
+          } else {
+            $selling_price = ($row['selling_price']);
+          }; ?>
+          <td style="font-size:10px;"> <?= price_format($selling_price) ?></td>
           <td style="font-size:10px;"> <?= price_format($row['item_price']) ?></td>
         </tr>
       <?php

@@ -32,7 +32,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Checkout Gudang</a>
                 </li>
             </ul>
         </div>
@@ -43,7 +43,7 @@
                         <div class="card-title">Konfirmasi Checkout</div>
                     </div>
 
-                    <?= form_open('Kasir/insert-dio'); ?>
+                    <?= form_open('data-gudang/Data_transaksi_barang/insert-dio'); ?>
                     <div class="card-body">
                         <div class="row">
 
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a href="<?= base_url("Kasir"); ?>" class="btn btn-outline-danger px-5">Batal</a>
+                        <a href="<?= base_url("data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang"); ?>" class="btn btn-outline-danger px-5">Batal</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
 
@@ -183,18 +183,17 @@
                                 </div>
                                 <div class="modal-body" id="modal-body">
                                     <label class="form-label" id="total_bayars">Total Belanjaan adalah: <?= price_format($harga_total) ?></label>
-                                    <div class="form-group">
+                                    <input autofocus type="hidden" name="paid_amount" value="0" id="paid_amount" class="form-control" aria-label="Pembayaran" required maxlength=11>
+                                    <!-- <div class="form-group">
                                         <label class="form-label">Yang Dibayarkan</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Rp</span>
                                             </div>
                                             <input autofocus type="tel" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required maxlength=11>
-                                            <!-- <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
-                                            </div> -->
+
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-danger px-5" data-dismiss="modal">Batal</button>

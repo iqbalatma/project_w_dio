@@ -321,7 +321,7 @@ class Kasir_model extends CI_Model
     }
     public function generate_invoice_item($invoice_id)
     {
-        $query = $this->db->query("SELECT product.full_name, product.unit, product.selling_price, invoice_item.quantity, invoice_item.item_price, product.volume FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
+        $query = $this->db->query("SELECT product.full_name, product.price_base,product.unit, product.selling_price, invoice_item.quantity, invoice_item.item_price, product.volume FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
 
         $row = $query->result_array();
 
@@ -368,6 +368,38 @@ class Kasir_model extends CI_Model
         $transNumber    = $code;
 
         return $transNumber;
+    }
+
+    private function __generate_new_invoice_number_gudang($timestamp)
+    {
+        $table = 'invoice';
+
+        $custCode = "CB";
+
+        $custAndDateCode   = "{$custCode}/"; // string kode customer
+        $custAndDateCode  .= mdate('%m/%Y', $timestamp); // tambah string kode untuk bulan tahun
+
+        // get last invoice_number from table row
+        $lastRow           = $this->db->select('invoice_number')->order_by('id', "desc")->limit(1)->get($table);
+        // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
+        if ($lastRow->num_rows() > 0) $lastCode = $lastRow->row()->invoice_number;
+        else $lastCode = "0/{$custAndDateCode}"; // panjang nomor kode ada (bebas) angka
+
+        // pecah $lastCode dari db
+        $lastCode  = explode('/', $lastCode);
+        // increment 1
+        $codeNum   = $lastCode[0] + 1; // ini kode nomor urut
+        $codeMonth = $lastCode[2]; // ini kode bulan
+        // siapkan string bulan ini dari timestamp sekarang, untuk dicek sama apa engga nanti
+        $currMonth = mdate('%m', $timestamp);
+
+        // jika data yang ingin diinput adalah data terbaru di bulan terkait, maka mulai dari 1
+        // jika tidak, maka gunakan angka yg sudah diincrement 1, yaitu $codeNum
+        // kemudian susun sesuai urutan dengan nomor/kode_customer/bulan/tahun, dan invoice_number selesai
+        $codeNum        = ($codeMonth !== $currMonth) ? '1' : $codeNum;
+        $invoiceNumber  = "{$codeNum}/{$custAndDateCode}";
+
+        return $invoiceNumber;
     }
 
     private function __generate_new_invoice_number($timestamp, $customerType)
@@ -576,6 +608,283 @@ class Kasir_model extends CI_Model
         $data_invoice = [
             'invoice_number'    => $invoiceNumber,
             'paid_amount'       => $data['paid_amount'],
+            'left_to_paid'      => $leftToPaid,
+            'paid_at'           => $createdAt,
+            'transaction_id'    => $lastTrxId,
+            'created_at'        => $createdAt,
+            'status'            => '0',
+        ];
+
+        $isInvoiceSuccess = $this->db->insert($tb_invoice, $data_invoice);
+        $lastInvoiceId    = $this->db->insert_id();
+
+
+        // ============================================================ SELESAI PERSIAPAN DATA INVOICE ===================
+        // ============================================================ [3] MULAI SIAPKAN DATA-DATA UNTUK INVOICE ITEM ===================
+
+
+        $data_invoice_item = $data['data_product'];
+
+        $container = [];
+        foreach ($data['data_product'] as $row) {
+            $x['quantity']   = $row['kasir_qty'];
+            $x['item_price'] = $row['kasir_total_per_item'];
+            $x['invoice_id'] = $lastInvoiceId;
+            $x['product_id'] = $row['id'];
+            $container[] = $x;
+        }
+        $data_invoice_item = $container;
+
+        $isInvoiceItemSuccess = $this->db->insert_batch($tb_invoice_item, $data_invoice_item);
+
+
+        // ============================================================ SELESAI PERSIAPAN DATA INVOICE ITEM ===================
+        // ============================================================ [4] MULAI SIAPKAN DATA-DATA UNTUK MUTASI PRODUK ===================
+
+
+        // +++++ FORMAT KODE MUTASI : no_urut/(P/M)/K/%d/%m/%Y
+        // +++++ 000001 / (PRO=Product ; MAT=Material ;) / (KEL=Keluar ; MSK=Masuk ;) / tgl / bln / thn
+
+        $arr = [
+            'item_type' => 'product', // PRO=Product ; MAT=Material ;
+            'mutation_type' => 'keluar', // KEL=Keluar ; MSK=Masuk ;
+        ];
+        $productMutationCode = $this->__generate_new_mutation_code($now, $arr);
+
+        $container = [];
+        $i = 0;
+        foreach ($data['data_product'] as $row) {
+            // pecah mutation code yang asli, untuk dilooping increment 1 si nomor depannya
+            $__exploded     = explode('/', $productMutationCode);
+            $__exploded[0]  = $__exploded[0] + $i;
+            $__exploded[0]  = str_pad($__exploded[0], 6, "0", STR_PAD_LEFT);
+            // gabungin lagi yang udah dipecah dan diincrement 1
+            $__productMutationCode = implode('/', $__exploded);
+
+            $data_product_mutation = [
+                'product_id'    => $row['id'],
+                'store_id'      => $data['store_id'],
+                'mutation_code' => $__productMutationCode,
+                'quantity'      => $row['kasir_qty'],
+                'mutation_type' => $arr['mutation_type'],
+                'created_at'    => $createdAt,
+                'created_by'    => $data['username'],
+            ];
+            $container[] = $data_product_mutation;
+            $i++;
+        }
+        $data_product_mutation = $container;
+
+        $isProductMutationSuccess = $this->db->insert_batch($tb_product_mutation, $data_product_mutation);
+
+
+        // ============================================================ SELESAI PERSIAPAN DATA MUTASI PRODUK ===================
+        // ============================================================ [5] MULAI SIAPKAN DATA-DATA UNTUK MUTASI MATERIAL ===================
+
+
+        // +++++ FORMAT KODE MUTASI : no_urut/(P/M)/K/%d/%m/%Y
+        // +++++ 000001 / (PRO=Product ; MAT=Material ;) / (KEL=Keluar ; MSK=Masuk ;) / tgl / bln / thn
+        $arr = [
+            'item_type' => 'material', // PRO=Product ; MAT=Material ;
+            'mutation_type' => 'keluar', // KEL=Keluar ; MSK=Masuk ;
+        ];
+        $materialMutationCode = $this->__generate_new_mutation_code($now, $arr);
+
+        // get seluruh material dari seluruh produk id yang di cekout
+        // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
+        // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get
+        // contoh  ==>  id=1 OR id=9 OR id=13
+        $productQuery = '';
+        foreach ($data['data_product'] as $__product) {
+            // hanya tambah OR setelah iterasi pertama, dan hasil query tidak akan ada OR di blkg
+            if ($productQuery !== '') $productQuery .= " OR ";
+            $productQuery .= "product_id={$__product['id']}";
+        }
+        // get data dari db dengan klausa where di atas
+        $data['product_composition'] = $this->__get_by_where($productQuery, 'id, volume, product_id, material_id');
+
+        $container = [];
+        foreach ($data['data_product'] as $__prod) {
+            foreach ($data['product_composition'] as $__pc) {
+                if ($__prod['id'] == $__pc['product_id']) {
+                    $temp['product_id']    = $__prod['id'];
+                    $temp['material_id']   = $__pc['material_id'];
+                    $temp['mutation_qty']  = $__prod['kasir_qty'] * $__pc['volume'];
+                    $container[] = $temp;
+                    // break;
+                }
+            }
+        }
+        // variabel untuk digunakan di sub-bab material mutation
+        $data_material_mutation  = $container;
+        // variabel untuk digunakan di sub-bab material inventory, biar gaproses 2kali, jadi cukup di sini
+        $data_material_inventory = $container;
+
+        $container = [];
+        $i = 0;
+        foreach ($data_material_mutation as $row) {
+            // pecah mutation code yang asli, untuk dilooping increment 1 si nomor depannya
+            $__exploded     = explode('/', $materialMutationCode);
+            $__exploded[0]  = $__exploded[0] + $i;
+            $__exploded[0]  = str_pad($__exploded[0], 6, "0", STR_PAD_LEFT);
+            // gabungin lagi yang udah dipecah dan diincrement 1
+            $__materialMutationCode = implode('/', $__exploded);
+
+            $data_material_mutation = [
+                'material_id'   => $row['material_id'],
+                'store_id'      => $data['store_id'],
+                'mutation_code' => $__materialMutationCode,
+                'quantity'      => $row['mutation_qty'],
+                'mutation_type' => $arr['mutation_type'],
+                'created_at'    => $createdAt,
+                'created_by'    => $data['username'],
+            ];
+            $container[] = $data_material_mutation;
+            $i++;
+        }
+        $data_material_mutation = $container;
+
+        $isMaterialMutationSuccess = $this->db->insert_batch($tb_material_mutation, $data_material_mutation);
+
+
+        // ============================================================ SELESAI PERSIAPAN DATA MUTASI MATERIAL ===================
+        // ============================================================ [6] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY MATERIAL ===================
+
+
+        $container = [];
+        $i = 0;
+        foreach ($data_material_inventory as $row) {
+            $data_material_inventory = [
+                'material_id'   => $row['material_id'],
+                'store_id'      => $data['store_id'],
+                'quantity'      => $row['mutation_qty'],
+                'updated_at'    => $createdAt,
+                'updated_by'    => $data['username'],
+            ];
+            $container[] = $data_material_inventory;
+            $i++;
+
+            $this->db->from($tb_material_inventory);
+            $this->db->set("quantity", "quantity - {$row['mutation_qty']}", FALSE);
+            $this->db->set("updated_at", "{$createdAt}");
+            $this->db->set("updated_by", "{$data['username']}");
+            $this->db->where('material_id', "{$row['material_id']}");
+            $this->db->where('store_id', "{$data['store_id']}");
+            $this->db->update();
+        }
+        $data_material_inventory = $container;
+
+        // ! KERJAIN INI. update: 13/12/20 - 17.00 = udah beres harusnya dua line di bawah nanti dihapus kalo udh gada bug selama bbrp waktu
+        // pprintd($data_material_inventory);
+        // $isMaterialInventorySuccess = $this->db->insert_batch($tb_material_inventory, $data_material_inventory);
+
+
+        // ============================================================ SELESAI PERSIAPAN DATA INVENTORY MATERIAL ===================
+        // ============================================================ [7] MULAI SIAPKAN DATA-DATA UNTUK KAS ===================
+
+
+        // load model kas untuk update kas di cekout
+        $this->load->model('Kas_model', 'kas_m');
+
+        $leftToPaid = $data['total_harga'] - $data['paid_amount'];
+        $price_final = $data['paid_amount'];
+        if ($price_final > $data['total_harga']) {
+            $price_final = $data['total_harga'];
+        }
+
+        $data_kas = [
+            'add-type'       => 'debet',
+            'add-nominal'    => $price_final,
+            'add-perihal'    => "Checkout: INV {$invoiceNumber}",
+            'add-keterangan' => "Total harga:{$data['total_harga']} ; Total bayar:{$data['paid_amount']} ; Sisa harus dibayar:{$leftToPaid} ; Oleh:{$data['username']}",
+            'add-date'       => $createdAt,
+            'created_by'     => $data['username'],
+        ];
+
+        $isKasSuccess = $this->kas_m->set_new_kas($data_kas);
+
+
+        // ============================================================ SELESAI PERSIAPAN DATA KAS ===================
+        // ============================================================ [8] MULAI VALIDASI DAN COMPLETE KEMBALI KE CONTROLLER ===================
+
+
+        $this->db->trans_complete();
+
+        // return value untuk dipake setelah ini
+        $returnVal = [
+            'invoice_id'        => $lastInvoiceId,
+            'invoice_number'    => $invoiceNumber,
+            'due_at'            => $dueAt,
+        ];
+
+        return ($this->db->trans_status() === FALSE) ? FALSE : $returnVal;
+    }
+    public function set_new_checkout_mutation($data)
+    {
+        // ============================================================ [0] MULAI INISIASI AWAL YANG DIBUTUHKAN ===================
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // | ! NOTE:
+        // | Urutan proses harusnya sih siapin transaksi, invoice, invoice item. (UPDATE: product_mutation, material_mutation, material_inventory, kas)
+        // | Kemudian masukin ke tabel masing2 menggunakan konsep TRANSACTION dari MYSQL
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        // inisiasi nama tabel yg digunakan, lokal hanya untuk method ini
+        $tb_transaction         = 'transaction';
+        $tb_invoice             = 'invoice';
+        $tb_invoice_item        = 'invoice_item';
+        $tb_product_mutation    = 'product_mutation';
+        $tb_material_mutation   = 'material_mutation';
+        $tb_material_inventory  = 'material_inventory';
+        $tb_kas                 = 'kas';
+
+        $this->db->trans_start();
+
+        // set waktu awal untuk method ini
+        $now          = now();
+        $createdAt    = unix_to_human($now, true, 'europe');
+
+        // pprintd($data);
+
+
+        // ============================================================ [1] MULAI SIAPKAN DATA-DATA UNTUK TRANSACTION ===================
+
+
+        $leftToPaid = $data['total_harga'] - 0;
+
+        $nextDue      = 86400 * 7; // tambah 7 hari
+        $nextDue      = ($leftToPaid == 0) ? 0 : $nextDue; // cek apakah lunas atau hutang, kalau lunas dueAt adalah waktu yg sama
+        $transNumber  = $this->__generate_new_trx_number($now);
+        $dueAt        = $this->__generate_new_due_at($now, $nextDue);
+
+        $data_transaction  = [
+            'trans_number'  => $transNumber,
+            'deliv_address' => $data['deliv_address'],
+            'price_total'   => $data['total_harga'],
+            'store_id'      => $data['store_id'],
+            'customer_id'   => $data['data_customer']['id'],
+            'employee_id'   => $data['employee_id'],
+            'due_at'        => $dueAt,
+            'created_at'    => $createdAt,
+        ];
+
+        $isTransactionSuccess = $this->db->insert($tb_transaction, $data_transaction);
+        $lastTrxId            = $this->db->insert_id();
+
+
+        // ============================================================ SELESAI PERSIAPAN DATA TRANSACTION ===================
+        // ============================================================ [2] MULAI SIAPKAN DATA-DATA UNTUK INVOICE ===================
+
+
+        $invoiceNumber = $this->__generate_new_invoice_number_gudang($now);
+
+        $leftToPaid = $data['total_harga'] - 0;
+        if ($leftToPaid <= 0) {
+            $leftToPaid = 0;
+        }
+
+        $data_invoice = [
+            'invoice_number'    => $invoiceNumber,
+            'paid_amount'       => 0,
             'left_to_paid'      => $leftToPaid,
             'paid_at'           => $createdAt,
             'transaction_id'    => $lastTrxId,

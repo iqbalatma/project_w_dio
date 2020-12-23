@@ -26,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Kasir</a>
+                    <a href="#">Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Checkout Ket Toko Cabang</a>
                 </li>
             </ul>
         </div>
@@ -43,15 +43,15 @@
                         <div class="card-title">Checkout Station</div>
                     </div>
 
-                    <?= form_open('Data_mutasi_barang/konfirmasi_kasir'); ?>
+                    <?= form_open('data-gudang/Data_transaksi_barang/konfirmasi_kasir'); ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
 
                                 <div class="form-group">
-                                    <label for="nama_pelanggan">Nama Pelanggan</label>
+                                    <label for="nama_pelanggan">Nama Toko</label>
                                     <select class="form-control select2 col-11 col-xl-12" id="nama_pelanggan" name="nama_pelanggan" onchange='changeValue(this.value)' required>
-                                        <option value="" selected disabled>-Pilih Pelanggan-</option>
+                                        <option value="" selected disabled>-Pilih Toko-</option>
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
 
@@ -66,16 +66,8 @@
 
                                     </select>
                                 </div>
-                                <!-- <div>
-                                    <div class="form-group">
-                                        <label for="custom_alamat">Custom Alamat ? </label>
-                                        <input type="checkbox" class="ml-2" id="custom_alamat" name="custom_alamat" onclick="myFunction()">
-                                        </input>
-                                    </div>
-                                    <div class="form-group">
 
-                                    </div>
-                                </div> -->
+
                                 <div class="form-group">
                                     <div class="form-check">
                                         <label class="form-check-label d-flex flex-col">
@@ -184,10 +176,10 @@
                                                         <label class="selectgroup-item">
                                                             <input type="checkbox" class="selectgroup-input kelas_product <?= "kasir-product" ?>" name="<?= "product[{$i}]" ?>" id="<?= "kasirproduct-{$ii}" ?>" value="<?= $row['id']; ?>">
                                                             <!-- <input type="checkbox" name="product[<?= $i; ?>]" id="product" value="<?= $row['id']; ?>" class="selectgroup-input kelas_product"> -->
-                                                            <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | <?= price_format($row['selling_price']) ?></span>
+                                                            <span class="selectgroup-button font-weight-bold"><?= $row['full_name']; ?> | <?= price_format($row['price_base']) ?></span>
                                                         </label>
                                                         <div class="d-flex justify-content-center">
-                                                            <select disabled class="select2 col-3 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
+                                                            <select disabled class="select2 col-5 mx-1 mt-1 form-control form-control-sm border-info <?= "kasir-quantity" ?>" name="<?= "quantity[{$row['id']}]" ?>" id="<?= "kasirquantity-{$ii}" ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>>
                                                                 <!-- <select class="col-2 mx-1 mt-1 form-control form-control-sm border-info" name="quantity[<?= $row['id']; ?>]" id="quantity<?= $i; ?>" <?= ($kuantitas_material < 1) ? 'disabled' : '' ?>> -->
                                                                 <option value="0" selected>0</option>
                                                                 <?php
@@ -203,13 +195,13 @@
                                                                     $j++;
                                                                 }; ?>
                                                             </select>
-                                                            <input disabled type="tel" class="col-9 mx-1 mt-1 form-control form-control-sm <?= "kasir-customprice" ?>" name="<?= "custom_harga[{$row['id']}]" ?>" id="<?= "kasircustomprice-{$ii}" ?>" placeholder="Custom Harga Satuan" data-filter="\+?\d{0,8}" pattern="[0-9]{1,8}" title="Harus angka minimal satu dan maksimal 8 angka" maxlength=8>
-                                                            <!-- <input class="col-9 mx-1 mt-1 form-control form-control-sm" type="text" class="" id="custom_harga<?= $i; ?>" name="custom_harga[<?= $row['id']; ?>]" placeholder="Custom Harga"> -->
+
+
                                                             </input>
                                                         </div>
                                                     </div>
 
-                                                    <input type="hidden" id="selling_price<?= $i; ?>" value="<?= $row['selling_price'];; ?>">
+                                                    <input type="hidden" id="selling_price<?= $i; ?>" value="<?= $row['price_base'];; ?>">
                                         <?php
                                                     $ii++;
                                                 endif;
@@ -270,14 +262,7 @@
                     </div>
                     <div class="card-action">
                         <a href="<?= base_url(); ?>" class="btn btn-outline-danger px-5">Keluar</a>
-                        <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
-                        <!-- Button trigger modal -->
 
-
-                        <!-- <button type="button" class="btn btn-primary open-modal-kasir" data-toggle="modal" data-target="#modal">
-                            Checkout
-                        </button> -->
-                        <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
                         <button type="submit" class="btn btn-primary px-5">Selanjutnya</button>
                     </div>
 
