@@ -102,7 +102,7 @@ class Product_model extends CI_Model
     $this->db->where('pc.product_id', $product_id);
     $this->db->where('m.material_code', $material_code);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->row();
     }
     return FALSE;
@@ -146,9 +146,8 @@ class Product_model extends CI_Model
       return $this->db->update($this->table, $data);
     }
     return FALSE;
-
   }
-  
+
   /**
    * setter untuk menambahkan harga kustom pada pelanggan
    * 
@@ -158,10 +157,9 @@ class Product_model extends CI_Model
   {
     // $newHpp = 0;
     $updatedAt = unix_to_human(now(), true, 'europe');
-    
+
     $this->db->trans_start();
-    foreach ($data['custom'] as $c)
-    {
+    foreach ($data['custom'] as $c) {
       // inputnya material code, tapi yg dibutuhin material id buat ke tabel pc
       // jadi return material id dari proses join 2 tabel dengan method di bawah ini.
       $cek          = $this->__get_by_product_id_and_material_code($id, $c['material_code'], 'pc.material_id, m.price_base');
@@ -174,29 +172,23 @@ class Product_model extends CI_Model
         "material_id"   => $material->id,
         "updated_at"    => $updatedAt,
       );
-      
+
       // cek apakah data sudah ada atau belum
       // kalo udah ada berarti update, kalo belum berarti insert baru
-      if ($cek)
-      {
+      if ($cek) {
         $this->db->where('product_id', $id);
         $this->db->where('material_id', $material->id);
         $this->db->update($this->tb_product_composition, $data);
-      }
-      else
-      {
+      } else {
         $this->db->insert($this->tb_product_composition, $data);
       }
     }
     $this->__set_update_hpp_by_product_id($id);
     $this->db->trans_complete();
-    
-    if ($this->db->trans_status() === FALSE)
-    {
+
+    if ($this->db->trans_status() === FALSE) {
       return FALSE;
-    }
-    else
-    {
+    } else {
       return 1;
     }
   }
@@ -212,7 +204,7 @@ class Product_model extends CI_Model
    * Refer for updating HPP in product table with product id provided.
    * 
    */
-  public function set_delete_composition_by_id($id, $productId=NULL)
+  public function set_delete_composition_by_id($id, $productId = NULL)
   {
     $this->db->trans_start();
     $this->db->where('id', $id);
@@ -271,8 +263,8 @@ class Product_model extends CI_Model
   // 
   public function get_all2($select = '*')
   {
-    $query = $this->db->query("SELECT DISTINCTROW product.id, product.full_name, product.selling_price FROM product INNER JOIN product_composition ON product.id = product_composition.product_id WHERE product.is_deleted = 0");
-    
+    $query = $this->db->query("SELECT DISTINCTROW product.id, product.full_name, product.selling_price, product.price_base FROM product INNER JOIN product_composition ON product.id = product_composition.product_id WHERE product.is_deleted = 0");
+
     if ($query->num_rows() > 0) {
       return $query->result_array();
     }
@@ -415,8 +407,4 @@ class Product_model extends CI_Model
     }
     return FALSE;
   }
-
-
-
-  
 }

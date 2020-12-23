@@ -244,6 +244,22 @@ class Customer_model extends CI_Model
     }
     return FALSE;
   }
+  public function get_toko_cabang($select = '*')
+  {
+    // get from table
+
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where('is_deleted', 0);
+    $this->db->where('full_name', 'Toko Cicalengka');
+    $this->db->or_where('full_name', 'Toko Ujung Berung');
+    $this->db->order_by('full_name', 'ASC');
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
 
   public function get_customer_price_by_id($id, $select = '*')
   {
