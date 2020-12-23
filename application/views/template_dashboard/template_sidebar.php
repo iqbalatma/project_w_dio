@@ -129,13 +129,13 @@ $mainMenu = array(
         'name'  => 'Data Master Produk',
         'slug'  => 'data-master-produk',
         'url'   => "{$_data_produksi}/data-master-produk",
-        // ],[
-        //   'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
-        //   'name'  => 'Data Inventory Produk',
-        //   'slug'  => 'data-inventory-produk',
-        //   'url'   => "{$_data_produksi}/data-inventory-produk",
         ],[
-          'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
+          'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
+          'name'  => 'Data Inventory Produk',
+          'slug'  => 'data-inventory-produk',
+          'url'   => "{$_data_produksi}/data-inventory-produk",
+        ],[
+          'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
           'name'  => 'Data Mutasi Produk',
           'slug'  => 'data-transaksi-produk',
           'url'   => "{$_data_produksi}/data-transaksi-produk",

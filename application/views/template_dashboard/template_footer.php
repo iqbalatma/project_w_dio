@@ -163,10 +163,10 @@
     if ($submenuActive == 'data-master-produk') : ?>
         <script>
             // inisiasi variable
-            let input = $('.live-typing'),
-                output = $('.live-output'),
-                hpp = $('.hpp'),
-                sellingprice = $('.sellingprice');
+            let input           = $('.live-typing'),
+                output          = $('.live-output'),
+                hpp             = $('.hpp'),
+                sellingprice    = $('.sellingprice');
 
             // output prosentase margin
             output.text(((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
@@ -193,14 +193,14 @@
             // btn diclick
             $('.kasir-product').on('click', function() {
                 // ambil id btn
-                let btnId = this.id;
+                let btnId   = this.id;
                 // pecah id btn
                 let splitId = btnId.split("-");
                 // ambil hanya nomor id btn saja
-                let id = splitId[1];
+                let id      = splitId[1];
                 // tambahkan nomor id ke belakang nama id dari element quantity dan custom price
-                let kasirQuantity = '#kasirquantity-' + id;
-                let customPrice = '#kasircustomprice-' + id;
+                let kasirQuantity   = '#kasirquantity-' + id;
+                let customPrice     = '#kasircustomprice-' + id;
 
                 // cek btn .kasir-product dengan id btn yg diclick
                 if ($(this).prop('checked')) {
@@ -233,8 +233,8 @@
                 if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
 
                 // ambil value skrg di inputan
-                var $this = $(this);
-                var inputz = $this.val();
+                var $this   = $(this);
+                var inputz  = $this.val();
 
                 // replace sama kosong kalo selain Digits
                 var inputz = inputz.replace(/[\D\s\._\-]+/g, "");
@@ -260,16 +260,20 @@
             // fungsi menampilkan tombol tambah
             $(function() {
                 if ($('input[name="show-or-hide"]').prop('checked')) {
+                    console.log('1')
                     $('.add-customprice-div').fadeIn();
                 } else {
+                    console.log('2')
                     $('.add-customprice-div').hide();
                 }
 
                 //show it when the show-or-hide is clicked
                 $('input[name="show-or-hide"]').on('click', function() {
                     if ($(this).prop('checked')) {
+                        console.log('3')
                         $('.add-customprice-div').fadeIn();
                     } else {
+                        console.log('4')
                         $('.add-customprice-div').hide();
                     }
                 });
@@ -279,6 +283,7 @@
             $(function() {
                 // Add new element
                 $(".add-customprice-div").click(function() {
+                    console.log('custom price div')
                     // Finding total number of elements added
                     var total_element = $(".element").length;
                     // last <div> with element class id
@@ -301,7 +306,7 @@
                                     <select required class="form-control select2" id='add-customproduct-${nextindex}' name='custom[${nextindex}][product_code]'>
                                     <option selected disabled>-- Pilih produk --</option>
                                     <?php foreach ($products as $row) : ?>
-                                        <option value=<?= "{$row['product_code']}" ?>>
+                                        <option value='<?= "{$row['product_code']}" ?>'>
                                             <?= "{$row['product_code']} - {$row['full_name']} (Rp.&nbsp;" . number_format($row['selling_price'], 0, '', '.') . ")"; ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -321,12 +326,14 @@
 
                     // untuk set select2 libs hanya ketika element di atas ditambah
                     $(document).ready(function() {
+                        console.log('select2')
                         $('.select2').select2();
                     });
                 });
 
                 // Remove element
                 $('.bungkus').on('click', '.remove', function() {
+                    console.log('bungkus')
                     var id = this.id;
                     var split_id = id.split("-");
                     var deleteindex = split_id[1];
@@ -493,8 +500,7 @@
     <?php endif; ?>
 
 
-    <?php // input filter for all input with data-filter properties 
-    ?>
+    <?php // input filter for all input with data-filter properties ?>
     <script>
         // Apply filter to all inputsFilter with data-filter. The filter is depend on RegEx in every data-filter on input tag
         var inputsFilter = document.querySelectorAll('input[data-filter]');

@@ -13,7 +13,7 @@ class Inventory_product_model extends CI_Model
   var $tb_store       = 'store';
   // var $tb_employee  = 'employee';
 
-//  ===============================================SETTER===============================================
+//  =============================================== SETTER ===============================================
   /**
    * 
    * Insert new product to the database.
@@ -107,7 +107,7 @@ class Inventory_product_model extends CI_Model
 
 
 
-//  ===============================================GETTER===============================================
+//  =============================================== GETTER ===============================================
   /**
    * 
    * Get total rows from certain table
@@ -138,7 +138,7 @@ class Inventory_product_model extends CI_Model
    * to select some table(s) name of your choice.
    * 
    */
-  public function get_all($select = '*')
+  public function get_all($select = '*', $orderBy = 'pi.id', $ascDesc = 'ASC')
   {
     $this->db->select($select);
     $this->db->from("{$this->tb_product} AS p");
@@ -146,7 +146,33 @@ class Inventory_product_model extends CI_Model
     $this->db->join("{$this->tb_store} AS s", "s.id = pi.store_id");
     // $this->db->where("{$this->tb_product_composition}.product_id", $id);
     $this->db->where("pi.is_deleted", 0);
-    $this->db->order_by("pi.id", 'ASC');
+    $this->db->order_by($orderBy, $ascDesc);
+    $query = $this->db->get();
+    if ( $query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
+  /**
+   * 
+   * Get all rows from certain table by certain id
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function get_all_by_store_id($storeId, $select = '*', $orderBy = 'pi.id', $ascDesc = 'ASC')
+  {
+    $this->db->select($select);
+    $this->db->from("{$this->tb_product} AS p");
+    $this->db->join("{$this->table} AS pi", "pi.product_id = p.id");
+    $this->db->join("{$this->tb_store} AS s", "s.id = pi.store_id");
+    // $this->db->where("{$this->tb_product_composition}.product_id", $id);
+    $this->db->where("pi.store_id", $storeId);
+    $this->db->where("pi.is_deleted", 0);
+    $this->db->order_by($orderBy, $ascDesc);
     $query = $this->db->get();
     if ( $query->num_rows() > 0) {
       return $query->result_array();

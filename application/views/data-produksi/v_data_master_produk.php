@@ -65,7 +65,7 @@
                             </tfoot>
                             <tbody>
                               <?php
-                              if ($products !== FALSE) :
+                              if ($products != FALSE) :
                                 $i = 1;
                                 foreach ($products as $row) : ?>
                                   <tr>
