@@ -189,4 +189,4 @@
 
 </html>
 
-<?php die; ?>
+<?php //die; ?>
