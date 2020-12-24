@@ -250,6 +250,22 @@
                     return (inputz === 0) ? "" : inputz.toLocaleString("id-ID");
                 });
             });
+
+            // untuk modal pada konfirmasi kasir (tipe bayar)
+            let kontrabon         = $("#kontrabon")
+            let transfer          = $("#transfer")
+            let cash              = $("#cash")
+            let paymentCashInput  = $(".payment_cash")
+
+            $(cash).on("click", function() {
+                paymentCashInput.fadeIn()
+            })
+            $(kontrabon).on("click", function() {
+                paymentCashInput.fadeOut()
+            })
+            $(transfer).on("click", function() {
+                paymentCashInput.fadeOut()
+            })
         </script>
     <?php endif; ?>
 
