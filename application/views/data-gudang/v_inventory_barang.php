@@ -42,12 +42,24 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="pt-3">
-                            <a class=" px-3 btn btn-success rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Barang</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/'); ?>">Tampil Semua Data Inventory</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/1'); ?>">Tampil Inventory Gudang</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Cicalengka</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Ujungberung</a>
+                        <div class="w-75 mx-auto">
+                            <ul class="nav nav-pills nav-fill ">
+                                <li class="nav-item">
+                                    <a class=" px-3 btn btn-success rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Barang</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/'); ?>">Tampil Semua Data Inventory</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/1'); ?>">Tampil Inventory Gudang</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Cicalengka</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Ujungberung</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <?php

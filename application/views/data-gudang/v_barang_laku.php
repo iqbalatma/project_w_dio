@@ -46,15 +46,25 @@
                             <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Masukkan Barang</a>
                         </div>
                     </div> -->
+
                     <div class="card-header">
-                        <div class="col-md-12 pt-3">
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/'); ?>">Tampil Semua Data</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/1'); ?>">Data Gudang</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/2'); ?>">Data Toko Cicalengka</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/3'); ?>">Data Toko Ujungberung</a>
+                        <div class="w-75 mx-auto">
+                            <ul class="nav nav-pills nav-fill ">
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/'); ?>">Tampil Semua Data</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/1'); ?>">Data Gudang</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/2'); ?>">Data Toko Cicalengka</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/v_by_store/3'); ?>">Data Toko Ujungberung</a>
+                                </li>
 
+                            </ul>
                         </div>
-
                     </div>
 
 
@@ -87,27 +97,31 @@
                                     <?php
 
                                     $i = 0;
+                                    // var_dump($data_barang_laku);
+                                    if ($data_barang_laku !== false) {
 
-                                    foreach ($data_barang_laku as $row) : ?>
 
-                                        <tr>
-                                            <td class="px-3">
-                                                <?= $i + 1 ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= $row['product_code'] ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= $row['full_name'] ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= $row['freq'] ?>
-                                            </td>
+                                        foreach ($data_barang_laku as $row) : ?>
 
-                                        </tr>
+                                            <tr>
+                                                <td class="px-3">
+                                                    <?= $i + 1 ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= $row['product_code'] ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= $row['full_name'] ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= $row['freq'] ?>
+                                                </td>
+
+                                            </tr>
                                     <?php
-                                        $i++;
-                                    endforeach; ?>
+                                            $i++;
+                                        endforeach;
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>

@@ -13,7 +13,7 @@ class Inventory_product_model extends CI_Model
   var $tb_store       = 'store';
   // var $tb_employee  = 'employee';
 
-//  =============================================== SETTER ===============================================
+  //  =============================================== SETTER ===============================================
   /**
    * 
    * Insert new product to the database.
@@ -22,19 +22,23 @@ class Inventory_product_model extends CI_Model
    * The key and value in the array that will be inserted into the database.
    * 
    */
+
+  // public function get_where($data)
+  // {
+  // }
   public function set_new_inventory($data)
   {
     $createdAt = unix_to_human(now(), true, 'europe');
     $data = array(
-		  "product_code"  => $data['add-kodeproduk'],
-		  "full_name"     => $data['add-fullname'],
-		  "unit"          => $data['add-unit'],
-		  "volume"        => $data['add-volume'],
-		  "created_at"    => $createdAt,
+      "product_code"  => $data['add-kodeproduk'],
+      "full_name"     => $data['add-fullname'],
+      "unit"          => $data['add-unit'],
+      "volume"        => $data['add-volume'],
+      "created_at"    => $createdAt,
     );
-		return $this->db->insert($this->table, $data);
+    return $this->db->insert($this->table, $data);
   }
-  
+
   /**
    * 
    * Update product that already registered and still active (not deleted).
@@ -47,8 +51,7 @@ class Inventory_product_model extends CI_Model
    */
   public function set_update_by_id($id, $data)
   {
-    if (($data['edit-tipeupdate'] !== '+') && ($data['edit-tipeupdate'] !== '-'))
-    {
+    if (($data['edit-tipeupdate'] !== '+') && ($data['edit-tipeupdate'] !== '-')) {
       return FALSE;
     }
     $createdAt = unix_to_human(now(), true, 'europe');
@@ -56,7 +59,7 @@ class Inventory_product_model extends CI_Model
     $operand  = $data['edit-tipeupdate'];
     $total    = $data['edit-updatestok'];
     $data = [
-		  "updated_at"    => $createdAt,
+      "updated_at"    => $createdAt,
       "updated_by"    => $data['edit-username'],
     ];
     // pprint($total);
@@ -85,7 +88,7 @@ class Inventory_product_model extends CI_Model
     // }
 
   }
-  
+
   /**
    * 
    * Delete employee that already registered, but not the actual row data deletion,
@@ -99,15 +102,15 @@ class Inventory_product_model extends CI_Model
   {
     // echo '<pre>'; print_r($id); die;
     $data = array(
-		  "is_deleted"   => 1,
+      "is_deleted"   => 1,
     );
     $this->db->where('id', $id);
-		return $this->db->update($this->table, $data);
+    return $this->db->update($this->table, $data);
   }
 
 
 
-//  =============================================== GETTER ===============================================
+  //  =============================================== GETTER ===============================================
   /**
    * 
    * Get total rows from certain table
@@ -121,8 +124,7 @@ class Inventory_product_model extends CI_Model
   {
     $total = $this->db->count_all_results($this->table);
 
-    if ($keyName !== NULL)
-    {
+    if ($keyName !== NULL) {
       if ($keyName === '') $keyName = 'key';
       $total = [$keyName => $total];
     }
@@ -148,7 +150,7 @@ class Inventory_product_model extends CI_Model
     $this->db->where("pi.is_deleted", 0);
     $this->db->order_by($orderBy, $ascDesc);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
@@ -174,12 +176,12 @@ class Inventory_product_model extends CI_Model
     $this->db->where("pi.is_deleted", 0);
     $this->db->order_by($orderBy, $ascDesc);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
   }
-  
+
   /**
    * 
    * Get one row from certain table
@@ -200,12 +202,12 @@ class Inventory_product_model extends CI_Model
     $this->db->where("pi.is_deleted", 0);
     $this->db->order_by("pi.id", 'ASC');
     $query = $this->db->get();
-    if ( $query->num_rows() == 1) {
+    if ($query->num_rows() == 1) {
       return $query->row();
     }
     return FALSE;
   }
-  
+
   /**
    * 
    * Get one role by the role unique id
@@ -225,12 +227,12 @@ class Inventory_product_model extends CI_Model
     $this->db->join($this->tb_role, "{$this->tb_role}.id={$this->table}.role_id");
     $this->db->where("{$this->table}.id", $id);
     $query = $this->db->get();
-    if ( $query->num_rows() == 1) {
+    if ($query->num_rows() == 1) {
       return $query->row();
     }
     return FALSE;
   }
-  
+
   /**
    * 
    * Get one store by the store unique id
@@ -250,12 +252,12 @@ class Inventory_product_model extends CI_Model
     $this->db->join($this->tb_store, "{$this->tb_store}.id={$this->table}.store_id");
     $this->db->where("{$this->table}.id", $id);
     $query = $this->db->get();
-    if ( $query->num_rows() == 1) {
+    if ($query->num_rows() == 1) {
       return $query->row();
     }
     return FALSE;
   }
-    
+
   // get 1 product_composition berdasarkan id
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
   /**
@@ -279,12 +281,9 @@ class Inventory_product_model extends CI_Model
     $this->db->join($this->tb_material, "{$this->tb_product_composition}.material_id={$this->tb_material}.id");
     $this->db->where("{$this->tb_product_composition}.product_id", $id);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
   }
-
-
-
 }

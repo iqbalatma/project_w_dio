@@ -32,7 +32,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Checkout Gudang</a>
                 </li>
             </ul>
         </div>
@@ -60,17 +60,10 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex">
-                                    <div class="form-group col-8">
-                                        <label for="alamat_pelanggan">Alamat Pengiriman</label>
-                                        <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= $address ?>" readonly>
-                                    </div>
-                                    <div class="form-group col-4">
-                                        <label for="phone_pelanggan">No. Telepon</label>
-                                        <input type="text" class="form-control" id="phone_pelanggan" name="phone_pelanggan" value="<?= "{$phone}" ?>" readonly>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="alamat_pelanggan">Alamat Pengiriman</label>
+                                    <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" value="<?= $address ?>" readonly>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="barang_dibeli">Barang-barang yang dibeli : </label>
                                     <br>
@@ -92,20 +85,20 @@
                                             $harga_jumlah = 0;
                                             $harga_total = 0;
                                             foreach ($data_product as $row) :
-                                                // $harga_produk = 0;
-                                                // $harga_produk = $this->Product_model->get_by_id($row)->selling_price;
-                                                // $data_custom = [
-                                                //     'code_product' => $this->Product_model->get_by_id($row)->product_code,
-                                                //     'id_customer' => $data_customer->id
-                                                // ];
-                                                // $tabel_custom = $this->Kasir_model->cek_harga_custom($data_custom);
+                                                $harga_produk = 0;
+                                                $harga_produk = $this->Product_model->get_by_id($row)->selling_price;
+                                                $data_custom = [
+                                                    'code_product' => $this->Product_model->get_by_id($row)->product_code,
+                                                    'id_customer' => $data_customer->id
+                                                ];
+                                                $tabel_custom = $this->Kasir_model->cek_harga_custom($data_custom);
                                                 // pprintd($custom_harga);
 
-                                                // if ($custom_harga[$row] !== "") {
-                                                //     $harga_produk = $custom_harga[$row];
-                                                // } elseif ($tabel_custom) {
-                                                //     $harga_produk = $tabel_custom[0]['price'];
-                                                // }
+                                                if ($custom_harga[$row] !== "") {
+                                                    $harga_produk = $custom_harga[$row];
+                                                } elseif ($tabel_custom) {
+                                                    $harga_produk = $tabel_custom[0]['price'];
+                                                }
 
                                                 // pprintd($row);
 
@@ -149,7 +142,6 @@
                                 };
                                 echo '<input type="hidden" name="customer_id" value="' . $data_customer->id . '">';
                                 echo '<input type="hidden" name="address" value="' . $address . '">';
-                                echo '<input type="hidden" name="phone" value="' . $phone . '">';
 
 
                                 // foreach ($quantity as $value_quantity) {
@@ -165,12 +157,14 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a href="<?= base_url("Kasir"); ?>" class="btn btn-outline-danger px-5">Batal</a>
+                        <a href="<?= base_url("data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang"); ?>" class="btn btn-outline-danger px-5">Batal</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
 
 
-                        <button type="button" class="btn btn-primary px-5 open-modal-kasir" data-toggle="modal" data-target="#modal"> Konfirmasi </button>
+                        <button type="button" class="btn btn-primary px-5 open-modal-kasir" data-toggle="modal" data-target="#modal">
+                            Konfirmasi
+                        </button>
                         <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
                     </div>
 
@@ -181,57 +175,31 @@
                     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-
                                 <div class="modal-header">
-                                    <h3 class="modal-title font-weight-bold h2" id="exampleModalLongTitle">Konfirmasi Checkout</h3>
+                                    <h3 class="modal-title font-weight-bold" id="exampleModalLongTitle">Konfirmasi Checkout</h3>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-
                                 <div class="modal-body" id="modal-body">
-                                    <div class="form-group">
-                                        <label class="form-label font-weight-normal" id="total_bayars">
-                                            <h4> Total Belanjaan adalah: <?= price_format($harga_total) ?> </h4>
-                                        </label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="form-label">Jenis pembayaran</label>
-                                        <div class="form-check mx-auto">
-                                            <label class="form-check-label font-weight-normal">
-                                                <input class="form-check form-check-inline" type="radio" name="payment_type" id="kontrabon" value="kontrabon" checked>
-                                                Kontrabon
-                                            </label>
-
-                                            <label class="form-check-label font-weight-normal">
-                                                <input class="form-check form-check-inline" type="radio" name="payment_type" id="transfer" value="transfer">
-                                                Transfer
-                                            </label>
-
-                                            <label class="form-check-label font-weight-normal">
-                                                <input class="form-check form-check-inline" type="radio" name="payment_type" id="cash" value="cash">
-                                                Cash
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group payment_cash" style="display:none;">
+                                    <label class="form-label" id="total_bayars">Total Belanjaan adalah: <?= price_format($harga_total) ?></label>
+                                    <input autofocus type="hidden" name="paid_amount" value="0" id="paid_amount" class="form-control" aria-label="Pembayaran" required maxlength=11>
+                                    <input autofocus type="hidden" name="customer" value="<?= $data_customer->full_name;; ?>" id="customer" class="form-control" aria-label="Pembayaran" required maxlength=11>
+                                    <!-- <div class="form-group">
                                         <label class="form-label">Yang Dibayarkan</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Rp</span>
                                             </div>
-                                            <input required autofocus type="tel" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" maxlength=11 value=0>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <input autofocus type="tel" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" required maxlength=11>
 
+                                        </div>
+                                    </div> -->
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-danger px-5" data-dismiss="modal">Batal</button>
                                     <button type="submit" class="btn btn-primary px-5">Checkout</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>

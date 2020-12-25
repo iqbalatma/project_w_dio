@@ -42,15 +42,35 @@
             <div class="col-md-12">
                 <div class="card">
 
+                    <div class="card-header">
+                        <div class="w-75 mx-auto">
+                            <ul class="nav nav-pills nav-fill ">
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang'); ?>">Mutasi Ke Cabang</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/'); ?>">Tampil Semua Data Mutasi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Mutasi Gudang</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/2'); ?>">Mutasi Toko Cicalengka</a>
+                                </li>
+                                <li class="nav-item">
 
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/3'); ?>">Mutasi Toko Ujungberung</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="card-head">
                         <div class="col-md-12 pt-3">
 
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang'); ?>">Mutasi Ke Cabang</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/'); ?>">Tampil Semua Data Mutasi</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Mutasi Gudang</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/2'); ?>">Mutasi Toko Cicalengka</a>
-                            <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/3'); ?>">Mutasi Toko Ujungberung</a>
+
+
+
+
 
                         </div>
 
