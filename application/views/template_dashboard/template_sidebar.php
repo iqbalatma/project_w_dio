@@ -117,7 +117,7 @@ $mainMenu = array(
     )
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
     'no'      => 3,
     'name'    => 'Data Produksi',
     'slug'    => $_data_produksi,
@@ -125,7 +125,7 @@ $mainMenu = array(
     'icon'    => 'fas fa-shapes',
     'submenu' => array(
       [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_3]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2, $_role_3]),
         'name'  => 'Data Master Produk',
         'slug'  => 'data-master-produk',
         'url'   => "{$_data_produksi}/data-master-produk",

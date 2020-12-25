@@ -6,28 +6,71 @@ class Data_transaksi_produk extends CI_Controller
 
     public function __construct()
     {
-        parent::__construct();
-        must_login();
-        // load model
-        $this->load->model('Product_mutation_model', 'pm_m');
-        // initialize for menuActive and submenuActive
-        $this->modules    = "data-produksi";
-        $this->controller = "data-transaksi-produk";
+      parent::__construct();
+      must_login();
+      // load model
+      $this->load->model('Product_mutation_model', 'pm_m');
+      $this->load->model('Store_model', 's_m');
+      // initialize for menuActive and submenuActive
+      $this->modules    = "data-produksi";
+      $this->controller = "data-transaksi-produk";
     }
 
     public function index()
     {
-        $data = [
-          'title'           => 'Data mutasi transaksi produk',
-          'content'         => 'data-produksi/v_data_transaksi_produk.php',
-          'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
-          'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
-          'datatables'      => 1,
-          // 'productMutation'=> $this->pm_m->get_all(),
-          'productMutation'=> $this->pm_m->get_all("pm.id, p.product_code, p.full_name, s.store_name, pm.mutation_code, pm.quantity, pm.mutation_type, pm.created_at, pm.created_by"),
-        ];
-        // pprintd($data['productInventory']);
-        $this->load->view('template_dashboard/template_wrapper', $data);
+      // =========== NOTE:
+      // 0=kaisar ; 1=pemilik ; 2=gudang ; 3=kasir ;
+      // 1=Gudang pusat ; 1=Tok.Cab.Cicalengka ; 2=Tok.Cab.Ujung berung ;
+      
+      // inisiasi data dari session
+      $sess     = $this->session->userdata();
+      // inisiasi data dari get
+      $uniqid   = url_title($this->input->get('uniqid'));
+      
+      // cek dulu parameter get dari uniqid kosong apa engga
+      if ( !empty($uniqid)) {
+        // jika storeid diisi dengan all, maka tampil semua data
+        if ($uniqid == 'all') {
+          // hanya untuk pemilik dan gudang
+          role_validation($sess['role_id'], ['0', '1', '2']);
+          // $productInventory = $this->pi_m->get_all("pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
+          $productMutation = $this->pm_m->get_all("pm.id, p.product_code, p.full_name, s.store_name, pm.mutation_code, pm.quantity, pm.mutation_type, pm.created_at, pm.created_by");
+        }
+        else {
+          // cek data store pada db
+          $storeId  = $this->s_m->get_by_id($uniqid, 'id')->id;
+          // untuk semua role dan hanya toko yg sesuai dgn id
+
+          // jika akun yg login mengakses toko selain punya dia dan hanya untuk kasir, maka redirect
+          if ( ($sess['store_id'] != $storeId) && ($sess['role_id'] == '3') ) redirect( current_url()."?uniqid={$sess['store_id']}" );
+
+          // jika storeid diisi dengan id yg sesuai dengan id di db, maka tampil data per id tersebut
+          if ($storeId != FALSE) {
+            // $productInventory = $this->pi_m->get_all_by_store_id($storeId, "pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
+            $productMutation = $this->pm_m->get_all_by_store_id($storeId, "pm.id, p.product_code, p.full_name, s.store_name, pm.mutation_code, pm.quantity, pm.mutation_type, pm.created_at, pm.created_by");
+          } 
+          // jika isinya gajelas ya arahin ke default
+          else {
+            redirect( current_url()."?uniqid={$sess['store_id']}" );
+          }
+        }
+      }
+      // jika uniqid gaada ya arahin ke default
+      else {
+        redirect( current_url()."?uniqid={$sess['store_id']}" );
+      }
+
+      $data = [
+          'title'             => 'Data mutasi transaksi produk',
+          'content'           => 'data-produksi/v_data_transaksi_produk.php',
+          'menuActive'        => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'submenuActive'     => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
+          'datatables'        => 1,
+          'productMutation'   => $productMutation,
+          'uniqid'            => $uniqid,
+      ];
+      // pprintd($data['productInventory']);
+      $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
     // public function tambah()

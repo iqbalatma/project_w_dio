@@ -9,6 +9,7 @@ class Product_model extends CI_Model
 {
 
   var $table                    = 'product';
+  var $tb_product_inventory     = 'product_inventory';
   var $tb_product_composition   = 'product_composition';
   var $tb_material              = 'material';
   // var $tb_employee  = 'employee';
@@ -402,6 +403,34 @@ class Product_model extends CI_Model
     $this->db->where($where);
     $query = $this->db->get();
     // pprintd($where);
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
+  /**
+   * Get all Product Inventory that is belong to
+   * the corresponding Product by joining some tables on its id.
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some field(s) name of your choice.
+   * @param string $storeId 
+   * Set the $storeId from the session user logging in.
+   * 
+   */
+  public function get_all_inventory($select = '*', $storeId = NULL)
+  {
+    // get from tb_department
+    $this->db->select($select);
+    $this->db->from("{$this->table} AS p");
+    $this->db->join("{$this->tb_product_inventory} AS pi", "p.id=pi.product_id");
+    if ($storeId != NULL) {
+      $this->db->where("pi.store_id", $storeId);
+    }
+    $this->db->where('pi.is_deleted', 0);
+    $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
     }

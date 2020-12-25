@@ -31,16 +31,16 @@
                         <div class="w-75 mx-auto">
                           <ul class="nav nav-pills nav-fill ">
                             <li class="nav-item">
-                              <a class="nav-link <?= ($uniqid == 'all') ? 'active': ''; ?>" href="?uniqid=all">Semua cabang</a>
+                              <a class="nav-link <?= ($uniqid == 'all') ? 'active':''; ?>" href="?uniqid=all">Semua cabang</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link <?= ($uniqid == '1') ? 'active': ''; ?>" href="?uniqid=1">Gudang Pusat</a>
+                              <a class="nav-link <?= ($uniqid == '1') ? 'active':''; ?>" href="?uniqid=1">Gudang Pusat</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link <?= ($uniqid == '2') ? 'active': ''; ?>" href="?uniqid=2">Toko Cabang Cicalengka</a>
+                              <a class="nav-link <?= ($uniqid == '2') ? 'active':''; ?>" href="?uniqid=2">Toko Cabang Cicalengka</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link <?= ($uniqid == '3') ? 'active': ''; ?>" href="?uniqid=3">Toko Cabang Ujung Berung</a>
+                              <a class="nav-link <?= ($uniqid == '3') ? 'active':''; ?>" href="?uniqid=3">Toko Cabang Ujung Berung</a>
                             </li>
                           </ul>
                         </div>
@@ -149,7 +149,7 @@
             </div>
 
             <?php // modal untuk hapus data ?>
-            <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <!-- <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -170,5 +170,5 @@
                   </form>
                 </div>
               </div>
-            </div>
+            </div> -->
             <?php // /modal untuk hapus data ?>

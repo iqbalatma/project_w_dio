@@ -47,7 +47,7 @@ if ( ! function_exists('role_validation'))
 {
   /**
   * What is the role of the user, and search in array stack
-  * who are allowed to access something
+  * who are allowed to access something. Return 1 or redirect to base_url
   *
   * @param string user role name
   * @param array allowed role
@@ -67,7 +67,7 @@ if ( ! function_exists('role_access'))
 {
   /**
   * What is the role of the user, and search in array stack
-  * who are allowed to access menu
+  * who are allowed to access menu. Return 1 or 0
   *
   * @param string user role name
   * @param array allowed role

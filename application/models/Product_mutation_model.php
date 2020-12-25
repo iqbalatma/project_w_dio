@@ -68,17 +68,40 @@ class Product_mutation_model extends CI_Model
     // $this->db->from("product_mutation");
     // $this->db->join("product", "product_mutation.product_id = product.id");
     // // $this->db->join("store", "product_mutation.store_id = product.id");
-
     // $this->db->where("product_mutation.is_deleted", 0);
 
     $query = $this->db->query("SELECT product_mutation.product_id, product_mutation.store_id, product_mutation.mutation_code, product_mutation.quantity, store.store_name, product.full_name, product.product_code, product_mutation.mutation_type, product_mutation.created_by, product_mutation.created_at FROM product_mutation INNER JOIN product ON product_mutation.product_id = product.id INNER JOIN store ON product_mutation.store_id = store.id ORDER BY product_mutation.created_at DESC");
     // $query = $this->db->query("SELECT * FROM product_mutation ");
-
     $row = $query->result_array();
-
-
     return $row;
   }
+
+  /**
+   * 
+   * Get all rows from certain table by certain id
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function get_all_by_store_id($storeId, $select = '*', $orderBy = 'pm.id', $ascDesc = 'ASC')
+  {
+    $this->db->select($select);
+    $this->db->from("{$this->tb_product} AS p");
+    $this->db->join("{$this->table} AS pm", "pm.product_id = p.id");
+    $this->db->join("{$this->tb_store} AS s", "s.id = pm.store_id");
+    // $this->db->where("{$this->tb_product_composition}.product_id", $id);
+    $this->db->where("pm.store_id", $storeId);
+    $this->db->where("pm.is_deleted", 0);
+    $this->db->order_by($orderBy, $ascDesc);
+    $query = $this->db->get();
+    if ( $query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
   /**
    * 
    * Get one row from certain table

@@ -20,7 +20,7 @@ class Data_inventory_produk extends CI_Controller
   // ============================================== INDEX =======================================
   public function index()
   {
-    // NOTE:
+    // =========== NOTE:
     // 0=kaisar ; 1=pemilik ; 2=gudang ; 3=kasir ;
     // 1=Gudang pusat ; 1=Tok.Cab.Cicalengka ; 2=Tok.Cab.Ujung berung ;
     
@@ -29,6 +29,7 @@ class Data_inventory_produk extends CI_Controller
     // inisiasi data dari get
     $uniqid   = url_title($this->input->get('uniqid'));
     
+    // cek dulu parameter get dari uniqid kosong apa engga
     if ( !empty($uniqid)) {
       // jika storeid diisi dengan all, maka tampil semua data
       if ($uniqid == 'all') {
@@ -42,39 +43,24 @@ class Data_inventory_produk extends CI_Controller
         // untuk semua role dan hanya toko yg sesuai dgn id
 
         // jika akun yg login mengakses toko selain punya dia dan hanya untuk kasir, maka redirect
-        if ( ($sess['store_id'] != $storeId) && ($sess['role_id'] == '3') ) redirect(base_url());
+        if ( ($sess['store_id'] != $storeId) && ($sess['role_id'] == '3') ) redirect( current_url()."?uniqid={$sess['store_id']}" );
 
         // jika storeid diisi dengan id yg sesuai dengan id di db, maka tampil data per id tersebut
         if ($storeId != FALSE) {
           $productInventory = $this->pi_m->get_all_by_store_id($storeId, "pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
         } 
-        // jika isinya gajelas ya buang keluar
+        // jika isinya gajelas ya arahin ke default
         else {
-          redirect(base_url());
+          redirect( current_url()."?uniqid={$sess['store_id']}" );
         }
       }
     }
+    // jika uniqid gaada ya arahin ke default
     else {
-      redirect(current_url() . "?uniqid={$sess['store_id']}");
-      // $uniqid = 'all';
-      // // hanya untuk pemilik dan gudang
-      // role_validation($sess['role_id'], ['0', '1', '2']);
-      // $productInventory = $this->pi_m->get_all("pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
+      redirect( current_url()."?uniqid={$sess['store_id']}" );
     }
 
     // pprintd($uniqid);
-    
-
-    // // jika yg login adalah pemilik
-    // if ($sess['role_id'] == 10) 
-    // {
-    //   $productInventory = $this->pi_m->get_all("pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
-    // } 
-    // else 
-    // {
-    // }
-    
-
 
     $data = [
       'title'             => 'Data inventory produk',
