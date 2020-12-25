@@ -307,11 +307,4 @@ class Data_transaksi_barang extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
         end_time('kasir');
     }
-
-    // public function test()
-    // {
-    //     echo $x = $this->input->post('a');
-    //     var_dump($this->input->post('checkbox_value'));
-    //     var_dump($this->input->post('custom_harga'));
-    // }
 }

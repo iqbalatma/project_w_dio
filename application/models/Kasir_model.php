@@ -261,7 +261,8 @@ class Kasir_model extends CI_Model
 
     public function get_hutang()
     {
-        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.status = '0' AND left_to_paid > 0");
+        $id_toko = $_SESSION['store_id'];
+        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id,transaction.store_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.status = '0' AND left_to_paid > 0 AND transaction.store_id = $id_toko");
 
         $row = $query->result_array();
 
@@ -1225,6 +1226,10 @@ class Kasir_model extends CI_Model
             'invoice_number'    => $invoiceNumber,
             'due_at'            => $dueAt,
         ];
+
+        echo "<pre>";
+        var_dump($data_kas);
+        echo "</pre>";
 
         return ($this->db->trans_status() === FALSE) ? FALSE : $returnVal;
     }
