@@ -9,10 +9,10 @@
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
                           <div class="ml-auto">
-                            <!-- <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
+                            <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
                               <i class="fa fa-cog mr-2"></i>
                               <span class="h6">Perbarui stok</span>
-                            </a> -->
+                            </a>
                             <div class="btn-group dropleft" data-toggle="tooltip" title="Opsi">
                               <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>

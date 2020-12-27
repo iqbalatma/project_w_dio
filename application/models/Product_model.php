@@ -14,7 +14,7 @@ class Product_model extends CI_Model
   var $tb_material              = 'material';
   // var $tb_employee  = 'employee';
   // var $tb_role      = 'role';
-  // var $tb_store     = 'store';
+  var $tb_store     = 'store';
 
   //  ===============================================SETTER===============================================
   /**
@@ -436,4 +436,7 @@ class Product_model extends CI_Model
     }
     return FALSE;
   }
+
+
+
 }

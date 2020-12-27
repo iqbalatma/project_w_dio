@@ -47,7 +47,7 @@ class Invoice extends CI_Controller
 		$__mililiter	= 0.001; // dalam liter
 		$__liter			= 1; // dalam liter
 		$__galon			= 5; // dalam liter
-		$__pile				= 20; // dalam liter
+		$__pail				= 20; // dalam liter
 		$__drum				= 200; // dalam liter
 
 		// inisiasi array kosong dan nilai awal
@@ -75,8 +75,8 @@ class Invoice extends CI_Controller
 					$tot5Liter 	 					= $tot5Liter + $row['tot5Liter'];
 					break;
 
-				case 'pile':
-					$row['totLiterItem'] 	= $row['quantity'] * ($__pile * $row['volume']);
+				case 'pail':
+					$row['totLiterItem'] 	= $row['quantity'] * ($__pail * $row['volume']);
 					break;
 
 				case 'drum':

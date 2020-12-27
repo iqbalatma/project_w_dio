@@ -9,6 +9,7 @@ class Data_inventory_produk extends CI_Controller
       parent::__construct();
       must_login();
       // load model
+      $this->load->model('Product_model', 'p_m');
       $this->load->model('Inventory_product_model', 'pi_m');
       $this->load->model('Store_model', 's_m');
       // initialize for menuActive and submenuActive
@@ -77,7 +78,7 @@ class Data_inventory_produk extends CI_Controller
 
 
   // ============================================== TAMBAH =======================================
-  public function _______________tambah()
+  public function tambah()
   {
     // set form rules
     $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|trim|min_length[5]|max_length[100]');
@@ -91,10 +92,14 @@ class Data_inventory_produk extends CI_Controller
       // set data untuk digunakan pada view
       $data = [
         'title'           => 'Tambah produk baru',
-        'content'         => 'data-produksi/v_data_master_produk_tambah.php',
+        'content'         => 'data-produksi/v_data_inventory_produk_tambah.php',
         'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
         'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
+        'products'        => $this->p_m->get_all(),
+        // 'products'        => $this->p_m->get_all_by_store_id($this->session->store_id),
+        // 'products'        => $this->p_m->get_all_by_store_id($this->session->store_id),
       ];
+      pprintd($data);
       $this->load->view('template_dashboard/template_wrapper', $data);
 
     }else {
@@ -123,7 +128,7 @@ class Data_inventory_produk extends CI_Controller
 
 
   // ============================================== EDIT =======================================
-  public function _______________edit($id=NULL)
+  public function edit($id=NULL)
   {
     if ($id === NULL)
     {

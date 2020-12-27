@@ -71,7 +71,7 @@
                                     <option value="sachet"> Sachet </option>
                                     <option value="galon"> Galon </option>
                                     <option value="drum"> Drum </option>
-                                    <option value="pile"> Pile </option>
+                                    <option value="pail"> pail </option>
                                 </select>
                                 <?= form_error('add-unit') ?>
                               </div>

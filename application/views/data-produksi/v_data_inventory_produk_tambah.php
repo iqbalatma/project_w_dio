@@ -17,79 +17,46 @@
 
                       <div class="card-body">
                         <div class="row justify-content-center">
-                          <div class="col-10 col-md-6 col-lg-6 col-xl-4">
+                          <div class="col-10 col-xl-8">
 
-                            <form id="1" method="post" action="<?= current_url() ?>">
-                              <input type="hidden" value="1" name="step">
-                              <!-- 1 -->
-                              <div class="form-group row">
-                                <label for="add-kodeproduk">
-                                  Kode produk <span class="text-danger">*</span>
-                                </label>
-                                <input 
-                                  type        = "text"
-                                  id          = "add-kodeproduk"
-                                  name        = "add-kodeproduk" 
-                                  placeholder = "Kode produk" 
-                                  value       = "<?= set_value('add-kodeproduk') ?>"
-                                  class       = "form-control <?php if (form_error('add-kodeproduk') !== '') {echo 'is-invalid';} ?>" 
-                                  autofocus
-                                >
-                                <?= form_error('add-kodeproduk') ?>
-                              </div>
-                              <!-- 2 -->
-                              <div class="form-group row">
-                                <label for="add-fullname">
-                                  Nama produk <span class="text-danger">*</span>
-                                </label>
-                                <input 
-                                  type        = "text"
-                                  id          = "add-fullname"
-                                  name        = "add-fullname" 
-                                  placeholder = "Nama lengkap produk" 
-                                  value       = "<?= set_value('add-fullname') ?>"
-                                  class       = "form-control <?php if (form_error('add-fullname') !== '') {echo 'is-invalid';} ?>" 
-                                >
-                                <?= form_error('add-fullname') ?>
-                              </div>
-                              <!-- 3 -->
-                              <div class="form-group row">
-                                <label for="add-unit">
-                                  Unit <span class="text-danger">*</span>
-                                </label>
-                                <select class="form-control <?php if (form_error('add-unit') !== '') {echo 'is-invalid';} ?>" name="add-unit">
-                                  <option disabled selected>-- pilih unit --</option>
-                                    <option value="gram"> Gram </option>
-                                    <option value="mililiter"> Mililiter </option>
-                                </select>
-                                <?= form_error('add-unit') ?>
-                              </div>
-                              <!-- 4 -->
-                              <div class="form-group row">
-                                <label for="add-volume">
-                                  Volume <span class="text-danger">*</span>
-                                </label>
-                                <input 
-                                  type        = "text"
-                                  id          = "add-volume"
-                                  name        = "add-volume" 
-                                  placeholder = "Komposisi / berat / ukuran per unit" 
-                                  value       = "<?= set_value('add-volume') ?>"
-                                  class       = "form-control <?php if (form_error('add-volume') !== '') {echo 'is-invalid';} ?>" 
-                                  autofocus
-                                >
-                                <?= form_error('add-volume') ?>
-                              </div>
+                            <form method="POST">
+
+                              <?php
+                              if ($products) : ?>
+
+                                <div class="mx-5">
+                                  <?php // check for the user will have custom price or not ?>
+                                  <div class="form-group row">
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input class="form-check-input" id="show-or-hide" name="show-or-hide" type="checkbox" value="scheckbox">
+                                        <span class="form-check-sign">Ingin tambah stok produk lainnya?</span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="bungkus">
+                                    <span class="btn btn-sm btn-border btn-secondary add-customprice-div">Tambah produk</span>
+                                    <span class="element" id="div-0"></span>
+                                  </div>
+                                </div>
+
+                                <input type="hidden" name="polo" id="polo" value=1>
+                              
+                              <?php else : ?>
+                                <p class="text-danger text-center"><em>Tidak ada produk.</em></p>
+                              <?php endif; ?>
 
                               <!-- button -->
                               <div class="form-group row justify-content-center mt-3">
-                                <a href="<?= base_url('data-produksi/' . getBeforeLastSegment()) ?>" class="btn btn-light btn-border col-5 mx-1">
-                                  Batal
+                                <a href="<?= base_url( 'data-pelanggan/'.getBeforeLastSegment('', 2)."/detail/{''}" ) ?>" class="btn btn-outline-secondary col-5 mx-1">
+                                  Kembali
                                 </a>
                                 <button type="submit" class="btn btn-success col-5 mx-1">
                                   Simpan
                                 </button>
                               </div>
+
                             </form>
 
                           </div>

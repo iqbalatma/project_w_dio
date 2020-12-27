@@ -79,7 +79,7 @@
                                         <option value="sachet"    <?php echo ($product->unit == 'sachet')?('selected'):('') ?>> Sachet </option>
                                         <option value="galon"     <?php echo ($product->unit == 'galon')?('selected'):('') ?>> Galon </option>
                                         <option value="drum"      <?php echo ($product->unit == 'drum')?('selected'):('') ?>> Drum </option>
-                                        <option value="pile"      <?php echo ($product->unit == 'pile')?('selected'):('') ?>> Pile </option>
+                                        <option value="pail"      <?php echo ($product->unit == 'pail')?('selected'):('') ?>> pail </option>
                                     </select>
                                     <?= form_error('edit-unit') ?>
                                   </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2020 at 09:34 AM
+-- Generation Time: Dec 27, 2020 at 08:27 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -69,7 +69,7 @@ INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contac
 --
 -- Table structure for table `customer`
 --
--- Creation: Dec 22, 2020 at 07:57 AM
+-- Creation: Dec 22, 2020 at 08:07 PM
 --
 
 DROP TABLE IF EXISTS `customer`;
@@ -79,13 +79,15 @@ CREATE TABLE `customer` (
   `address` varchar(250) NOT NULL,
   `phone` varchar(16) NOT NULL,
   `cust_type` enum('retail','reseller') NOT NULL DEFAULT 'retail',
-  `store_id` int(11) NOT NULL,
+  `store_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- RELATIONSHIPS FOR TABLE `customer`:
+--   `store_id`
+--       `store` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -346,7 +348,7 @@ CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `product_code` varchar(100) NOT NULL,
   `full_name` varchar(100) NOT NULL,
-  `unit` enum('gram','mililiter','liter','pcs','sachet','galon','drum','pile') NOT NULL DEFAULT 'mililiter',
+  `unit` enum('gram','mililiter','liter','pcs','sachet','galon','drum','pail') NOT NULL DEFAULT 'mililiter',
   `volume` int(11) NOT NULL DEFAULT '0' COMMENT 'Jumlah dalam ''gram'',''mililiter'',''liter'',''pcs'',''sachet'',''galon'',''drum'',''pile''',
   `image` varchar(250) DEFAULT 'default.png',
   `price_base` int(11) NOT NULL DEFAULT '0' COMMENT 'Harga dasar / Harga beli / HPP',
@@ -385,6 +387,36 @@ CREATE TABLE `product_composition` (
 --       `product` -> `id`
 --   `material_id`
 --       `material` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_inventory`
+--
+-- Creation: Dec 23, 2020 at 09:51 AM
+--
+
+DROP TABLE IF EXISTS `product_inventory`;
+CREATE TABLE `product_inventory` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '0',
+  `critical_point` int(11) NOT NULL DEFAULT '10',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` varchar(15) DEFAULT NULL,
+  `updated_by` varchar(15) DEFAULT NULL,
+  `is_deleted` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- RELATIONSHIPS FOR TABLE `product_inventory`:
+--   `product_id`
+--       `product` -> `id`
+--   `store_id`
+--       `store` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -617,6 +649,14 @@ ALTER TABLE `product_composition`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `product_inventory`
+--
+ALTER TABLE `product_inventory`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `store_id` (`store_id`);
+
+--
 -- Indexes for table `product_mutation`
 --
 ALTER TABLE `product_mutation`
@@ -725,6 +765,12 @@ ALTER TABLE `product_composition`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `product_inventory`
+--
+ALTER TABLE `product_inventory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `product_mutation`
 --
 ALTER TABLE `product_mutation`
@@ -751,6 +797,12 @@ ALTER TABLE `transaction`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `customer`
+--
+ALTER TABLE `customer`
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `custom_price`
@@ -799,6 +851,13 @@ ALTER TABLE `material_mutation`
 ALTER TABLE `product_composition`
   ADD CONSTRAINT `product_composition_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `product_composition_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_inventory`
+--
+ALTER TABLE `product_inventory`
+  ADD CONSTRAINT `product_inventory_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_inventory_ibfk_2` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_mutation`
