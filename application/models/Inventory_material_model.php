@@ -119,8 +119,9 @@ class Inventory_material_model extends CI_Model
     public function ubah_critical_point($data)
     {
         $id = $data['id'];
+        $store_id = $_SESSION['store_id'];
         $critical_point = $data['critical_point'];
-        $query = $this->db->query("UPDATE  material_inventory SET critical_point = $critical_point WHERE material_id = $id");
+        $query = $this->db->query("UPDATE  material_inventory SET critical_point = $critical_point WHERE material_id = $id AND store_id=$store_id");
         return $query;
     }
 

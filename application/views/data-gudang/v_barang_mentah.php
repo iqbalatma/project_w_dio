@@ -32,7 +32,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>">Data Barang Kimia</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Barang Mentah</a>
                 </li>
             </ul>
         </div>
@@ -47,11 +47,11 @@
 
                             <div class="btn-group dropleft float-right" data-toggle="tooltip" title="Opsi">
                                 <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>
+                                    <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>
                                 </button>
                                 <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-pdf mr-2 text-danger"></i>Export to PDF</a>
-                                <!-- <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-pdf mr-2 text-danger"></i>Export to PDF</a>
+                                    <!-- <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-excel mr-2 text-success"></i>Generate Excel</a> -->
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                                                 <?= $row->unit ?>
                                             </td> -->
                                             <td class="px-3 <?= ($row->price_base != 0) ? '' : 'text-danger' ?>">
-                                                <?= price_format($row->price_base)." / ".$row->unit ?>
+                                                <?= price_format($row->price_base) . " / " . $row->unit ?>
                                             </td>
                                             <td class="px-3">
                                                 <img src="<?= base_url(); ?>/assets/img/material/<?= $row->image; ?>" width="50px" alt="">

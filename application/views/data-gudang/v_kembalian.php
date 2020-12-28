@@ -26,13 +26,19 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Kasir</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Checkout Kasir</a>
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Data Mutasi Barang</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang'); ?>">Mutasi Barang Ke Cabang</a>
                 </li>
             </ul>
         </div>

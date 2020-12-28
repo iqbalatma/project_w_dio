@@ -146,7 +146,7 @@
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah Critical Point" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update_critical_point/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah Critical Point" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
