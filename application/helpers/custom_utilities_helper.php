@@ -1,7 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
 // -----------------------------------------------------------------------------------------------
+
 
 if ( ! function_exists('must_login'))
 {
@@ -83,7 +85,9 @@ if ( ! function_exists('role_access'))
   }
 }
 
+
 // -----------------------------------------------------------------------------------------------
+
 
 if ( ! function_exists('getBeforeLastSegment'))
 {
@@ -124,7 +128,9 @@ if ( ! function_exists('getLastSegment'))
   }
 }
 
+
 // -----------------------------------------------------------------------------------------------
+
 
 if ( ! function_exists('pprint'))
 {
@@ -167,7 +173,9 @@ if ( ! function_exists('price_format'))
   }
 }
 
+
 // ------------------------------------------------------------------------
+
 
 if ( ! function_exists('start_time'))
 {
@@ -225,6 +233,40 @@ if ( ! function_exists('end_time'))
 }
 
 
+// ------------------------------------------------------------------------
+
+
+if ( ! function_exists('unique_multidim_array'))
+{
+	/**
+  * Create multidimensional array unique for any single key index.
+  * e.g I want to create multi dimentional unique array for specific code
+  *
+  * $details = array(
+  *    0 => array("id"=>"1", "name"=>"Mike",    "num"=>"9876543210"),
+  *    1 => array("id"=>"2", "name"=>"Carissa", "num"=>"08548596258"),
+  *    2 => array("id"=>"1", "name"=>"Mathew",  "num"=>"784581254"),
+  * )
+  *
+  * @param	array	Input array
+  * @param string array key to be searched
+  * 
+	*/
+  function unique_multidim_array($array, $key) {
+    $temp_array = array();
+    $i = 0;
+    $key_array = array();
+   
+    foreach($array as $val) {
+        if (!in_array($val[$key], $key_array)) {
+            $key_array[$i] = $val[$key];
+            $temp_array[$i] = $val;
+        }
+        $i++;
+    }
+    return $temp_array;
+  }
+}
 
 
 
@@ -233,7 +275,7 @@ if ( ! function_exists('end_time'))
 
 
 
-// belum dipakai, cuma buat next projek
+// dipakai di update inventory produk, rencanya cuma buat next projek
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('set_swal'))
@@ -245,10 +287,12 @@ if ( ! function_exists('set_swal'))
 	*/
   function set_swal($swal)
   {
-    if ($swal[0] == 'success') $this->session->set_flashdata('success_message', 1);
-    if ($swal[0] == 'failed') $this->session->set_flashdata('failed_message', 1);
-    $this->session->set_flashdata('title', $swal[1]);
-    $this->session->set_flashdata('text', $swal[2]);
+    $ci=&get_instance();
+
+    if ($swal[0] == 'success') $ci->session->set_flashdata('success_message', 1);
+    if ($swal[0] == 'failed') $ci->session->set_flashdata('failed_message', 1);
+    $ci->session->set_flashdata('title', $swal[1]);
+    $ci->session->set_flashdata('text', $swal[2]);
   }
 
   // ? contoh penggunaan

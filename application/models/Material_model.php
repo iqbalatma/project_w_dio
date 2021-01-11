@@ -51,7 +51,7 @@ class Material_model extends CI_Model
     {
         return $this->db->get_where($this->table, array('id' => $id))->result();
     }
-    public function insert($data)
+    public function insert($data, $insertInven = FALSE, $dataInven = NULL)
     {
         // $post = $this->input->post();
         // $this->product_id = uniqid();
@@ -65,7 +65,39 @@ class Material_model extends CI_Model
         // $this->password = $data['password'];
         // $this->email = $data['email'];
 
-        return $this->db->insert($this->table, $data);
+        // set waktu awal untuk method ini
+        $now          = now();
+        $createdAt    = unix_to_human($now, true, 'europe');
+
+        // ini yg awalnya
+        if (($insertInven == FALSE) && ($dataInven == NULL))
+        {
+            return $this->db->insert($this->table, $data);
+        } 
+        // ini tambahannya
+        elseif (($insertInven == TRUE) && ($dataInven != NULL)) 
+        {
+            $this->db->trans_start();
+            
+            $this->db->insert($this->table, $data);
+            $lastMatId = $this->db->insert_id();
+
+            $dataInven = [
+                'material_id'       => $lastMatId,
+                'store_id'          => $dataInven['store_id'],
+                'quantity'          => $dataInven['quantity'],
+                'critical_point'    => 10,
+                'created_at'        => $createdAt,
+                'created_by'        => $dataInven['created_by'],
+            ];
+
+            $this->db->insert('material_inventory', $dataInven);
+
+            $this->db->trans_complete();
+
+            return ($this->db->trans_status() === FALSE) ? FALSE : TRUE;
+        }
+
     }
 
     public function update($data)

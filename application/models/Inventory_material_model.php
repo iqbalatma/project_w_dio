@@ -148,4 +148,81 @@ class Inventory_material_model extends CI_Model
         }
         return FALSE;
     }
+
+    /**
+     * Get all rows from certain table
+     * 
+     * @param string $select 
+     * Default value is '*', but you can input some string
+     * to select some table(s) name of your choice.
+     * 
+     */
+    public function get_all($select = '*', $orderBy = 'id', $ascDesc = 'DESC')
+    {
+        $this->db->select($select);
+        $this->db->from($this->table);
+        $this->db->where('is_deleted', 0);
+        $this->db->order_by($orderBy, $ascDesc);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
+
+    /**
+     * Get all rows from certain table
+     * 
+     * @param string $select 
+     * Default value is '*', but you can input some string
+     * to select some table(s) name of your choice.
+     * 
+     */
+    public function get_all_by_id($id, $select = '*', $orderBy = 'id', $ascDesc = 'DESC')
+    {
+        $this->db->select($select);
+        $this->db->from($this->table);
+        $this->db->where('material_id', $id);
+        $this->db->where('is_deleted', 0);
+        $this->db->order_by($orderBy, $ascDesc);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return FALSE;
+    }
+
+    /**
+     * Get product by custom where clause
+     * 
+     * @param string $where
+     * Query string for where clause (ex. id=5 OR id=6 OR id=10)
+     * @param string $select 
+     * Default value is '*', but you can input some string
+     * to select some table(s) name of your choice.
+     * 
+     */
+    public function get_by_where($where = NULL, $select = '*')
+    {
+      // get from table
+      $this->db->select($select);
+      $this->db->from($this->table);
+      $this->db->where($where);
+      $this->db->where('is_deleted', 0);
+      $query = $this->db->get();
+      // pprintd($where);
+      if ($query->num_rows() > 0) {
+        return $query->result_array();
+      }
+      return FALSE;
+    }
+
+
+
+
+
+
+
+
+
 }

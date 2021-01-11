@@ -1,3 +1,6 @@
+            
+            
+            
             <div class="content">
               <div class="page-inner">
 
@@ -17,46 +20,67 @@
 
                       <div class="card-body">
                         <div class="row justify-content-center">
-                          <div class="col-10 col-xl-8">
+                          <div class="col-10 col-md-6 col-lg-6 col-xl-4">
 
-                            <form method="POST">
-
-                              <?php
-                              if ($products) : ?>
-
-                                <div class="mx-5">
-                                  <?php // check for the user will have custom price or not ?>
-                                  <div class="form-group row">
-                                    <div class="form-check">
-                                      <label class="form-check-label">
-                                        <input class="form-check-input" id="show-or-hide" name="show-or-hide" type="checkbox" value="scheckbox">
-                                        <span class="form-check-sign">Ingin tambah stok produk lainnya?</span>
-                                      </label>
-                                    </div>
-                                  </div>
-                                  
-                                  <div class="bungkus">
-                                    <span class="btn btn-sm btn-border btn-secondary add-customprice-div">Tambah produk</span>
-                                    <span class="element" id="div-0"></span>
-                                  </div>
-                                </div>
-
-                                <input type="hidden" name="polo" id="polo" value=1>
-                              
-                              <?php else : ?>
-                                <p class="text-danger text-center"><em>Tidak ada produk.</em></p>
-                              <?php endif; ?>
+                            <form id="1" method="post" action="<?= current_url() ?>">
+                              <input type="hidden" value="1" name="step">
+                              <!-- 1 -->
+                              <div class="form-group row">
+                                <label for="add-store">
+                                  Pilih toko cabang <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control" name="add-store">
+                                  <option selected disabled>-- pilih toko --</option>
+                                  <?php foreach ($stores as $store): ?>
+                                    <option value='<?php echo "{$store->id}||{$store->store_name}" ?>'>
+                                      <?php echo "{$store->store_name}" ?>
+                                    </option>
+                                  <?php endforeach; ?>
+                                </select>
+                                <?= form_error('add-store') ?>
+                              </div>
+                              <!-- 2 -->
+                              <div class="form-group row">
+                                <label for="add-product">
+                                  Pilih produk <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control" name="add-product">
+                                  <option selected disabled>-- pilih produk --</option>
+                                  <?php foreach ($products as $product): ?>
+                                    <option value='<?php echo "{$product['id']}||{$product['full_name']}" ?>'>
+                                      <?php echo "{$product['full_name']}" ?>
+                                    </option>
+                                  <?php endforeach; ?>
+                                </select>
+                                <?= form_error('add-product') ?>
+                              </div>
+                              <!-- 4 -->
+                              <div class="form-group row">
+                                <label for="add-qty">
+                                  Kuantitas <span class="text-danger">*</span>
+                                </label>
+                                <input 
+                                  type        = "tel"
+                                  id          = "add-qty"
+                                  name        = "add-qty" 
+                                  placeholder = "kuantitas" 
+                                  value       = "<?= set_value('add-qty') ?>"
+                                  class       = "form-control <?php if (form_error('add-qty') !== '') {echo 'is-invalid';} ?>" 
+                                  data-filter = "\+?\d{0,6}"
+                                  required
+                                >
+                                <?= form_error('add-qty') ?>
+                              </div>
 
                               <!-- button -->
                               <div class="form-group row justify-content-center mt-3">
-                                <a href="<?= base_url( 'data-pelanggan/'.getBeforeLastSegment('', 2)."/detail/{''}" ) ?>" class="btn btn-outline-secondary col-5 mx-1">
-                                  Kembali
+                                <a href="<?= base_url('data-produksi/' . getBeforeLastSegment()) ?>" class="btn btn-outline-secondary col-5 mx-1">
+                                  Batal
                                 </a>
                                 <button type="submit" class="btn btn-success col-5 mx-1">
                                   Simpan
                                 </button>
                               </div>
-
                             </form>
 
                           </div>

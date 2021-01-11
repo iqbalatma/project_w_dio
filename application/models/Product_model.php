@@ -437,6 +437,140 @@ class Product_model extends CI_Model
     return FALSE;
   }
 
+  public function get_by_id_with_compostition($prod_id){
+    $query = $this->db->query("
+      SELECT p.id AS prod_id, p.product_code, p.full_name AS prod_fullname, m.id AS mat_id, m.material_code AS mat_code, m.full_name AS mat_fullname, m.unit AS mat_unit, pc.id AS comp_id, (m.volume * pc.volume) AS comp_qty_needed_single
+      FROM product AS p
+      JOIN product_composition AS pc
+      ON p.id = pc.product_id
+      JOIN material AS m
+      ON pc.material_id = m.id
+      WHERE p.id = {$prod_id}
+      ORDER BY m.id
+      ASC
+    ");
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
+  public function get_all_with_composition($isMerge = TRUE)
+  {
+    // $query = $this->db->query("
+    //   SELECT p.id AS prod_id, p.product_code AS prod_code, p.full_name AS prod_fullname, p.unit AS prod_unit, m.id AS mat_id, m.material_code AS mat_code, m.full_name AS mat_fullname, m.unit AS mat_unit, pc.id AS comp_id, (m.volume * pc.volume) AS comp_qty
+    //   FROM product AS p
+    //   JOIN product_composition AS pc
+    //   ON p.id = pc.product_id
+    //   JOIN material AS m
+    //   ON pc.material_id = m.id
+    //   ORDER BY p.id
+    //   ASC
+    // ");
+    // $query = $this->db->query("
+    //   SELECT p.id AS prod_id, m.id AS mat_id, m.material_code AS mat_code, m.full_name AS mat_fullname, m.unit AS mat_unit, pc.id AS comp_id, (m.volume * pc.volume) AS comp_qty
+    //   FROM product AS p
+    //   JOIN product_composition AS pc
+    //   ON p.id = pc.product_id
+    //   JOIN material AS m
+    //   ON pc.material_id = m.id
+    //   WHERE p.id = 1
+    //   ORDER BY p.id
+    //   ASC
+    // ");
+
+    $query = $this->db->query("
+      SELECT p.id AS prod_id, p.product_code, p.full_name AS prod_fullname, m.id AS mat_id, m.material_code AS mat_code, m.full_name AS mat_fullname, m.unit AS mat_unit, pc.id AS comp_id, (m.volume * pc.volume) AS comp_qty
+      FROM product AS p
+      JOIN product_composition AS pc
+      ON p.id = pc.product_id
+      JOIN material AS m
+      ON pc.material_id = m.id
+      ORDER BY p.id
+      ASC
+    ");
+
+
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+
+
+
+
+    // if ($query->num_rows() > 0) 
+    // {
+    //   if ($isMerge != TRUE) 
+    //   {
+    //     return $query->result_array();
+    //   } 
+    //   else 
+    //   {
+    //     $prodComp = $query->result_array();
+    //     $product  = $this->get_all('id, product_code, full_name, unit', 'ASC');
+
+    //     $containerP = [];
+    //     foreach ($product as $p) {
+
+    //       $containerPC = [];
+    //       foreach ($prodComp as $pc) {
+
+    //         if ($pc['prod_id'] == $p['id']) {
+    //           $p[$p['id']] = $pc;
+    //           pprint($p);
+    //         }
+
+    //       }
+
+    //     }
+    //     // pprint($containerPC);
+
+    //     echo '<hr>';
+    //     pprintd($prodComp);
+
+
+    //     $xxx = unique_multidim_array($res, 'prod_id');
+    //     $container = [];
+    //     foreach ($res as $row) {
+          
+    //     }
+
+
+
+
+          
+        //   // remove certain array key=>value with key
+        //   $remove = ['mat_id', 'mat_code', 'mat_fullname', 'mat_unit', 'comp_id', 'comp_qty'];
+        //   $halfRow = array_diff_key($row, array_flip($remove));
+
+        //   pprint($halfRow);
+        //   // $halfRowUniq = unique_multidim_array($row, 'prod_id');
+
+        //   // unset($row['comp_id']);
+        // }
+        // pprint($xxx);
+        // die;
+        // return '';
+    //   }
+    // }
+    
+    // return FALSE;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

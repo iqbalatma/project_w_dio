@@ -131,8 +131,8 @@ class Data_barang_mentah extends CI_Controller
 
             // // cek apakah ada gambar yang di upload
             $image_cek = $this->upload->data('file_name');
-            echo $image_cek;
-            var_dump($x);
+            // echo $image_cek;
+            // var_dump($x);
             if ($image_cek == '') {
                 $data = [
                     'id' => '',
@@ -159,7 +159,13 @@ class Data_barang_mentah extends CI_Controller
             }
 
 
-            $insert = $this->Material_model->insert($data);
+            $_dataInven = [
+                'store_id'  => $this->session->store_id,
+                'quantity'  => 0,
+                'created_by'=> $this->session->username,
+            ];
+            // ditambah parameter TRUE dan $_datainven untuk sekaligus insert data inventory dengan quantity 0
+            $insert = $this->Material_model->insert($data, TRUE, $_dataInven);
 
             if ($insert == 1) {
                 echo "input berhasil";
