@@ -26,13 +26,19 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Kasir</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Data Mutasi Barang</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang'); ?>">Mutasi Barang Ke Cabang</a>
                 </li>
             </ul>
         </div>
@@ -51,13 +57,13 @@
 
                                 <div class="d-flex">
                                     <div class="form-group col-8">
-                                        <label for="nama_pelanggan">Nama Pelanggan</label>
+                                        <label for="nama_pelanggan">Toko Cabang</label>
                                         <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan" value="<?= "{$data_customer->full_name}" ?>" readonly>
                                     </div>
-                                    <div class="form-group col-4">
+                                    <!-- <div class="form-group col-4">
                                         <label for="tipe_pelanggan">Tipe Pelanggan</label>
                                         <input type="text" class="form-control" id="tipe_pelanggan" name="tipe_pelanggan" value="<?= "{$data_customer->cust_type}" ?>" readonly>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <div class="d-flex">

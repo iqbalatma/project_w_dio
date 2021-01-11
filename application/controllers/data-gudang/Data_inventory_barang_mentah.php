@@ -153,14 +153,14 @@ class Data_inventory_barang_mentah extends CI_Controller
             }
         }
     }
-    public function v_update($id)
+    public function v_update_critical_point($id)
     {
         // $id_material = $id;
         $id_inventory = $id;
 
         $data = [
             'title'             => 'Data Barang Masuk',
-            'content'           => 'data-gudang/v_ubah_inventory.php',
+            'content'           => 'data-gudang/v_ubah_titik_kritis.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_form' => $this->Inventory_material_model->getMaterialInventoryById($id_inventory),

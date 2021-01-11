@@ -26,13 +26,19 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Kasir</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Data Mutasi Barang</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang'); ?>">Mutasi Barang Ke Cabang</a>
                 </li>
             </ul>
         </div>
@@ -40,7 +46,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Checkout Station</div>
+                        <div class="card-title">Mutation Station</div>
                     </div>
 
                     <?= form_open('data-gudang/Data_transaksi_barang/konfirmasi_kasir'); ?>
@@ -49,9 +55,9 @@
                             <div class="col-md-12">
 
                                 <div class="form-group">
-                                    <label for="nama_pelanggan">Nama Pelanggan</label>
+                                    <label for="nama_pelanggan">Toko Cabang</label>
                                     <select class="form-control select2 col-11 col-xl-12" id="nama_pelanggan" name="nama_pelanggan" onchange='changeValue(this.value)' required>
-                                        <option value="" selected disabled>-Pilih Pelanggan-</option>
+                                        <option value="" selected disabled>-Pilih Toko Cabang-</option>
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
                                         foreach ($data_customer as $row) {
@@ -70,7 +76,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label d-flex flex-col">
                                             <input class="form-check-input" id="dropshipperCbox" name="dropshipperCbox" onclick="myFunction()" type="checkbox" value="scheckbox">
-                                            <span class="form-check-sign">Sebagai dropshipper ?</span>
+                                            <span class="form-check-sign">Custom Alamat/No HP ?</span>
                                         </label>
                                     </div>
                                     <div class="form-group mt--2">

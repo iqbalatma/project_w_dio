@@ -155,7 +155,7 @@
           <td style="font-size:10px;"> <?= number_format($row['quantity'], 0, ',', '.') ?></td>
           <td style="font-size:10px;"> <?= $row['totLiterItem'] ?></td>\
           <?php if ($custName == 'Toko Cicalengka' || $custName == 'Toko Ujung Berung') {
-            $selling_price = ($row['price_base']);
+            $selling_price = ($row['selling_price']);
           } else {
             $selling_price = ($row['selling_price']);
           }; ?>
@@ -189,4 +189,5 @@
 
 </html>
 
-<?php //die; ?>
+<?php //die; 
+?>

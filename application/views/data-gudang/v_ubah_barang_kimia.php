@@ -18,7 +18,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>">Data Barang Kimia</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Barang Mentah</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Ubah Barang Mentah</a>
                 </li>
             </ul>
         </div>

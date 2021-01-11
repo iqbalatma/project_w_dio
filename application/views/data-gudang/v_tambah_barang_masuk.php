@@ -32,7 +32,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_kimia'); ?>">Data Barang Kimia</a>
+                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>">Inventory Barang</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Inventory Barang</a>
                 </li>
             </ul>
         </div>
