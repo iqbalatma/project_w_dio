@@ -29,6 +29,7 @@
                                 <th class="px-3">Jumlah dibayar</th>
                                 <th class="px-3">Sisa bayar</th>
                                 <th class="px-3">Tanggal transaksi</th>
+                                <th class="px-3">Gambar</th>
                                 <th class="px-3" style="width: 20%">
                                   <center>Aksi</center>
                                 </th>
@@ -43,6 +44,7 @@
                                 <th class="px-3">Jumlah dibayar</th>
                                 <th class="px-3">Sisa bayar</th>
                                 <th class="px-3">Tanggal transaksi</th>
+                                <th class="px-3">Gambar</th>
                                 <th class="px-3">
                                   <center>Aksi</center>
                                 </th>
@@ -73,7 +75,12 @@
                                       <?= price_format($row['left_to_paid']) ?>
                                     </td>
                                     <td class="px-3">
-                                      <?php $d = date_create($row['created_at']); echo date_format($d, "d-M-Y") ?>
+                                      <?php $d = date_create($row['created_at']);
+                                      echo date_format($d, "d-M-Y") ?>
+                                    </td>
+                                    <td>
+                                      <img src="<?= base_url(); ?>/assets/img/strukpembayaran/<?= $row['payment_img']; ?>" width="200px" alt="">
+
                                     </td>
 
                                     <td class="">
@@ -87,7 +94,7 @@
                                       </div>
                                     </td>
                                   </tr>
-                                <?php 
+                              <?php
                                 endforeach;
                               endif; ?>
                             </tbody>
