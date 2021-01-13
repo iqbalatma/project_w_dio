@@ -7,6 +7,12 @@
         </div>
     </footer>
     </div>
+    <!-- <script src="<?= base_url(); ?>/../assets/js/plugin/chart.js/chart.min.js"></script> -->
+
+
+
+
+
 
     <!-- sweetalert modal notification -->
     <?php if ($this->session->flashdata('success_message')) : ?>
@@ -163,10 +169,10 @@
     if ($submenuActive == 'data-master-produk') : ?>
         <script>
             // inisiasi variable
-            let input           = $('.live-typing'),
-                output          = $('.live-output'),
-                hpp             = $('.hpp'),
-                sellingprice    = $('.sellingprice');
+            let input = $('.live-typing'),
+                output = $('.live-output'),
+                hpp = $('.hpp'),
+                sellingprice = $('.sellingprice');
 
             // output prosentase margin
             output.text(((sellingprice.val() - hpp.val()) / hpp.val() * 100).toFixed(2) + ' %');
@@ -193,14 +199,14 @@
             // btn diclick
             $('.kasir-product').on('click', function() {
                 // ambil id btn
-                let btnId   = this.id;
+                let btnId = this.id;
                 // pecah id btn
                 let splitId = btnId.split("-");
                 // ambil hanya nomor id btn saja
-                let id      = splitId[1];
+                let id = splitId[1];
                 // tambahkan nomor id ke belakang nama id dari element quantity dan custom price
-                let kasirQuantity   = '#kasirquantity-' + id;
-                let customPrice     = '#kasircustomprice-' + id;
+                let kasirQuantity = '#kasirquantity-' + id;
+                let customPrice = '#kasircustomprice-' + id;
 
                 // cek btn .kasir-product dengan id btn yg diclick
                 if ($(this).prop('checked')) {
@@ -233,8 +239,8 @@
                 if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
 
                 // ambil value skrg di inputan
-                var $this   = $(this);
-                var inputz  = $this.val();
+                var $this = $(this);
+                var inputz = $this.val();
 
                 // replace sama kosong kalo selain Digits
                 var inputz = inputz.replace(/[\D\s\._\-]+/g, "");
@@ -252,10 +258,10 @@
             });
 
             // untuk modal pada konfirmasi kasir (tipe bayar)
-            let kontrabon         = $("#kontrabon")
-            let transfer          = $("#transfer")
-            let cash              = $("#cash")
-            let paymentCashInput  = $(".payment_cash")
+            let kontrabon = $("#kontrabon")
+            let transfer = $("#transfer")
+            let cash = $("#cash")
+            let paymentCashInput = $(".payment_cash")
 
             $(cash).on("click", function() {
                 paymentCashInput.fadeIn()
@@ -516,7 +522,8 @@
     <?php endif; ?>
 
 
-    <?php // input filter for all input with data-filter properties ?>
+    <?php // input filter for all input with data-filter properties 
+    ?>
     <script>
         // Apply filter to all inputsFilter with data-filter. The filter is depend on RegEx in every data-filter on input tag
         var inputsFilter = document.querySelectorAll('input[data-filter]');
@@ -663,6 +670,108 @@
     <?php // =========================================================================== 
     ?>
 
+    <script>
+        var lineChart = document.getElementById('lineChart').getContext('2d');
+        var myLineChart = new Chart(lineChart, {
+            type: 'line',
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Pendapatan Perbulan",
+                    borderColor: "#1d7af3",
+                    pointBorderColor: "#FFF",
+                    pointBackgroundColor: "#1d7af3",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 4,
+                    pointHoverBorderWidth: 1,
+                    pointRadius: 4,
+                    backgroundColor: 'transparent',
+                    fill: true,
+                    borderWidth: 2,
+                    data: [400000, 500000, 300000, 462222, 902000, 450000]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 10,
+                        fontColor: '#1d7af3',
+                    }
+                },
+                tooltips: {
+                    bodySpacing: 4,
+                    mode: "nearest",
+                    intersect: 0,
+                    position: "nearest",
+                    xPadding: 10,
+                    yPadding: 10,
+                    caretPadding: 10
+                },
+                layout: {
+                    padding: {
+                        left: 15,
+                        right: 15,
+                        top: 15,
+                        bottom: 15
+                    }
+                }
+            }
+        });
+
+
+        var lineChart2 = document.getElementById('lineChart2').getContext('2d');
+        var myLineChart2 = new Chart(lineChart2, {
+            type: 'line',
+            data: {
+                labels: ["1-7", "8-15", "16-23", "24-31"],
+                datasets: [{
+                    label: "Pendapatan Perminggu",
+                    borderColor: "#1d7af3",
+                    pointBorderColor: "#FFF",
+                    pointBackgroundColor: "#1d7af3",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 4,
+                    pointHoverBorderWidth: 1,
+                    pointRadius: 4,
+                    backgroundColor: 'transparent',
+                    fill: true,
+                    borderWidth: 2,
+                    data: [400000, 500000, 300000, 462222]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 10,
+                        fontColor: '#1d7af3',
+                    }
+                },
+                tooltips: {
+                    bodySpacing: 4,
+                    mode: "nearest",
+                    intersect: 0,
+                    position: "nearest",
+                    xPadding: 10,
+                    yPadding: 10,
+                    caretPadding: 10
+                },
+                layout: {
+                    padding: {
+                        left: 15,
+                        right: 15,
+                        top: 15,
+                        bottom: 15
+                    }
+                }
+            }
+        });
+    </script>
 
 
     </body>

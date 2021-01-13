@@ -318,7 +318,7 @@
 
             <div class="row">
                 <!-- [1] -->
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <div class="card full-height">
                         <div class="card-header">
                             <div class="card-head-row">
@@ -363,7 +363,35 @@
                             <?php endif; ?>
                         </div>
                     </div>
+                </div> -->
+
+                <!-- [1] -->
+                <div class="col-md-6">
+                    <div class="card full-height">
+                        <div class="card-header">
+                            <div class="card-title">Pendapatan Dalam Setahun</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="lineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- [2] -->
+                <div class="col-md-6">
+                    <div class="card full-height">
+                        <div class="card-header">
+                            <div class="card-title">Pendapatan Dalam Sebulan</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="lineChart2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- [2] -->
                 <div class="col-md-6">
@@ -374,41 +402,49 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <?php
-                            $i = 0;
-                            if ($lastInvoices2 !== FALSE) :
-                                foreach ($lastInvoices2 as $row) :
-                                    $isHutang = $row['left_to_paid'];
-                                    $row['price_total']  = price_format($row['price_total'], FALSE, TRUE);
-                                    $row['paid_amount']  = price_format($row['paid_amount'], FALSE, TRUE);
-                                    $row['left_to_paid'] = price_format($row['left_to_paid'], FALSE, TRUE);
-                                    if ($i != 0) : ?>
-                                        <div class="separator-dashed"></div>
-                                    <?php endif; ?>
-                                    <div class="d-flex">
-                                        <div class="avatar avatar-online">
-                                            <a href="<?= base_url("generate-report/invoice/generate/{$row['id']}") ?>" class='btn-link'><span class="avatar-title rounded-circle border border-white bg-danger">pdf</span></a>
-                                        </div>
-                                        <div class="flex-1 ml-3 pt-1">
-                                            <?php if ($isHutang == 0) $isHutang = '<span class="text-success pl-3">Lunas</span>';
-                                            else $isHutang = '<span class="text-warning pl-3">Belum lunas</span>';
-                                            ?>
-                                            <h6 class="text-uppercase fw-bold mb-1"><?= "{$row['invoice_number']} ({$row['store_name']}) $isHutang" ?></h6>
-                                            <span class="text-muted"><?= "Harga total:&nbsp;{$row['price_total']} - Dibayar:&nbsp;{$row['paid_amount']} - Sisa:&nbsp;{$row['left_to_paid']}" ?></span>
-                                            <span class="text-muted d-block"><?= "Transaction id: {$row['trx_id']}" ?></span>
-                                        </div>
-                                        <div class="float-right pt-1">
-                                            <small class="text-muted"><?php $d = date_create($row['paid_at']);
-                                                                        echo date_format($d, "d-M-Y") ?></small>
-                                        </div>
-                                    </div>
-                                <?php $i++;
-                                endforeach;
-                            else : ?>
-                                <center>
-                                    <p class="text-danger">Data tidak ada.</p>
-                                </center>
-                            <?php endif; ?>
+                            <div class="table-responsive">
+                                <table id="add-row" class="display table table-sm  table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="px-3" width="20px">No</th>
+                                            <th class="px-3" width="40px">Tanggal</th>
+                                            <th class="px-3" width="30px">Modal</th>
+                                            <th class="px-3" width="30px">Pemasukan</th>
+                                            <th class="px-3" width="30px">Hutang</th>
+                                            <th class="px-3">Untung/Rugi</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot class="thead-light">
+                                        <tr>
+                                            <th class="px-3" width="20px">No</th>
+                                            <th class="px-3" width="40px">Tanggal</th>
+                                            <th class="px-3" width="30px">Modal</th>
+                                            <th class="px-3" width="30px">Pemasukan</th>
+                                            <th class="px-3" width="30px">Hutang</th>
+                                            <th class="px-3">Untung/Rugi</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+                                        $i = 0;
+                                        while ($i < count($total_modal)) {
+                                        ?>
+
+                                            <tr>
+                                                <td class="px-3" width="5%px"><?= $i + 1; ?></td>
+                                                <td class="px-3" width="40px"><?= date("d-M-Y", $tanggal_hari_ini[$i]); ?></td>
+                                                <td class="px-3" width="30px"><?= price_format($total_modal[$i]); ?></td>
+                                                <td class="px-3" width="30px"> <?= price_format($total_pemasukan[$i]); ?></td>
+                                                <td class="px-3" width="30px"><?= price_format($hutang_array[$i]); ?></td>
+                                                <td class="px-3" width="30px"><?= price_format($nilai_final[$i]); ?></td>
+                                            </tr>
+                                        <?php
+                                            $i++;
+                                        }; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
