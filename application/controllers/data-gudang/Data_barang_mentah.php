@@ -133,49 +133,49 @@ class Data_barang_mentah extends CI_Controller
             $image_cek = $this->upload->data('file_name');
             // echo $image_cek;
             // var_dump($x);
-            // if ($image_cek == '') {
-            //     $data = [
-            //         'id' => '',
-            //         'material_code' => $material,
-            //         'full_name' => $fullname,
-            //         'unit' => $unit,
-            //         'volume' => $volume,
-            //         'price_base' => $pricebase,
-            //         'is_deleted' => 0
-            //     ];
-            //     // var_dump($data);
-            // } else {
-            //     $data = [
-            //         'id' => '',
-            //         'material_code' => $material,
-            //         'full_name' => $fullname,
-            //         'unit' => $unit,
-            //         'volume' => $volume,
-            //         'price_base' => $pricebase,
-            //         'is_deleted' => 0,
-            //         'image' => $image_cek
-            //     ];
-            //     // var_dump($data);
-            // }
+            if ($image_cek == '') {
+                $data = [
+                    'id' => '',
+                    'material_code' => $material,
+                    'full_name' => $fullname,
+                    'unit' => $unit,
+                    'volume' => $volume,
+                    'price_base' => $pricebase,
+                    'is_deleted' => 0
+                ];
+                // var_dump($data);
+            } else {
+                $data = [
+                    'id' => '',
+                    'material_code' => $material,
+                    'full_name' => $fullname,
+                    'unit' => $unit,
+                    'volume' => $volume,
+                    'price_base' => $pricebase,
+                    'is_deleted' => 0,
+                    'image' => $image_cek
+                ];
+                // var_dump($data);
+            }
 
 
-            // $_dataInven = [
-            //     'store_id'  => $this->session->store_id,
-            //     'quantity'  => 0,
-            //     'created_by' => $this->session->username,
-            // ];
-            // // ditambah parameter TRUE dan $_datainven untuk sekaligus insert data inventory dengan quantity 0
-            // $insert = $this->Material_model->insert($data, TRUE, $_dataInven);
+            $_dataInven = [
+                'store_id'  => $this->session->store_id,
+                'quantity'  => 0,
+                'created_by' => $this->session->username,
+            ];
+            // ditambah parameter TRUE dan $_datainven untuk sekaligus insert data inventory dengan quantity 0
+            $insert = $this->Material_model->insert($data, TRUE, $_dataInven);
 
-            // if ($insert == 1) {
-            //     echo "input berhasil";
-            //     $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
-            //     redirect(base_url('data-gudang/Data_barang_mentah'));
-            // } else {
-            //     echo "input gagal";
-            //     $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
-            //     redirect(base_url('data-gudang/Data_barang_mentah'));
-            // }
+            if ($insert == 1) {
+                echo "input berhasil";
+                $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
+                redirect(base_url('data-gudang/Data_barang_mentah'));
+            } else {
+                echo "input gagal";
+                $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
+                redirect(base_url('data-gudang/Data_barang_mentah'));
+            }
         }
     }
 
