@@ -30,16 +30,16 @@
                       <div class="card-header">
                         <div class="w-75 mx-auto">
                           <ul class="nav nav-pills nav-fill ">
-                            <li class="nav-item">
+                            <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
                               <a class="nav-link <?= ($uniqid == 'all') ? 'active':''; ?>" href="?uniqid=all">Semua cabang</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
                               <a class="nav-link <?= ($uniqid == '1') ? 'active':''; ?>" href="?uniqid=1">Gudang Pusat</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" style="visibility:<?= ($this->session->store_id == '2' OR $this->session->store_id == '1') ? 'visible' : 'hidden' ?>;">
                               <a class="nav-link <?= ($uniqid == '2') ? 'active':''; ?>" href="?uniqid=2">Toko Cabang Cicalengka</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" style="visibility:<?= ($this->session->store_id == '3' OR $this->session->store_id == '1') ? 'visible' : 'hidden' ?>;">
                               <a class="nav-link <?= ($uniqid == '3') ? 'active':''; ?>" href="?uniqid=3">Toko Cabang Ujung Berung</a>
                             </li>
                           </ul>

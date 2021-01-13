@@ -78,15 +78,41 @@ class Transaction_model extends CI_Model
 
   public function get_month_total()
   {
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $currentDate = mdate($datestring, $time);
+    
     $query = $this->db->query("
       SELECT COUNT(created_at) AS total
       FROM transaction 
-      WHERE MONTH(created_at) = MONTH(CURRENT_DATE) 
-      AND YEAR(created_at) = YEAR(CURRENT_DATE)
+      WHERE MONTH(created_at) = MONTH('{$currentDate}') 
+      AND YEAR(created_at) = YEAR('{$currentDate}')
     ");
 
     if ($query->num_rows() == 1) {
       return $query->row();
+    }
+    return FALSE;
+  }
+
+  public function get_total_sales()
+  {
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $currentDate = mdate($datestring, $time);
+    
+    $query = $this->db->query("
+      SELECT price_total FROM transaction
+      WHERE MONTH(created_at) = MONTH('{$currentDate}') 
+      AND YEAR(created_at) = YEAR('{$currentDate}')
+    ");
+    
+    if ($query->num_rows() > 0) {
+      $totalSales = 0;
+      foreach ($query->result_array() as $row) {
+        $totalSales = $totalSales + $row['price_total'];
+      }
+      return $totalSales;
     }
     return FALSE;
   }

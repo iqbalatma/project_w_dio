@@ -22,6 +22,11 @@
                         <div class="row justify-content-center d-flex">
                           <div class="col-md-6 col-lg-4">
                             <img src="<?= base_url("assets/img/{$meta->logo}") ?>" alt="" class="img-fluid border rounded p-2" width="400px">
+                            <div>
+                              <span class="h6">Resolusi yang disarankan: 800x250 pixel, atau</span>
+                              <br>
+                              <span class="h6">Perbandingan yang disarankan: 3:1 rasio</span>
+                            </div>
                           </div>
                           <div class="col-md-6 col-lg-6">
                             <table>

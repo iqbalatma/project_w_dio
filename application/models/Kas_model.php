@@ -150,4 +150,28 @@ class Kas_model extends CI_Model
 
     return $row;
   }
+
+  public function get_total_spending()
+  {
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $currentDate = mdate($datestring, $time);
+    
+    $query = $this->db->query("
+      SELECT kredit FROM kas
+      WHERE debet = 0
+      AND kredit != 0
+      AND MONTH(date) = MONTH('{$currentDate}') 
+      AND YEAR(date) = YEAR('{$currentDate}')
+    ");
+    
+    if ($query->num_rows() > 0) {
+      $totalSpending = 0;
+      foreach ($query->result_array() as $row) {
+        $totalSpending = $totalSpending + $row['kredit'];
+      }
+      return $totalSpending;
+    }
+    return FALSE;
+  }
 }

@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller
   {
     parent::__construct();
     must_login();
+    role_validation($this->session->role_id, ['1', '2']);
     // load model
     $this->load->model('Kas_model', 'kas_m');
     $this->load->model('Product_mutation_model', 'pm_m');
@@ -21,11 +22,9 @@ class Dashboard extends CI_Controller
     $this->modules    = "dashboard";
     $this->controller = "dashboard";
   }
+  
   public function index()
   {
-    // benchmark time start
-    start_time(microtime(TRUE), 'dashboard');
-
     // ambil 10 invoice, kemudian bagi jadi 2 array (isi 5). 5/card di dashboard
     $lastInvoices   = $this->trx_m->get_some_last_invoice();
     if ($lastInvoices !== FALSE) {
@@ -220,7 +219,7 @@ class Dashboard extends CI_Controller
       // row 2 di dashboard
       'criticalMaterial'      => $this->im_m->get_critical_material(),
       'mostBuy'               => $this->pm_m->get_most_buy_product(),
-      'leastBuy'              => $this->pm_m->get_least_buy_product(),
+      'thirdCard'            => [$this->trx_m->get_total_sales(), $this->invoice_m->get_total_debt(), $this->kas_m->get_total_spending()],
       // row 3 di dashboard
       'lastInvoices1'         => $lastInvoices1,
       'lastInvoices2'         => $lastInvoices2,
@@ -233,8 +232,5 @@ class Dashboard extends CI_Controller
     ];
 
     $this->load->view('template_dashboard/template_wrapper', $data);
-
-    // benchmark time end
-    end_time('dashboard');
   }
 }
