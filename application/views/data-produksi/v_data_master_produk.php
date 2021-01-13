@@ -42,6 +42,7 @@
                                 <th class="px-3">Volume</th>
                                 <?php if (role_access($this->session->role_id, ['1'])) : ?>
                                   <th class="px-3">HPP</th>
+                                  <th class="px-3">Harga reseller</th>
                                 <?php endif; ?>
                                 <th class="px-3">Harga jual</th>
 
@@ -61,6 +62,7 @@
                                 <th class="px-3">Volume</th>
                                 <?php if (role_access($this->session->role_id, ['1'])) : ?>
                                   <th class="px-3">HPP</th>
+                                  <th class="px-3">Harga reseller</th>
                                 <?php endif; ?>
                                 <th class="px-3">Harga jual</th>
 
@@ -95,6 +97,9 @@
                                     <?php if (role_access($this->session->role_id, ['1'])) : ?>
                                       <td class="px-3 <?= ($row['price_base'] != 0) ? '' : 'text-danger' ?>">
                                         Rp. <?= number_format($row['price_base'], 0, '', '.') ?>
+                                      </td>
+                                      <td class="px-3 <?= ($row['price_base'] != 0) ? '' : 'text-danger' ?>">
+                                        Rp. <?= number_format($row['reseller_price'], 0, '', '.') ?>
                                       </td>
                                     <?php endif; ?>
                                     <td class="px-3 <?= ($row['selling_price'] != 0) ? '' : 'text-danger' ?>">

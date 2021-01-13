@@ -41,8 +41,18 @@ him edit data pengeluaran untuk pemilik bisa ga ? bisi ada admin salah input pen
 
 itu mutasi barang ke cabang, pas mutasi ke cicalengka malah masuknya ke ujungberung
 
+di kasir cicalengka dan uber, itu data invoice nya invoice pribadi him, jadi invoice gidang gada di kasir. invoice uber gada di cicalengka berikutpun sebaliknya
 
 
+logo perusahaan ganti yg baru.
+
+menu navbar logonya ganti jd statis aja biar gakeganti pas ganti info perusahaan.
+
+info perusahaan per toko.
+
+cetak penjualan per range tanggal dipilih.
+
+misal 2021 januari mau ngecek di november 2020, bisa diprint.
 
 
 

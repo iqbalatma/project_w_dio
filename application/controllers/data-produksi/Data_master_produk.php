@@ -96,6 +96,7 @@ class Data_master_produk extends CI_Controller
     $this->form_validation->set_rules('edit-unit', 'unit', 						            'required');
     $this->form_validation->set_rules('edit-volume', 'volume', 						        'required');
     $this->form_validation->set_rules('edit-sellingprice', 'harga normal',        'required|trim|is_numeric');
+    $this->form_validation->set_rules('edit-resellerprice', 'harga reseller',     'required|trim|is_numeric');
     $this->form_validation->set_error_delimiters('<small class="form-text text-danger text-nowrap"><em>', '</em></small>');
 
     // run the form validation

@@ -54,6 +54,7 @@ class Product_model extends CI_Model
       "unit"                => $data['edit-unit'],
       "volume"              => $data['edit-volume'],
       "selling_price"       => $data['edit-sellingprice'],
+      "reseller_price"      => $data['edit-resellerprice'],
     );
     // 0 = error
     if ($data['edit-foto'] !== 0) $data2['image'] = $data['edit-foto'];
