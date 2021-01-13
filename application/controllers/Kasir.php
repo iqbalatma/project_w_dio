@@ -85,7 +85,8 @@ class Kasir extends CI_Controller
 
         // get data dari db yg dibutuhkan, dari tabel customer dan produk yg relevan dengan environment ketika cekout
         $data_customer      = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
-        $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
+        $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price, reseller_price');
+        // pprintd($data_product[0]['reseller_price']);
 
         // build array yg isinya hanya kode product untuk keperluan where clause di db ketika get harga custom
         foreach ($data_product as $row) {
@@ -100,6 +101,7 @@ class Kasir extends CI_Controller
                 $customer_harga[$row['product_id']] = $row['custom_price'];
             }
         }
+        // var_dump($data_custom_price);
         // pprintd($data_custom_price);
 
 
@@ -116,6 +118,8 @@ class Kasir extends CI_Controller
                 $row['kasir_price'] = $custom_harga[$row['id']];
             } elseif (isset($customer_harga[$row['id']])) {
                 $row['kasir_price'] = $customer_harga[$row['id']];
+            } elseif ( ($data_product[0]['reseller_price'] > 0) && ($data_customer->cust_type == 'reseller') ) {
+                $row['kasir_price'] = $row['reseller_price'];
             } else {
                 $row['kasir_price'] = $row['selling_price'];
             }
