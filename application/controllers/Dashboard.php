@@ -52,7 +52,7 @@ class Dashboard extends CI_Controller
       // row 2 di dashboard
       'criticalMaterial'      => $this->im_m->get_critical_material(),
       'mostBuy'               => $this->pm_m->get_most_buy_product(),
-      'leastBuy'              => $this->pm_m->get_least_buy_product(),
+      'thirdCard'            => [$this->trx_m->get_total_sales(), $this->invoice_m->get_total_debt(), $this->kas_m->get_total_spending()],
       // row 3 di dashboard
       'lastInvoices1'         => $lastInvoices1,
       'lastInvoices2'         => $lastInvoices2,

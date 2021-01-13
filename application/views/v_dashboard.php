@@ -282,11 +282,43 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title font-weight-bold">Coming soon</div>
+                            <div class="card-title font-weight-bold">Arus Keuangan</div>
                         </div>
                         <div class="card-body pb-0">
 
-                            <?php
+                            <div class="d-flex">
+                                <div class="d-flex pt-1 ml-2 mr-auto align-items-center">
+                                    <h3 class="fw-bold">Total penjualan</h3>
+                                </div>
+                                <div class="d-flex pt-1 ml-auto align-items-center">
+                                    <h3 class="text-success fw-bold"><?= price_format($thirdCard[0]) ?></h3>
+                                </div>
+                            </div>
+                            <div class="separator-dashed"></div>
+
+                            <div class="d-flex">
+                                <div class="d-flex pt-1 ml-2 mr-auto align-items-center">
+                                    <h3 class="fw-bold">Total piutang</h3>
+                                </div>
+                                <div class="d-flex pt-1 ml-auto align-items-center">
+                                    <h3 class="text-warning fw-bold"><?= price_format($thirdCard[1]) ?></h3>
+                                </div>
+                            </div>
+                            <div class="separator-dashed"></div>
+
+                            <div class="d-flex">
+                                <div class="d-flex pt-1 ml-2 mr-auto align-items-center">
+                                    <h3 class="fw-bold">Total pengeluaran</h3>
+                                </div>
+                                <div class="d-flex pt-1 ml-auto align-items-center">
+                                    <h3 class="text-danger fw-bold"><?= price_format($thirdCard[2]) ?></h3>
+                                </div>
+                            </div>
+                            <div class="separator-dashed"></div>
+
+                            <!-- <p><a href="<?= base_url("data-penjualan/data-penjualan") ?>">Selengkapnya...</a></p> -->
+
+                            <!-- <?php
                             if ($leastBuy !== FALSE) :
                                 foreach ($leastBuy as $row) : ?>
                                     <div class="d-flex">
@@ -308,8 +340,7 @@
                                 <center>
                                     <p class="text-danger">Data tidak ada.</p>
                                 </center>
-                            <?php endif; ?>
-                            <p><a href="<?= base_url("data-penjualan/data-penjualan") ?>">Selengkapnya...</a></p>
+                            <?php endif; ?> -->
                         </div>
                     </div>
                 </div>
