@@ -13,7 +13,13 @@
                           <div class="row justify-content-center">
                             <div class="col-md-6 col-lg-8">
                               <div class="form-group d-flex justify-content-center">
-                                <img src="<?= base_url("assets/img/{$meta->logo}") ?>" alt="" class="img-fluid border rounded p-2" width="300px">
+                                <div>
+                                  <img src="<?= base_url("assets/img/{$meta->logo}") ?>" alt="" class="img-fluid border rounded p-2" width="300px">
+                                  <br>
+                                  <span class="h6">Resolusi yang disarankan: 800x250 pixel, atau</span>
+                                  <br>
+                                  <span class="h6">Perbandingan yang disarankan: 3:1 rasio</span>
+                                </div>
                                 <div class="ml-4 mt-3">
                                   <label for="edit-logo">Upload logo baru</label>
                                   <input type="file" id="edit-logo" name='edit-logo' accept=".png, .jpg, .jpeg" class="form-control-file">

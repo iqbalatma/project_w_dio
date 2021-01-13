@@ -282,7 +282,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title font-weight-bold">5 Produk Paling Jarang Dibeli</div>
+                            <div class="card-title font-weight-bold">Coming soon</div>
                         </div>
                         <div class="card-body pb-0">
 
