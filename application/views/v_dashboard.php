@@ -210,7 +210,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title font-weight-bold">5 Bahan Baku Ter-kritis</div>
+                            <div class="card-title font-weight-bold">Bahan Baku Kritis</div>
                         </div>
                         <div class="card-body pb-0">
 
@@ -246,7 +246,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title font-weight-bold">5 Produk Paling Sering Dibeli</div>
+                            <div class="card-title font-weight-bold">Urutan Produk Terjual</div>
                         </div>
                         <div class="card-body pb-0">
 

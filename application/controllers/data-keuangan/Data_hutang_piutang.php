@@ -58,7 +58,7 @@ class Data_hutang_piutang extends CI_Controller
             $passing_data = explode(" ", $passing_data);
             $id_invoice = $passing_data[0];
             // $paid_amount = $this->input->post('pembayaran');
-            $paid_amount    = (int)str_replace(',', '', str_replace('.', '', $this->input->post('pembayaran') ));
+            $paid_amount    = (int)str_replace(',', '', str_replace('.', '', $this->input->post('pembayaran')));
 
 
             $transaction_id = $passing_data[1];
@@ -79,6 +79,8 @@ class Data_hutang_piutang extends CI_Controller
 
 
             $edit_invoice = $this->Kasir_model->edit_invoice($data_invoice);
+
+
 
 
 
@@ -116,21 +118,56 @@ class Data_hutang_piutang extends CI_Controller
             $left_to_paid_final = $left_to_paid - $paid_amount;
 
             // echo $left_to_paid_final;
-            $data_invoice = [
-                'id' => '',
-                'invoice_number' => $invoice1,
-                'paid_amount' => $paid_amount,
-                'left_to_paid' => $left_to_paid_final,
-                // 'paid_at' => '',
-                'transaction_id' => $transaction_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
-
-                'created_at' => $createdAt,
-                'is_deleted' => 0,
-                'status' => '0',
-
-            ];
 
 
+            // proses upload image
+            $config['upload_path']          = './assets/img/strukpembayaran';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 100000;
+            $this->upload->initialize($config);
+            $this->load->library('upload', $config);
+            // upload gambar ke server
+            $x = $this->upload->do_upload('x');
+
+            // // cek apakah ada gambar yang di upload
+            $image_cek = $this->upload->data('file_name');
+
+
+            if ($image_cek == '') {
+                $data_invoice = [
+                    'id' => '',
+                    'invoice_number' => $invoice1,
+                    'paid_amount' => $paid_amount,
+                    'left_to_paid' => $left_to_paid_final,
+                    // 'paid_at' => '',
+                    'transaction_id' => $transaction_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
+                    'created_at' => $createdAt,
+                    'is_deleted' => 0,
+                    'status' => '0',
+
+                ];
+                // var_dump($data);
+            } else {
+                $data_invoice = [
+                    'id' => '',
+                    'invoice_number' => $invoice1,
+                    'paid_amount' => $paid_amount,
+                    'left_to_paid' => $left_to_paid_final,
+                    // 'paid_at' => '',
+                    'transaction_id' => $transaction_id, //invoice id adalah data row terbaru yang masuk dalam database atau data yang sedang diolah sekarang
+                    'created_at' => $createdAt,
+                    'is_deleted' => 0,
+                    'status' => '0',
+                    'payment_img' => $image_cek,
+
+                ];
+                // var_dump($data);
+            }
+
+
+            // var_dump($data_invoice);
+            echo "<br>";
+            var_dump($image_cek);
 
             $insert2 = $this->Kasir_model->insert_invoice($data_invoice);
 
@@ -143,7 +180,12 @@ class Data_hutang_piutang extends CI_Controller
                 $kembalian = 0;
             }
 
-            echo $kembalian;
+            // echo $kembalian;
+
+
+
+
+
 
             if ($insert2 == 1 && $edit_invoice == 1) {
                 $this->session->set_flashdata('message_berhasil', 'Pembayaran Berhasil. Kembalian Rp ' . $kembalian);
