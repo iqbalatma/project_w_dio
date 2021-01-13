@@ -39,12 +39,12 @@ class Data_hutang_piutang extends CI_Controller
         $this->form_validation->set_rules(
             'pembayaran',
             'Pembayaran',
-            'trim|required|max_length[20]|numeric',
+            'trim|required|min_length[1]|max_length[20]|callback_regex',
             array(
-                'required' => '%s tidak boleh kosong',
-                'max_length'     => '%s maksimal 11 karakter',
-                'is_unique' => '%s kode bahan sudah terdaftar',
-                'numeric'         => 'Form %s hanya terdiri dari angka',
+                'required'      => '%s tidak boleh kosong',
+                'max_length'    => '%s maksimal 11 karakter',
+                'is_unique'     => '%s kode bahan sudah terdaftar',
+                'numeric'       => 'Form %s hanya terdiri dari angka',
             )
         );
 
@@ -195,5 +195,14 @@ class Data_hutang_piutang extends CI_Controller
                 redirect(base_url('data-keuangan/data-hutang-piutang'));
             }
         }
+    }
+
+    public function regex($data)
+    {
+      // cek apakah sesuai dengan format penulisan uang rupiah,
+      // dengan pola hanya angka {0,3} dan/ ada titik di depannya.
+      // return hasil hapus titik, kemudian hapus koma, kemudian cast/ubah jadi (int)
+      if (preg_match("/^\d{1,3}(?:\.\d{3})*?$/", $data)) return (int)str_replace(',', '', str_replace('.', '', $data));
+      else return FALSE;
     }
 }
