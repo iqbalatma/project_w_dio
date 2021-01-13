@@ -13,6 +13,8 @@ class Data_inventory_barang_mentah extends CI_Controller
     {
         parent::__construct();
         must_login();
+        // hanya untuk pemilik
+        role_validation($this->session->role_id, ['1']);
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");

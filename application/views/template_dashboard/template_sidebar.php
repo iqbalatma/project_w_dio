@@ -89,12 +89,12 @@ $mainMenu = array(
     'icon'    => 'fas fa-layer-group',
     'submenu' => array(
       [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Barang Mentah',
         'slug'  => 'data-barang-mentah',
         'url'   => "{$_data_gudang}/data-barang-mentah",
       ], [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Inventory Barang Mentah',
         'slug'  => 'data-inventory-barang-mentah',
         'url'   => "{$_data_gudang}/data-inventory-barang-mentah",
@@ -104,7 +104,7 @@ $mainMenu = array(
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
       ], [
-        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1, $_role_2]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_0, $_role_1]),
         'name'  => 'Data Barang Laku',
         'slug'  => 'data-barang-laku',
         'url'   => "{$_data_gudang}/data-barang-laku",

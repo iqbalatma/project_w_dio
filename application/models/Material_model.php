@@ -107,19 +107,31 @@ class Material_model extends CI_Model
 
     public function delete($id)
     {
+        $this->db->trans_start();
 
         $this->is_deleted = 1;
-        return $this->db->update($this->table, $this, array('id' => $id));
+        $this->db->update($this->table, $this, array('id' => $id));
+        $this->db->update('material_inventory', $this, array('material_id' => $id));
+
+        $this->db->trans_complete();
+
+        return ($this->db->trans_status() === FALSE) ? FALSE : TRUE;
     }
 
-    public function get_transaksi_barang()
+    public function get_transaksi_barang($where = '')
     {
         // get from tb_department
         $this->db->select("material.material_code, material.full_name, store.store_name, material_mutation.mutation_code, material_mutation.quantity, material_mutation.mutation_type, material_mutation.created_at, material_mutation.created_by");
         $this->db->from("material_mutation");
         $this->db->join("material", "material_mutation.material_id = material.id");
         $this->db->join("store", "material_mutation.store_id = store.id");
-        $this->db->where("material_mutation.is_deleted", 0);
+
+        if ($where == '') {
+            $this->db->where("material_mutation.is_deleted = 0");
+        } else {
+            $this->db->where("material_mutation.is_deleted = 0 AND {$where}");
+        }
+        
         $this->db->order_by("material_mutation.created_at", "DESC");
         $query = $this->db->get();
 

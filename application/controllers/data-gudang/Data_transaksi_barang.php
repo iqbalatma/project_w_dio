@@ -13,6 +13,8 @@ class Data_transaksi_barang extends CI_Controller
     {
         parent::__construct();
         must_login();
+        // hanya untuk pemilik dan gudang
+        role_validation($this->session->role_id, ['1','2']);
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
@@ -34,7 +36,7 @@ class Data_transaksi_barang extends CI_Controller
             'content'           => 'data-gudang/v_transaksi_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_transaksi_barang' => $this->Material_model->get_transaksi_barang(),
+            'data_transaksi_barang' => $this->Material_model->get_transaksi_barang("material_mutation.mutation_type = 'masuk'"),
 
             'datatables' => 1
         ];

@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller
   {
     parent::__construct();
     must_login();
+    // hanya untuk pemilik dan gudang
     role_validation($this->session->role_id, ['1', '2']);
     // load model
     $this->load->model('Kas_model', 'kas_m');

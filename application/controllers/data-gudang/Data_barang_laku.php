@@ -13,6 +13,8 @@ class Data_barang_laku extends CI_Controller
     {
         parent::__construct();
         must_login();
+        // hanya untuk pemilik
+        role_validation($this->session->role_id, ['1']);
         $this->load->model("Product_mutation_model");
     }
 
