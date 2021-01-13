@@ -17,7 +17,7 @@
         <div class="page-header">
 
 
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Hutang Piutang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -28,13 +28,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Barang</a>
+                    <a href="<?= base_url('data-keuangan/data-hutang-piutang'); ?>">Data Keuangan</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Barang Masuk</a>
+                    <a href="<?= base_url('data-keuangan/data-hutang-piutang'); ?>">Data Hutang Piutang</a>
                 </li>
             </ul>
         </div>

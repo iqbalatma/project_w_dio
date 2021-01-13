@@ -34,7 +34,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Barang Masuk</a>
+                    <a href="<?= base_url('data-gudang/data-barang-kritis'); ?>">Barang Kritis</a>
                 </li>
             </ul>
         </div>
