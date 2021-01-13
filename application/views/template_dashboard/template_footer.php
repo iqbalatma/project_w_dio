@@ -671,6 +671,7 @@
     ?>
 
     <script>
+        // var testing_cok = [400000, 500000, 300000, 462222, 902000, 450000];
         var lineChart = document.getElementById('lineChart').getContext('2d');
         var myLineChart = new Chart(lineChart, {
             type: 'line',
@@ -688,7 +689,7 @@
                     backgroundColor: 'transparent',
                     fill: true,
                     borderWidth: 2,
-                    data: [400000, 500000, 300000, 462222, 902000, 450000]
+                    data: testing_cok,
                 }]
             },
             options: {

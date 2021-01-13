@@ -319,8 +319,8 @@
                             <!-- <p><a href="<?= base_url("data-penjualan/data-penjualan") ?>">Selengkapnya...</a></p> -->
 
                             <!-- <?php
-                            if ($leastBuy !== FALSE) :
-                                foreach ($leastBuy as $row) : ?>
+                                    if ($leastBuy !== FALSE) :
+                                        foreach ($leastBuy as $row) : ?>
                                     <div class="d-flex">
                                         <div class="avatar">
                                             <img src="<?= base_url("assets/img/product/{$row['image']}") ?>" alt="..." class="avatar-img rounded-circle">
@@ -335,8 +335,8 @@
                                     </div>
                                     <div class="separator-dashed"></div>
                                 <?php
-                                endforeach;
-                            else : ?>
+                                        endforeach;
+                                    else : ?>
                                 <center>
                                     <p class="text-danger">Data tidak ada.</p>
                                 </center>
@@ -395,6 +395,7 @@
                         </div>
                     </div>
                 </div> -->
+
 
                 <!-- [1] -->
                 <div class="col-md-6">
@@ -459,6 +460,18 @@
                                     <tbody>
                                         <?php
                                         $i = 0;
+                                        $jan = null;
+                                        $feb = null;
+                                        $mar = null;
+                                        $apr = null;
+                                        $may = null;
+                                        $jun = null;
+                                        $jul = null;
+                                        $aug = null;
+                                        $sep = null;
+                                        $oct = null;
+                                        $nov = null;
+                                        $dec = null;
                                         while ($i < count($total_modal)) {
                                         ?>
 
@@ -470,9 +483,54 @@
                                                 <td class="px-3" width="30px"><?= price_format($hutang_array[$i]); ?></td>
                                                 <td class="px-3" width="30px"><?= price_format($nilai_final[$i]); ?></td>
                                             </tr>
+
+
+                                            <?php
+
+                                            $array_tanggal = explode("-", date("d-M-Y", $tanggal_hari_ini[$i]));
+                                            echo $array_tanggal[1];
+                                            if ($array_tanggal = "jan") {
+                                                $jan += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "feb") {
+                                                $feb += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "mar") {
+                                                $mar += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "apr") {
+                                                $apr += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "may") {
+                                                $may += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "jun") {
+                                                $jun += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "jul") {
+                                                $jul += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "aug") {
+                                                $aug += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "sep") {
+                                                $sep += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "oct") {
+                                                $oct += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "nov") {
+                                                $nov += $nilai_final[$i];
+                                            } elseif ($array_tanggal = "dec") {
+                                                $dec += $nilai_final[$i];
+                                            }
+
+                                            ?>
+
                                         <?php
                                             $i++;
                                         }; ?>
+
+
+                                        <?php
+
+                                        $testing = [500, 300, 462, 900, 400];
+                                        $a = 100;
+                                        echo "<script>
+                
+                                                    var testing_cok = [$jan, $feb, $mar,$apr,$may,$jun,$jul,$aug,$sep,$oct,$nov,$dec]
+                                                    
+                                                    </script>"; ?>
                                     </tbody>
                                 </table>
                             </div>
