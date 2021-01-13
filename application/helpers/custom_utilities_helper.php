@@ -56,10 +56,13 @@ if ( ! function_exists('role_validation'))
   */
   function role_validation($role = '3', $who = [])
   {
+    array_push($who, '0'); // '0' is for superadmin
+    
     // jika tidak ada, maka tidak cocok dan buang keluar
     if ( ! in_array($role, $who)) 
     {
-      redirect(base_url(), 'refresh');
+      // redirect(base_url(), 'refresh');
+      show_error('Anda tidak memiliki hak akses untuk menuju ke halaman ini. Silakan gunakan akun yang sesuai.', 401, '401 - Hak Akses Ditolak');
     }
     return 1;
   }
@@ -236,6 +239,8 @@ if ( ! function_exists('end_time'))
 // ------------------------------------------------------------------------
 
 
+// gajadi dipake 
+// 13 01 2021
 if ( ! function_exists('unique_multidim_array'))
 {
 	/**
@@ -267,8 +272,6 @@ if ( ! function_exists('unique_multidim_array'))
     return $temp_array;
   }
 }
-
-
 
 
 

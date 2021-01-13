@@ -75,7 +75,16 @@ class Auth extends CI_Controller
                         'store_id' => $data_user->store_id
                     ];
                     $this->session->set_userdata($session_array);
-                    redirect('Dashboard');
+
+                    switch ($session_array['role_id']) {
+                        case '3':
+                            redirect('kasir');
+                            break;
+                        
+                        default:
+                            redirect('dashboard');
+                            break;
+                    }
                 } else { //else ketika password salah
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                     Username or Password is incorrect</div>');
