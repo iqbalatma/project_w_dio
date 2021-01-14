@@ -123,7 +123,7 @@
                                                 <?= $i++ ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row->material_code ?>
+                                                <?= $row->product_code ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->full_name ?>

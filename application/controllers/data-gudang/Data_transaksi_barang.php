@@ -25,6 +25,7 @@ class Data_transaksi_barang extends CI_Controller
         $this->load->model("Customer_model");
         $this->load->model("Kasir_model");
         $this->load->model("Product_model");
+        $this->load->model("Product_mutation_model");
     }
 
     public function index()
@@ -34,7 +35,7 @@ class Data_transaksi_barang extends CI_Controller
             'content'           => 'data-gudang/v_transaksi_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_transaksi_barang' => $this->Material_model->get_transaksi_barang(),
+            'data_transaksi_barang' => $this->Product_mutation_model->get_transaksi_barang(),
 
             'datatables' => 1
         ];
@@ -47,7 +48,7 @@ class Data_transaksi_barang extends CI_Controller
             'content'           => 'data-gudang/v_transaksi_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_transaksi_barang' => $this->Material_model->get_transaksi_barang_by_store_id($store_id),
+            'data_transaksi_barang' => $this->Product_mutation_model->get_transaksi_barang_by_store_id($store_id),
 
             'datatables' => 1
         ];
@@ -244,7 +245,7 @@ class Data_transaksi_barang extends CI_Controller
             $this->session->set_flashdata('failed_message', 1);
             $this->session->set_flashdata('title', "Pembelanjaan kosong!");
             $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
-            redirect(base_url(getBeforeLastSegment($this->modules)));
+            redirect(base_url("data-gudang/data-transaksi-barang/v_mutasi_ke_cabang"));
         }
         // pprintd($post);
 
@@ -284,7 +285,9 @@ class Data_transaksi_barang extends CI_Controller
         // pprintd($productQuery);
 
         // get data dari db yg dibutuhkan, dari tabel customer dan produk yg relevan dengan environment ketika cekout
-        $data_customer      = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
+        // $data_customer      = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
+        $data_customer      = $this->Customer_model->get_by_name($customer_id, 'id, full_name, address, phone, cust_type');
+
         $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
 
         // build array yg isinya hanya kode product untuk keperluan where clause di db ketika get harga custom
@@ -402,7 +405,9 @@ class Data_transaksi_barang extends CI_Controller
 
         $cekoutData['paid_amount']  = $post['paid_amount'];
         $cekoutData['total_harga']  = $post['total_harga'];
-        $cekoutData['nama_toko'] = $post['customer'];
+        // $cekoutData['nama_toko'] = $post['customer'];
+        $cekoutData['nama_toko2'] = $post['nama_pelanggan'];
+        echo $cekoutData['nama_toko2'];
 
         // seluruh proses checkout di satu baris ini, termasuk interaksi dengan 7 tabel di database
         // return array yg (hanya) berisi invoice id, nomor invoice terbaru, dan due_at

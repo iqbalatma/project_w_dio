@@ -76,6 +76,7 @@
                                     <?php
                                     $i = 0;
                                     while ($i < count($total_modal)) {
+
                                     ?>
 
                                         <tr>

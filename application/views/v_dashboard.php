@@ -278,6 +278,7 @@
                     </div>
                 </div>
 
+
                 <!-- [3] -->
                 <div class="col-md-4">
                     <div class="card">
@@ -488,32 +489,40 @@
                                             <?php
 
                                             $array_tanggal = explode("-", date("d-M-Y", $tanggal_hari_ini[$i]));
-                                            echo $array_tanggal[1];
-                                            if ($array_tanggal = "jan") {
+
+                                            $date = new DateTime();
+                                            $tanggal_hari_ini_2 = $date->getTimestamp();
+                                            $array_tahun = explode("-", date("d-M-Y", $tanggal_hari_ini_2));
+                                            echo "<br>";
+                                            echo $array_tahun[2];
+
+
+                                            if ($array_tanggal[1] === "Jan" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $jan += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "feb") {
+                                            } elseif ($array_tanggal[1] === "Feb" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $feb += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "mar") {
+                                            } elseif ($array_tanggal[1] === "Mar" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $mar += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "apr") {
+                                            } elseif ($array_tanggal[1] === "Apr" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $apr += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "may") {
+                                            } elseif ($array_tanggal[1] === "May" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $may += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "jun") {
+                                            } elseif ($array_tanggal[1] === "Jun" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $jun += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "jul") {
+                                            } elseif ($array_tanggal[1] === "Jul" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $jul += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "aug") {
+                                            } elseif ($array_tanggal[1] === "Aug" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $aug += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "sep") {
+                                            } elseif ($array_tanggal[1] === "Sep" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $sep += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "oct") {
+                                            } elseif ($array_tanggal[1] === "Oct" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $oct += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "nov") {
+                                            } elseif ($array_tanggal[1] === "Nov" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $nov += $nilai_final[$i];
-                                            } elseif ($array_tanggal = "dec") {
+                                            } elseif ($array_tanggal[1] === "Dec" && $array_tanggal[2] === $array_tahun[2]) {
                                                 $dec += $nilai_final[$i];
                                             }
+
 
                                             ?>
 
@@ -524,8 +533,8 @@
 
                                         <?php
 
-                                        $testing = [500, 300, 462, 900, 400];
-                                        $a = 100;
+
+
                                         echo "<script>
                 
                                                     var testing_cok = [$jan, $feb, $mar,$apr,$may,$jun,$jul,$aug,$sep,$oct,$nov,$dec]

@@ -70,15 +70,13 @@ class Material_model extends CI_Model
         $createdAt    = unix_to_human($now, true, 'europe');
 
         // ini yg awalnya
-        if (($insertInven == FALSE) && ($dataInven == NULL))
-        {
+        if (($insertInven == FALSE) && ($dataInven == NULL)) {
             return $this->db->insert($this->table, $data);
-        } 
+        }
         // ini tambahannya
-        elseif (($insertInven == TRUE) && ($dataInven != NULL)) 
-        {
+        elseif (($insertInven == TRUE) && ($dataInven != NULL)) {
             $this->db->trans_start();
-            
+
             $this->db->insert($this->table, $data);
             $lastMatId = $this->db->insert_id();
 
@@ -97,7 +95,6 @@ class Material_model extends CI_Model
 
             return ($this->db->trans_status() === FALSE) ? FALSE : TRUE;
         }
-
     }
 
     public function update($data)
