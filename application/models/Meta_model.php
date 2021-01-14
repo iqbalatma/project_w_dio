@@ -33,7 +33,7 @@ class Meta_model extends CI_Model
   }
 
   // update meta by id
-  public function set_update_meta_by_id($id, $data)
+  public function set_update_meta_by_id($storeId, $data)
   {
     $updatedAt = unix_to_human(now(), true, 'europe');
     $data = array(
@@ -47,7 +47,7 @@ class Meta_model extends CI_Model
       "updated_at"  => $updatedAt,
       "updated_by"  => $data['username'],
     );
-    $this->db->where('id', $id);
+    $this->db->where('id', $storeId);
 		return $this->db->update($this->tb_meta, $data);
   }
 
@@ -91,12 +91,12 @@ class Meta_model extends CI_Model
 
   // get 1 kelas berdasarkan id
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
-  public function get_meta_by_id($id, $select = '*')
+  public function get_meta_by_id($storeId, $select = '*')
   {
     // get from tb_meta
     $this->db->select($select);
     $this->db->from($this->tb_meta);
-    $this->db->where('id', $id);
+    $this->db->where('store_id', $storeId);
     $query = $this->db->get();
     if ( $query->num_rows() == 1) {
       return $query->row();

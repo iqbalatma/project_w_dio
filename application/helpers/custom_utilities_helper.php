@@ -79,6 +79,8 @@ if ( ! function_exists('role_access'))
   */
   function role_access($role = '3', $who = [])
   {
+    array_push($who, '0'); // '0' is for superadmin
+    
     // jika tidak ada, maka tidak cocok dan buang keluar
     if ( ! in_array($role, $who)) 
     {

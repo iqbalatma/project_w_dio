@@ -57,10 +57,11 @@
                                   <h5 class="bg-light px-2 py-2 rounded"><?= ($product->selling_price == 0) ? $masihNol2 : price_format($product->selling_price) ?></h5>
                                 </div>
                                 <!-- 3 -->
-                                <!-- <div class="mt-3">
+                                <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual reseller </h5>
-                                  <h5 class="bg-light px-2 py-2 rounded"></h5>
-                                </div> -->
+                                  <?php $masihNol3 = "<span class='mt-4 text-danger'><em>Silakan set harga di Perbarui Data terlebih dahulu.</em></span>" ?>
+                                  <h5 class="bg-light px-2 py-2 rounded"><?= ($product->reseller_price == 0) ? $masihNol3 : price_format($product->reseller_price) ?></h5>
+                                </div>
                                 <!-- 4 -->
                                 <!-- <div class="mt-3">
                                   <h5 class="font-weight-bold"> Harga jual grosir </h5>
@@ -110,14 +111,12 @@
                               <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-3 mx-1">
                                 Batal
                               </a>
-                              <?php if (role_access($this->session->role_id, ['0','1','2'])) : ?>
-                                <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-outline-primary col-3 mx-1">
-                                  Setting komposisi
-                                </a>
-                                <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-3 mx-1">
-                                  Perbarui data
-                                </a>
-                              <?php endif; ?>
+                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-outline-primary col-3 mx-1">
+                                Setting komposisi
+                              </a>
+                              <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit/" . getLastSegment() ) ?>" class="btn btn-default col-3 mx-1">
+                                Perbarui data
+                              </a>
                             </div>
 
                           </div>

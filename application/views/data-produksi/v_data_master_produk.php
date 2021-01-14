@@ -40,12 +40,17 @@
                                 <th class="px-3">Kode produk</th>
                                 <th class="px-3">Nama produk</th>
                                 <th class="px-3">Volume</th>
-                                <th class="px-3">HPP</th>
+                                <?php if (role_access($this->session->role_id, ['1'])) : ?>
+                                  <th class="px-3">HPP</th>
+                                  <th class="px-3">Harga reseller</th>
+                                <?php endif; ?>
                                 <th class="px-3">Harga jual</th>
 
-                                <th class="">
-                                  <center>Aksi</center>
-                                </th>
+                                <?php if (role_access($this->session->role_id, ['1'])) : ?>
+                                  <th class="">
+                                    <center>Aksi</center>
+                                  </th>
+                                <?php endif; ?>
                               </tr>
                             </thead>
                             <tfoot class="thead-light">
@@ -55,12 +60,17 @@
                                 <th class="px-3">Kode produk</th>
                                 <th class="px-3">Nama produk</th>
                                 <th class="px-3">Volume</th>
-                                <th class="px-3">HPP</th>
+                                <?php if (role_access($this->session->role_id, ['1'])) : ?>
+                                  <th class="px-3">HPP</th>
+                                  <th class="px-3">Harga reseller</th>
+                                <?php endif; ?>
                                 <th class="px-3">Harga jual</th>
 
-                                <th class="">
-                                  <center>Aksi</center>
-                                </th>
+                                <?php if (role_access($this->session->role_id, ['1'])) : ?>
+                                  <th class="">
+                                    <center>Aksi</center>
+                                  </th>
+                                <?php endif; ?>
                               </tr>
                             </tfoot>
                             <tbody>
@@ -84,25 +94,30 @@
                                     <td class="px-3 <?= ($row['volume'] != 0) ? '' : 'text-danger' ?>">
                                       <?= $row['volume'] ?> <?= $row['unit'] ?>
                                     </td>
-                                    <td class="px-3 <?= ($row['price_base'] != 0) ? '' : 'text-danger' ?>">
-                                      Rp. <?= number_format($row['price_base'], 0, '', '.') ?>
-                                    </td>
+                                    <?php if (role_access($this->session->role_id, ['1'])) : ?>
+                                      <td class="px-3 <?= ($row['price_base'] != 0) ? '' : 'text-danger' ?>">
+                                        Rp. <?= number_format($row['price_base'], 0, '', '.') ?>
+                                      </td>
+                                      <td class="px-3 <?= ($row['price_base'] != 0) ? '' : 'text-danger' ?>">
+                                        Rp. <?= number_format($row['reseller_price'], 0, '', '.') ?>
+                                      </td>
+                                    <?php endif; ?>
                                     <td class="px-3 <?= ($row['selling_price'] != 0) ? '' : 'text-danger' ?>">
                                       Rp. <?= number_format($row['selling_price'], 0, '', '.') ?>
                                     </td>
 
 
-                                    <td class="">
-                                      <div class="form-button-action">
-                                        <a href="<?= current_url()."/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
-                                        <?php if (role_access($this->session->role_id, ['0','1','2'])) : ?>
-                                          <a href="<?= current_url()."/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
-                                          <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
-                                            <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
-                                          </span>
-                                        <?php endif; ?>
-                                      </div>
-                                    </td>
+                                    <?php if (role_access($this->session->role_id, ['1'])) : ?>
+                                      <td class="">
+                                        <div class="form-button-action">
+                                          <a href="<?= current_url()."/detail/{$row['id']}" ?>" class="p-2 btn-link btn-default" data-toggle="tooltip" title="Lihat detail" data-original-title="Lihat detail"><i class="fas fa-eye"></i></a>
+                                            <a href="<?= current_url()."/edit/{$row['id']}" ?>" class="p-2 btn-link btn-primary" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                            <span data-toggle="tooltip" title="Hapus" data-original-title="Hapus">
+                                              <a href="#modal-delete-data" type="button" data-toggle="modal" data-target="#modal-delete-data" class="p-2 btn-link btn-danger btn-delete" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i></a>
+                                            </span>
+                                        </div>
+                                      </td>
+                                    <?php endif; ?>
                                   </tr>
                                 <?php 
                                 endforeach;

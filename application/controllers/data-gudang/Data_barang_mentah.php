@@ -12,7 +12,10 @@ class Data_barang_mentah extends CI_Controller
     {
         parent::__construct();
         must_login();
+        // hanya untuk pemilik
+        role_validation($this->session->role_id, ['1']);
         $this->load->model("Material_model");
+        $this->load->model("Inventory_material_model", "im_m");
     }
 
     public function index()
@@ -133,49 +136,49 @@ class Data_barang_mentah extends CI_Controller
             $image_cek = $this->upload->data('file_name');
             // echo $image_cek;
             // var_dump($x);
-            // if ($image_cek == '') {
-            //     $data = [
-            //         'id' => '',
-            //         'material_code' => $material,
-            //         'full_name' => $fullname,
-            //         'unit' => $unit,
-            //         'volume' => $volume,
-            //         'price_base' => $pricebase,
-            //         'is_deleted' => 0
-            //     ];
-            //     // var_dump($data);
-            // } else {
-            //     $data = [
-            //         'id' => '',
-            //         'material_code' => $material,
-            //         'full_name' => $fullname,
-            //         'unit' => $unit,
-            //         'volume' => $volume,
-            //         'price_base' => $pricebase,
-            //         'is_deleted' => 0,
-            //         'image' => $image_cek
-            //     ];
-            //     // var_dump($data);
-            // }
+            if ($image_cek == '') {
+                $data = [
+                    'id' => '',
+                    'material_code' => $material,
+                    'full_name' => $fullname,
+                    'unit' => $unit,
+                    'volume' => $volume,
+                    'price_base' => $pricebase,
+                    'is_deleted' => 0
+                ];
+                // var_dump($data);
+            } else {
+                $data = [
+                    'id' => '',
+                    'material_code' => $material,
+                    'full_name' => $fullname,
+                    'unit' => $unit,
+                    'volume' => $volume,
+                    'price_base' => $pricebase,
+                    'is_deleted' => 0,
+                    'image' => $image_cek
+                ];
+                // var_dump($data);
+            }
 
 
-            // $_dataInven = [
-            //     'store_id'  => $this->session->store_id,
-            //     'quantity'  => 0,
-            //     'created_by' => $this->session->username,
-            // ];
-            // // ditambah parameter TRUE dan $_datainven untuk sekaligus insert data inventory dengan quantity 0
-            // $insert = $this->Material_model->insert($data, TRUE, $_dataInven);
+            $_dataInven = [
+                'store_id'  => $this->session->store_id,
+                'quantity'  => 0,
+                'created_by' => $this->session->username,
+            ];
+            // ditambah parameter TRUE dan $_datainven untuk sekaligus insert data inventory dengan quantity 0
+            $insert = $this->Material_model->insert($data, TRUE, $_dataInven);
 
-            // if ($insert == 1) {
-            //     echo "input berhasil";
-            //     $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
-            //     redirect(base_url('data-gudang/Data_barang_mentah'));
-            // } else {
-            //     echo "input gagal";
-            //     $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
-            //     redirect(base_url('data-gudang/Data_barang_mentah'));
-            // }
+            if ($insert == 1) {
+                echo "input berhasil";
+                $this->session->set_flashdata('message_berhasil', 'Berhasil menambah data');
+                redirect(base_url('data-gudang/Data_barang_mentah'));
+            } else {
+                echo "input gagal";
+                $this->session->set_flashdata('message_gagal', 'Gagal menambah data');
+                redirect(base_url('data-gudang/Data_barang_mentah'));
+            }
         }
     }
 
@@ -300,23 +303,37 @@ class Data_barang_mentah extends CI_Controller
 
     public function delete()
     {
+        
         $id = $this->input->post('id');
-        $delete = $this->Material_model->delete($id);
 
-        if ($delete == 1) {
-            // $this->session->set_flashdata('success_message', 1);
-            // $this->session->set_flashdata('title', 'Registration complete !');
-            // $this->session->set_flashdata('text', 'Please activate your account via email');
-            // redirect(base_url('login'));
-            $this->session->set_flashdata('message_berhasil', 'Berhasil Menghapus data');
-            redirect(base_url('data-gudang/Data_barang_mentah'));
+        $matInv = $this->im_m->get_by_where("material_id = {$id}", 'id, material_id, quantity');
+
+        if ($matInv[0]['quantity'] == 0)  {
+
+            $delete = $this->Material_model->delete($id);
+
+            if ($delete == 1) {
+                // $this->session->set_flashdata('success_message', 1);
+                // $this->session->set_flashdata('title', 'Registration complete !');
+                // $this->session->set_flashdata('text', 'Please activate your account via email');
+                // redirect(base_url('login'));
+                $this->session->set_flashdata('message_berhasil', 'Berhasil Menghapus data');
+                redirect(base_url('data-gudang/Data_barang_mentah'));
+            } else {
+                // $this->session->set_flashdata('failed_message', 1);
+                // $this->session->set_flashdata('title', 'Registration failed !');
+                // $this->session->set_flashdata('text', 'Please check again your information');
+                // redirect(base_url('register'));
+                $this->session->set_flashdata('message_gagal', 'Gagal Menghapus data');
+                redirect(base_url('data-gudang/Data_barang_mentah'));
+            }
         } else {
-            // $this->session->set_flashdata('failed_message', 1);
-            // $this->session->set_flashdata('title', 'Registration failed !');
-            // $this->session->set_flashdata('text', 'Please check again your information');
-            // redirect(base_url('register'));
-            $this->session->set_flashdata('message_gagal', 'Gagal Menghapus data');
+            // kalo inventory belum 0
+            $this->session->set_flashdata('message_gagal', 'Bahan baku masih memiliki stok > 0.');
             redirect(base_url('data-gudang/Data_barang_mentah'));
+            
         }
+        // pprintd($matInv[0]);
+
     }
 }

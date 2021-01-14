@@ -22,7 +22,7 @@ class Informasi_perusahaan extends CI_Controller
       'content'         => 'informasi-perusahaan/v_informasi_perusahaan.php',
       'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
       'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
-      'meta'            => $this->meta_m->get_meta_by_id(1),
+      'meta'            => $this->meta_m->get_meta_by_id($this->session->store_id),
     ];
     $this->load->view('template_dashboard/template_wrapper', $data);
   }
@@ -46,7 +46,7 @@ class Informasi_perusahaan extends CI_Controller
         'content'         => 'informasi-perusahaan/v_informasi_perusahaan_edit.php',
         'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
         'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
-        'meta'            => $this->meta_m->get_meta_by_id(1),
+        'meta'            => $this->meta_m->get_meta_by_id($this->session->store_id),
       ];
       $this->load->view('template_dashboard/template_wrapper', $data);
 
@@ -55,11 +55,13 @@ class Informasi_perusahaan extends CI_Controller
       $post               = $this->input->post();
       $post['username']   = $this->session->username;
 
+      // pprintd($post);
+
       // cek apakah image kosong / tidak
       if ( isset($_FILES["edit-logo"]["name"])) $post['edit-logo'] = $this->_uploadLogo();
       else $post['edit-logo'] = 'logo.png';
       
-      $query = $this->meta_m->set_update_meta_by_id(1, $post);
+      $query = $this->meta_m->set_update_meta_by_id($this->session->store_id, $post);
 
       if ($query) {
         // flashdata untuk sweetalert

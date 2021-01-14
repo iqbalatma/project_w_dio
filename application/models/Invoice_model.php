@@ -84,11 +84,18 @@ class Invoice_model extends CI_Model
     $currentDate = mdate($datestring, $time);
 
     $query = $this->db->query("
-      SELECT left_to_paid AS total_hutang FROM invoice
-      WHERE left_to_paid != 0
-      AND MONTH(created_at) = MONTH('{$currentDate}') 
+      SELECT invoice.left_to_paid AS total_hutang FROM invoice, 
+      (
+          SELECT MAX(id) AS id, transaction_id
+          FROM invoice
+          GROUP BY transaction_id
+      ) AS last_debt
+      WHERE invoice.id = last_debt.id
+      AND invoice.transaction_id = last_debt.transaction_id
+      AND left_to_paid != 0
+      AND MONTH(created_at) = MONTH('{$currentDate}')
       AND YEAR(created_at) = YEAR('{$currentDate}')
-      GROUP BY transaction_id DESC
+      ORDER BY invoice.id  DESC
     ");
 
     if ($query->num_rows() > 0) {

@@ -1,0 +1,57 @@
+16:59 01/13/2021
+
+user gudang
+---------
+TAMPILAN MENU:
+data gudang ✓
+ data mutasi barang ✓
+ data barang mentah kritis ✓
+
+master produk
+ field hpp dihide ✓
+ action dan isiannya dihide ✓
+ harga reseller belom ada ✓
+
+
+----------
+SELAIN TAMPILAN MENU:
+data gudang ✓
+ data mutasi barang->tampilkan data yg tipe transaksinya masuk aja ✓
+
+hpp->belom update otomatis kalo ada material yg diupdate (pake btn nnti aja terakhiran)
+
+
+++++++++++++++++++++++++++++++++++++
+
+1. mutasi barang ke toko cicalengka, tapi masuk nya malah ke toko ujeng berung him itu
+
+2. him di gudang & pemilik pada saat beres checkout , datanya ga masuk ke kas perusahaan
+
+3. di menu keuangan laba rugi masih ngaco him ngitung nya untuk modal, pemasukan, hutang, untung rugi
+
+4. di kas perusahaan omset penjualan belum masuk ke tabel
+
+5. di seting informasi perusahaan, pas edit logo tapi masih ga berubah (ternyata ini karena cache) ✓
+
+6. disurat jalan nya mah udah berubah sama di invoice, cuma di tampilan menu informasi perusahaan nya belum berubah. no telp pelanggan di surat jalan dan invoice belum
+
+7. data yg lain nya belum ke update di surat jalan dan invoce, baru foto doang yg udah ke update
+
+8. him edit data pengeluaran untuk pemilik bisa ga ? bisi ada admin salah input pengeluaran yg harus nya 4 juta malah ke tambah 0 nya 1 jadi 40 juta. nah kalau ada human error, nanti alur nya admin gudang konfirmasi pengeluaran salah input, nah pemilik baru update harga pengeluaran yg asalnya 40 juta jadi 4 juta
+
+9. itu mutasi barang ke cabang, pas mutasi ke cicalengka malah masuknya ke ujungberung
+
+10. di kasir cicalengka dan uber, itu data invoice nya invoice pribadi him, jadi invoice gidang gada di kasir. invoice uber gada di cicalengka berikutpun sebaliknya
+
+
+11. logo perusahaan ganti yg baru. ✓
+
+12. menu navbar logonya ganti jd statis aja biar gakeganti pas ganti info perusahaan. ✓
+
+13. info perusahaan per toko. ✓
+
+14. cetak penjualan per range tanggal dipilih. misal 2021 januari mau ngecek di november 2020, bisa diprint.
+
+
+
+

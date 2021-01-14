@@ -104,7 +104,7 @@
                                   <!-- grouping row -->
                                   <div class="d-flex justify-content-center">
                                     <!-- 1 -->
-                                    <div class="form-group row mr-1 col-6 px-0">
+                                    <div class="form-group row col-12 px-0">
                                       <label for="edit-hpp">
                                         HPP
                                       </label>
@@ -118,8 +118,12 @@
                                         disabled
                                       >
                                     </div>
-                                    <!-- 2 -->
-                                    <div class="form-group row ml-1 col-6 px-0">
+                                  </div>
+                                  
+                                  <!-- grouping row -->
+                                  <div class="d-flex justify-content-center">
+                                    <!-- 1 -->
+                                    <div class="form-group row mr-1 col-6 px-0">
                                       <label for="edit-sellingprice">
                                         Harga jual normal <span class="text-danger">*</span>
                                       </label>
@@ -135,6 +139,24 @@
                                         data-filter = "\+?\d{0,8}"
                                       >
                                       <?= form_error('edit-sellingprice') ?>
+                                    </div>
+                                    <!-- 2 -->
+                                    <div class="form-group row ml-1 col-6 px-0">
+                                      <label for="edit-resellerprice">
+                                        Harga jual reseller <span class="text-danger">*</span>
+                                      </label>
+                                      <input 
+                                        type        = "tel" 
+                                        id          = "edit-resellerprice" 
+                                        name        = "edit-resellerprice" 
+                                        placeholder = "Harga reseller" 
+                                        value       = "<?= (set_value('edit-resellerprice') !== '') ? set_value('edit-resellerprice') : $product->reseller_price ; ?>"
+                                        class       = "resellerprice live-typing form-control <?php if(form_error('edit-resellerprice') !== ''){ echo 'is-invalid'; } ?>"
+                                        pattern     = "[0-9]{1,8}" 
+                                        title       = "Harus angka minimal satu dan maksimal 8 angka"
+                                        data-filter = "\+?\d{0,8}"
+                                      >
+                                      <?= form_error('edit-resellerprice') ?>
                                     </div>
                                   </div>
                                   

@@ -35,8 +35,8 @@ class Data_master_produk extends CI_Controller
   // ============================================== TAMBAH =======================================
   public function tambah()
   {
-    // hanya untuk pemilik, gudang
-    role_validation($this->session->role_id, ['0','1','2']);
+    // hanya untuk pemilik
+    role_validation($this->session->role_id, ['1']);
     
     // set form rules
     $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|alpha_dash|trim|min_length[5]|max_length[100]|is_unique[product.product_code]');
@@ -84,8 +84,8 @@ class Data_master_produk extends CI_Controller
   // ============================================== EDIT =======================================
   public function edit($id=NULL)
   {
-    // hanya untuk pemilik, gudang
-    role_validation($this->session->role_id, ['0','1','2']);
+    // hanya untuk pemilik
+    role_validation($this->session->role_id, ['1']);
     
     if ($id === NULL)
     {
@@ -96,6 +96,7 @@ class Data_master_produk extends CI_Controller
     $this->form_validation->set_rules('edit-unit', 'unit', 						            'required');
     $this->form_validation->set_rules('edit-volume', 'volume', 						        'required');
     $this->form_validation->set_rules('edit-sellingprice', 'harga normal',        'required|trim|is_numeric');
+    $this->form_validation->set_rules('edit-resellerprice', 'harga reseller',     'required|trim|is_numeric');
     $this->form_validation->set_error_delimiters('<small class="form-text text-danger text-nowrap"><em>', '</em></small>');
 
     // run the form validation
@@ -150,8 +151,8 @@ class Data_master_produk extends CI_Controller
   // ============================================== EDIT KOMPOSISI ==============================
   public function edit_komposisi($id=NULL)
   {
-    // hanya untuk pemilik, gudang
-    role_validation($this->session->role_id, ['0','1','2']);
+    // hanya untuk pemilik
+    role_validation($this->session->role_id, ['1']);
     
     if ($id === NULL)
     {
@@ -209,8 +210,8 @@ class Data_master_produk extends CI_Controller
   // ============================================== HAPUS =======================================
   public function hapus()
   {
-    // hanya untuk pemilik, gudang
-    role_validation($this->session->role_id, ['0','1','2']);
+    // hanya untuk pemilik
+    role_validation($this->session->role_id, ['1']);
     
     $id  = $this->input->post('id');
     if ($id === NULL)
@@ -243,8 +244,8 @@ class Data_master_produk extends CI_Controller
   // ============================================== HAPUS KOMPOSISI ================================
   public function hapus_komposisi()
   {
-    // hanya untuk pemilik, gudang
-    role_validation($this->session->role_id, ['0','1','2']);
+    // hanya untuk pemilik
+    role_validation($this->session->role_id, ['1']);
 
     $productId = $this->input->post('page_id');
     $id  = $this->input->post('id');
@@ -277,6 +278,9 @@ class Data_master_produk extends CI_Controller
   // ============================================== DETAIL ======================================
   public function detail($id = NULL)
   {
+    // hanya untuk pemilik
+    role_validation($this->session->role_id, ['1']);
+    
     if ($id === NULL)
     {
       redirect(base_url( getBeforeLastSegment($this->modules) ));

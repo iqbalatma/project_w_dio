@@ -13,6 +13,8 @@ class Data_barang_kritis extends CI_Controller
     {
         parent::__construct();
         must_login();
+        // hanya untuk pemilik dan gudang
+        role_validation($this->session->role_id, ['1','2']);
         $this->load->model("Inventory_material_model");
     }
 

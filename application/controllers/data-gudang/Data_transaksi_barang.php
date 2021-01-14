@@ -13,6 +13,8 @@ class Data_transaksi_barang extends CI_Controller
     {
         parent::__construct();
         must_login();
+        // hanya untuk pemilik dan gudang
+        role_validation($this->session->role_id, ['1', '2']);
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
@@ -39,6 +41,11 @@ class Data_transaksi_barang extends CI_Controller
 
             'datatables' => 1
         ];
+
+        if (role_access($this->session->role_id, ['1'])) {
+            $data['data_transaksi_barang'] = $this->Material_model->get_transaksi_barang();
+        }
+
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
     public function mutasi_by_store_id($store_id = 1)

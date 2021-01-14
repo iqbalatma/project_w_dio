@@ -47,7 +47,7 @@ class Inventory_material_model extends CI_Model
 
         // $tanggal = $data;
 
-        $query = $this->db->query("SELECT material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material.full_name, store.store_name, material_inventory.quantity, material_inventory.updated_by FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id INNER JOIN store ON material_inventory.store_id = store.id WHERE material_inventory.is_deleted=0 AND material_inventory.quantity < 10");
+        $query = $this->db->query("SELECT material_inventory.id,material_inventory.created_at,material_inventory.created_by, material.material_code,material_inventory.material_id, material.full_name, store.store_name, material_inventory.quantity, material_inventory.updated_by FROM material_inventory INNER JOIN material ON material_inventory.material_id = material.id INNER JOIN store ON material_inventory.store_id = store.id WHERE material_inventory.is_deleted=0 AND material_inventory.quantity < material_inventory.critical_point");
 
         $row = $query->result();
         return $row;
