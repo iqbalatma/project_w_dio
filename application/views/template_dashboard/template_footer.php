@@ -724,6 +724,7 @@
 
 
         var lineChart2 = document.getElementById('lineChart2').getContext('2d');
+        // var testing_cok2 = [10, 20, 30, 40];
         var myLineChart2 = new Chart(lineChart2, {
             type: 'line',
             data: {
@@ -740,7 +741,7 @@
                     backgroundColor: 'transparent',
                     fill: true,
                     borderWidth: 2,
-                    data: [400000, 500000, 300000, 462222]
+                    data: testing_cok2
                 }]
             },
             options: {

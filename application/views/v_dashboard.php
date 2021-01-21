@@ -426,126 +426,129 @@
                 </div>
 
 
-                <!-- [2] -->
-                <div class="col-md-6">
-                    <div class="card full-height">
-                        <div class="card-header">
-                            <div class="card-head-row">
-                                <div class="card-title font-weight-bold">Invoice(s) - 10 Terakhir</div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="add-row" class="display table table-sm  table-hover">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th class="px-3" width="20px">No</th>
-                                            <th class="px-3" width="40px">Tanggal</th>
-                                            <th class="px-3" width="30px">Modal</th>
-                                            <th class="px-3" width="30px">Pemasukan</th>
-                                            <th class="px-3" width="30px">Hutang</th>
-                                            <th class="px-3">Untung/Rugi</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tfoot class="thead-light">
-                                        <tr>
-                                            <th class="px-3" width="20px">No</th>
-                                            <th class="px-3" width="40px">Tanggal</th>
-                                            <th class="px-3" width="30px">Modal</th>
-                                            <th class="px-3" width="30px">Pemasukan</th>
-                                            <th class="px-3" width="30px">Hutang</th>
-                                            <th class="px-3">Untung/Rugi</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <?php
-                                        $i = 0;
-                                        $jan = null;
-                                        $feb = null;
-                                        $mar = null;
-                                        $apr = null;
-                                        $may = null;
-                                        $jun = null;
-                                        $jul = null;
-                                        $aug = null;
-                                        $sep = null;
-                                        $oct = null;
-                                        $nov = null;
-                                        $dec = null;
-                                        while ($i < count($total_modal)) {
-                                        ?>
 
-                                            <tr>
+
+
+
+
+
+
+
+                <?php
+                $i = 0;
+                $jan = null;
+                $feb = null;
+                $mar = null;
+                $apr = null;
+                $may = null;
+                $jun = null;
+                $jul = null;
+                $aug = null;
+                $sep = null;
+                $oct = null;
+                $nov = null;
+                $dec = null;
+
+                $minggu_pertama = null;
+                $minggu_kedua = null;
+                $minggu_ketiga = null;
+                $minggu_keempat = null;
+
+
+                while ($i < count($total_modal)) {
+                ?>
+
+                    <!-- <tr>
                                                 <td class="px-3" width="5%px"><?= $i + 1; ?></td>
                                                 <td class="px-3" width="40px"><?= date("d-M-Y", $tanggal_hari_ini[$i]); ?></td>
                                                 <td class="px-3" width="30px"><?= price_format($total_modal[$i]); ?></td>
                                                 <td class="px-3" width="30px"> <?= price_format($total_pemasukan[$i]); ?></td>
                                                 <td class="px-3" width="30px"><?= price_format($hutang_array[$i]); ?></td>
                                                 <td class="px-3" width="30px"><?= price_format($nilai_final[$i]); ?></td>
-                                            </tr>
+                                            </tr> -->
 
 
-                                            <?php
+                    <?php
 
-                                            $array_tanggal = explode("-", date("d-M-Y", $tanggal_hari_ini[$i]));
+                    $array_tanggal = explode("-", date("d-M-Y", $tanggal_hari_ini[$i]));
 
-                                            $date = new DateTime();
-                                            $tanggal_hari_ini_2 = $date->getTimestamp();
-                                            $array_tahun = explode("-", date("d-M-Y", $tanggal_hari_ini_2));
-                                            echo "<br>";
-                                            echo $array_tahun[2];
-
-
-                                            if ($array_tanggal[1] === "Jan" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $jan += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Feb" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $feb += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Mar" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $mar += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Apr" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $apr += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "May" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $may += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Jun" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $jun += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Jul" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $jul += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Aug" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $aug += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Sep" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $sep += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Oct" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $oct += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Nov" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $nov += $nilai_final[$i];
-                                            } elseif ($array_tanggal[1] === "Dec" && $array_tanggal[2] === $array_tahun[2]) {
-                                                $dec += $nilai_final[$i];
-                                            }
-
-
-                                            ?>
-
-                                        <?php
-                                            $i++;
-                                        }; ?>
-
-
-                                        <?php
+                    $date = new DateTime();
+                    $tanggal_hari_ini_2 = $date->getTimestamp();
+                    $array_tahun = explode("-", date("d-M-Y", $tanggal_hari_ini_2));
+                    // echo "<br>";
+                    // echo $array_tahun[2];
+                    $bulan_sekarang = $array_tahun[1];
+                    $tahun_sekarang = $array_tahun[2];
 
 
 
-                                        echo "<script>
+                    if ($array_tanggal[1] === $bulan_sekarang && $array_tanggal[0] > 1 && $array_tanggal[0] <= 7) {
+                        $minggu_pertama += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === $bulan_sekarang && $array_tanggal[0] > 7 && $array_tanggal[0] <= 15) {
+                        $minggu_kedua += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === $bulan_sekarang && $array_tanggal[0] > 15 && $array_tanggal[0] <= 23) {
+                        $minggu_ketiga += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === $bulan_sekarang && $array_tanggal[0] > 23 && $array_tanggal[0] <= 31) {
+                        $minggu_keempat += $nilai_final[$i];
+                    }
+
+
+                    if ($array_tanggal[1] === "Jan" && $array_tanggal[2] === $array_tahun[2]) {
+                        $jan += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Feb" && $array_tanggal[2] === $array_tahun[2]) {
+                        $feb += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Mar" && $array_tanggal[2] === $array_tahun[2]) {
+                        $mar += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Apr" && $array_tanggal[2] === $array_tahun[2]) {
+                        $apr += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "May" && $array_tanggal[2] === $array_tahun[2]) {
+                        $may += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Jun" && $array_tanggal[2] === $array_tahun[2]) {
+                        $jun += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Jul" && $array_tanggal[2] === $array_tahun[2]) {
+                        $jul += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Aug" && $array_tanggal[2] === $array_tahun[2]) {
+                        $aug += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Sep" && $array_tanggal[2] === $array_tahun[2]) {
+                        $sep += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Oct" && $array_tanggal[2] === $array_tahun[2]) {
+                        $oct += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Nov" && $array_tanggal[2] === $array_tahun[2]) {
+                        $nov += $nilai_final[$i];
+                    } elseif ($array_tanggal[1] === "Dec" && $array_tanggal[2] === $array_tahun[2]) {
+                        $dec += $nilai_final[$i];
+                    }
+
+
+                    ?>
+
+                <?php
+                    $i++;
+                };
+
+
+
+                ?>
+
+
+                <?php
+
+
+
+                echo "<script>
                 
-                                                    var testing_cok = [$jan, $feb, $mar,$apr,$may,$jun,$jul,$aug,$sep,$oct,$nov,$dec]
+                                                    var testing_cok = [$jan, $feb, $mar,$apr,$may,$jun,$jul,$aug,$sep,$oct,$nov,$dec];
+
+                                                    var testing_cok2 =[$minggu_pertama, $minggu_kedua, $minggu_ketiga, $minggu_keempat];
                                                     
                                                     </script>"; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
+
+
+
+
             </div>
 
         </div>
