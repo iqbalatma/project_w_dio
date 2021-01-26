@@ -125,7 +125,8 @@
             <tr>
               <td style="font-size:12px;">
                 Kepada Yth.: <?= $custName ?><br />
-                <?= $custLocation ?>
+                <?= $custLocation ?><br />
+                Telp.: <?= $custPhone ?>
               </td>
               <td style="font-size:12px; text-align:right;">
                 Tanggal kirim: <?= $date ?>

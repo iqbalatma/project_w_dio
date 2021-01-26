@@ -32,7 +32,7 @@ class Invoice extends CI_Controller
 	
 	public function generate($id_invoice)
 	{
-		$data_invoice 			= $this->Kasir_model->generate_invoice($id_invoice);
+		$data_invoice 			= (array)$this->Kasir_model->generate_invoice("inv.id, inv.invoice_number,inv.left_to_paid, inv.paid_at, inv.is_deleted, inv.transaction_id, inv.created_at, trx.deliv_address AS address, trx.deliv_phone AS phone, cust.full_name", $id_invoice);
 		$data_invoice_item 	= $this->Kasir_model->generate_invoice_item($id_invoice);
 		// pprintd($id_invoice);
 		
@@ -118,16 +118,17 @@ class Invoice extends CI_Controller
 
 		
 
-		$noInvoice 				= $data_invoice[0]['invoice_number'];
-		$tanggal_sekarang = explode(" ", $data_invoice[0]['created_at']);
+		$noInvoice 				= $data_invoice['invoice_number'];
+		$tanggal_sekarang = explode(" ", $data_invoice['created_at']);
 		$tanggal_sekarang = $tanggal_sekarang[0];
-		$date = date_create($tanggal_sekarang);
+		$date 						= date_create($tanggal_sekarang);
+
 		$data = array(
 			'logo' 					=> $fullpath,
 			'noInvoice' 		=> $noInvoice,
-			'custName' 			=> $data_invoice[0]['full_name'],
-			'custLocation' 	=> $data_invoice[0]['address'],
-			'custPhone'		 	=> $data_invoice[0]['phone'],
+			'custName' 			=> ucfirst($data_invoice['full_name']),
+			'custLocation' 	=> ucfirst($data_invoice['address']),
+			'custPhone'		 	=> $data_invoice['phone'],
 			'date' 					=> date_format($date, "d M Y"),
 			'rows'					=> $data_invoice_item, // MASUKIN DARI SESSION KE SINI, NANTI FOREACH DI "GENERATE-REPORT/V_INVOICE.PHP"
 			'totLiter'			=> $totLiter,

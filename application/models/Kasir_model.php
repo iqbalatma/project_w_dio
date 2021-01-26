@@ -77,10 +77,6 @@ class Kasir_model extends CI_Model
         $quantity_db = $row['quantity'];
         // $row = $query->last_row();
 
-
-
-
-
         $final_quantity = $quantity_db - $quantity_input;
         $this->db->set('quantity', $final_quantity, FALSE);
         $this->db->where('product_id', $id);
@@ -128,10 +124,8 @@ class Kasir_model extends CI_Model
     public function cek_invoice_terakhir($data)
     {
         $tanggal = $data;
-
-        $query = $this->db->query("SELECT * FROM invoice ORDER BY id DESC LIMIT 1 ");
-
-        $row = $query->row_array();
+        $query   = $this->db->query("SELECT * FROM invoice ORDER BY id DESC LIMIT 1 ");
+        $row     = $query->row_array();
         // $row = $query->last_row();
 
         return $row;
@@ -140,12 +134,8 @@ class Kasir_model extends CI_Model
 
     public function cek_id_invoice_terakhir()
     {
-
-
-        $query = $this->db->query("SELECT * FROM invoice WHERE is_deleted=0 ORDER BY id DESC LIMIT 1 ");
-
-        $row = $query->row_array();
-
+        $query  = $this->db->query("SELECT * FROM invoice WHERE is_deleted=0 ORDER BY id DESC LIMIT 1 ");
+        $row    = $query->row_array();
 
         return $row;
     }
@@ -157,10 +147,9 @@ class Kasir_model extends CI_Model
         $this->db->set('left_to_paid', $left_to_paid, FALSE);
         $this->db->where('id', $id);
         $this->db->update('invoice');
+
         return 1;
     }
-
-
 
     public function cek_komposisi($data)
     {
@@ -169,7 +158,6 @@ class Kasir_model extends CI_Model
         $this->db->select('*');
         $this->db->from('product_composition');
         $this->db->where("product_id", $id_product);
-
 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -189,10 +177,8 @@ class Kasir_model extends CI_Model
 
     public function cek_kuantitas_material($id_product)
     {
-        $query = $this->db->query("SELECT * FROM product_composition WHERE product_id = $id_product");
-
-        $row = $query->result_array();
-
+        $query  = $this->db->query("SELECT * FROM product_composition WHERE product_id = $id_product");
+        $row    = $query->result_array();
 
         return $row;
     }
@@ -229,31 +215,24 @@ class Kasir_model extends CI_Model
         $code_product = $data['code_product'];
         $id_customer = $data['id_customer'];
 
-        $query = $this->db->query("SELECT * FROM custom_price WHERE customer_id ='$id_customer' AND product_code = '$code_product'");
-
-        $row = $query->result_array();
-
+        $query  = $this->db->query("SELECT * FROM custom_price WHERE customer_id ='$id_customer' AND product_code = '$code_product'");
+        $row    = $query->result_array();
 
         return $row;
     }
+
     public function get_code_product($id_product)
     {
-
-
-        $query = $this->db->query("SELECT * FROM product WHERE id =$id_product");
-
-        $row = $query->result_array();
-
+        $query  = $this->db->query("SELECT * FROM product WHERE id =$id_product");
+        $row    = $query->result_array();
 
         return $row;
     }
 
     public function get_ajax()
     {
-        $query = $this->db->query("SELECT * FROM product WHERE id =1");
-
-        $row = $query->result_array();
-
+        $query  = $this->db->query("SELECT * FROM product WHERE id = 1");
+        $row    = $query->result_array();
 
         return json_encode($row);
     }
@@ -299,15 +278,55 @@ class Kasir_model extends CI_Model
 
 
 
-    public function generate_invoice($invoice_id)
+    /**
+     * 
+     * Get all rows from certain table
+     * 
+     * @param string $select 
+     * Default value is '*', but you can input some string
+     * to select some table(s) name of your choice.
+     * 
+     */
+    public function generate_invoice($select = '*', $idInvoice = null, $limit = 999999999)
     {
-        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id, invoice.created_at, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.is_deleted = 0 AND invoice.id=$invoice_id");
+        // local table names variables
+        $tb_invoice     = 'invoice';
+        $tb_transaction = 'transaction';
+        $tb_customer    = 'customer';
 
-        $row = $query->result_array();
+        $this->db->select($select);
+        $this->db->from("{$tb_invoice} AS inv");
+        $this->db->join("{$tb_transaction} AS trx", "trx.id = inv.transaction_id");
+        $this->db->join("{$tb_customer} AS cust", "cust.id = trx.customer_id");
 
+        $this->db->order_by("inv.id", 'DESC')->limit($limit);
+        // $this->db->where('inv.status', '0');
+        $this->db->where('inv.is_deleted', 0);
+        
+        if ($idInvoice != null) {
+            $this->db->where('inv.id', $idInvoice);
 
-        return $row;
+            $query = $this->db->get();
+
+            if ($query->num_rows() == 1) return $query->row();
+            return FALSE;
+        }
+        
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) return $query->result_array();
+        return FALSE;
     }
+
+    // public function generate_invoice($invoice_id)
+    // {
+    //     $query = $this->db->query("SELECT");
+
+    //     $row = $query->result_array();
+
+
+    //     return $row;
+    // }
     public function generate_invoice_item($invoice_id)
     {
         $query = $this->db->query("SELECT product.full_name, product.price_base,product.unit, product.selling_price, invoice_item.quantity, invoice_item.item_price, product.volume FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
