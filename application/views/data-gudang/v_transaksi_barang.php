@@ -42,23 +42,22 @@
                 <div class="card">
 
                     <div class="card-header">
-                        <div class="w-75 mx-auto">
+                        <div class="w-100 mx-auto">
                             <ul class="nav nav-pills nav-fill ">
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Mutasi Ke Cabang</a>
+                                    <a class="nav-link border-dark btn-default" href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Mutasi Ke Cabang</a>
+                                </li>
+                                <li class="ml-4 nav-item">
+                                    <a class="nav-link <?= (getLastSegment() == 'data-transaksi-barang') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/'); ?>">Tampil Semua Data Mutasi</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/'); ?>">Tampil Semua Data Mutasi</a>
+                                    <a class="nav-link <?= (getLastSegment() == '1') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/1'); ?>">Mutasi Gudang</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/1'); ?>">Mutasi Gudang</a>
+                                    <a class="nav-link <?= (getLastSegment() == '2') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/2'); ?>">Mutasi Toko Cicalengka</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/2'); ?>">Mutasi Toko Cicalengka</a>
-                                </li>
-                                <li class="nav-item">
-
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/3'); ?>">Mutasi Toko Ujungberung</a>
+                                    <a class="nav-link <?= (getLastSegment() == '3') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/3'); ?>">Mutasi Toko Ujungberung</a>
                                 </li>
                             </ul>
                         </div>

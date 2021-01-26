@@ -73,12 +73,8 @@ class Data_transaksi_barang extends CI_Controller
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer'     => $this->Customer_model->get_toko_cabang(),
-            // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
-            // 'data_product'      => $this->Product_model->get_all2(),
-            'select2'        => 1,
+            'select2'           => 1,
 
-            // 'data_customer'     => $this->Customer_model->get_all_by_store_id_sort_by_name("*", $this->session->store_id),
-            // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
             'data_product'      => $this->Product_model->get_all_inventory('p.id, p.product_code, p.full_name, p.unit, p.volume, p.selling_price, p.reseller_price, pi.quantity, pi.critical_point', $this->session->store_id),
             'select2'           => 1,
         ];
@@ -215,11 +211,8 @@ class Data_transaksi_barang extends CI_Controller
             'data_customer'     => (object)$data_customer,
             'data_product'      => $data_product,
             'checkbox_value'    => $checkbox_value,
-            // 'customer_id' => $customer_id,
             'address'           => $address,
             'phone'             => $phone,
-            // 'quantity'          => $quantity,
-            // 'custom_harga'      => $custom_harga,
             'datatables'        => 1
         ];
 
@@ -310,13 +303,9 @@ class Data_transaksi_barang extends CI_Controller
             'content'           => 'data-gudang/v_kembalian.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            // 'data_customer' => $this->Customer_model->get_all(),
-            // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
-            // 'data_product' => $this->Product_model->get_all2(),
             'datatables' => 1,
             'id_invoice' => $id_invoice,
             'kembalian'  => $kembalian,
-            // 'namaToko'   => $nama_toko,
 
             // dio
             'cekout' => $this->session->dari_insert_dio,

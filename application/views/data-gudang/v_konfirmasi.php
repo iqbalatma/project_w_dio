@@ -210,7 +210,7 @@
                                                 Kontrabon
                                             </label>
 
-                                            <label class="form-check-label font-weight-normal">
+                                            <!-- <label class="form-check-label font-weight-normal">
                                                 <input class="form-check form-check-inline" type="radio" name="payment_type" id="transfer" value="transfer">
                                                 Transfer
                                             </label>
@@ -218,7 +218,7 @@
                                             <label class="form-check-label font-weight-normal">
                                                 <input class="form-check form-check-inline" type="radio" name="payment_type" id="cash" value="cash">
                                                 Cash
-                                            </label>
+                                            </label> -->
                                         </div>
                                     </div>
 
