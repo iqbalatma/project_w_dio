@@ -15,8 +15,6 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-
-
             <h4 class="page-title">Data Barang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
@@ -34,13 +32,11 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Data Mutasi Barang</a>
-                </li>
-                <li class="separator">
-                    <i class="flaticon-right-arrow"></i>
+                    <a href="<?= base_url('data-gudang/data-transaksi-barang'); ?>">Data Mutasi Barang</a>
                 </li>
             </ul>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -49,39 +45,32 @@
                         <div class="w-75 mx-auto">
                             <ul class="nav nav-pills nav-fill ">
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang'); ?>">Mutasi Ke Cabang</a>
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Mutasi Ke Cabang</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/'); ?>">Tampil Semua Data Mutasi</a>
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/'); ?>">Tampil Semua Data Mutasi</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/1'); ?>">Mutasi Gudang</a>
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/1'); ?>">Mutasi Gudang</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/2'); ?>">Mutasi Toko Cicalengka</a>
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/2'); ?>">Mutasi Toko Cicalengka</a>
                                 </li>
                                 <li class="nav-item">
 
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_transaksi_barang/mutasi_by_store_id/3'); ?>">Mutasi Toko Ujungberung</a>
+                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/3'); ?>">Mutasi Toko Ujungberung</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    
                     <div class="card-head">
                         <div class="col-md-12 pt-3">
-
-
-
-
-
-
                         </div>
-
                     </div>
 
 
                     <div class="card-body">
-
 
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-sm  table-hover">

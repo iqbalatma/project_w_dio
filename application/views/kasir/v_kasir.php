@@ -55,6 +55,8 @@
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
                                         foreach ($data_customer as $row) {
+                                            // skip nama toko cabang, karena hanya untuk ditampilkan di checkout gudang untuk mutasi produk ke toko cabang
+                                            if (($row['full_name'] == 'Toko Cicalengka') OR ($row['full_name'] == 'Toko Ujung Berung')) continue;
                                         ?>
                                             <option name="id_customer" value="<?= $row['id']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
                                             <?php

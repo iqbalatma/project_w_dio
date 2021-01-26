@@ -47,6 +47,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title font-weight-bold">Pembelian Sukses : INVOICE <?= $cekout['invoice_number'] ?></div>
+                        <div class="card-title">Mutasi ke <?= $namaToko ?></div>
                     </div>
 
 
@@ -124,7 +125,7 @@
 
 
                     <!-- Modal -->
-                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <!-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -154,7 +155,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
 

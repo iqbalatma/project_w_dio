@@ -118,16 +118,9 @@
                                                 echo "{$dt[1]} <br>" . date_format($d, "d-M-Y") ?>
                                             </td>
                                             <td class="px-3">
-
                                                 <div class="form-button-action">
-
-
                                                     <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-primary btn-delete" data-id="<?= $row['id']; ?> <?= $row['transaction_id']; ?> <?= $row['invoice_number'] ?> <?= $row['left_to_paid'] ?>" data-transaction="<?= $row['transaction_id']; ?>" data-xaja="<?= $row['invoice_number'] ?>">Bayar Hutang</a>
-
-
-
                                                 </div>
-
                                             </td>
 
                                         </tr>
