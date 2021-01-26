@@ -66,12 +66,12 @@ class Material_mutation_model extends CI_Model
 
   public function get_transaksi_barang()
   {
-    $this->db->select("material.material_code, material.full_name, store.store_name, product_mutation.mutation_code, product_mutation.quantity, product_mutation.mutation_type, product_mutation.created_at, product_mutation.created_by");
-    $this->db->from("product_mutation");
-    $this->db->join("product", "product_mutation.product_id = material.id");
-    $this->db->join("store", "product_mutation.store_id = store.id");
-    $this->db->where("product_mutation.is_deleted", 0);
-    $this->db->order_by("product_mutation.created_at", "DESC");
+    $this->db->select("material.material_code, material.full_name, store.store_name, material_mutation.mutation_code, material_mutation.quantity, material_mutation.mutation_type, material_mutation.created_at, material_mutation.created_by");
+    $this->db->from("material_mutation");
+    $this->db->join("material", "material_mutation.material_id = material.id");
+    $this->db->join("store", "material_mutation.store_id = store.id");
+    $this->db->where("material_mutation.is_deleted", 0);
+    $this->db->order_by("material_mutation.created_at", "DESC");
     $query = $this->db->get();
 
     return $query->result();

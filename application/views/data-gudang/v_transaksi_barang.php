@@ -32,7 +32,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-transaksi-barang'); ?>">Data Mutasi Barang</a>
+                    <a href="<?= base_url('data-gudang/data-transaksi-barang'); ?>">Data Mutasi Bahan Baku</a>
                 </li>
             </ul>
         </div>
@@ -45,18 +45,18 @@
                         <div class="w-100 mx-auto">
                             <ul class="nav nav-pills nav-fill ">
                                 <li class="nav-item">
-                                    <a class="nav-link border-dark btn-default" href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Mutasi Ke Cabang</a>
+                                    <a class="nav-link border-dark btn-default" href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Checkout Ke Cabang</a>
                                 </li>
-                                <li class="ml-4 nav-item">
+                                <li class="ml-4 nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
                                     <a class="nav-link <?= (getLastSegment() == 'data-transaksi-barang') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/'); ?>">Semua Data Mutasi</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
                                     <a class="nav-link <?= (getLastSegment() == '1') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/1'); ?>">Mutasi Gudang Pusat</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '2' OR $this->session->store_id == '1') ? 'visible' : 'hidden' ?>;">
                                     <a class="nav-link <?= (getLastSegment() == '2') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/2'); ?>">Mutasi Toko Cicalengka</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '2' OR $this->session->store_id == '1') ? 'visible' : 'hidden' ?>;">
                                     <a class="nav-link <?= (getLastSegment() == '3') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/3'); ?>">Mutasi Toko Ujungberung</a>
                                 </li>
                             </ul>

@@ -373,7 +373,7 @@ class Product_mutation_model extends CI_Model
     $this->db->join("product", "product_mutation.product_id = product.id");
     $this->db->join("store", "product_mutation.store_id = store.id");
     $this->db->where("product_mutation.is_deleted", 0);
-    $this->db->order_by("product_mutation.created_at", "DESC");
+    $this->db->order_by("product_mutation.id", "DESC");
     $query = $this->db->get();
 
     return $query->result();
@@ -393,7 +393,7 @@ class Product_mutation_model extends CI_Model
     $this->db->join("store", "product_mutation.store_id = store.id");
     $this->db->where("product_mutation.is_deleted", 0);
     $this->db->where("product_mutation.store_id", $store_id);
-    $this->db->order_by("product_mutation.created_at", "DESC");
+    $this->db->order_by("product_mutation.id", "DESC");
     $query = $this->db->get();
 
     return $query->result();

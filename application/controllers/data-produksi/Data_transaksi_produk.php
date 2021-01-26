@@ -47,7 +47,7 @@ class Data_transaksi_produk extends CI_Controller
           // jika storeid diisi dengan id yg sesuai dengan id di db, maka tampil data per id tersebut
           if ($storeId != FALSE) {
             // $productInventory = $this->pi_m->get_all_by_store_id($storeId, "pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
-            $productMutation = $this->pm_m->get_all_by_store_id($storeId, "pm.id, p.product_code, p.full_name, s.store_name, pm.mutation_code, pm.quantity, pm.mutation_type, pm.created_at, pm.created_by");
+            $productMutation = $this->pm_m->get_all_by_store_id($storeId, "pm.id, p.product_code, p.full_name, s.store_name, pm.mutation_code, pm.quantity, pm.mutation_type, pm.created_at, pm.created_by", 'pm.id', 'DESC');
           } 
           // jika isinya gajelas ya arahin ke default
           else {

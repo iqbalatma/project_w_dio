@@ -129,7 +129,7 @@ class Material_model extends CI_Model
             $this->db->where("material_mutation.is_deleted = 0 AND {$where}");
         }
         
-        $this->db->order_by("material_mutation.created_at", "DESC");
+        $this->db->order_by("material_mutation.id", "DESC");
         $query = $this->db->get();
 
         return $query->result();
@@ -147,7 +147,7 @@ class Material_model extends CI_Model
         $this->db->join("store", "material_mutation.store_id = store.id");
         $this->db->where("material_mutation.is_deleted", 0);
         $this->db->where("material_mutation.store_id", $store_id);
-        $this->db->order_by("material_mutation.created_at", "DESC");
+        $this->db->order_by("material_mutation.id", "DESC");
         $query = $this->db->get();
 
         return $query->result();

@@ -33,7 +33,7 @@ class Data_transaksi_barang extends CI_Controller
             'content'           => 'data-gudang/v_transaksi_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_transaksi_barang' => $this->Product_mutation_model->get_transaksi_barang(),
+            'data_transaksi_barang' => $this->Material_model->get_transaksi_barang(),
 
             'datatables' => 1
         ];

@@ -32,7 +32,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Master Barang Mentah</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Master Bahan Baku</a>
                 </li>
             </ul>
         </div>
@@ -62,10 +62,8 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="30px">Kode Bahan</th>
+                                        <th class="px-3 text-center" width="30px">Kode Bahan</th>
                                         <th class="px-3">Nama Bahan</th>
-                                        <!-- <th class="px-3">Volume</th>
-                                        <th class="px-3">Satuan</th> -->
                                         <th class="px-3">Harga</th>
                                         <th class="px-3">Gambar</th>
 
@@ -75,10 +73,8 @@
                                 <tfoot class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="30px">Kode Bahan</th>
+                                        <th class="px-3 text-center" width="30px">Kode Bahan</th>
                                         <th class="px-3">Nama Bahan</th>
-                                        <!-- <th class="px-3">Volume</th>
-                                        <th class="px-3">Satuan</th> -->
                                         <th class="px-3">Harga</th>
                                         <th class="px-3">Gambar</th>
                                         <th class="px-3" style="width: 10%">Aksi</th>

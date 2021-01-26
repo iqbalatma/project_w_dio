@@ -90,17 +90,17 @@ $mainMenu = array(
     'submenu' => array(
       [
         'hasAccess' => role_access($this->session->role_id, [$_role_1]),
-        'name'  => 'Data Barang Mentah',
+        'name'  => 'Data Bahan Baku',
         'slug'  => 'data-barang-mentah',
         'url'   => "{$_data_gudang}/data-barang-mentah",
       ], [
         'hasAccess' => role_access($this->session->role_id, [$_role_1]),
-        'name'  => 'Data Inventory Barang Mentah',
+        'name'  => 'Data Inventory Bahan Baku',
         'slug'  => 'data-inventory-barang-mentah',
         'url'   => "{$_data_gudang}/data-inventory-barang-mentah",
       ], [
         'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2]),
-        'name'  => 'Data Mutasi Barang',
+        'name'  => 'Data Mutasi Bahan Baku',
         'slug'  => 'data-transaksi-barang',
         'url'   => "{$_data_gudang}/data-transaksi-barang",
       ], [
