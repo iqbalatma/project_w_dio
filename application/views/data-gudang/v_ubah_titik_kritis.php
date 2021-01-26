@@ -1,7 +1,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Gudang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -12,13 +12,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Barang</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>">Inventory Barang</a>
+                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>">Inventory Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
@@ -35,7 +35,7 @@
                     $attributes = ['id' => 'form_barang_kimia'];
                     echo form_open_multipart('data-gudang/Data_inventory_barang_mentah/update', $attributes); ?>
                     <div class="card-header">
-                        <div class="card-title">Form Tambah Data</div>
+                        <div class="card-title">Form Ubah Data</div>
                     </div>
 
                     <div class="card-body">
@@ -43,12 +43,12 @@
                             <div class="col-md-12">
                                 <input type="hidden" name="id" class="id" value="<?= $data_form[0]->material_id; ?>"></input>
                                 <div class="form-group">
-                                    <label for="material">Kode Bahan</label>
+                                    <label for="material">Kode Bahan Baku</label>
                                     <input type="text" class="form-control material" id="material" placeholder="Masukkan kode bahan" name="material" readonly value="<?= $data_form[0]->material_code; ?>">
                                     <?= form_error('material', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="fullname">Nama Bahan</label>
+                                    <label for="fullname">Nama Bahan Baku</label>
                                     <input type="text" class="form-control fullname" id="fullname" placeholder="Masukkan nama bahan" name="fullname" readonly value="<?= $data_form[0]->full_name; ?>">
                                     <?= form_error('fullname', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
@@ -68,9 +68,8 @@
                         </div>
                     </div>
                     <div class="card-action">
-
-                        <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
-                        <button type="submit" name="submit" class="btn btn-primary" id="submit_barang_kimia">Ubah Data</button>
+                        <button type="submit" name="submit" class="btn btn-success" id="submit_barang_kimia">Simpan</button>
+                        <a href="<?= base_url('data-gudang/data-inventory-barang-mentah'); ?>" type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</a>
                     </div>
                     <?= form_close(); ?>
                 </div>

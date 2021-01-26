@@ -17,7 +17,7 @@
         <div class="page-header">
 
 
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Gudang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -28,63 +28,54 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Barang</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>">Inventory Barang</a>
+                    <a href="<?= base_url('data-gudang/data-inventory-barang-mentah'); ?>">Inventory Bahan Baku</a>
                 </li>
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="w-75 mx-auto">
+
+                    <div class="card-header py-4">
+                        <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-insert'); ?>" type="button">Tambah Data</a>
+                        <!-- <div class="w-25 mr-auto">
                             <ul class="nav nav-pills nav-fill ">
                                 <li class="nav-item">
-                                    <a class=" px-3 btn btn-success rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Barang</a>
+                                    <a class="nav-link border-dark btn-default" href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-insert'); ?>">Update Stok Bahan Baku</a>
+                                </li>
+                                <li class="ml-4 nav-item">
+                                    <a class="nav-link <?= (getLastSegment() == 'data-inventory-barang-mentah') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-inventory-barang-mentah/'); ?>">Semua Data Inventory</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/'); ?>">Tampil Semua Data Inventory</a>
+                                    <a class="nav-link <?= (getLastSegment() == '1') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-data-by-store/1'); ?>">Data Inventory Gudang</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/1'); ?>">Tampil Inventory Gudang</a>
+                                    <a class="nav-link <?= (getLastSegment() == '2') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-data-by-store/2'); ?>">Data Inventory Cicalengka</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Cicalengka</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_data_by_store/3'); ?>">Tampil Inventory Ujungberung</a>
+                                    <a class="nav-link <?= (getLastSegment() == '3') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-data-by-store/3'); ?>">Data Inventory Ujungberung</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
-                    <?php
 
-                    $date = new DateTime(null, new DateTimeZone('Asia/Jakarta'));
-
-
-
-
-                    ?>
-
-
-
+                    <?php $date = new DateTime(null, new DateTimeZone('Asia/Jakarta')); ?>
 
                     <div class="card-body">
-
 
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-sm  table-hover">
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="30px">Kode Bahan</th>
-                                        <th class="px-3">Nama Bahan</th>
-
+                                        <th class="px-3 text-center" width="30px">Kode Bahan</th>
+                                        <th class="px-3">Nama Bahan Baku</th>
                                         <th class="px-3">Jumlah</th>
                                         <th class="px-3">Titik Kritis</th>
                                         <th class="px-3">Tanggal Update</th>
@@ -96,9 +87,7 @@
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
                                         <th class="px-3" width="30px">Kode Bahan</th>
-                                        <th class="px-3">Nama Bahan</th>
-
-
+                                        <th class="px-3">Nama Bahan Baku</th>
                                         <th class="px-3">Jumlah</th>
                                         <th class="px-3">Titik Kritis</th>
                                         <th class="px-3">Tanggal Update</th>
@@ -146,7 +135,7 @@
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_update_critical_point/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah Critical Point" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?= base_url('data-gudang/data-inventory-barang-mentah/v_update_critical_point/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah Critical Point" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -156,11 +145,6 @@
                         </div>
 
                     </div>
-
-
-
-
-
 
 
 

@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Gudang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -48,10 +48,10 @@
                                     <a class="nav-link border-dark btn-default" href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Mutasi Ke Cabang</a>
                                 </li>
                                 <li class="ml-4 nav-item">
-                                    <a class="nav-link <?= (getLastSegment() == 'data-transaksi-barang') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/'); ?>">Tampil Semua Data Mutasi</a>
+                                    <a class="nav-link <?= (getLastSegment() == 'data-transaksi-barang') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/'); ?>">Semua Data Mutasi</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link <?= (getLastSegment() == '1') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/1'); ?>">Mutasi Gudang</a>
+                                    <a class="nav-link <?= (getLastSegment() == '1') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/1'); ?>">Mutasi Gudang Pusat</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link <?= (getLastSegment() == '2') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/mutasi-by-store-id/2'); ?>">Mutasi Toko Cicalengka</a>
@@ -111,7 +111,7 @@
                                                 <?= $i++ ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row->product_code ?>
+                                                <?= $row->material_code ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row->full_name ?>
@@ -166,7 +166,7 @@
                                 </div>
                                 <?php
                                 $attributes = ['id' => 'form_barang_masuk'];
-                                echo form_open_multipart('data-gudang/Data_barang_masuk/insert', $attributes); ?>
+                                echo form_open_multipart('data-gudang/data-barang-masuk/insert', $attributes); ?>
 
 
                                 <div class="modal-body">
@@ -234,11 +234,11 @@
                                     <h4>Yakin Ingin Menghapus Data ?</h4>
                                 </div>
 
-                                <form action="<?= base_url('data-gudang/Data_barang_mentah/delete'); ?>" method="POST">
+                                <form action="<?= base_url('data-gudang/data-barang-mentah/delete'); ?>" method="POST">
                                     <div class="modal-footer">
                                         <input type="hidden" name="id" class="id"></input>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
-                                        <button class="btn btn-primary">Hapus Data</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                        <button class="btn btn-outline-primary">Hapus Data</button>
                                     </div>
                                 </form>
 

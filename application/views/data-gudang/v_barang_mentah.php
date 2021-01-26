@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Gudang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -26,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Barang</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Barang Mentah</a>
+                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Master Barang Mentah</a>
                 </li>
             </ul>
         </div>
@@ -41,19 +41,17 @@
                 <div class="card">
 
 
-                    <div class="card-header">
-                        <div class="pt-3">
-                            <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_mentah/v_insert'); ?>" type="button">Tambah Data</a>
+                    <div class="card-header py-4">
+                        <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_mentah/v_insert'); ?>" type="button">Tambah Data</a>
 
-                            <div class="btn-group dropleft float-right" data-toggle="tooltip" title="Opsi">
-                                <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-pdf mr-2 text-danger"></i>Export to PDF</a>
-                                    <!-- <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-excel mr-2 text-success"></i>Generate Excel</a> -->
-                                </div>
+                        <div class="mt-1 btn-group dropleft float-right" data-toggle="tooltip" title="Opsi">
+                            <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="h2"><i class="fas fa-ellipsis-v text-info"></i></span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-pdf mr-2 text-danger"></i>Export to PDF</a>
+                                <!-- <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="<?= base_url("generate-report/pdf/export?mode=all&menu=master_bahan_mentah") ?>" target=_blank><i class="fas fa-file-excel mr-2 text-success"></i>Generate Excel</a> -->
                             </div>
                         </div>
                     </div>
@@ -150,8 +148,8 @@
             <form action="<?= base_url('data-gudang/Data_barang_mentah/delete'); ?>" method="POST">
                 <div class="modal-footer">
                     <input type="hidden" name="id" class="id"></input>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
-                    <button class="btn btn-primary">Hapus Data</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-outline-warning">Hapus Data</button>
                 </div>
             </form>
 

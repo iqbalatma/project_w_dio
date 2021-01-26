@@ -1044,6 +1044,10 @@ class Kasir_model extends CI_Model
         // ============================================================ [7] MULAI SIAPKAN DATA-DATA UNTUK KAS ===================
 
 
+        // NOTE: harusnya gaakan pernah masuk sini sih
+        // karena defaultnya kontrabon yg artinya paid_amount selalu 0
+        // tapi siapa tau maintenance dan siapa pun yg benerin, bisa pake script di bawah
+        // udah ready sebenernya, gausa otak atik apa2 di sini, tinggal di enable buat bayar cash aja
         if ($data['paid_amount'] > 0)
         {
             // load model kas untuk update kas di cekout

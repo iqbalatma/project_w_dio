@@ -24,18 +24,15 @@ class Kasir extends CI_Controller
             'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer'     => $this->Customer_model->get_all_by_store_id_sort_by_name("*", $this->session->store_id),
-            // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
             'data_product'      => $this->Product_model->get_all_inventory('p.id, p.product_code, p.full_name, p.unit, p.volume, p.selling_price, p.reseller_price, pi.quantity, pi.critical_point', $this->session->store_id),
             'select2'           => 1,
         ];
-        // pprintd($data['data_product']);
         // pprintd($data['data_product']);
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
     public function konfirmasi_kasir()
     {
-        start_time(microtime(TRUE), 'kasir');
         $post = $this->input->post();
 
         // cek apakah tombol cekout ditekan tanpa memilih satupun produk
@@ -51,9 +48,6 @@ class Kasir extends CI_Controller
         // sort array quantity produk dari kecil ke terbesar ambil indek pertama dan terakhir, kemudian cek
         // jika
         $__qty   = $post['quantity'];
-        // sort($__qty);
-        // $isZero    = $__qty[0];
-        // $notZero = end($__qty);
         $isZero = array_search(0, $__qty);
         // cek apakah array pertama yg udh disort bernilai 0, jika iya keluar karena ada produk yg qty == 0
         if ($isZero !== FALSE) {
@@ -165,11 +159,8 @@ class Kasir extends CI_Controller
             'data_customer'     => $data_customer,
             'data_product'      => $data_product,
             'checkbox_value'    => $checkbox_value,
-            // 'customer_id' => $customer_id,
             'address'           => $address,
             'phone'             => $phone,
-            // 'quantity'          => $quantity,
-            // 'custom_harga'      => $custom_harga,
             'datatables'        => 1
         ];
 
@@ -254,19 +245,15 @@ class Kasir extends CI_Controller
             'content'           => 'kasir/v_kembalian.php',
             'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
-            // 'data_customer' => $this->Customer_model->get_all(),
-            // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
-            // 'data_product' => $this->Product_model->get_all2(),
             'datatables' => 1,
             'id_invoice' => $id_invoice,
             'kembalian' => $kembalian,
 
-            // dio
+            // dio (ini dipake ; 26-01-2021)
             'cekout' => $this->session->dari_insert_dio,
         ];
 
         $this->load->view('template_dashboard/template_wrapper', $data);
-        end_time('kasir');
     }
 
 

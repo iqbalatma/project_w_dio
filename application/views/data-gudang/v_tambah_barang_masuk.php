@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Gudang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -26,19 +26,19 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Barang</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>">Inventory Barang</a>
+                    <a href="<?= base_url('data-gudang/data-inventory-barang-mentah'); ?>">Inventory Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/v_insert'); ?>">Ubah Kuantitas Inventory Barang</a>
+                    <a href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-insert'); ?>">Perbarui Kuantitas Inventory Bahan Baku</a>
                 </li>
             </ul>
         </div>
@@ -48,15 +48,15 @@
 
 
                     <div class="card-header">
-                        <div class="card-title">Form Tambah Data</div>
+                        <div class="card-title">Form Perbarui Data</div>
                     </div>
                     <div class="card-body">
 
                         <?php
                         $attributes = ['id' => 'form_barang_masuk'];
-                        echo form_open_multipart('data-gudang/Data_inventory_barang_mentah/insert', $attributes); ?>
+                        echo form_open_multipart('data-gudang/data-inventory-barang-mentah/insert', $attributes); ?>
                         <div class="form-group">
-                            <label for="material_id">Kode Bahan</label>
+                            <label for="material_id">Kode - Nama Bahan Baku</label>
                             <select class="form-control material_id" id="material_id" name="material_id">
                                 <?php foreach ($data_barang_kimia as $row) {
                                 ?>
@@ -69,7 +69,7 @@
                             <?= form_error('material_code', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">
-                            <label for="store">Lokasi</label>
+                            <label for="store">Lokasi Penyimpanan</label>
                             <input type="text" class="form-control store    " name="store" id="store" value="Gudang Pusat" readonly disabled>
                         </div>
 
@@ -104,9 +104,9 @@
                         <div id="alert-msg"></div>
                     </div>
                     <div class="card-action">
+                        <button type="submit" name="submit" id="submit_barang_masuk" class="btn btn-success">Simpan</button>
                         <input type="hidden" name="id" class="id"></input>
-                        <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah/'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
-                        <button type="submit" name="submit" id="submit_barang_masuk" class="btn btn-primary">Masukkan Barang</button>
+                        <a href="<?= base_url('data-gudang/data-inventory-barang-mentah/'); ?>" type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</a>
                     </div>
                     <?= form_close(); ?>
                 </div>
@@ -128,7 +128,7 @@
             </div>
             <?php
             $attributes = ['id' => 'form_barang_masuk'];
-            echo form_open_multipart('data-gudang/Data_inventory_barang_mentah/insert', $attributes); ?>
+            echo form_open_multipart('data-gudang/data-inventory-barang-mentah/insert', $attributes); ?>
 
 
             <div class="modal-body">

@@ -17,7 +17,7 @@
         <div class="page-header">
 
 
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Gudang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -28,13 +28,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Barang</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_laku'); ?>">Data Barang Laku</a>
+                    <a href="<?= base_url('data-gudang/data-barang-laku'); ?>">Data Produk Laku</a>
                 </li>
             </ul>
         </div>
@@ -50,6 +50,22 @@
                     <div class="card-header">
                         <div class="w-75 mx-auto">
                             <ul class="nav nav-pills nav-fill ">
+                                <li class="ml-4 nav-item">
+                                    <a class="nav-link <?= (getLastSegment() == 'data-barang-laku') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-barang-laku/'); ?>">Semua Data</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= (getLastSegment() == '1') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-barang-laku/v-by-store/1'); ?>">Data Gudang Pusat</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= (getLastSegment() == '2') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-barang-laku/v-by-store/2'); ?>">Data Toko Cicalengka</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= (getLastSegment() == '3') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-barang-laku/v-by-store/3'); ?>">Data Toko Ujungberung</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="w-75 mx-auto">
+                            <ul class="nav nav-pills nav-fill ">
                                 <li class="nav-item">
                                     <a class="px-3 btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_laku/'); ?>">Tampil Semua Data</a>
                                 </li>
@@ -64,7 +80,7 @@
                                 </li>
 
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
 
 

@@ -1,7 +1,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data Gudang</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -12,19 +12,19 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Barang</a>
+                    <a href="#">Data Gudang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Barang Mentah</a>
+                    <a href="<?= base_url('data-gudang/data-barang-mentah'); ?>">Data Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah/v_insert'); ?>">Tambah Barang Mentah</a>
+                    <a href="<?= base_url('data-gudang/data-barang-mentah/v-insert'); ?>">Tambah Bahan Baku</a>
                 </li>
             </ul>
         </div>
@@ -33,7 +33,7 @@
                 <div class="card">
                     <?php
                     $attributes = ['id' => 'form_barang_kimia'];
-                    echo form_open_multipart('data-gudang/Data_barang_mentah/insert', $attributes); ?>
+                    echo form_open_multipart('data-gudang/data-barang-mentah/insert', $attributes); ?>
                     <div class="card-header">
                         <div class="card-title">Form Tambah Data</div>
                     </div>
@@ -81,9 +81,9 @@
                         </div>
                     </div>
                     <div class="card-action">
+                        <button type="submit" name="submit" class="btn btn-success" id="submit_barang_kimia">Simpan</button>
                         <input type="hidden" name="id" class="id"></input>
-                        <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Keluar</a>
-                        <button type="submit" name="submit" class="btn btn-primary" id="submit_barang_kimia">Tambah Data</button>
+                        <a href="<?= base_url('data-gudang/data-barang-mentah'); ?>" type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</a>
                     </div>
                     <?= form_close(); ?>
                 </div>
