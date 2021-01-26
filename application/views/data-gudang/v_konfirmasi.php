@@ -153,6 +153,7 @@
                                 foreach ($data_product as $row) {
                                     echo '<input type="hidden" name="checkbox_value[]" value="' . $row['id'] . '">';
                                 };
+                                echo $data_customer->full_name;
                                 echo '<input type="hidden" name="customer_id" value="' . $data_customer->id . '">';
                                 echo '<input type="hidden" name="address" value="' . $address . '">';
                                 echo '<input type="hidden" name="phone" value="' . $phone . '">';

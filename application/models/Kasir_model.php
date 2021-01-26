@@ -853,7 +853,8 @@ class Kasir_model extends CI_Model
             'trans_number'  => $transNumber,
             'deliv_address' => $data['deliv_address'],
             'price_total'   => $data['total_harga'],
-            'store_id'      => $data['store_id'],
+            // 'store_id'      => $data['store_id'],
+            'store_id'      => $id_toko,
             'customer_id'   => $data['data_customer']['id'],
             'employee_id'   => $data['employee_id'],
             'due_at'        => $dueAt,
@@ -937,7 +938,8 @@ class Kasir_model extends CI_Model
 
             $data_product_mutation = [
                 'product_id'    => $row['id'],
-                'store_id'      => $data['store_id'],
+                // 'store_id'      => $data['store_id'],
+                'store_id'      => $id_toko,
                 'mutation_code' => $__productMutationCode,
                 'quantity'      => $row['kasir_qty'],
                 'mutation_type' => $arr['mutation_type'],
@@ -1048,7 +1050,7 @@ class Kasir_model extends CI_Model
 
             $data_material_mutation = [
                 'material_id'   => $row['material_id'],
-                'store_id'      => $data['store_id'],
+                'store_id'      => $id_toko,
                 'mutation_code' => $__materialMutationCode,
                 'quantity'      => $row['mutation_qty'],
                 'mutation_type' => $arr['mutation_type'],
@@ -1223,7 +1225,7 @@ class Kasir_model extends CI_Model
             $this->db->set("updated_at", "{$createdAt}");
             $this->db->set("updated_by", "{$data['username']}");
             $this->db->where('product_id', "{$row['id']}");
-            $this->db->where('store_id', "{$data['store_id']}");
+            $this->db->where('store_id', "{$id_toko}");
             $this->db->update();
 
             $cek_data = $this->db->get_where($tb_product_inventory, array('product_id' => $row['id'], 'store_id' => $id_toko))->result();

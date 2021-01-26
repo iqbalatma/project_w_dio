@@ -244,6 +244,19 @@ class Customer_model extends CI_Model
     }
     return FALSE;
   }
+  public function get_by_name($name, $select = '*')
+  {
+    // get from table
+    $this->db->select($select);
+    $this->db->from($this->table);
+    $this->db->where('full_name', $name);
+    $this->db->where('is_deleted', 0);
+    $query = $this->db->get();
+    if ($query->num_rows() == 1) {
+      return $query->row();
+    }
+    return FALSE;
+  }
   public function get_toko_cabang($select = '*', $enableGudang = NULL)
   {
     // get from table
@@ -251,11 +264,11 @@ class Customer_model extends CI_Model
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);
-    $this->db->where('full_name', 'Toko Cicalengka');
-    $this->db->or_where('full_name', 'Toko Ujung Berung');
+    $this->db->where('full_name', 'Toko Cabang Cicalengka');
+    $this->db->or_where('full_name', 'Toko Cabang Ujung Berung');
 
     if ($enableGudang == TRUE) $this->db->or_where('full_name', 'Gudang Pusat');
-    
+
     $this->db->order_by('full_name', 'ASC');
     $query = $this->db->get();
     if ($query->num_rows() > 0) {

@@ -96,7 +96,7 @@ class Product_mutation_model extends CI_Model
     $this->db->where("pm.is_deleted", 0);
     $this->db->order_by($orderBy, $ascDesc);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
@@ -363,5 +363,43 @@ class Product_mutation_model extends CI_Model
 
     $mutationCode = "{$codeNum}/{$itemCode}/{$mutationCode}/{$dateCode}";
     return $mutationCode;
+  }
+
+  public function get_transaksi_barang()
+  {
+    // get from tb_department
+    $this->db->select("product.product_code, product.full_name, store.store_name, product_mutation.mutation_code, product_mutation.quantity, product_mutation.mutation_type, product_mutation.created_at, product_mutation.created_by");
+    $this->db->from("product_mutation");
+    $this->db->join("product", "product_mutation.product_id = product.id");
+    $this->db->join("store", "product_mutation.store_id = store.id");
+    $this->db->where("product_mutation.is_deleted", 0);
+    $this->db->order_by("product_mutation.created_at", "DESC");
+    $query = $this->db->get();
+
+    return $query->result();
+    // if ($query->num_rows() == 1) {
+    //     return $query->row();
+    // }
+    // return FALSE;
+  }
+
+
+  public function get_transaksi_barang_by_store_id($store_id)
+  {
+    // get from tb_department
+    $this->db->select("product.product_code, product.full_name, store.store_name, product_mutation.mutation_code, product_mutation.quantity, product_mutation.mutation_type, product_mutation.created_at, product_mutation.created_by");
+    $this->db->from("product_mutation");
+    $this->db->join("product", "product_mutation.product_id = product.id");
+    $this->db->join("store", "product_mutation.store_id = store.id");
+    $this->db->where("product_mutation.is_deleted", 0);
+    $this->db->where("product_mutation.store_id", $store_id);
+    $this->db->order_by("product_mutation.created_at", "DESC");
+    $query = $this->db->get();
+
+    return $query->result();
+    // if ($query->num_rows() == 1) {
+    //     return $query->row();
+    // }
+    // return FALSE;
   }
 }

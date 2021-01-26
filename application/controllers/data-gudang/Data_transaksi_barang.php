@@ -14,7 +14,7 @@ class Data_transaksi_barang extends CI_Controller
         parent::__construct();
         must_login();
         // hanya untuk pemilik dan gudang
-        role_validation($this->session->role_id, ['1','2']);
+        role_validation($this->session->role_id, ['1', '2']);
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
@@ -27,6 +27,7 @@ class Data_transaksi_barang extends CI_Controller
         $this->load->model("Customer_model");
         $this->load->model("Kasir_model");
         $this->load->model("Product_model");
+        $this->load->model("Product_mutation_model");
     }
 
     public function index()
@@ -36,11 +37,12 @@ class Data_transaksi_barang extends CI_Controller
             'content'           => 'data-gudang/v_transaksi_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_transaksi_barang' => $this->Material_model->get_transaksi_barang("material_mutation.mutation_type = 'masuk'"),
+            'data_transaksi_barang' => $this->Product_mutation_model->get_transaksi_barang(),
+
             'datatables' => 1
         ];
 
-        if ( role_access($this->session->role_id, ['1']) ) {
+        if (role_access($this->session->role_id, ['1'])) {
             $data['data_transaksi_barang'] = $this->Material_model->get_transaksi_barang();
         }
 
@@ -53,7 +55,7 @@ class Data_transaksi_barang extends CI_Controller
             'content'           => 'data-gudang/v_transaksi_barang.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_transaksi_barang' => $this->Material_model->get_transaksi_barang_by_store_id($store_id),
+            'data_transaksi_barang' => $this->Product_mutation_model->get_transaksi_barang_by_store_id($store_id),
 
             'datatables' => 1
         ];
@@ -250,7 +252,7 @@ class Data_transaksi_barang extends CI_Controller
             $this->session->set_flashdata('failed_message', 1);
             $this->session->set_flashdata('title', "Pembelanjaan kosong!");
             $this->session->set_flashdata('text', 'Mohon cek kembali sesi belanja anda.');
-            redirect(base_url(getBeforeLastSegment($this->modules)));
+            redirect(base_url("data-gudang/data-transaksi-barang/v_mutasi_ke_cabang"));
         }
         // pprintd($post);
 
@@ -290,7 +292,9 @@ class Data_transaksi_barang extends CI_Controller
         // pprintd($productQuery);
 
         // get data dari db yg dibutuhkan, dari tabel customer dan produk yg relevan dengan environment ketika cekout
-        $data_customer      = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
+        // $data_customer      = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
+        $data_customer      = $this->Customer_model->get_by_name($customer_id, 'id, full_name, address, phone, cust_type');
+
         $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
 
         // build array yg isinya hanya kode product untuk keperluan where clause di db ketika get harga custom

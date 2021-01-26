@@ -11,7 +11,7 @@ class Invoice_model extends CI_Model
   var $table  = 'invoice';
   var $tb_trx = 'transaction';
 
-//  ===============================================GETTER===============================================
+  //  ===============================================GETTER===============================================
   /**
    * 
    * Get all rows from certain table
@@ -27,7 +27,7 @@ class Invoice_model extends CI_Model
     $this->db->from("{$this->table}");
     $this->db->order_by("id", 'DESC');
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
@@ -49,7 +49,7 @@ class Invoice_model extends CI_Model
     $this->db->join("{$this->tb_trx} AS t", "t.id=i.transaction_id");
     $this->db->order_by("i.id", 'DESC')->limit(300);
     $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
+    if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
@@ -60,7 +60,7 @@ class Invoice_model extends CI_Model
     $datestring = '%Y-%m-%d';
     $time = time();
     $currentDate = mdate($datestring, $time);
-    
+
     $query = $this->db->query("
       SELECT COUNT(created_at) AS total
       FROM invoice
@@ -82,7 +82,7 @@ class Invoice_model extends CI_Model
     $datestring = '%Y-%m-%d';
     $time = time();
     $currentDate = mdate($datestring, $time);
-    
+
     $query = $this->db->query("
       SELECT invoice.left_to_paid AS total_hutang FROM invoice, 
       (
@@ -97,7 +97,7 @@ class Invoice_model extends CI_Model
       AND YEAR(created_at) = YEAR('{$currentDate}')
       ORDER BY invoice.id  DESC
     ");
-    
+
     if ($query->num_rows() > 0) {
       $totalDebt = 0;
       foreach ($query->result_array() as $row) {
@@ -109,4 +109,38 @@ class Invoice_model extends CI_Model
   }
 
 
+  public function get_total_debt2()
+  {
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $currentDate = mdate($datestring, $time);
+
+    $query = $this->db->query("
+      SELECT left_to_paid AS total_hutang FROM invoice
+      WHERE left_to_paid != 0
+      GROUP BY transaction_id DESC
+    ");
+
+    if ($query->num_rows() > 0) {
+      $totalDebt = 0;
+      foreach ($query->result_array() as $row) {
+        $totalDebt = $totalDebt + $row['total_hutang'];
+      }
+      return $totalDebt;
+    }
+    return FALSE;
+  }
+
+
+  public function get_hutang($transaction_id)
+  {
+    $query = $this->db->query("
+    SELECT * FROM invoice WHERE transaction_id = $transaction_id ORDER BY created_at DESC LIMIT 1
+    ");
+
+    if ($query->num_rows() == 1) {
+      return $query->row();
+    }
+    return FALSE;
+  }
 }

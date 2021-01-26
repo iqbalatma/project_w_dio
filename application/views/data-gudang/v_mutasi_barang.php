@@ -62,7 +62,7 @@
                                         $jsArray = "var prdName = new Array();\n";
                                         foreach ($data_customer as $row) {
                                         ?>
-                                            <option name="id_customer" value="<?= $row['id']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
+                                            <option name="id_customer" value="<?= $row['full_name']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
                                             <?php
                                             $jsArray .= "prdName['" . $row['id'] . "'] = {alamat_pelanggan:'" . addslashes($row['address']) . "',phone:'" . addslashes($row['phone']) . "'};\n";
                                             ?>
