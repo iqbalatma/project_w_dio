@@ -362,8 +362,8 @@ class Data_transaksi_barang extends CI_Controller
         $data = [
             'title'             => 'Kasir',
             'content'           => 'data-gudang/v_konfirmasi.php',
-            'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer'     => $data_customer,
             'data_product'      => $data_product,
             'checkbox_value'    => $checkbox_value,
@@ -408,7 +408,9 @@ class Data_transaksi_barang extends CI_Controller
 
         $cekoutData['paid_amount']  = $post['paid_amount'];
         $cekoutData['total_harga']  = $post['total_harga'];
-        $cekoutData['nama_toko'] = $post['customer'];
+        $cekoutData['nama_toko']    = $post['nama_pelanggan'];
+
+        // pprintd($cekoutData);
 
         // seluruh proses checkout di satu baris ini, termasuk interaksi dengan 7 tabel di database
         // return array yg (hanya) berisi invoice id, nomor invoice terbaru, dan due_at
@@ -459,13 +461,14 @@ class Data_transaksi_barang extends CI_Controller
             'title'             => 'Gudang',
             'content'           => 'data-gudang/v_kembalian.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-mutasi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-transaksi-barang', // harus selalu ada, buat indikator sidebar menu yg aktif
             // 'data_customer' => $this->Customer_model->get_all(),
             // 'data_product' => $this->Product_model->get_by_store_id($_SESSION['store_id']),
             // 'data_product' => $this->Product_model->get_all2(),
             'datatables' => 1,
             'id_invoice' => $id_invoice,
-            'kembalian' => $kembalian,
+            'kembalian'  => $kembalian,
+            'namaToko'   => $nama_toko,
 
             // dio
             'cekout' => $this->session->dari_insert_dio,

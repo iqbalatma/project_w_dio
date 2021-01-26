@@ -262,7 +262,7 @@ class Kasir_model extends CI_Model
     public function get_hutang()
     {
         $id_toko = $_SESSION['store_id'];
-        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id,transaction.store_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.status = '0' AND left_to_paid > 0 AND transaction.store_id = $id_toko");
+        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id,transaction.store_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.status = '0' AND left_to_paid > 0 AND transaction.store_id = $id_toko ORDER BY invoice.id DESC");
 
         $row = $query->result_array();
 
@@ -335,39 +335,39 @@ class Kasir_model extends CI_Model
 
 
     // public function get_product_inventory($id_product)
-    // {
-    //     $this->db->select('*');
-    //     $this->db->from('material_inventory');
-    //     $this->db->where("material_id", $id_material);
-    //     $this->db->where('store_id', $store_id);
-    //     $query = $this->db->get();
+        // {
+        //     $this->db->select('*');
+        //     $this->db->from('material_inventory');
+        //     $this->db->where("material_id", $id_material);
+        //     $this->db->where('store_id', $store_id);
+        //     $query = $this->db->get();
 
-    //     if ($query->num_rows() > 0) {
-    //         return $query->result_array();
-    //     }
-    //     return FALSE;
-    // }
+        //     if ($query->num_rows() > 0) {
+        //         return $query->result_array();
+        //     }
+        //     return FALSE;
+        // }
 
-    // public function cek_inventory2($id_material, $store_id)
-    // {
-    //     // $query = $this->db->query("SELECT * FROM material_inventory WHERE material_id = $id_material");
-    //     // $store_id = $_SESSION['store_id'];
-    //     $this->db->select('*');
-    //     $this->db->from('material_inventory');
-    //     $this->db->where("material_id", $id_material);
-    //     $this->db->where('store_id', $store_id);
-    //     $query = $this->db->get();
+        // public function cek_inventory2($id_material, $store_id)
+        // {
+        //     // $query = $this->db->query("SELECT * FROM material_inventory WHERE material_id = $id_material");
+        //     // $store_id = $_SESSION['store_id'];
+        //     $this->db->select('*');
+        //     $this->db->from('material_inventory');
+        //     $this->db->where("material_id", $id_material);
+        //     $this->db->where('store_id', $store_id);
+        //     $query = $this->db->get();
 
-    //     if ($query->num_rows() > 0) {
-    //         return $query->result_array();
-    //     }
-    //     return FALSE;
-    //     // return $query->result_array();
+        //     if ($query->num_rows() > 0) {
+        //         return $query->result_array();
+        //     }
+        //     return FALSE;
+        //     // return $query->result_array();
 
-    //     // $row = $query->result_array();
+        //     // $row = $query->result_array();
 
-    //     // pprintd($row);
-    //     // return $row;
+        //     // pprintd($row);
+        //     // return $row;
     // }
 
 
@@ -598,7 +598,8 @@ class Kasir_model extends CI_Model
         $tb_product_inventory   = 'product_inventory';
         $tb_kas                 = 'kas';
 
-        $this->db->trans_start();
+        $this->db->trans_start(TRUE);
+        // $this->db->trans_start();
 
         // set waktu awal untuk method ini
         $now          = now();
@@ -759,27 +760,31 @@ class Kasir_model extends CI_Model
         // ============================================================ [6] MULAI SIAPKAN DATA-DATA UNTUK KAS ===================
 
 
-        // load model kas untuk update kas di cekout
-        $this->load->model('Kas_model', 'kas_m');
+        if ($data['paid_amount'] > 0)
+        {
+            // load model kas untuk update kas di cekout
+            $this->load->model('Kas_model', 'kas_m');
+            
 
-        $leftToPaid  = $data['total_harga'] - $data['paid_amount'];
+            $leftToPaid  = $data['total_harga'] - $data['paid_amount'];
 
-        if ($data['paid_amount'] > $data['total_harga']) {
-            $price_final = $data['total_harga'];
-        } else {
-            $price_final = $data['paid_amount'];
+            if ($data['paid_amount'] > $data['total_harga']) {
+                $price_final = $data['total_harga'];
+            } else {
+                $price_final = $data['paid_amount'];
+            }
+
+            $data_kas = [
+                'add-type'       => 'debet',
+                'add-nominal'    => $price_final,
+                'add-perihal'    => "Checkout: INV {$invoiceNumber}",
+                'add-keterangan' => "Total harga:{$data['total_harga']} ; Total bayar:{$data['paid_amount']} ; Sisa harus dibayar:{$leftToPaid} ; Oleh:{$data['username']}",
+                'add-date'       => $createdAt,
+                'created_by'     => $data['username'],
+            ];
+
+            $isKasSuccess = $this->kas_m->set_new_kas($data_kas);
         }
-
-        $data_kas = [
-            'add-type'       => 'debet',
-            'add-nominal'    => $price_final,
-            'add-perihal'    => "Checkout: INV {$invoiceNumber}",
-            'add-keterangan' => "Total harga:{$data['total_harga']} ; Total bayar:{$data['paid_amount']} ; Sisa harus dibayar:{$leftToPaid} ; Oleh:{$data['username']}",
-            'add-date'       => $createdAt,
-            'created_by'     => $data['username'],
-        ];
-
-        $isKasSuccess = $this->kas_m->set_new_kas($data_kas);
 
 
         // ============================================================ SELESAI PERSIAPAN DATA KAS ===================
@@ -820,7 +825,8 @@ class Kasir_model extends CI_Model
         $tb_material_inventory  = 'material_inventory';
         $tb_kas                 = 'kas';
 
-        $this->db->trans_start();
+        // $this->db->trans_start();
+        $this->db->trans_start(TRUE);
 
         // set waktu awal untuk method ini
         $now          = now();
@@ -951,14 +957,18 @@ class Kasir_model extends CI_Model
         ];
         $productMutationCode = $this->__generate_new_mutation_code($now, $arr);
 
-        $container = [];
-        $i = 0;
         $id_toko = 1;
         if ($data['nama_toko'] == "Toko Cicalengka") {
             $id_toko = 2;
-        } else {
+        } elseif ($data['nama_toko'] == "Toko Ujung Berung") {
             $id_toko = 3;
+        } else {
+            set_swal(['failed', 'Toko Cabang Invalid', 'Mohon cek kembali form input, jika masih berlanjut hubungi developer segera.']);
+            redirect(base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'));
         }
+
+        $container = [];
+        $i = 0;
         foreach ($data['data_product'] as $row) {
             // pecah mutation code yang asli, untuk dilooping increment 1 si nomor depannya
             $__exploded     = explode('/', $productMutationCode);
@@ -966,7 +976,6 @@ class Kasir_model extends CI_Model
             $__exploded[0]  = str_pad($__exploded[0], 6, "0", STR_PAD_LEFT);
             // gabungin lagi yang udah dipecah dan diincrement 1
             $__productMutationCode = implode('/', $__exploded);
-
 
             $data_product_mutation = [
                 'product_id'    => $row['id'],
@@ -1112,7 +1121,7 @@ class Kasir_model extends CI_Model
 
         // $isMaterialMutationSuccess = $this->db->insert_batch($tb_material_mutation, $data_material_mutation);
         // ============================================================ SELESAI PERSIAPAN DATA MUTASI MATERIAL ===================
-        // ============================================================ [6] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY MATERIAL ===================
+        // ============================================================ [6] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY PRODUCT ===================
 
 
 
@@ -1177,10 +1186,9 @@ class Kasir_model extends CI_Model
         // ! KERJAIN INI. update: 13/12/20 - 17.00 = udah beres harusnya dua line di bawah nanti dihapus kalo udh gada bug selama bbrp waktu
         // pprintd($data_material_inventory);
         // $isMaterialInventorySuccess = $this->db->insert_batch($tb_material_inventory, $data_material_inventory);
+        
 
-
-        // ============================================================ SELESAI PERSIAPAN DATA INVENTORY MATERIAL ===================
-        // ============================================================ [7] MULAI SIAPKAN DATA-DATA UNTUK KAS ===================
+        
         $tb_product_inventory   = 'product_inventory';
         $container = [];
         $i = 0;
@@ -1231,25 +1239,37 @@ class Kasir_model extends CI_Model
                 $this->db->insert($tb_product_inventory, $data_product_inventory);
             }
         }
-        // load model kas untuk update kas di cekout
-        $this->load->model('Kas_model', 'kas_m');
 
-        $leftToPaid = $data['total_harga'] - $data['paid_amount'];
-        $price_final = $data['paid_amount'];
-        if ($price_final > $data['total_harga']) {
-            $price_final = $data['total_harga'];
+
+        // ============================================================ SELESAI PERSIAPAN DATA INVENTORY PRODUCT ===================
+        // ============================================================ [7] MULAI SIAPKAN DATA-DATA UNTUK KAS ===================
+
+
+        if ($data['paid_amount'] > 0)
+        {
+            // load model kas untuk update kas di cekout
+            $this->load->model('Kas_model', 'kas_m');
+            
+
+            $leftToPaid  = $data['total_harga'] - $data['paid_amount'];
+
+            if ($data['paid_amount'] > $data['total_harga']) {
+                $price_final = $data['total_harga'];
+            } else {
+                $price_final = $data['paid_amount'];
+            }
+
+            $data_kas = [
+                'add-type'       => 'debet',
+                'add-nominal'    => $price_final,
+                'add-perihal'    => "Checkout ke Cabang: INV {$invoiceNumber}",
+                'add-keterangan' => "Total harga:{$data['total_harga']} ; Total bayar:{$data['paid_amount']} ; Sisa harus dibayar:{$leftToPaid} ; Oleh:{$data['username']}",
+                'add-date'       => $createdAt,
+                'created_by'     => $data['username'],
+            ];
+
+            $isKasSuccess = $this->kas_m->set_new_kas($data_kas);
         }
-
-        $data_kas = [
-            'add-type'       => 'debet',
-            'add-nominal'    => $price_final,
-            'add-perihal'    => "Checkout: INV {$invoiceNumber}",
-            'add-keterangan' => "Total harga:{$data['total_harga']} ; Total bayar:{$data['paid_amount']} ; Sisa harus dibayar:{$leftToPaid} ; Oleh:{$data['username']}",
-            'add-date'       => $createdAt,
-            'created_by'     => $data['username'],
-        ];
-
-        // $isKasSuccess = $this->kas_m->set_new_kas($data_kas);
 
 
         // ============================================================ SELESAI PERSIAPAN DATA KAS ===================
@@ -1263,6 +1283,7 @@ class Kasir_model extends CI_Model
             'invoice_id'        => $lastInvoiceId,
             'invoice_number'    => $invoiceNumber,
             'due_at'            => $dueAt,
+            'nama_toko'         => $data['nama_toko'],
         ];
 
 
