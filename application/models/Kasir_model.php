@@ -586,8 +586,8 @@ class Kasir_model extends CI_Model
         $tb_product_inventory   = 'product_inventory';
         $tb_kas                 = 'kas';
 
-        $this->db->trans_start(TRUE);
-        // $this->db->trans_start();
+        // $this->db->trans_start(TRUE);
+        $this->db->trans_start();
 
         // set waktu awal untuk method ini
         $now          = now();

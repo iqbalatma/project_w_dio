@@ -14,6 +14,7 @@ class Surat_jalan extends CI_Controller
 		$this->modules    = "generate-report";
 		$this->controller = "surat-jalan";
 		$this->load->model("Kasir_model");
+		$this->load->model("Meta_model");
 	}
 
 	public function index()
@@ -33,14 +34,7 @@ class Surat_jalan extends CI_Controller
 	{
 		$data_invoice 			= $this->Kasir_model->generate_invoice($id_invoice);
 		$data_invoice_item 	= $this->Kasir_model->generate_invoice_item($id_invoice);
-
-		$fullpath 					= FCPATH . ("assets/img/logo.png");
-		// $fullpath 	= FCPATH.("assets/img/upload/invoice/superadmin_invoicelogo.png");
-		// $type 			= pathinfo($fullpath, PATHINFO_EXTENSION);
-		// $data 			= file_get_contents($fullpath);
-		// $base64 		= 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
+		// pprintd($id_invoice);
 
 		// semua dikonversi ke liter
 		$__mililiter	= 0.001; // dalam liter
@@ -111,6 +105,17 @@ class Surat_jalan extends CI_Controller
 
 		// pprintd($data_invoice_item);
 
+		// get informasi perusahaan
+		$metaData = $this->Meta_model->get_meta_by_id($this->session->store_id, "fullname, address, contact_1, contact_2, logo");
+
+		// pprintd($data_invoice);
+
+		$fullpath 		= FCPATH . ("assets/img/{$metaData->logo}");
+		// $fullpath 	= FCPATH.("assets/img/upload/invoice/superadmin_invoicelogo.png");
+		// $type 			= pathinfo($fullpath, PATHINFO_EXTENSION);
+		// $data 			= file_get_contents($fullpath);
+		// $base64 		= 'data:image/' . $type . ';base64,' . base64_encode($data);
+
 
 
 		$noInvoice 				= $data_invoice[0]['invoice_number'];
@@ -122,17 +127,17 @@ class Surat_jalan extends CI_Controller
 			'noInvoice' 		=> $noInvoice,
 			'custName' 			=> $data_invoice[0]['full_name'],
 			'custLocation' 	=> $data_invoice[0]['address'],
+			'custPhone'		 	=> $data_invoice[0]['phone'],
 			'date' 					=> date_format($date, "d M Y"),
 			'rows'					=> $data_invoice_item, // MASUKIN DARI SESSION KE SINI, NANTI FOREACH DI "GENERATE-REPORT/V_INVOICE.PHP"
 			'totLiter'			=> $totLiter,
 			'tot1Liter' 		=> $tot1Liter,
 			'tot5Liter' 		=> $tot5Liter,
+			'metaData'			=> $metaData,
 		);
 		// $this->load->view('generate-report/v_surat_jalan', $data);
 
-		
-		// echo '<pre>';var_dump($data);die;
-
+		// pprintd($data);
 
 		// view dijadiin raw bukan ditampilin
 		$html = $this->load->view('generate-report/v_surat_jalan', $data, TRUE);
@@ -143,4 +148,12 @@ class Surat_jalan extends CI_Controller
 		// keluarin hasilnya dengan set nama file dan tipe output. INLINE = harusnya tampil di browser ga otomatis donlot
 		$mpdf->Output('SURATJALAN-' . $noInvoice . '-' . mdate('%d%m%y', now()) . '.pdf', \Mpdf\Output\Destination::INLINE);
 	}
+
+
+
+
+
+
+
+
 }

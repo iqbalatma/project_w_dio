@@ -1,8 +1,5 @@
 <?php
-
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
 
 
 
@@ -48,7 +45,6 @@ class Data_hutang_piutang extends CI_Controller
             )
         );
 
-
         if ($this->form_validation->run() == FALSE) 
         {
             $this->session->set_flashdata('message_gagal', validation_errors());
@@ -57,7 +53,6 @@ class Data_hutang_piutang extends CI_Controller
         else 
         {
             $this->db->trans_start();
-
 
             $createdAt      = unix_to_human(now(), true, 'europe');
             $passing_data   = $this->input->post('id');
@@ -198,18 +193,9 @@ class Data_hutang_piutang extends CI_Controller
 
                 $isKasSuccess = $this->kas_m->set_new_kas($data_kas);
             }
-
             // pprintd($data_kas);
 
-            // if ($kembalian > 0) {
-            //     $kembalian = $kembalian;
-            // } else {
-            //     $kembalian = 0;
-            // }
-
-
             $this->db->trans_complete();
-
 
             if ($insert2 == 1 && $edit_invoice == 1) {
                 $this->session->set_flashdata('message_berhasil', 'Pembayaran Berhasil. Kembalian Rp. ' . $kembalian);

@@ -91,6 +91,15 @@ class Meta_model extends CI_Model
 
   // get 1 kelas berdasarkan id
   // masukkan parameter kedua sebagai nama kolom pada database, untuk select kolom
+  
+  /**
+   * Get total rows from certain table
+   * 
+   * @param string $keyName 
+   * Default value is NULL, but you can input some string to get array
+   * with $keyName as a key and the total row as a value.
+   * 
+   */
   public function get_meta_by_id($storeId, $select = '*')
   {
     // get from tb_meta

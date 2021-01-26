@@ -105,9 +105,10 @@
               </td>
               <td style="text-align:left; font-size:8px;" width="45%">
                 &nbsp; <br>
-                CV. ALPHI JAYA CHEMICAL <br>
-                Jl. Neglasari Blok F7, Ujungberung, Bandung <br>
-                Telp: 086273716678
+                <?= $metaData->fullname ?> <br>
+                <?= $metaData->address ?> <br>
+                <?= 'Telp. 1: ' . $metaData->contact_1 ?> <br>
+                <?= 'Telp. 2: ' . $metaData->contact_2 ?>
               </td>
               <td style="text-align:right;" width="30%">
                 <span style="font-size:16px;"><strong><u>INVOICE</u></strong></span><br />

@@ -14,6 +14,7 @@ class Invoice extends CI_Controller
 		$this->modules    = "generate-report";
 		$this->controller = "invoice";
 		$this->load->model("Kasir_model");
+		$this->load->model("Meta_model");
 	}
 
 	public function index()
@@ -33,16 +34,8 @@ class Invoice extends CI_Controller
 	{
 		$data_invoice 			= $this->Kasir_model->generate_invoice($id_invoice);
 		$data_invoice_item 	= $this->Kasir_model->generate_invoice_item($id_invoice);
-
-		$fullpath 					= FCPATH . ("assets/img/logo.png");
-		// $fullpath 	= FCPATH.("assets/img/upload/invoice/superadmin_invoicelogo.png");
-		// $type 			= pathinfo($fullpath, PATHINFO_EXTENSION);
-		// $data 			= file_get_contents($fullpath);
-		// $base64 		= 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-		// pprintd($data_invoice_item);
-
+		// pprintd($id_invoice);
+		
 		// semua dikonversi ke liter
 		$__mililiter	= 0.001; // dalam liter
 		$__liter			= 1; // dalam liter
@@ -112,6 +105,17 @@ class Invoice extends CI_Controller
 
 		// pprintd($data_invoice_item);
 
+		// get informasi perusahaan
+		$metaData = $this->Meta_model->get_meta_by_id($this->session->store_id, "fullname, address, contact_1, contact_2, logo");
+
+		// pprintd($metaData);
+
+		$fullpath 		= FCPATH . ("assets/img/{$metaData->logo}");
+		// $fullpath 	= FCPATH.("assets/img/upload/invoice/superadmin_invoicelogo.png");
+		// $type 			= pathinfo($fullpath, PATHINFO_EXTENSION);
+		// $data 			= file_get_contents($fullpath);
+		// $base64 		= 'data:image/' . $type . ';base64,' . base64_encode($data);
+
 		
 
 		$noInvoice 				= $data_invoice[0]['invoice_number'];
@@ -123,17 +127,17 @@ class Invoice extends CI_Controller
 			'noInvoice' 		=> $noInvoice,
 			'custName' 			=> $data_invoice[0]['full_name'],
 			'custLocation' 	=> $data_invoice[0]['address'],
+			'custPhone'		 	=> $data_invoice[0]['phone'],
 			'date' 					=> date_format($date, "d M Y"),
 			'rows'					=> $data_invoice_item, // MASUKIN DARI SESSION KE SINI, NANTI FOREACH DI "GENERATE-REPORT/V_INVOICE.PHP"
 			'totLiter'			=> $totLiter,
 			'tot1Liter' 		=> $tot1Liter,
 			'tot5Liter' 		=> $tot5Liter,
+			'metaData'			=> $metaData,
 		);
 		// $this->load->view('generate-report/v_invoice', $data);
 
-
-		// pprintd($data_invoice_item);
-
+		// pprintd($data);
 
 		// view dijadiin raw bukan ditampilin
 		$html = $this->load->view('generate-report/v_invoice', $data, TRUE);
