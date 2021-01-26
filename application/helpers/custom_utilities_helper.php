@@ -288,7 +288,7 @@ if ( ! function_exists('set_swal'))
 	/**
 	 * Set flashdata session for calling sweetalert popup
 	 *
-	 * @param	array	$swal Berisi 3 array yang masing2 adalah string
+	 * @param	array	$swal Berisi 3 array yang masing2 adalah string ; ['success/failed', 'title', 'text']
 	*/
   function set_swal($swal)
   {
