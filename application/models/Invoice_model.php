@@ -10,6 +10,7 @@ class Invoice_model extends CI_Model
 
   var $table  = 'invoice';
   var $tb_trx = 'transaction';
+  var $tb_cust = 'customer';
 
   //  ===============================================GETTER===============================================
   /**
@@ -42,12 +43,48 @@ class Invoice_model extends CI_Model
    * to select some table(s) name of your choice.
    * 
    */
-  public function get_all_with_trx($select = '*')
+  public function get_all_with_trx($select = '*', $idToko = null, $limit = 999999999)
   {
     $this->db->select($select);
     $this->db->from("{$this->table} AS i");
     $this->db->join("{$this->tb_trx} AS t", "t.id=i.transaction_id");
-    $this->db->order_by("i.id", 'DESC')->limit(300);
+    
+    if ($idToko != null) {
+      $this->db->where('t.store_id', $idToko);
+    }
+
+    $this->db->order_by("i.id", 'DESC')->limit($limit);
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+
+  /**
+   * 
+   * Get all rows from certain table
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function get_all_hutang($select = '*', $idToko = null, $limit = 999999999)
+  {
+    $this->db->select($select);
+    $this->db->from("{$this->table} AS inv");
+    $this->db->join("{$this->tb_trx} AS trx", "trx.id = inv.transaction_id");
+    $this->db->join("{$this->tb_cust} AS cust", "cust.id = trx.customer_id");
+    
+    if ($idToko != null) {
+      $this->db->where('trx.store_id', $idToko);
+    }
+    $this->db->where('inv.status', '0');
+    $this->db->where('inv.is_deleted', 0);
+    $this->db->where('inv.left_to_paid >', 0);
+    
+    $this->db->order_by("inv.id", 'DESC')->limit($limit);
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

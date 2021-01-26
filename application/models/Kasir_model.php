@@ -258,18 +258,6 @@ class Kasir_model extends CI_Model
         return json_encode($row);
     }
 
-
-    public function get_hutang()
-    {
-        $id_toko = $_SESSION['store_id'];
-        $query = $this->db->query("SELECT invoice.id, invoice.invoice_number,invoice.left_to_paid, invoice.paid_at, invoice.is_deleted, invoice.transaction_id,transaction.store_id, transaction.customer_id, customer.full_name, customer.address, customer.phone FROM invoice INNER JOIN transaction ON invoice.transaction_id = transaction.id INNER JOIN customer ON transaction.customer_id = customer.id WHERE invoice.status = '0' AND left_to_paid > 0 AND transaction.store_id = $id_toko ORDER BY invoice.id DESC");
-
-        $row = $query->result_array();
-
-
-        return $row;
-    }
-
     /**
      * Get all rows from certain table
      * 

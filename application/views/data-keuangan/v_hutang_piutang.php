@@ -64,27 +64,25 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="30px">Nama Pelanggan</th>
-                                        <th class="px-3" width="30px">Alamat</th>
+                                        <th class="px-3 text-center">Nama Pelanggan</th>
+                                        <th class="px-3">Alamat</th>
                                         <th class="px-3" width="30px">Nomor Telepon</th>
                                         <th class="px-3" width="30px">Nomor Invoice</th>
-
-                                        <th class="px-3">Sisa Yang Belum Dibayar</th>
-                                        <th class="px-3">Dibayar Pada Tanggal</th>
-                                        <th class="px-3">Aksi</th>
+                                        <th class="px-3 text-center" width="100px">Sisa Yang Belum Dibayar</th>
+                                        <th class="px-3 text-center">Tanggal Bayar</th>
+                                        <th class="px-3 text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="30px">Nama Pelanggan</th>
-                                        <th class="px-3" width="30px">Alamat</th>
+                                        <th class="px-3 text-center">Nama Pelanggan</th>
+                                        <th class="px-3">Alamat</th>
                                         <th class="px-3" width="30px">Nomor Telepon</th>
                                         <th class="px-3" width="30px">Nomor Invoice</th>
-
-                                        <th class="px-3">Sisa Yang Belum Dibayar</th>
-                                        <th class="px-3">Dibayar Pada Tanggal</th>
-                                        <th class="px-3">Aksi</th>
+                                        <th class="px-3 text-center" width="100px">Sisa Yang Belum Dibayar</th>
+                                        <th class="px-3 text-center">Tanggal Bayar</th>
+                                        <th class="px-3 text-center">Aksi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -119,7 +117,9 @@
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-primary btn-delete" data-id="<?= $row['id']; ?> <?= $row['transaction_id']; ?> <?= $row['invoice_number'] ?> <?= $row['left_to_paid'] ?>" data-transaction="<?= $row['transaction_id']; ?>" data-xaja="<?= $row['invoice_number'] ?>">Bayar Hutang</a>
+                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-default py-2 btn-delete" data-id="<?= $row['id']; ?> <?= $row['transaction_id']; ?> <?= $row['invoice_number'] ?> <?= $row['left_to_paid'] ?>" data-transaction="<?= $row['transaction_id']; ?>" data-xaja="<?= $row['invoice_number'] ?>">
+                                                        Bayar
+                                                    </a>
                                                 </div>
                                             </td>
 

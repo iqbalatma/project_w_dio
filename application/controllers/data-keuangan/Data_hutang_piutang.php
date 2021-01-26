@@ -17,6 +17,7 @@ class Data_hutang_piutang extends CI_Controller
         $this->load->model("Material_model");
         $this->load->model("Store_model");
         $this->load->model("Kasir_model");
+        $this->load->model("Invoice_model");
     }
 
     public function index()
@@ -27,8 +28,7 @@ class Data_hutang_piutang extends CI_Controller
             'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-hutang-piutang', // harus selalu ada, buat indikator sidebar menu yg aktif
             // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
-            'data_hutang_piutang' => $this->Kasir_model->get_hutang(),
-
+            'data_hutang_piutang' => $this->Invoice_model->get_all_hutang("inv.id, inv.invoice_number, inv.left_to_paid, inv.paid_at, inv.status, inv.is_deleted, inv.transaction_id, trx.store_id, trx.customer_id, cust.full_name, cust.address, cust.phone", $this->session->store_id),
             'datatables' => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
@@ -77,12 +77,7 @@ class Data_hutang_piutang extends CI_Controller
             ];
 
 
-
             $edit_invoice = $this->Kasir_model->edit_invoice($data_invoice);
-
-
-
-
 
 
             $invoice_id = $this->Kasir_model->get_row_terbaru();
