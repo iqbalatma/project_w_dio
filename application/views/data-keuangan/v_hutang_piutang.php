@@ -145,7 +145,7 @@
                                     </button>
                                 </div>
                                 <?php
-                                echo form_open_multipart('data-keuangan/Data_hutang_piutang/bayar_hutang'); ?>
+                                echo form_open_multipart('data-keuangan/data-hutang-piutang/bayar-hutang'); ?>
 
                                 <div class="modal-body">
                                     <div class="row">
@@ -172,7 +172,7 @@
                                     <input type="hidden" name="id" class="id"></input>
                                     <input type="hidden" name="transaction" class="transaction"></input>
                                     <input type="hidden" name="xaja" class="xaja"></input>
-                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Keluar</button>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</button>
                                     <button class="btn btn-primary">Konfirmasi Pembayaran</button>
                                 </div>
                                 </form>

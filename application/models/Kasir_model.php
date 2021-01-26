@@ -291,7 +291,7 @@ class Kasir_model extends CI_Model
 
     public function edit_invoice($data)
     {
-        $id_invoice = $data['id_invoice'];
+        $id_invoice  = $data['id_invoice'];
         $paid_amount = $data['paid_amount'];
         $query = $this->db->query("UPDATE invoice SET status = '1' WHERE id = $id_invoice");
         return $query;
