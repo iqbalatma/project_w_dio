@@ -833,6 +833,21 @@ class Kasir_model extends CI_Model
         $createdAt    = unix_to_human($now, true, 'europe');
 
         // pprintd($data);
+        
+        // NOTE: tadinya ada di bawah, skrg dipindah ke atas
+        // sebenernya udah ditambah array  dengan key data_customer yg isinya ada 3:
+        // full_name, id_as_cust, dan id_as_store
+        // yg bisa dipake untuk gantiin validasi if else di bawah ini
+        // tapi karena waktu yg sempit dan harus ada bberapa penyesuaian lagi
+        // jadinya belum dirapiin, tp secara fungsionalitas udah aman
+        if ($data['nama_toko'] == "Toko Cicalengka") {
+            $id_toko = 2;
+        } elseif ($data['nama_toko'] == "Toko Ujung Berung") {
+            $id_toko = 3;
+        } else {
+            set_swal(['failed', 'Toko Cabang Invalid', 'Mohon cek kembali form input, jika masih berlanjut hubungi developer segera.']);
+            redirect(base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'));
+        }
 
 
         // ============================================================ [1] MULAI SIAPKAN DATA-DATA UNTUK TRANSACTION ===================
@@ -853,9 +868,9 @@ class Kasir_model extends CI_Model
             'trans_number'  => $transNumber,
             'deliv_address' => $data['deliv_address'],
             'price_total'   => $data['total_harga'],
-            // 'store_id'      => $data['store_id'],
+            'store_id'      => $data['store_id'],
             'store_id'      => $id_toko,
-            'customer_id'   => $data['data_customer']['id'],
+            'customer_id'   => $data['data_customer']['id_as_cust'],
             'employee_id'   => $data['employee_id'],
             'due_at'        => $dueAt,
             'created_at'    => $createdAt,
@@ -958,16 +973,6 @@ class Kasir_model extends CI_Model
             'mutation_type' => 'masuk', // KEL=Keluar ; MSK=Masuk ;
         ];
         $productMutationCode = $this->__generate_new_mutation_code($now, $arr);
-
-        $id_toko = 1;
-        if ($data['nama_toko'] == "Toko Cicalengka") {
-            $id_toko = 2;
-        } elseif ($data['nama_toko'] == "Toko Ujung Berung") {
-            $id_toko = 3;
-        } else {
-            set_swal(['failed', 'Toko Cabang Invalid', 'Mohon cek kembali form input, jika masih berlanjut hubungi developer segera.']);
-            redirect(base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'));
-        }
 
         $container = [];
         $i = 0;

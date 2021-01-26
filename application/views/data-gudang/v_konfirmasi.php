@@ -32,13 +32,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_transaksi_barang'); ?>">Data Mutasi Barang</a>
+                    <a href="<?= base_url('data-gudang/data-transaksi-barang'); ?>">Data Mutasi Barang</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_transaksi_barang/v_mutasi_ke_cabang'); ?>">Mutasi Barang Ke Cabang</a>
+                    <a href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Mutasi Barang Ke Cabang</a>
                 </li>
             </ul>
         </div>
@@ -49,7 +49,7 @@
                         <div class="card-title">Konfirmasi Checkout</div>
                     </div>
 
-                    <?= form_open('data-gudang/Data_transaksi_barang/insert-dio'); ?>
+                    <?= form_open('data-gudang/data-transaksi-barang/insert-dio'); ?>
                     <div class="card-body">
                         <div class="row">
 
@@ -153,8 +153,7 @@
                                 foreach ($data_product as $row) {
                                     echo '<input type="hidden" name="checkbox_value[]" value="' . $row['id'] . '">';
                                 };
-                                echo $data_customer->full_name;
-                                echo '<input type="hidden" name="customer_id" value="' . $data_customer->id . '">';
+                                echo '<input type="hidden" name="customer_id" value="' . $data_customer->id_as_cust . '">';
                                 echo '<input type="hidden" name="address" value="' . $address . '">';
                                 echo '<input type="hidden" name="phone" value="' . $phone . '">';
 

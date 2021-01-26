@@ -49,22 +49,22 @@
                         <div class="card-title">Mutation Station</div>
                     </div>
 
-                    <?= form_open('data-gudang/data-transaksi-barang/konfirmasi_kasir'); ?>
+                    <?= form_open('data-gudang/data-transaksi-barang/konfirmasi-kasir'); ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
 
                                 <div class="form-group">
-                                    <label for="nama_pelanggan">Toko Cabang</label>
-                                    <select class="form-control select2 col-11 col-xl-12" id="nama_pelanggan" name="nama_pelanggan" onchange='changeValue(this.value)' required>
+                                    <label for="customer">Toko Cabang</label>
+                                    <select class="form-control select2 col-11 col-xl-12" id="customer" name="customer" onchange='changeValue(this.value)' required>
                                         <option value="" selected disabled>-Pilih Toko Cabang-</option>
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
                                         foreach ($data_customer as $row) {
                                         ?>
-                                            <option name="id_customer" value="<?= $row['full_name']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
+                                            <option name="id_customer" value="<?= $row['id']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
                                             <?php
-                                            $jsArray .= "prdName['" . $row['id'] . "'] = {alamat_pelanggan:'" . addslashes($row['address']) . "',phone:'" . addslashes($row['phone']) . "'};\n";
+                                            $jsArray .= "prdName['{$row['id']}'] = {alamat_pelanggan:'" . addslashes($row['address']) . "',phone:'" . addslashes($row['phone']) . "'};\n";
                                             ?>
                                         <?php
                                         }; ?>
@@ -111,7 +111,7 @@
                                     }
 
                                     function changeValue(id) {
-                                        var sel = document.getElementById('nama_pelanggan');
+                                        var sel = document.getElementById('customer');
                                         console.log(sel.value);
                                         // $(document).ready(function() {
                                         // document.writeln("<?php echo "" ?>");

@@ -47,7 +47,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title font-weight-bold">Pembelian Sukses : INVOICE <?= $cekout['invoice_number'] ?></div>
-                        <div class="card-title">Mutasi ke <?= $namaToko ?></div>
+                        <div class="card-title">Mutasi ke <?= $cekout['nama_toko'] ?></div>
                     </div>
 
 
