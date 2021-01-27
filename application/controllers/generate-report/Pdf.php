@@ -157,7 +157,7 @@ class Pdf extends CI_Controller
 				'mode'					=> 'all',
 				'menu'					=> 'laporan_penjualan',
 				'model'					=> 'Transaction_model',
-				'query_select'	=> "trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, s.store_name, e.username, CONVERT(trx.created_at, DATE) AS created_at, CONVERT(trx.due_at, DATE) AS due_at",
+				'query_select'	=> "trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, s.store_name, e.username, DATE_FORMAT(trx.created_at, '%d-%m-%Y') as created_at, DATE_FORMAT(trx.due_at, '%d-%m-%Y') AS due_at",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'trx.id',
 				'columns'				=> ['Kode Transaksi', 'Nama Penerima', 'Alamat Penerima', 'No. Telp Penerima', 'Total Harga', 'Toko', 'Kasir', 'Dibuat Pada', 'Jatuh Tempo'],
@@ -168,15 +168,15 @@ class Pdf extends CI_Controller
 
 		
 		// $x = array_search('123', $arr[1]);
-		// function recursive_array_search($needle,$haystack) {
-		// 	foreach($haystack as $key=>$value) {
-		// 			$current_key=$key;
-		// 			if($needle===$value OR (is_array($value) && recursive_array_search($needle,$value) !== false)) {
-		// 					return $current_key;
-		// 			}
-		// 	}
-		// 	return false;
-		// }
+			// function recursive_array_search($needle,$haystack) {
+			// 	foreach($haystack as $key=>$value) {
+			// 			$current_key=$key;
+			// 			if($needle===$value OR (is_array($value) && recursive_array_search($needle,$value) !== false)) {
+			// 					return $current_key;
+			// 			}
+			// 	}
+			// 	return false;
+			// }
 		// $x = recursive_array_search('kl65', $arr);
 
 		// pprintd($arr);
@@ -244,7 +244,7 @@ class Pdf extends CI_Controller
 			redirect();
 		}
 
-		pprintd($resultSet);
+		// pprintd($resultSet);
 
 		$createdAt	= date('H:i:s, d-M-Y', $now);
 
