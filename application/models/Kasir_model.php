@@ -839,7 +839,10 @@ class Kasir_model extends CI_Model
         $now          = now();
         $createdAt    = unix_to_human($now, true, 'europe');
 
+        
+        $data['deliv_fullname'] = $data['data_customer']['full_name'];
         // pprintd($data);
+
         
         // NOTE: tadinya ada di bawah, skrg dipindah ke atas
         // sebenernya udah ditambah array  dengan key data_customer yg isinya ada 3:

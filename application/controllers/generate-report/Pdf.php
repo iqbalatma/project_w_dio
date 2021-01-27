@@ -37,6 +37,16 @@ class Pdf extends CI_Controller
 
 		$get = $this->input->get();
 
+		if (isset($get['date_range'])){
+			$dateRange 	= json_decode($get['date_range'], TRUE);
+			$dateStart 	= json_decode($get['date_range'], TRUE)['awal'];
+			$dateEnd 		= json_decode($get['date_range'], TRUE)['akhir'];
+		} else {
+			$dateRange 	= '';
+			$dateStart 	= '';
+			$dateEnd 		= '';
+		}
+
 		$listMenu = [
 			'master_bahan_mentah',
 			'mutasi_bahan_mentah',
@@ -157,12 +167,14 @@ class Pdf extends CI_Controller
 				'mode'					=> 'all',
 				'menu'					=> 'laporan_penjualan',
 				'model'					=> 'Transaction_model',
-				'query_select'	=> "trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, s.store_name, e.username, DATE_FORMAT(trx.created_at, '%d-%m-%Y') as created_at, DATE_FORMAT(trx.due_at, '%d-%m-%Y') AS due_at",
+				'query_select'	=> "trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, s.store_name, e.username, DATE_FORMAT(trx.created_at, '%d-%b-%Y') as created_at, DATE_FORMAT(trx.due_at, '%d-%b-%Y') AS due_at",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'trx.id',
 				'columns'				=> ['Kode Transaksi', 'Nama Penerima', 'Alamat Penerima', 'No. Telp Penerima', 'Total Harga', 'Toko', 'Kasir', 'Dibuat Pada', 'Jatuh Tempo'],
 				'limit'					=> 999999999999,
-				'date_range'		=> json_decode($get['date_range'], TRUE),
+				'date_range'		=> $dateRange,
+				'title'					=> 'Range tanggal: ',
+				'subTitle'			=> "{$dateStart} - {$dateEnd}",
 			],
 		];
 
@@ -252,14 +264,16 @@ class Pdf extends CI_Controller
 			'filename'			=> $outputName,
 			'created_at' 		=> $createdAt,
 			'created_by' 		=> $this->session->username,
-			'data'					=> $resultSet, 
+			'title'					=> isset($data['title']) ? $data['title'] : '',
+			'subTitle'			=> isset($data['subTitle']) ? $data['subTitle'] : '',
+			'data'					=> $resultSet,
 		);
-		// pprintd($data);
+		// pprintd($data_pdf);
 
 		// view dijadiin RAW bukan ditampilin
 		$html = $this->load->view('generate-report/v_pdf', $data_pdf, TRUE);
 
-		if ( ($data['menu'] == 'kas_perusahaan') OR ($data['menu'] == 'hutang_piutang') ){
+		if ( ($data['menu'] == 'kas_perusahaan') OR ($data['menu'] == 'hutang_piutang') OR ($data['menu'] == 'laporan_penjualan') ){
 			// instansiasi mpdf dan opsi. [A4-L] adalah kertas A4, orientasi Landscape
 			$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L']);
 		} else {

@@ -166,7 +166,7 @@ $mainMenu = array(
         'slug'  => 'data-invoice',
         'url'   => "{$_data_penjualan}/data-invoice",
       ], [
-        'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_1]),
         'name'  => 'Cetak Laporan',
         'slug'  => 'cetak-laporan',
         'url'   => "{$_data_penjualan}/data-penjualan/cetak-laporan",

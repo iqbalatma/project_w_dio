@@ -111,10 +111,10 @@
       </tr>
 
       <tr>
-        <td></td>
+        <td style="font-size:10px;" colspan="5"><?= $title ?></td>
       </tr>
       <tr>
-        <td></td>
+        <td style="font-size:10px;" colspan="5"><?= $subTitle ?></td>
       </tr>
 
       <tr class="heading">

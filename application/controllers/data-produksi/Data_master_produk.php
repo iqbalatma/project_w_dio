@@ -35,7 +35,7 @@ class Data_master_produk extends CI_Controller
   // ============================================== TAMBAH =======================================
   public function tambah()
   {
-    // hanya untuk pemilik
+    // hanya untuk pemilik dan gudang
     role_validation($this->session->role_id, ['1','2']);
     
     // set form rules

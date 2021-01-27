@@ -176,7 +176,7 @@
         <script>
             $(function() {
                 var start   = moment().subtract(29, 'days');
-                var end     = moment().add(1, 'days');
+                var end     = moment();
 
                 function cb(start, end) {
                     $('#tangga').val(start.format('DD-MM-YYYY') + ' <--> ' + end.format('DD-MM-YYYY'));
