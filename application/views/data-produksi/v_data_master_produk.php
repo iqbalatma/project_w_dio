@@ -9,7 +9,11 @@
                         <div class="d-flex align-items-center">
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
                           <div class="ml-auto">
-                            <?php if ( role_access($this->session->role_id, ['0', '1', '2']) ) : ?>
+                            <?php if ( role_access($this->session->role_id, ['1', '2']) ) : ?>
+                              <a href=<?= current_url() . '/update-hpp' ?> class="btn btn-outline-secondary btn-sm ml-auto ">
+                                <i class="fa fa-plus mr-2"></i>
+                                <span class="h6">Update Seluruh HPP</span>
+                              </a>
                               <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto ">
                                 <i class="fa fa-plus mr-2"></i>
                                 <span class="h6">Tambah data</span>

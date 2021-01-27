@@ -36,7 +36,7 @@ class Data_master_produk extends CI_Controller
   public function tambah()
   {
     // hanya untuk pemilik
-    role_validation($this->session->role_id, ['1']);
+    role_validation($this->session->role_id, ['1','2']);
     
     // set form rules
     $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|alpha_dash|trim|min_length[5]|max_length[100]|is_unique[product.product_code]');
@@ -296,6 +296,61 @@ class Data_master_produk extends CI_Controller
     ];
     $this->load->view('template_dashboard/template_wrapper', $data);
   } // end method
+
+
+  // ============================================== UPDATE HPP =======================================
+  public function update_hpp()
+  {
+    // hanya untuk pemilik dan gudang
+    role_validation($this->session->role_id, ['1','2']);
+
+    $allComposition = $this->product_m->get_all_composition('p.id AS prod_id, p.product_code AS prod_code, p.price_base AS prod_hpp, pc.volume AS comp_volume, m.id AS mat_id, m.material_code AS mat_code, m.price_base AS mat_hpp');
+
+    if ($allComposition != null)
+    {
+      /**
+       * 
+       * looping untuk sigma per produk dari mat_hpp * comp_volume
+       * 
+       * Cek dulu prod_id, jika sama maka itung, jika beda maka assign prod_id baru
+       * 
+       */
+      $currentProdId = 0;
+      $newProdHpp = 0;
+      $container = [];
+      foreach ($allComposition as $row) {
+        // assign prod_id dari indeks selanjutnya, bila yg skrg sudah beda dgn yg sebelumnya
+        if ($row['prod_id'] != $currentProdId) {
+          $currentProdId = $row['prod_id'];
+          $newProdHpp = 0;
+        }
+
+        // jumlahkan terus menerus harga bahan baku sehingga di akhir loop mendapatkan hpp produk
+        $newProdHpp = $newProdHpp + ($row['comp_volume'] * $row['mat_hpp']);
+
+        // assign ke array baru untuk ditampung
+        $container[$row['prod_id']]['id'] = $row['prod_id'];
+        $container[$row['prod_id']]['price_base'] = $newProdHpp;
+      }
+      // pindahkan dari $container ke $data
+      $data = $container;
+
+      // insert ke db
+      $update = $this->product_m->set_update_all_hpp($data);
+
+      if ($update == 1) {
+        set_swal(['success', 'Update HPP Berhasil!', 'Seluruh HPP produk telah diperbarui.']);
+        redirect(base_url("data-produksi/data-master-produk"));
+      } else {
+        set_swal(['failed', 'Update HPP Gagal!', 'Mohon cek kembali. Bila masih berlanjut hubungi developer segera.']);
+        redirect(base_url("data-produksi/data-master-produk"));
+      }
+    } else {
+      set_swal(['failed', 'Terjadi Kesalahan!', 'Mohon ulangi kembali atau refresh halaman. Bila masih berlanjut hubungi developer segera.']);
+      redirect(base_url());
+    }
+
+  }
   
   
 

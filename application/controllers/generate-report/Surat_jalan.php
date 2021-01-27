@@ -130,7 +130,7 @@ class Surat_jalan extends CI_Controller
 			'custLocation' 	=> ucfirst($data_invoice['address']),
 			'custPhone'		 	=> $data_invoice['phone'],
 			'date' 					=> date_format($date, "d M Y"),
-			'rows'					=> $data_invoice_item, // MASUKIN DARI SESSION KE SINI, NANTI FOREACH DI "GENERATE-REPORT/V_INVOICE.PHP"
+			'rows'					=> $data_invoice_item,
 			'totLiter'			=> $totLiter,
 			'tot1Liter' 		=> $tot1Liter,
 			'tot5Liter' 		=> $tot5Liter,

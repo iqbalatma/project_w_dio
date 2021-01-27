@@ -86,6 +86,23 @@ class Product_model extends CI_Model
 
 
   /**
+   * Get all Product Composition that is belong to
+   * the corresponding Product by joining some tables on its id.
+   * 
+   * @param array $data as an array for the update_batch with array key is the name of the table column
+   * 
+   */
+  public function set_update_all_hpp($data)
+  {
+    $this->db->trans_start();
+
+    $this->db->update_batch("{$this->table}", $data, 'id');
+
+    $this->db->trans_complete();
+    return ($this->db->trans_status() === FALSE) ? FALSE : 1;
+  }
+
+  /**
    * 
    * Check whether if cust have composition for specific product or not
    * if they have composition, then update the existing one
@@ -218,6 +235,8 @@ class Product_model extends CI_Model
 
 
 
+
+
   //  ===============================================GETTER===============================================
   /**
    * Get total rows from certain table
@@ -342,6 +361,32 @@ class Product_model extends CI_Model
     $query = $this->db->get();
     if ($query->num_rows() == 1) {
       return $query->row();
+    }
+    return FALSE;
+  }
+
+  /**
+   * Get all Product Composition that is belong to
+   * the corresponding Product by joining some tables on its id.
+   * 
+   * @param string $id 
+   * Set the $id from the product id to fetch the data relatives to the id.
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some field(s) name of your choice.
+   * 
+   */
+  public function get_all_composition($select = '*')
+  {
+    // get from tb_department
+    $this->db->select($select);
+    $this->db->from("{$this->table} AS p");
+    $this->db->join("{$this->tb_product_composition} AS pc", "p.id=pc.product_id");
+    $this->db->join("{$this->tb_material} AS m", "pc.material_id=m.id");
+    $this->db->where('pc.is_deleted', 0);
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
     }
     return FALSE;
   }
@@ -492,73 +537,12 @@ class Product_model extends CI_Model
       ASC
     ");
 
-
-
     if ($query->num_rows() > 0) {
       return $query->result_array();
     }
     return FALSE;
 
 
-
-
-    // if ($query->num_rows() > 0) 
-    // {
-    //   if ($isMerge != TRUE) 
-    //   {
-    //     return $query->result_array();
-    //   } 
-    //   else 
-    //   {
-    //     $prodComp = $query->result_array();
-    //     $product  = $this->get_all('id, product_code, full_name, unit', 'ASC');
-
-    //     $containerP = [];
-    //     foreach ($product as $p) {
-
-    //       $containerPC = [];
-    //       foreach ($prodComp as $pc) {
-
-    //         if ($pc['prod_id'] == $p['id']) {
-    //           $p[$p['id']] = $pc;
-    //           pprint($p);
-    //         }
-
-    //       }
-
-    //     }
-    //     // pprint($containerPC);
-
-    //     echo '<hr>';
-    //     pprintd($prodComp);
-
-
-    //     $xxx = unique_multidim_array($res, 'prod_id');
-    //     $container = [];
-    //     foreach ($res as $row) {
-          
-    //     }
-
-
-
-
-          
-        //   // remove certain array key=>value with key
-        //   $remove = ['mat_id', 'mat_code', 'mat_fullname', 'mat_unit', 'comp_id', 'comp_qty'];
-        //   $halfRow = array_diff_key($row, array_flip($remove));
-
-        //   pprint($halfRow);
-        //   // $halfRowUniq = unique_multidim_array($row, 'prod_id');
-
-        //   // unset($row['comp_id']);
-        // }
-        // pprint($xxx);
-        // die;
-        // return '';
-    //   }
-    // }
-    
-    // return FALSE;
   }
 
 

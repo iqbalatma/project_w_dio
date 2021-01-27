@@ -317,16 +317,7 @@ class Kasir_model extends CI_Model
         if ($query->num_rows() > 0) return $query->result_array();
         return FALSE;
     }
-
-    // public function generate_invoice($invoice_id)
-    // {
-    //     $query = $this->db->query("SELECT");
-
-    //     $row = $query->result_array();
-
-
-    //     return $row;
-    // }
+    
     public function generate_invoice_item($invoice_id)
     {
         $query = $this->db->query("SELECT product.full_name, product.price_base,product.unit, product.selling_price, invoice_item.quantity, invoice_item.item_price, product.volume FROM invoice_item INNER JOIN product ON invoice_item.product_id = product.id WHERE invoice_item.invoice_id=$invoice_id");
@@ -376,6 +367,12 @@ class Kasir_model extends CI_Model
         //     // pprintd($row);
         //     // return $row;
     // }
+
+
+
+
+
+
 
 
 
@@ -631,6 +628,7 @@ class Kasir_model extends CI_Model
         $data_transaction  = [
             'trans_number'  => $transNumber,
             'deliv_address' => $data['deliv_address'],
+            'deliv_phone'   => $data['phone_custom'],
             'price_total'   => $data['total_harga'],
             'store_id'      => $data['store_id'],
             'customer_id'   => $data['data_customer']['id'],
@@ -873,6 +871,7 @@ class Kasir_model extends CI_Model
         $data_transaction  = [
             'trans_number'  => $transNumber,
             'deliv_address' => $data['deliv_address'],
+            'deliv_phone'   => $data['phone_custom'],
             'price_total'   => $data['total_harga'],
             'store_id'      => $data['store_id'],
             'customer_id'   => $data['data_customer']['id_as_cust'],
