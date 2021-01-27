@@ -274,9 +274,7 @@ class Product_model extends CI_Model
     $this->db->limit($limit);
 
     $query = $this->db->get();
-    if ($query->num_rows() > 0) {
-      return $query->result_array();
-    }
+    if ($query->num_rows() > 0) return $query->result_array();
     return FALSE;
   }
 

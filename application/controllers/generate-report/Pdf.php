@@ -47,6 +47,7 @@ class Pdf extends CI_Controller
 			'kas_perusahaan',
 			'master_pelanggan',
 			'master_pegawai',
+			'laporan_penjualan',
 		];
 		// KETERANGAN :
 		// menu = di atas
@@ -83,8 +84,8 @@ class Pdf extends CI_Controller
 				'query_select'	=> "product_code, full_name, CONCAT(volume, ' ', unit) AS vol_unit, price_base, selling_price, DATE_FORMAT(created_at, '%H:%i, %d %M %Y') AS date",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'product_code',
+				'columns'				=> ['Kode Produk', 'Nama Produk', 'Volume/Unit', 'HPP', 'Harga Jual', 'Dibuat Pada'],
 				'limit'					=> 1000,
-				'columns'				=> ['Kode Produk', 'Nama Produk', 'Volume/Unit', 'HPP', 'Harga Jual', 'Dibuat Pada']
 			],[
 				'no' 						=> 4,
 				'name'					=> 'Data Master Mutasi Produk',
@@ -94,8 +95,8 @@ class Pdf extends CI_Controller
 				'query_select'	=> "pm.mutation_code, p.product_code, p.full_name, s.store_name, pm.quantity, pm.mutation_type, DATE_FORMAT(pm.created_at, '%H:%i, %d %M %Y') AS date, pm.created_by",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'pm.id',
-				'limit'					=> 1000,
 				'columns'				=> ['Kode Mutasi', 'Kode Produk', 'Nama Produk', 'Toko Cabang', 'Kuantitas', 'Tipe', 'Tanggal', 'Oleh Siapa'],
+				'limit'					=> 1000,
 			// ],[
 			// 	'no' 						=> 5,
 			// 	'name'					=> 'Data Penjualan per Toko',
@@ -115,8 +116,8 @@ class Pdf extends CI_Controller
 				'query_select'	=> "i.invoice_number, c.full_name, c.address, c.phone, DATE_FORMAT(i.paid_at, '%H:%i, %d %M %Y'), DATE_FORMAT(t.due_at, '%H:%i, %d %M %Y'), i.left_to_paid",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'i.id',
-				'limit'					=> 1000,
 				'columns'				=> ['No. Invoice', 'Nama Pelanggan', 'Alamat Pelanggan', 'No. Handphone', 'Dibayar Pada', 'Tenggat Waktu', 'Sisa Bayar'],
+				'limit'					=> 1000,
 			],[
 				'no' 						=> 7,
 				'name'					=> 'Data Master Kas Perusahaan',
@@ -126,8 +127,8 @@ class Pdf extends CI_Controller
 				'query_select'	=> "kas_code, title, description, date AS kas_date, debet, kredit, final_balance, type, created_by, DATE_FORMAT(created_at, '%H:%i, %d %M %Y') AS created_date",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'id',
-				'limit'					=> 1000,
 				'columns'				=> ['Kode', 'Judul Kas', 'Deskripsi / Ket.', 'Tgl Transaksi', 'Debet', 'Kredit', 'Saldo Akhir', 'Tipe', 'Dibuat oleh', 'Dibuat pada'],
+				'limit'					=> 1000,
 			],[
 				'no' 						=> 8,
 				'name'					=> 'Data Master Pelanggan',
@@ -137,8 +138,8 @@ class Pdf extends CI_Controller
 				'query_select'	=> "full_name, phone, address, cust_type",
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'full_name',
-				'limit'					=> 1000,
 				'columns'				=> ['Nama Lengkap', 'No. Handphone', 'Alamat', 'Tipe'],
+				'limit'					=> 1000,
 			],[
 				'no' 						=> 9,
 				'name'					=> 'Data Master Pegawai',
@@ -149,6 +150,19 @@ class Pdf extends CI_Controller
 				'asc_desc'			=> 'ASC',
 				'order_by'			=> 'e.id',
 				'columns'				=> ['Nama Depan', 'Nama Belakang', 'No.Handphone', 'E-mail', 'Alamat', 'Jabatan', 'Lokasi'],
+				'limit'					=> 999999999999,
+			],[
+				'no' 						=> 10,
+				'name'					=> "Laporan Penjualan",
+				'mode'					=> 'all',
+				'menu'					=> 'laporan_penjualan',
+				'model'					=> 'Transaction_model',
+				'query_select'	=> "trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, s.store_name, e.username, CONVERT(trx.created_at, DATE) AS created_at, CONVERT(trx.due_at, DATE) AS due_at",
+				'asc_desc'			=> 'ASC',
+				'order_by'			=> 'trx.id',
+				'columns'				=> ['Kode Transaksi', 'Nama Penerima', 'Alamat Penerima', 'No. Telp Penerima', 'Total Harga', 'Toko', 'Kasir', 'Dibuat Pada', 'Jatuh Tempo'],
+				'limit'					=> 999999999999,
+				'date_range'		=> json_decode($get['date_range'], TRUE),
 			],
 		];
 
@@ -165,14 +179,16 @@ class Pdf extends CI_Controller
 		// }
 		// $x = recursive_array_search('kl65', $arr);
 
+		// pprintd($arr);
 
 		// cek dulu parameter getnya ada ngga
-		if (isset($get['mode']) && isset($get['menu']))
+		if (isset($get['mode']) && isset($get['menu']) && in_array($get['menu'], $listMenu))
 		{
 			echo '1';
 			// cek lagi isi parameternya bener ngga
-			if ( ($get['mode'] == 'detail') && isset($get['id']) && in_array($get['menu'], $listMenu) )
+			if ( ($get['mode'] == 'detail') && isset($get['id']) )
 			{
+				// TODO: NOTE: tapi kayanya ini blm beres dibuat, jd fokus ke all dulu
 				echo '2';
 				// ini kalo mode detail, id terset, dan menu sesuai
 				// cek di db apakah id ada atau engga, kalo gada keluar, kalo ada ambil data
@@ -180,7 +196,9 @@ class Pdf extends CI_Controller
 				// kalo id ada maka lanjut
 
 				// cek juga kalo isinya yg ini bener ngga
-			} elseif ( ($get['mode'] == 'all') && in_array($get['menu'], $listMenu) ) {
+			} 
+			elseif ( ($get['mode'] == 'all') ) 
+			{
 				echo '3';
 				// ini kalo mode all
 				// langsung query get_all()
@@ -198,27 +216,35 @@ class Pdf extends CI_Controller
 				// get name for title in pdf
 				$resultSet['name'] 		= $data['name'];
 
-				// call get_all() method with the custom model
-				// jika gada key 'limit' di dalam array, maka get_all tanpa limit, kalo ada 'limit' berarti masukin params limit ke method model
-				if ( ! isset($data['limit']) ) {
-					$resultSet['db_res'] 	= $this->{$data['model']}->get_all($data['query_select'], $data['asc_desc'], $data['order_by']);
-				}
-				else {
+				// cek ada key 'date_range' atau tidak untuk get berdasarkan rentang waktu
+				if (isset($data['date_range']))
+				{
+					$resultSet['db_res'] 	= $this->{$data['model']}->get_all($data['query_select'], $data['asc_desc'], $data['order_by'], $data['limit'], $data['date_range']);
+				} 
+				else
+				{
 					$resultSet['db_res'] 	= $this->{$data['model']}->get_all($data['query_select'], $data['asc_desc'], $data['order_by'], $data['limit']);
 				}
+
 				// set output pdf name
-				$outputName						= strtoupper("Report-{$data['menu']}-" . mdate('%d%m%y', now()) . '.pdf');
+				$outputName = strtoupper("Report-{$data['menu']}-" . mdate('%d%m%y', now()) . '.pdf');
 				
-			} else {
+			} 
+			else 
+			{
 				echo '4';
 				// ini kalo modenya gajelas, atau id gadimasukin ke get, atau menu yg dimasukin gasesuai
 				redirect();
 			}
-		} else {
+		} 
+		else 
+		{
 			echo '5';
 			// ini kalo mode atau menu tidak terset
 			redirect();
 		}
+
+		pprintd($resultSet);
 
 		$createdAt	= date('H:i:s, d-M-Y', $now);
 

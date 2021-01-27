@@ -42,15 +42,55 @@ class Transaction_model extends CI_Model
    * to select some table(s) name of your choice.
    * 
    */
-  public function get_all($select = '*')
+  // public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
+  // {
+  //   $this->db->select($select);
+  //   $this->db->from($this->table);
+  //   $this->db->where('is_deleted', 0);
+  //   $this->db->order_by($order_by, $asc_desc);
+  //   $this->db->limit($limit);
+
+  //   $query = $this->db->get();
+  //   if ($query->num_rows() > 0) return $query->result_array();
+  //   return FALSE;
+  // }
+
+  
+  /**
+   * 
+   * Get all rows from certain table
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'trx.id', $limit = 20000, $date_range = 'all')
   {
+    $this->tb_invoice      = 'invoice';
+    $this->tb_invoice_item = 'invoice_item';
+    $this->tb_store        = 'store';
+    $this->tb_employee     = 'employee';
+
     $this->db->select($select);
-    $this->db->from("{$this->table}");
-    $this->db->order_by("id", 'DESC');
-    $query = $this->db->get();
-    if ( $query->num_rows() > 0) {
-      return $query->result_array();
+    $this->db->from("{$this->table} AS trx");
+
+    // $this->db->join("{$this->tb_invoice} AS inv", "trx.id = inv.transaction_id");
+    // $this->db->join("{$this->tb_invoice_item} AS inv_item", "inv.id = inv_item.invoice_id");
+    $this->db->join("{$this->tb_store} AS s", "trx.store_id = s.id");
+    $this->db->join("{$this->tb_employee} AS e", "trx.employee_id = e.id");
+    $this->db->where('trx.is_deleted', 0);
+
+    if ($date_range != 'all' && is_array($date_range)) {
+      $this->db->where('trx.created_at >', $date_range['awal']);
+      $this->db->where('trx.created_at <', $date_range['akhir']);
     }
+
+    $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+
+    $query = $this->db->get();
+    if ( $query->num_rows() > 0) return $query->result_array();
     return FALSE;
   }
 

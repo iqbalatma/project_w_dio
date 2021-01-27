@@ -2,7 +2,7 @@
     <footer class="footer">
         <div class="container-fluid">
             <div class="copyright ml-auto">
-                © 2020 <a href="http://sabun-aryanz.com">Sabun-aryanz</a> — <a href="#">@Galaxxdev</a>
+                © 2020-<script>document.write(new Date().getFullYear());</script> <a href="http://sabun-aryanz.com">Sabun-aryanz</a> — <a target="_blank" href="https://dioilham.com">Dio</a> & <a target="_blank" href="https://instagram.com/iqbalatma">Iqbal</a>
             </div>
         </div>
     </footer>
@@ -124,6 +124,12 @@
         <script src="<?= base_url('vendor/select2/select2/dist/js/select2.min.js') ?>"></script>
     <?php } ?>
 
+    <?php if (isset($daterangepicker)) { ?>
+        <!-- daterangepicker -->
+        <script src="<?= base_url('vendor/daterangepicker/moment.min.js') ?>"></script>
+        <script src="<?= base_url('vendor/daterangepicker/daterangepicker.min.js') ?>"></script>
+    <?php } ?>
+
     <!-- Atlantis JS -->
     <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
 
@@ -162,6 +168,39 @@
 
         });
     </script>
+
+    <?php
+    // cek hanya untuk controller cetak-laporan ($submenuActive itu isinya nama controller)
+    // untuk hitung prosentase margin keuntungan ketika edit harga jual produk
+    if ($submenuActive == 'cetak-laporan') : ?>
+        <script>
+            $(function() {
+                var start   = moment().subtract(29, 'days');
+                var end     = moment();
+
+                function cb(start, end) {
+                    $('#tangga').val(start.format('DD-MM-YYYY') + ' <--> ' + end.format('DD-MM-YYYY'));
+                }
+
+                $('#tanggal').daterangepicker({
+                    startDate: start,
+                    endDate: end,
+                    ranges: {
+                        'Hari ini': [moment(), moment()],
+                        'Kemarin': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        '7 hari terakhir': [moment().subtract(6, 'days'), moment()],
+                        '30 hari terakhir': [moment().subtract(29, 'days'), moment()],
+                        'Bulan ini': [moment().startOf('month'), moment().endOf('month')],
+                        'Bulan lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                        'Tahun ini': [moment().startOf('year'), moment().endOf('year')],
+                        'Tahun lalu': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
+                    }
+                }, cb);
+
+                cb(start, end);
+            });
+        </script>
+    <?php endif; ?>
 
     <?php
     // cek hanya untuk controller data-master-produk ($submenuActive itu isinya nama controller)

@@ -609,6 +609,8 @@ class Kasir_model extends CI_Model
         $now          = now();
         $createdAt    = unix_to_human($now, true, 'europe');
 
+        
+        $data['deliv_fullname'] = $data['data_customer']['full_name'];
         // pprintd($data);
 
 
@@ -627,6 +629,7 @@ class Kasir_model extends CI_Model
 
         $data_transaction  = [
             'trans_number'  => $transNumber,
+            'deliv_fullname'=> $data['deliv_fullname'],
             'deliv_address' => $data['deliv_address'],
             'deliv_phone'   => $data['phone_custom'],
             'price_total'   => $data['total_harga'],
@@ -870,6 +873,7 @@ class Kasir_model extends CI_Model
 
         $data_transaction  = [
             'trans_number'  => $transNumber,
+            'deliv_fullname'=> $data['deliv_fullname'],
             'deliv_address' => $data['deliv_address'],
             'deliv_phone'   => $data['phone_custom'],
             'price_total'   => $data['total_harga'],

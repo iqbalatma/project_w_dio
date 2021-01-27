@@ -309,11 +309,9 @@ class Data_master_produk extends CI_Controller
     if ($allComposition != null)
     {
       /**
-       * 
        * looping untuk sigma per produk dari mat_hpp * comp_volume
        * 
        * Cek dulu prod_id, jika sama maka itung, jika beda maka assign prod_id baru
-       * 
        */
       $currentProdId = 0;
       $newProdHpp = 0;
@@ -338,6 +336,7 @@ class Data_master_produk extends CI_Controller
       // insert ke db
       $update = $this->product_m->set_update_all_hpp($data);
 
+      // set sweet alert and redirect
       if ($update == 1) {
         set_swal(['success', 'Update HPP Berhasil!', 'Seluruh HPP produk telah diperbarui.']);
         redirect(base_url("data-produksi/data-master-produk"));
@@ -345,7 +344,9 @@ class Data_master_produk extends CI_Controller
         set_swal(['failed', 'Update HPP Gagal!', 'Mohon cek kembali. Bila masih berlanjut hubungi developer segera.']);
         redirect(base_url("data-produksi/data-master-produk"));
       }
-    } else {
+    } 
+    else 
+    {
       set_swal(['failed', 'Terjadi Kesalahan!', 'Mohon ulangi kembali atau refresh halaman. Bila masih berlanjut hubungi developer segera.']);
       redirect(base_url());
     }
