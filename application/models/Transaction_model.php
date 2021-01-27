@@ -82,8 +82,8 @@ class Transaction_model extends CI_Model
     $this->db->where('trx.is_deleted', 0);
 
     if ($date_range != 'all' && is_array($date_range)) {
-      $this->db->where('trx.created_at >', $date_range['awal']);
-      $this->db->where('trx.created_at <', $date_range['akhir']);
+      $this->db->where('trx.created_at >=', $date_range['awal']);
+      $this->db->where('trx.created_at <=', $date_range['akhir']);
     }
 
     $this->db->order_by($order_by, $asc_desc);

@@ -57,11 +57,11 @@ class Data_penjualan extends CI_Controller
             $exp = explode(' - ', $post['tanggal']);
 
             $tanggal['awal']  = date("Y-m-d H:i:s", strtotime($exp[0]));
-            $tanggal['akhir'] = date("Y-m-d H:i:s", strtotime($exp[1]));
+            $tanggal['akhir'] = date("Y-m-d H:i:s", strtotime($exp[1]) + ((60 * 60 * 24) - 1)); // dikurangi 1, agar hasilnya jam 23:59:59
 
             $tanggal = json_encode($tanggal);
 
-            redirect(base_url("generate-report/pdf/export?mode=all&menu=laporan_penjualan&date_range={$tanggal}"));
+            // redirect(base_url("generate-report/pdf/export?mode=all&menu=laporan_penjualan&date_range={$tanggal}"));
 
             // $this->trx_m->get_all_sell("trx.id, trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, trx.created_at, trx.due_at, s.store_name, e.username", 'DESC', 'trx.id', '');
 

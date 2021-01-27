@@ -176,7 +176,7 @@
         <script>
             $(function() {
                 var start   = moment().subtract(29, 'days');
-                var end     = moment();
+                var end     = moment().add(1, 'days');
 
                 function cb(start, end) {
                     $('#tangga').val(start.format('DD-MM-YYYY') + ' <--> ' + end.format('DD-MM-YYYY'));
@@ -185,15 +185,18 @@
                 $('#tanggal').daterangepicker({
                     startDate: start,
                     endDate: end,
+                    // hasil ranges ini harus ditambah 1 hari kemudian ditambah 1 detik
+                    // untuk skrg modifikasinya ada di controller yg menggunakan data dari sini
+                    // modifikasi menggunakan php di controllernya
                     ranges: {
-                        'Hari ini': [moment(), moment()],
-                        'Kemarin': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        '7 hari terakhir': [moment().subtract(6, 'days'), moment()],
-                        '30 hari terakhir': [moment().subtract(29, 'days'), moment()],
-                        'Bulan ini': [moment().startOf('month'), moment().endOf('month')],
-                        'Bulan lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                        'Tahun ini': [moment().startOf('year'), moment().endOf('year')],
-                        'Tahun lalu': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
+                        'Hari ini'          : [moment(), moment()],
+                        'Kemarin'           : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        '7 hari terakhir'   : [moment().subtract(6, 'days'), moment()],
+                        '30 hari terakhir'  : [moment().subtract(29, 'days'), moment()],
+                        'Bulan ini'         : [moment().startOf('month'), moment().endOf('month')],
+                        'Bulan lalu'        : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                        'Tahun ini'         : [moment().startOf('year'), moment().endOf('year')],
+                        'Tahun lalu'        : [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
                     }
                 }, cb);
 
