@@ -259,7 +259,8 @@ if ( ! function_exists('unique_multidim_array'))
   * @param string array key to be searched
   * 
 	*/
-  function unique_multidim_array($array, $key) {
+  function unique_multidim_array($array, $key) 
+  {
     $temp_array = array();
     $i = 0;
     $key_array = array();
@@ -276,6 +277,28 @@ if ( ! function_exists('unique_multidim_array'))
 }
 
 
+// -----------------------------------------------------------------------------------------------
+
+
+if ( ! function_exists('slug_prep'))
+{
+	/**
+	 * need url_title() from the codeigniter helpers
+	 *
+	 * @param	string	$str input string
+	 * @param	string	$separator separator character
+	 * @param	boolean	$lowercase should be lower case or not
+	 * @param	boolean	$isHyphen should replace '_' with '-'
+	*/
+  function slug_prep($str, $separator = '-', $lowercase = TRUE, $isHyphen = TRUE)
+  {
+    $res = url_title($str, $separator, $lowercase);
+    if ($isHyphen == TRUE) {
+      $res = str_replace('_', '-', $res);
+    }
+    return $res;
+  }
+}
 
 
 

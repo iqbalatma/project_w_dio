@@ -17,7 +17,7 @@ class Data_penjualan extends CI_Controller
         $this->load->model("Material_model");
         $this->load->model("Store_model");
         $this->load->model("Product_mutation_model");
-        $this->load->model("Transaction_model", "trx_m");
+        $this->load->model("Transaction_model");
     }
 
     public function index()
@@ -50,7 +50,7 @@ class Data_penjualan extends CI_Controller
                 'content'           => 'data-penjualan/v_menu_cetak_laporan.php',
                 'menuActive'        => 'data-penjualan', // harus selalu ada, buat indikator sidebar menu yg aktif
                 'submenuActive'     => 'cetak-laporan', // harus selalu ada, buat indikator sidebar menu yg aktif
-                'dataPenjualan'     => $this->trx_m->get_all("trx.id, trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, trx.created_at, trx.due_at, s.store_name, e.username"),
+                'dataPenjualan'     => $this->Transaction_model->get_all("trx.id, trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, trx.created_at, trx.due_at, s.store_name, e.username"),
                 'daterangepicker'   => 1
             ];
             // pprintd($data);
@@ -69,7 +69,7 @@ class Data_penjualan extends CI_Controller
 
             redirect(base_url("generate-report/pdf/export?mode=all&menu=laporan_penjualan&date_range={$tanggal}"));
 
-            // $this->trx_m->get_all_sell("trx.id, trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, trx.created_at, trx.due_at, s.store_name, e.username", 'DESC', 'trx.id', '');
+            // $this->Transaction_model->get_all_sell("trx.id, trx.trans_number, trx.deliv_fullname, trx.deliv_address, trx.deliv_phone, trx.price_total, trx.created_at, trx.due_at, s.store_name, e.username", 'DESC', 'trx.id', '');
 
             pprintd($tanggal);
             echo'asdasdads';    

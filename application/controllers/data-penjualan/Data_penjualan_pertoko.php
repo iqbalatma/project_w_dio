@@ -21,6 +21,9 @@ class Data_penjualan_pertoko extends CI_Controller
 
     public function index($id_toko)
     {
+        // hanya untuk pemilik
+        role_validation($this->session->role_id, ['1']);
+        
         $data = [
             'title'             => 'Data Barang',
             'content'           => 'data-penjualan/v_penjualan_pertoko.php',

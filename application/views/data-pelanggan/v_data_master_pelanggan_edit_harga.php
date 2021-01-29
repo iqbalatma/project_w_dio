@@ -1,3 +1,7 @@
+<?php
+// pprintd('asdasdasd');
+?>
+
             <div class="content">
               <div class="page-inner">
 
@@ -137,32 +141,3 @@
               </div>
             </div>
 
-
-
-
-            <?php // modal untuk hapus data 
-            ?>
-            <div class="modal fade" id="modal-delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title text-danger">Konfirmasi Hapus Data Harga Custom</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body my-3">
-                    <h4>Yakin ingin menghapus data?</h4>
-                  </div>
-                  <form action="<?= base_url() . "data-pelanggan/data-master-pelanggan/hapus-harga" ?>" method="POST">
-                    <div class="modal-footer">
-                      <input type="hidden" name="id" class="id"></input>
-                      <button class="btn btn-danger btn-border">Hapus Data</button>
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <?php // /modal untuk hapus data 
-            ?>

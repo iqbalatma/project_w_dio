@@ -144,6 +144,8 @@ class Data_master_pelanggan extends CI_Controller
 
       // set data untuk digunakan pada view
       $data = [
+        'className'       => slug_prep(__CLASS__),
+        'methodName'      => slug_prep(__FUNCTION__),
         'title'           => 'Ubah Harga Custom Pelanggan',
         'content'         => 'data-pelanggan/v_data_master_pelanggan_edit_harga.php',
         'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
@@ -153,7 +155,7 @@ class Data_master_pelanggan extends CI_Controller
         'products'        => $this->product_m->get_all('product_code, full_name, selling_price'),
         'select2'         => 1,
       ];
-      // pprintd($data['products']);
+      // pprintd($data);
       $this->load->view('template_dashboard/template_wrapper', $data);
     } else {
       // insert data to db

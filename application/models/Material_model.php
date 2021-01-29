@@ -138,15 +138,21 @@ class Material_model extends CI_Model
         // }
         // return FALSE;
     }
-    public function get_transaksi_barang_by_store_id($store_id)
+    public function get_transaksi_barang_by_store_id($store_id, $where = '')
     {
         // get from tb_department
         $this->db->select("material.material_code, material.full_name, store.store_name, material_mutation.mutation_code, material_mutation.quantity, material_mutation.mutation_type, material_mutation.created_at, material_mutation.created_by");
         $this->db->from("material_mutation");
         $this->db->join("material", "material_mutation.material_id = material.id");
         $this->db->join("store", "material_mutation.store_id = store.id");
-        $this->db->where("material_mutation.is_deleted", 0);
-        $this->db->where("material_mutation.store_id", $store_id);
+
+        if ($where == '') {
+            $this->db->where("material_mutation.is_deleted", 0);
+            $this->db->where("material_mutation.store_id", $store_id);
+        } else {
+            $this->db->where("material_mutation.is_deleted = 0 AND material_mutation.store_id = {$store_id} AND {$where}");
+        }
+
         $this->db->order_by("material_mutation.id", "DESC");
         $query = $this->db->get();
 

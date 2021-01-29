@@ -83,7 +83,7 @@ $mainMenu = array(
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2]),
     'no'      => 2,
-    'name'    => 'Data Gudang',
+    'name'    => 'Data Bahan Baku',
     'slug'    => $_data_gudang,
     'url'     => $_data_gudang,
     'icon'    => 'fas fa-layer-group',
@@ -119,7 +119,7 @@ $mainMenu = array(
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2, $_role_3]),
     'no'      => 3,
-    'name'    => 'Data Produksi',
+    'name'    => 'Data Produk',
     'slug'    => $_data_produksi,
     'url'     => $_data_produksi,
     'icon'    => 'fas fa-shapes',

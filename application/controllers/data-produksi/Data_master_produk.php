@@ -36,7 +36,7 @@ class Data_master_produk extends CI_Controller
   public function tambah()
   {
     // hanya untuk pemilik dan gudang
-    role_validation($this->session->role_id, ['1','2']);
+    role_validation($this->session->role_id, ['1']);
     
     // set form rules
     $this->form_validation->set_rules('add-kodeproduk', 'kode produk',    'required|alpha_dash|trim|min_length[5]|max_length[100]|is_unique[product.product_code]');
@@ -302,7 +302,7 @@ class Data_master_produk extends CI_Controller
   public function update_hpp()
   {
     // hanya untuk pemilik dan gudang
-    role_validation($this->session->role_id, ['1','2']);
+    role_validation($this->session->role_id, ['1']);
 
     $allComposition = $this->product_m->get_all_composition('p.id AS prod_id, p.product_code AS prod_code, p.price_base AS prod_hpp, pc.volume AS comp_volume, m.id AS mat_id, m.material_code AS mat_code, m.price_base AS mat_hpp');
 

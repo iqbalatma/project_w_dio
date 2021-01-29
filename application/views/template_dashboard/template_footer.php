@@ -319,7 +319,7 @@
 
     <?php
     // cek hanya untuk controller Data_master_pelanggan ($submenuActive itu isinya nama controller)
-    if ($submenuActive == 'data-master-pelanggan') : ?>
+    if ( isset($methodName) && $methodName == 'edit-harga' ) : ?>
         <script>
             // fungsi menampilkan tombol tambah
             $(function() {

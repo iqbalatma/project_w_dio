@@ -97,5 +97,5 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |
 */
 
-defined('DEV_VERSION')  OR define('DEV_VERSION', '0.5.0');
+defined('DEV_VERSION')  OR define('DEV_VERSION', '0.9.1');
 // defined('VERSION')      OR define('VERSION', '1.1.0');
