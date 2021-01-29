@@ -61,6 +61,48 @@ class Invoice_model extends CI_Model
     return FALSE;
   }
 
+  public function get_all_first_inv_per_trx($select = '*', $idToko = null, $limit = 999999999)
+  {
+    $this->db->select("MIN(id) AS id");
+    $this->db->group_by("transaction_id");
+    $subQuery = $this->db->get_compiled_select('invoice');
+
+    $this->db->select("{$select}");
+    $this->db->from("{$this->table} AS i, ({$subQuery}) AS first_invoice");
+    $this->db->join("{$this->tb_trx} AS t", "t.id=i.transaction_id");
+    $this->db->where('i.id = first_invoice.id');
+    $this->db->order_by("i.id", 'DESC')->limit($limit);
+
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+
+
+    // $datestring = '%Y-%m-%d';
+    // $time = time();
+    // $currentDate = mdate($datestring, $time);
+
+    // $query_xxx = $this->db->query("
+    //   SELECT invoice.left_to_paid AS total_hutang FROM invoice, 
+    //   (
+    //       SELECT MIN(id) AS id, transaction_id
+    //       FROM invoice
+    //       GROUP BY transaction_id
+    //   ) AS last_debt
+    //   WHERE invoice.id = last_debt.id
+
+    //   AND invoice.transaction_id = last_debt.transaction_id
+    //   AND left_to_paid != 0
+    //   AND MONTH(created_at) = MONTH('{$currentDate}')
+    //   AND YEAR(created_at) = YEAR('{$currentDate}')
+
+    //   ORDER BY invoice.id  DESC
+    // ");
+  }
+
   /**
    * 
    * Get all rows from certain table
@@ -180,4 +222,7 @@ class Invoice_model extends CI_Model
     }
     return FALSE;
   }
+
+
+
 }

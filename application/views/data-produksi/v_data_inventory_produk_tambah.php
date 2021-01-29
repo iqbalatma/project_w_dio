@@ -30,12 +30,13 @@
                                   Pilih toko cabang <span class="text-danger">*</span>
                                 </label>
                                 <select class="form-control" name="add-store">
-                                  <option selected disabled>-- pilih toko --</option>
-                                  <?php foreach ($stores as $store): ?>
+                                  <option selected>Gudang Pusat</option>
+                                  <!-- <option selected disabled>-- pilih toko --</option> -->
+                                  <!-- <?php foreach ($stores as $store): ?>
                                     <option value='<?php echo "{$store->id}||{$store->store_name}" ?>'>
                                       <?php echo "{$store->store_name}" ?>
                                     </option>
-                                  <?php endforeach; ?>
+                                  <?php endforeach; ?> -->
                                 </select>
                                 <?= form_error('add-store') ?>
                               </div>

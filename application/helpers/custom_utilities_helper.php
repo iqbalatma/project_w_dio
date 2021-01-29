@@ -49,17 +49,17 @@ if ( ! function_exists('role_validation'))
 {
   /**
   * What is the role of the user, and search in array stack
-  * who are allowed to access something. Return 1 or redirect to base_url
+  * who are allowed to access something. Return 1 or show error page
   *
   * @param string user role name
   * @param array allowed role
   */
-  function role_validation($role = '3', $who = [])
+  function role_validation($role = '3', $hasAccess = [])
   {
-    array_push($who, '0'); // '0' is for superadmin
+    array_push($hasAccess, '0'); // '0' is for superadmin
     
     // jika tidak ada, maka tidak cocok dan buang keluar
-    if ( ! in_array($role, $who)) 
+    if ( ! in_array($role, $hasAccess)) 
     {
       // redirect(base_url(), 'refresh');
       show_error('Anda tidak memiliki hak akses untuk menuju ke halaman ini. Silakan gunakan akun yang sesuai.', 401, '401 - Hak Akses Ditolak');
@@ -77,12 +77,12 @@ if ( ! function_exists('role_access'))
   * @param string user role name
   * @param array allowed role
   */
-  function role_access($role = '3', $who = [])
+  function role_access($role = '3', $hasAccess = [])
   {
-    array_push($who, '0'); // '0' is for superadmin
+    array_push($hasAccess, '0'); // '0' is for superadmin
     
     // jika tidak ada, maka tidak cocok dan buang keluar
-    if ( ! in_array($role, $who)) 
+    if ( ! in_array($role, $hasAccess)) 
     {
       return 0;
     }

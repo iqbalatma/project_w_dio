@@ -687,7 +687,7 @@ class Inventory_product_model extends CI_Model
 
         $data_material_mutation = [
           'material_id'   => $row['mat_id'],
-          'store_id'      => '1', // pasti dari gudang
+          'store_id'      => $data['store_id'], // pasti dari gudang
           'mutation_code' => $__materialMutationCode,
           'quantity'      => $row['new_comp_qty_needed_single'],
           'mutation_type' => 'keluar', // pasti keluar, untuk bikin stok produk
@@ -712,7 +712,7 @@ class Inventory_product_model extends CI_Model
       foreach ($data_material_inventory as $row) {
           $data_material_inventory = [
               'material_id'   => $row['mat_id'],
-              'store_id'      => '1',
+              'store_id'      => $data['store_id'], // pasti dari gudang
               'quantity'      => $row['qty_final'],
               'updated_at'    => $createdAt,
               'updated_by'    => $data['username'],
@@ -747,7 +747,7 @@ class Inventory_product_model extends CI_Model
       $data['data_product_comp'] = $row;
       $data_product_mutation = [
           'product_id'    => $row['prod_id'],
-          'store_id'      => $data['store_id'],
+          'store_id'      => $data['store_id'], // pasti dari gudang
           'mutation_code' => $productMutationCode,
           'quantity'      => $data['add-qty'],
           'mutation_type' => $arr['mutation_type'],
@@ -765,7 +765,7 @@ class Inventory_product_model extends CI_Model
 
       $data_product_inventory = [
         'product_id'    => $row['prod_id'],
-        'store_id'      => $data['store_id'],
+        'store_id'      => $data['store_id'], // pasti dari gudang
         'quantity'      => $data['add-qty'],
         'updated_at'    => $createdAt,
         'created_by'    => $data['username'],

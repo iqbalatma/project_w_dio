@@ -23,11 +23,14 @@
                             <thead class="thead-light">
                               <tr>
                                 <th class="px-3" width="30px">No</th>
+                                <th class="px-3">No Transaksi</th>
                                 <th class="px-3">No Invoice</th>
                                 <th class="px-3" width="150px">Alamat tujuan</th>
                                 <th class="px-3">Total harga</th>
-                                <th class="px-3">Jumlah dibayar</th>
-                                <th class="px-3">Sisa bayar</th>
+                                <?php if (role_access($this->session->role_id, ['1']) == 1) :?>
+                                  <th class="px-3">Jumlah dibayar</th>
+                                  <th class="px-3">Sisa bayar</th>
+                                <?php endif; ?>
                                 <th class="px-3">Tanggal transaksi</th>
                                 <th class="px-3">Gambar</th>
                                 <th class="px-3" style="width: 20%">
@@ -38,11 +41,14 @@
                             <tfoot class="thead-light">
                               <tr>
                                 <th class="px-3">No</th>
+                                <th class="px-3">No Transaksi</th>
                                 <th class="px-3">No Invoice</th>
                                 <th class="px-3">Alamat tujuan</th>
                                 <th class="px-3">Total harga</th>
-                                <th class="px-3">Jumlah dibayar</th>
-                                <th class="px-3">Sisa bayar</th>
+                                <?php if (role_access($this->session->role_id, ['1']) == 1) :?>
+                                  <th class="px-3">Jumlah dibayar</th>
+                                  <th class="px-3">Sisa bayar</th>
+                                <?php endif; ?>
                                 <th class="px-3">Tanggal transaksi</th>
                                 <th class="px-3">Gambar</th>
                                 <th class="px-3">
@@ -60,6 +66,9 @@
                                       <?= $i++ ?>
                                     </td>
                                     <td class="px-3">
+                                      <?= $row['trans_number'] ?>
+                                    </td>
+                                    <td class="px-3">
                                       <?= $row['invoice_number'] ?>
                                     </td>
                                     <td class="px-3">
@@ -68,12 +77,14 @@
                                     <td class="px-3">
                                       <?= price_format($row['price_total']) ?>
                                     </td>
-                                    <td class="px-3">
-                                      <?= price_format($row['paid_amount']) ?>
-                                    </td>
-                                    <td class="px-3 <?= ($row['left_to_paid'] != 0) ? 'text-danger' : '' ?>">
-                                      <?= price_format($row['left_to_paid']) ?>
-                                    </td>
+                                    <?php if (role_access($this->session->role_id, ['1']) == 1) :?>
+                                      <td class="px-3">
+                                        <?= price_format($row['paid_amount']) ?>
+                                      </td>
+                                      <td class="px-3 <?= ($row['left_to_paid'] != 0) ? 'text-danger' : '' ?>">
+                                        <?= price_format($row['left_to_paid']) ?>
+                                      </td>
+                                    <?php endif; ?>
                                     <td class="px-3">
                                       <?php $d = date_create($row['created_at']);
                                       echo date_format($d, "d-M-Y") ?>

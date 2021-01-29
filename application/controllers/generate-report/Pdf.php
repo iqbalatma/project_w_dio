@@ -123,10 +123,10 @@ class Pdf extends CI_Controller
 				'mode'					=> 'all',
 				'menu'					=> 'hutang_piutang',
 				'model'					=> 'Kasir_model',
-				'query_select'	=> "i.invoice_number, c.full_name, c.address, c.phone, DATE_FORMAT(i.paid_at, '%H:%i, %d %M %Y'), DATE_FORMAT(t.due_at, '%H:%i, %d %M %Y'), i.left_to_paid",
+				'query_select'	=> "t.trans_number, i.invoice_number, c.full_name, c.address, c.phone, DATE_FORMAT(i.paid_at, '%H:%i, %d %M %Y'), DATE_FORMAT(t.due_at, '%H:%i, %d %M %Y'), i.left_to_paid",
 				'asc_desc'			=> 'ASC',
-				'order_by'			=> 'i.id',
-				'columns'				=> ['No. Invoice', 'Nama Pelanggan', 'Alamat Pelanggan', 'No. Handphone', 'Dibayar Pada', 'Tenggat Waktu', 'Sisa Bayar'],
+				'order_by'			=> 't.id',
+				'columns'				=> ['No. Transaksi', 'No. Invoice', 'Nama Pelanggan', 'Alamat Pelanggan', 'No. Handphone', 'Dibayar Pada', 'Tenggat Waktu', 'Sisa Bayar'],
 				'limit'					=> 1000,
 			],[
 				'no' 						=> 7,

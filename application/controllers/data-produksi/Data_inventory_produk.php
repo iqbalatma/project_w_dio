@@ -82,6 +82,9 @@ class Data_inventory_produk extends CI_Controller
   // ============================================== TAMBAH =======================================
   public function tambah()
   {
+    // hanya untuk pemilik dan gudang
+    role_validation($this->session->role_id, ['1', '2']);
+    
     // set form rules
     $this->form_validation->set_rules('add-store', 'toko cabang',       'required');
     $this->form_validation->set_rules('add-product', 'produk',	        'required');
@@ -133,10 +136,16 @@ class Data_inventory_produk extends CI_Controller
 
   private function tambah__proses($post)
   {
+    // pprintd($post);
     $isQtyMinus       = FALSE;
     $materialQtyMinus = NULL;
 
-    $store      = explode('||', $post['add-store']);
+    // $store      = explode('||', $post['add-store']);
+    // pasti selalu dari gudang dan idnya 1 serta namanya "Gudang Pusat"
+    // kalo gudangnya nambah lebih bagus pake store yg di atas karena dinamis
+    $store[0]   = 1;
+    $store[1]   = 'Gudang Pusat';
+
     $product    = explode('||', $post['add-product']);
     $qty        = $post['add-qty'];
 
@@ -222,7 +231,7 @@ class Data_inventory_produk extends CI_Controller
     $dataset['employee_id']       = $this->session->id;
     $dataset['username']          = $this->session->username;
 
-    $dataset['store_id']     = $this->session->store_id;
+    $dataset['store_id']     = $store[0]; // pasti dari gudang dan idnya 1
     $dataset['store_name']   = $store[1];
     $dataset['add-qty']      = $post['add-qty'];
 
@@ -327,8 +336,14 @@ class Data_inventory_produk extends CI_Controller
   }
 
 
+
+
+  // semua di bawah gajadi pake, mangga kl nnti butuh mah
+
+
+
   // ============================================== EDIT =======================================
-  public function edit($id=NULL)
+  private function edit($id=NULL)
   {
     if ($id === NULL)
     {
@@ -383,7 +398,7 @@ class Data_inventory_produk extends CI_Controller
 
 
   // ============================================== HAPUS =======================================
-  public function _______________hapus()
+  private function hapus()
   {
     $id  = $this->input->post('id');
     if ($id === NULL)
@@ -414,7 +429,7 @@ class Data_inventory_produk extends CI_Controller
 
 
   // ============================================== DETAIL =======================================
-  public function _______________detail($id = NULL)
+  private function detail($id = NULL)
   {
     if ($id === NULL)
     {

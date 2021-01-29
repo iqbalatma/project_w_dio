@@ -63,24 +63,26 @@
                             <table id="add-row" class="display table table-sm  table-hover">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th class="px-3" width="20px">No</th>
+                                        <th class="px-3">No</th>
                                         <th class="px-3 text-center">Nama Pelanggan</th>
-                                        <th class="px-3">Alamat</th>
-                                        <th class="px-3" width="30px">Nomor Telepon</th>
-                                        <th class="px-3" width="30px">Nomor Invoice</th>
-                                        <th class="px-3 text-center" width="100px">Sisa Yang Belum Dibayar</th>
+                                        <th class="px-3 text-center">Alamat Pelanggan</th>
+                                        <th class="px-3">No. Telepon</th>
+                                        <th class="px-3">Nomor Transaksi</th>
+                                        <th class="px-3">Nomor Invoice</th>
+                                        <th class="px-3 text-center">Sisa Bayar</th>
                                         <th class="px-3 text-center">Tanggal Bayar</th>
                                         <th class="px-3 text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="thead-light">
                                     <tr>
-                                        <th class="px-3" width="20px">No</th>
+                                        <th class="px-3">No</th>
                                         <th class="px-3 text-center">Nama Pelanggan</th>
-                                        <th class="px-3">Alamat</th>
-                                        <th class="px-3" width="30px">Nomor Telepon</th>
-                                        <th class="px-3" width="30px">Nomor Invoice</th>
-                                        <th class="px-3 text-center" width="100px">Sisa Yang Belum Dibayar</th>
+                                        <th class="px-3 text-center">Alamat Pelanggan</th>
+                                        <th class="px-3">No. Telepon</th>
+                                        <th class="px-3">Nomor Transaksi</th>
+                                        <th class="px-3">Nomor Invoice</th>
+                                        <th class="px-3 text-center">Sisa Bayar</th>
                                         <th class="px-3 text-center">Tanggal Bayar</th>
                                         <th class="px-3 text-center">Aksi</th>
                                     </tr>
@@ -105,6 +107,9 @@
                                                 <?= $row['phone'] ?>
                                             </td>
                                             <td class="px-3">
+                                                <?= $row['trans_number'] ?>
+                                            </td>
+                                            <td class="px-3">
                                                 <?= $row['invoice_number'] ?>
                                             </td>
                                             <td class="px-3">
@@ -113,11 +118,11 @@
                                             <td class="px-3">
                                                 <?php $dt = explode(' ', $row['paid_at']);
                                                 $d = date_create($dt[0]);
-                                                echo "{$dt[1]} <br>" . date_format($d, "d-M-Y") ?>
+                                                echo date_format($d, "d-M-Y") ?>
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-default py-2 btn-delete" data-id="<?= $row['id']; ?> <?= $row['transaction_id']; ?> <?= $row['invoice_number'] ?> <?= $row['left_to_paid'] ?>" data-transaction="<?= $row['transaction_id']; ?>" data-xaja="<?= $row['invoice_number'] ?>">
+                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="px-2 btn btn-default py-1 btn-delete" data-id="<?= $row['id']; ?> <?= $row['transaction_id']; ?> <?= $row['invoice_number'] ?> <?= $row['left_to_paid'] ?>" data-transaction="<?= $row['transaction_id']; ?>" data-xaja="<?= $row['invoice_number'] ?>">
                                                         Bayar
                                                     </a>
                                                 </div>

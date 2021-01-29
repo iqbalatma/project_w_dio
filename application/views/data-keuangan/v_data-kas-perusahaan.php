@@ -10,17 +10,17 @@
                           <!-- <span class="h3"><?= $title ?></span> -->
                           <h4 class="card-title font-weight-bold"><?= $title ?></h4>
                           <div>
-                            <?php if (role_access($this->session->role_id, ['0','1','2']) == 1) :?>
-                            <a href=<?= current_url() . '/pengeluaran' ?> class="btn btn-default btn-sm ml-auto mr-2">
-                              <i class="fa fa-minus mr-2"></i>
-                              <span class="h4">Input pengeluaran kas</span>
-                            </a>
+                            <?php if (role_access($this->session->role_id, ['1','2']) == 1) :?>
+                              <a href=<?= current_url() . '/pengeluaran' ?> class="btn btn-default btn-sm ml-auto mr-2">
+                                <i class="fa fa-minus mr-2"></i>
+                                <span class="h4">Input pengeluaran kas</span>
+                              </a>
                             <?php endif; ?>
-                            <?php if (role_access($this->session->role_id, ['0','1']) == 1) :?>
-                            <a href=<?= current_url() . '/pemasukan' ?> class="btn btn-default btn-sm ml-auto">
-                              <i class="fa fa-plus mr-2"></i>
-                              <span class="h4">Input pemasukan kas</span>
-                            </a>
+                            <?php if (role_access($this->session->role_id, ['1']) == 1) :?>
+                              <a href=<?= current_url() . '/pemasukan' ?> class="btn btn-default btn-sm ml-auto">
+                                <i class="fa fa-plus mr-2"></i>
+                                <span class="h4">Input pemasukan kas</span>
+                              </a>
                             <?php endif; ?>
                             <div class="btn-group dropleft" data-toggle="tooltip" title="Opsi">
                               <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
