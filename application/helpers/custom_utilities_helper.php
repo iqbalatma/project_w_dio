@@ -84,6 +84,7 @@ if ( ! function_exists('role_access'))
     // jika tidak ada, maka tidak cocok dan buang keluar
     if ( ! in_array($role, $hasAccess)) 
     {
+      // pprintd($hasAccess);
       return 0;
     }
     return 1;

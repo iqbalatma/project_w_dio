@@ -90,16 +90,15 @@
                                       echo date_format($d, "d-M-Y") ?>
                                     </td>
                                     <td>
-                                      <img src="<?= base_url(); ?>/assets/img/strukpembayaran/<?= $row['payment_img']; ?>" width="200px" alt="">
-
+                                      <img src="<?= base_url(); ?>/assets/img/strukpembayaran/<?= $row['payment_img']; ?>" width="100px" alt="">
                                     </td>
 
                                     <td class="">
                                       <div class="form-button-action">
-                                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $row['id']) ?>" class="btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Surat jalan" data-original-title="Cetak Surat jalan">
+                                        <a href="<?= base_url("generate-report/surat-jalan/generate/" . $row['id']) ?>" class="py-2 px-3 btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Surat jalan" data-original-title="Cetak Surat jalan">
                                           <i class="fas fa-print mr-1"></i> Surat jalan
                                         </a>
-                                        <a href="<?= base_url("generate-report/invoice/generate/" . $row['id']) ?>" class="btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Invoice" data-original-title="Cetak Invoice">
+                                        <a href="<?= base_url("generate-report/invoice/generate/" . $row['id']) ?>" class="py-2 px-3 btn btn-secondary mx-1" data-toggle="tooltip" title="Cetak Invoice" data-original-title="Cetak Invoice">
                                           <i class="fa fa-print mr-1"></i> Invoice
                                         </a>
                                       </div>
