@@ -194,9 +194,9 @@ $mainMenu = array(
       //   'url'   => "{$_data_keuangan}/data-pengeluaran",
       // ], [
         'hasAccess' => role_access($this->session->role_id, [$_role_1]),
-        'name'  => 'Data Laba / Rugi',
+        'name'  => 'Data Laba & Rugi',
         'slug'  => 'data-laba-rugi',
-        'url'   => "{$_data_keuangan}/data-laba-rugi",
+        'url'   => "{$_data_keuangan}/data-laba-rugi/perhari",
       ], [
         'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2]),
         'name'  => 'Data Kas Perusahaan',

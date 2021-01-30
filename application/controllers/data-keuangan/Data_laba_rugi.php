@@ -13,6 +13,10 @@ class Data_laba_rugi extends CI_Controller
     {
         parent::__construct();
         must_login();
+
+        // hanya untuk pemilik
+        role_validation($this->session->role_id, ['1']);
+
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
@@ -21,8 +25,8 @@ class Data_laba_rugi extends CI_Controller
         $this->load->model("Kasir_model");
     }
 
-    public function index()
-    {
+    public function perhari()
+    {    
         $date = new DateTime();
         $tanggal_hari_ini = $date->getTimestamp() + (86400 * 100);
         $tanggal_pertama = 1606656147;
@@ -56,9 +60,6 @@ class Data_laba_rugi extends CI_Controller
                 // $total_hutang = $this->Invoice_model->get_total_debt2();
                 if (array_search($row['transaction_id'], $tidak_digunakan) === false) {
                     $data_row = $this->Invoice_model->get_hutang($row['transaction_id']);
-
-
-
                     // echo "<pre>";
                     // var_dump($data_row);
                     // echo "<pre>";
@@ -74,7 +75,6 @@ class Data_laba_rugi extends CI_Controller
                         // echo $row['transaction_id'];
                     }
                 };
-
 
                 $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
                 foreach ($invoice_item as $row2) {
@@ -100,14 +100,6 @@ class Data_laba_rugi extends CI_Controller
             array_push($total_pemasukan_array, $total_pemasukan_final);
         }
 
-
-
-
-
-
-
-
-
         $total_modal_final = 0;
         $total_pemasukan_final = 0;
         $total_hutang_final = 0;
@@ -118,17 +110,11 @@ class Data_laba_rugi extends CI_Controller
             $tanggal_pertama = $tanggal_pertama + (86400 * 1);
             $data_invoice = $this->Kas_model->get_invoice_perhari(date("Y-m-d", $tanggal_pertama));
 
-
-
             if (count($data_invoice) > 1) {
-
-
 
                 foreach ($data_invoice as $row) {
                     // INI KETIKA INVOICE LEBIH DARI 1 lakukan perulangan
-
                     // echo $row['transaction_id'];
-
                     if (array_search($row['transaction_id'], $tidak_digunakan) === false) {
                         $data_row = $this->Invoice_model->get_hutang($row['transaction_id']);
 
@@ -144,13 +130,7 @@ class Data_laba_rugi extends CI_Controller
 
                     // echo array_search(20, $tidak_digunakan);
 
-
-
-
-
-
                     // $total_hutang = $this->Invoice_model->get_total_debt2();
-
 
                     $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
 
@@ -167,7 +147,6 @@ class Data_laba_rugi extends CI_Controller
                     }
                     // total pemasukan dan modal dalam 1 invoice sudah dijumlahkan
                     // $total_pemasukan adalah total pemasukan per 1 invoice
-
 
                     $total_modal_final += $total_modal;
                     $total_pemasukan_final += $total_pemasukan;
@@ -190,8 +169,6 @@ class Data_laba_rugi extends CI_Controller
 
                     if (array_search($row['transaction_id'], $tidak_digunakan) === false) {
                         $data_row = $this->Invoice_model->get_hutang($row['transaction_id']);
-
-
 
                         // echo "<pre>";
                         // var_dump($data_row);
@@ -235,7 +212,6 @@ class Data_laba_rugi extends CI_Controller
                 }
             }
 
-
             $total_modal_final = 0;
             $total_pemasukan_final = 0;
             $total_hutang_final = 0;
@@ -249,18 +225,18 @@ class Data_laba_rugi extends CI_Controller
 
         $matrix = [];
         $data = [
-            'title'             => 'Data Laba Rugi',
-            'content'           => 'data-keuangan/v_laba_rugi.php',
+            'title'             => 'Data Laba Rugi - Per Hari',
+            'content'           => 'data-keuangan/v_laba_rugi_perhari.php',
             'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
             // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
-            'total_modal' => $total_modal_array,
+            'total_modal'       => $total_modal_array,
             // 'total_pemasukan' => $total_pemasukan_array,
-            'total_pemasukan' => $total_pemasukan_array,
-            'nilai_final' => $nilai_final_array,
-            'tanggal_hari_ini' => $tanggal_array,
-            'hutang_array' => $hutang_array,
-            'datatables' => 1
+            'total_pemasukan'   => $total_pemasukan_array,
+            'nilai_final'       => $nilai_final_array,
+            'tanggal_hari_ini'  => $tanggal_array,
+            'hutang_array'      => $hutang_array,
+            'datatables'        => 1
         ];
 
         $this->load->view('template_dashboard/template_wrapper', $data);
@@ -358,11 +334,6 @@ class Data_laba_rugi extends CI_Controller
             array_push($total_pemasukan_array, $total_pemasukan_final);
         }
 
-
-
-
-
-
         $total_modal_final = 0;
         $total_pemasukan_final = 0;
         $total_hutang_final = 0;
@@ -379,7 +350,6 @@ class Data_laba_rugi extends CI_Controller
                     }
 
                     $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
-
 
                     foreach ($invoice_item as $row2) {
                         $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);
@@ -430,17 +400,17 @@ class Data_laba_rugi extends CI_Controller
 
         $matrix = [];
         $data = [
-            'title'             => 'Data Laba Rugi',
+            'title'             => 'Data Laba Rugi - Per Minggu',
             'content'           => 'data-keuangan/v_laba_rugi_perminggu.php',
             'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
             // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
-            'total_modal' => $total_modal_array,
-            'total_pemasukan' => $total_pemasukan_array,
-            'nilai_final' => $nilai_final_array,
-            'tanggal_hari_ini' => $tanggal_array,
-            'hutang_array' => $hutang_array,
-            'datatables' => 1
+            'total_modal'       => $total_modal_array,
+            'total_pemasukan'   => $total_pemasukan_array,
+            'nilai_final'       => $nilai_final_array,
+            'tanggal_hari_ini'  => $tanggal_array,
+            'hutang_array'      => $hutang_array,
+            'datatables'        => 1
         ];
 
         $this->load->view('template_dashboard/template_wrapper', $data);
@@ -483,8 +453,6 @@ class Data_laba_rugi extends CI_Controller
                 if (array_search($row['transaction_id'], $tidak_digunakan) === false) {
                     $data_row = $this->Invoice_model->get_hutang($row['transaction_id']);
 
-
-
                     // echo "<pre>";
                     // var_dump($data_row);
                     // echo "<pre>";
@@ -500,7 +468,6 @@ class Data_laba_rugi extends CI_Controller
                         // echo $row['transaction_id'];
                     }
                 };
-
 
                 $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
                 foreach ($invoice_item as $row2) {
@@ -526,14 +493,6 @@ class Data_laba_rugi extends CI_Controller
             array_push($total_pemasukan_array, $total_pemasukan_final);
         }
 
-
-
-
-
-
-
-
-
         $total_modal_final = 0;
         $total_pemasukan_final = 0;
         $total_hutang_final = 0;
@@ -544,17 +503,11 @@ class Data_laba_rugi extends CI_Controller
             $tanggal_pertama = $tanggal_pertama + (86400 * 1);
             $data_invoice = $this->Kas_model->get_invoice_perhari(date("Y-m-d", $tanggal_pertama));
 
-
-
             if (count($data_invoice) > 1) {
-
-
 
                 foreach ($data_invoice as $row) {
                     // INI KETIKA INVOICE LEBIH DARI 1 lakukan perulangan
-
                     // echo $row['transaction_id'];
-
                     if (array_search($row['transaction_id'], $tidak_digunakan) === false) {
                         $data_row = $this->Invoice_model->get_hutang($row['transaction_id']);
 
@@ -565,18 +518,11 @@ class Data_laba_rugi extends CI_Controller
                             array_push($tidak_digunakan, $row['transaction_id']);
                         }
                     };
+
                     // // var_dump($tidak_digunakan);
                     // echo "<br>";
-
                     // echo array_search(20, $tidak_digunakan);
-
-
-
-
-
-
                     // $total_hutang = $this->Invoice_model->get_total_debt2();
-
 
                     $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
 
@@ -593,7 +539,6 @@ class Data_laba_rugi extends CI_Controller
                     }
                     // total pemasukan dan modal dalam 1 invoice sudah dijumlahkan
                     // $total_pemasukan adalah total pemasukan per 1 invoice
-
 
                     $total_modal_final += $total_modal;
                     $total_pemasukan_final += $total_pemasukan;
@@ -616,8 +561,6 @@ class Data_laba_rugi extends CI_Controller
 
                     if (array_search($row['transaction_id'], $tidak_digunakan) === false) {
                         $data_row = $this->Invoice_model->get_hutang($row['transaction_id']);
-
-
 
                         // echo "<pre>";
                         // var_dump($data_row);
@@ -661,7 +604,6 @@ class Data_laba_rugi extends CI_Controller
                 }
             }
 
-
             $total_modal_final = 0;
             $total_pemasukan_final = 0;
             $total_hutang_final = 0;
@@ -672,39 +614,39 @@ class Data_laba_rugi extends CI_Controller
 
         $matrix = [];
         $data = [
-            'title'             => 'Data Laba Rugi',
+            'title'             => 'Data Laba Rugi - Per Bulan',
             'content'           => 'data-keuangan/v_laba_rugi_perbulan.php',
             'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
             // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
-            'total_modal' => $total_modal_array,
-            'total_pemasukan' => $total_pemasukan_array,
-            'nilai_final' => $nilai_final_array,
-            'tanggal_hari_ini' => $tanggal_array,
-            'hutang_array' => $hutang_array,
-            'datatables' => 1
+            'total_modal'       => $total_modal_array,
+            'total_pemasukan'   => $total_pemasukan_array,
+            'nilai_final'       => $nilai_final_array,
+            'tanggal_hari_ini'  => $tanggal_array,
+            'hutang_array'      => $hutang_array,
+            'datatables'        => 1
         ];
 
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
     // public function index()
-    // {
-    //     $data = [
-    //         'title'             => 'Data Laba Rugi',
-    //         'content'           => 'data-keuangan/v_laba_rugi.php',
-    //         'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
-    //         'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
-    //         // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
-    //         // 'total_modal' => $total_modal_array,
-    //         // // 'total_pemasukan' => $total_pemasukan_array,
-    //         // 'total_pemasukan' => $total_pemasukan_array,
-    //         // 'nilai_final' => $nilai_final_array,
-    //         // 'tanggal_hari_ini' => $tanggal_array,
-    //         // 'hutang_array' => $hutang_array,
-    //         'datatables' => 1
-    //     ];
+        // {
+        //     $data = [
+        //         'title'             => 'Data Laba Rugi',
+        //         'content'           => 'data-keuangan/v_laba_rugi.php',
+        //         'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+        //         'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+        //         // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
+        //         // 'total_modal' => $total_modal_array,
+        //         // // 'total_pemasukan' => $total_pemasukan_array,
+        //         // 'total_pemasukan' => $total_pemasukan_array,
+        //         // 'nilai_final' => $nilai_final_array,
+        //         // 'tanggal_hari_ini' => $tanggal_array,
+        //         // 'hutang_array' => $hutang_array,
+        //         'datatables' => 1
+        //     ];
 
-    //     $this->load->view('template_dashboard/template_wrapper', $data);
+        //     $this->load->view('template_dashboard/template_wrapper', $data);
     // }
 }

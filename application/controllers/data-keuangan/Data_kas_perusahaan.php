@@ -21,7 +21,7 @@ class Data_kas_perusahaan extends CI_Controller
     role_validation($this->session->role_id, ['1', '2']);
 
     $data = [
-      'title'           => 'Data Master Kas Perusahaan',
+      'title'           => 'Data Master - Kas Perusahaan',
       'content'         => "{$this->modules}/v_{$this->controller}.php",
       'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
       'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
@@ -73,7 +73,7 @@ class Data_kas_perusahaan extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       // set data untuk digunakan pada view
       $data = [
-        'title'           => 'Input Pengeluaran Kas Perusahaan',
+        'title'           => 'Input Pengeluaran - Kas Perusahaan',
         'content'         => "{$this->modules}/v_{$this->controller}_pengeluaran.php",
         'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
         'submenuActive'   => "{$this->controller}", // harus selalu ada, buat indikator sidebar menu yg aktif
@@ -121,7 +121,7 @@ class Data_kas_perusahaan extends CI_Controller
     if ($this->form_validation->run() == FALSE) {
       // set data untuk digunakan pada view
       $data = [
-        'title'           => 'Input Pemasukan Kas Perusahaan',
+        'title'           => 'Input Pemasukan - Kas Perusahaan',
         'content'         => "{$this->modules}/v_{$this->controller}_pemasukan.php",
         'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
         'submenuActive'   => "{$this->controller}", // harus selalu ada, buat indikator sidebar menu yg aktif

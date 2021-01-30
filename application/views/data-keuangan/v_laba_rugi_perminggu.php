@@ -15,9 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-
-
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Data per Minggu - Laba & Rugi</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -28,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Keuangan</a>
+                    <a href="<?= current_url() ?>">Data Keuangan</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-keuangan/Data_laba_rugi'); ?>">Laba Rugi</a>
+                    <a href="<?= current_url() ?>">Data per Minggu</a>
                 </li>
             </ul>
         </div>
@@ -43,9 +41,19 @@
                 <div class="card">
 
                     <div class="card-header">
-                        <a href="<?= base_url("data-keuangan/Data_laba_rugi"); ?>" class="btn btn-primary">Labar Rugi Perhari</a>
-                        <a href="<?= base_url("data-keuangan/Data_laba_rugi/perminggu"); ?>" class="btn btn-primary">Labar Rugi Perminggu</a>
-                        <a href="<?= base_url("data-keuangan/Data_laba_rugi/perbulan"); ?>" class="btn btn-primary">Labar Rugi Perbulan</a>
+                        <div class="w-75 mx-auto">
+                            <ul class="nav nav-pills nav-fill ">
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
+                                    <a class="nav-link <?= (getLastSegment() == 'perhari') ? 'active':''; ?>" href="<?= base_url("data-keuangan/data-laba-rugi/perhari"); ?>">Per Hari</a>
+                                </li>
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
+                                    <a class="nav-link <?= (getLastSegment() == 'perminggu') ? 'active':''; ?>" href="<?= base_url("data-keuangan/data-laba-rugi/perminggu"); ?>">Per Minggu</a>
+                                </li>
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? 'visible' : 'hidden' ?>;">
+                                    <a class="nav-link <?= (getLastSegment() == 'perbulan') ? 'active':''; ?>" href="<?= base_url("data-keuangan/data-laba-rugi/perbulan"); ?>">Per Bulan</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -54,18 +62,17 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="40px">Tanggal</th>
+                                        <th class="px-3" width="100%">Range Tanggal per Minggu</th>
                                         <th class="px-3" width="30px">Modal</th>
                                         <th class="px-3" width="30px">Pemasukan</th>
                                         <th class="px-3" width="30px">Hutang</th>
                                         <th class="px-3">Untung/Rugi</th>
-
                                     </tr>
                                 </thead>
                                 <tfoot class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="40px">Tanggal</th>
+                                        <th class="px-3" width="100%">Range Tanggal per Minggu</th>
                                         <th class="px-3" width="30px">Modal</th>
                                         <th class="px-3" width="30px">Pemasukan</th>
                                         <th class="px-3" width="30px">Hutang</th>
@@ -73,11 +80,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
-
-
                                     <?php
-
                                     $data_master_tanggal = $tanggal_hari_ini;
                                     $tanggal_pertama = $data_master_tanggal[0];
                                     $tanggal_terakhir = $data_master_tanggal[count($data_master_tanggal) - 1];
@@ -110,8 +113,6 @@
 
                                             $i++;
                                         }
-
-
                                     ?>
 
                                         <tr>
@@ -127,13 +128,7 @@
                                         $tanggal_pertama = $tanggal_pertama + 86400 * 8;
                                         $counter++;
                                     }
-
-
-
-
-
                                     ?>
-
                                 </tbody>
                             </table>
                         </div>
