@@ -105,18 +105,11 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
-
-
                                     <?php
-
                                     $i = 0;
                                     // var_dump($data_barang_laku);
                                     if ($data_barang_laku !== false) {
-
-
                                         foreach ($data_barang_laku as $row) : ?>
-
                                             <tr>
                                                 <td class="px-3">
                                                     <?= $i + 1 ?>
@@ -128,13 +121,12 @@
                                                     <?= $row['full_name'] ?>
                                                 </td>
                                                 <td class="px-3">
-                                                    <?= $row['freq'] ?>
+                                                    <?= number_format($row['freq'], 0, '', '.') ?>
                                                 </td>
-
                                             </tr>
-                                    <?php
-                                            $i++;
-                                        endforeach;
+                                        <?php
+                                        $i++;
+                                       endforeach;
                                     } ?>
                                 </tbody>
                             </table>

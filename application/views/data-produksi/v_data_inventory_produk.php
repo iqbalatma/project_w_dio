@@ -111,7 +111,7 @@
                                       <?= $row['store_name'] ?>
                                     </td>
                                     <td class="px-3">
-                                      <?= $row['quantity'] ?>
+                                      <?= number_format($row['quantity'], 0, '', '.') ?>
                                     </td>
                                     <td class="px-3">
                                       <?= $date[0] ?>

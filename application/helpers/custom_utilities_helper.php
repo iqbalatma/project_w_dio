@@ -168,9 +168,9 @@ if ( ! function_exists('price_format'))
 	 *
 	 * @param	int	Integer of the pre-formatted price
 	*/
-  function price_format($int = 0, $nbsp = TRUE, $echo = NULL)
+  function price_format($int, $nbsp = TRUE, $echo = NULL)
   {
-    if ($nbsp === TRUE) $x = "Rp.&nbsp;".number_format($int, 0, '', '.');
+    if ($nbsp === TRUE) $x  = "Rp.&nbsp;".number_format($int, 0, '', '.');
     if ($nbsp === FALSE) $x = "Rp.".number_format($int, 0, '', '.');
 
     if ($echo === NULL) echo $x;

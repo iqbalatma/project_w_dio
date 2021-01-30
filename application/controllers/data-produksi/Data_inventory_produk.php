@@ -100,7 +100,7 @@ class Data_inventory_produk extends CI_Controller
         'content'         => 'data-produksi/v_data_inventory_produk_tambah.php',
         'menuActive'      => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
         'submenuActive'   => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
-        'stores'          => $this->s_m->getAll(),
+        // 'stores'          => $this->s_m->getAll(), // dipake nanti kalo udah lebih dari 1 jumlah tokonya ya bos
         'products'        => $this->p_m->get_all(),
         'products_comp'   => $this->p_m->get_all_with_composition(),
       ];

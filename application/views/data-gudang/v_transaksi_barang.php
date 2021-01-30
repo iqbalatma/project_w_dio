@@ -65,7 +65,6 @@
                         </div>
                     </div>
 
-
                     <div class="card-body">
 
                         <div class="table-responsive">
@@ -120,7 +119,7 @@
                                                 <?= $row->mutation_code ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row->quantity ?>
+                                                <?= number_format($row->quantity, 0, '', '.') ?>
                                             </td>
                                             <td class="px-3 text-uppercase font-weight-bold <?= ($row->mutation_type == 'masuk') ? 'text-primary' : 'text-danger' ?>">
                                                 <?= $row->mutation_type ?>

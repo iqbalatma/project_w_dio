@@ -8,8 +8,10 @@ class Data_transaksi_barang extends CI_Controller
     {
         parent::__construct();
         must_login();
+        
         // hanya untuk pemilik dan gudang
         role_validation($this->session->role_id, ['1', '2']);
+
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
@@ -59,10 +61,6 @@ class Data_transaksi_barang extends CI_Controller
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
-
-    
-
-
 
     public function get_ajax()
     {

@@ -45,11 +45,7 @@
                         </div>
                     </div> -->
 
-
-
-
                     <div class="card-body">
-
 
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-sm  table-hover">
@@ -76,9 +72,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
                                     <?php
-
                                     $i = 1;
                                     foreach ($data_barang_kritis as $row) : ?>
                                         <tr>
@@ -108,13 +102,7 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
-
-
-
-
-
 
 
 
@@ -208,8 +196,6 @@
                                         <button class="btn btn-primary">Hapus Data</button>
                                     </div>
                                 </form>
-
-
 
                             </div>
                         </div>

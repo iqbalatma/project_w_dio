@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-
-
 class Data_hutang_piutang extends CI_Controller
 {
 

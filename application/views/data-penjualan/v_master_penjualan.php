@@ -89,7 +89,7 @@
                                                 <?= $row['mutation_code'] ?>
                                             </td>
                                             <td class="px-3">
-                                                <?= $row['quantity'] ?>
+                                                <?= number_format($row['quantity'], 0, '', '.') ?>
                                             </td>
                                             <td class="px-3">
                                                 <?= $row['mutation_type'] ?>

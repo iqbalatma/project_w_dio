@@ -1,9 +1,5 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
-
-
 
 class Data_barang_mentah extends CI_Controller
 {
@@ -12,8 +8,10 @@ class Data_barang_mentah extends CI_Controller
     {
         parent::__construct();
         must_login();
+
         // hanya untuk pemilik
         role_validation($this->session->role_id, ['1']);
+
         $this->load->model("Material_model");
         $this->load->model("Inventory_material_model", "im_m");
     }
