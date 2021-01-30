@@ -12,7 +12,7 @@
                             <?php if (role_access($this->session->role_id, ['1','2']) == 1) :?>
                               <a href=<?= current_url() . '/tambah' ?> class="btn btn-default btn-sm ml-auto">
                                 <i class="fa fa-cog mr-2"></i>
-                                <span class="h6">Perbarui stok</span>
+                                <span class="h6">Tambah stok</span>
                               </a>
                             <?php endif; ?>
                             <div class="btn-group dropleft" data-toggle="tooltip" title="Opsi">

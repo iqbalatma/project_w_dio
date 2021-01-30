@@ -37,6 +37,37 @@
             });
         </script>
     <?php endif; ?>
+    <?php if ($this->session->flashdata('confirmation_message')) : ?>
+        <script>
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+            // swal({
+            //     title: "<?= $this->session->title; ?>",
+            //     text: "<?= $this->session->text; ?>",
+            //     timer: 5000,
+            //     button: true,
+            //     icon: 'warning',
+            //     showCancelButton: true,
+            //     confirmButtonColor: '#3085d6',
+            //     cancelButtonColor: '#d33',
+            //     confirmButtonText: 'Yes, delete it!'
+            // });
+        </script>
+    <?php endif; ?>
     <!-- sweetalert end -->
 
     <!--   Core JS Files   -->
@@ -230,7 +261,7 @@
 
     <?php
     // cek hanya untuk controller Kasir ($submenuActive itu isinya nama controller)
-    if ($submenuActive == 'kasir' || $submenuActive == 'data-transaksi-barang') : ?>
+    if ($submenuActive == 'kasir' || $submenuActive == 'kasir-ke-cabang') : ?>
         <script>
             // untuk set select2 libs, jgn lupa lempar parameter {'select2' => 1}  di method
             $(document).ready(function() {

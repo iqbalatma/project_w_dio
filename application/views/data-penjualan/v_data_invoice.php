@@ -25,6 +25,7 @@
                                 <th class="px-3" width="30px">No</th>
                                 <th class="px-3">No Transaksi</th>
                                 <th class="px-3">No Invoice</th>
+                                <th class="px-3">Nama Pelanggan</th>
                                 <th class="px-3" width="150px">Alamat tujuan</th>
                                 <th class="px-3">Total harga</th>
                                 <?php if (role_access($this->session->role_id, ['1']) == 1) :?>
@@ -32,7 +33,7 @@
                                   <th class="px-3">Sisa bayar</th>
                                 <?php endif; ?>
                                 <th class="px-3">Tanggal transaksi</th>
-                                <th class="px-3">Gambar</th>
+                                <!-- <th class="px-3">Gambar</th> -->
                                 <th class="px-3" style="width: 20%">
                                   <center>Aksi</center>
                                 </th>
@@ -43,6 +44,7 @@
                                 <th class="px-3">No</th>
                                 <th class="px-3">No Transaksi</th>
                                 <th class="px-3">No Invoice</th>
+                                <th class="px-3">Nama Pelanggan</th>
                                 <th class="px-3">Alamat tujuan</th>
                                 <th class="px-3">Total harga</th>
                                 <?php if (role_access($this->session->role_id, ['1']) == 1) :?>
@@ -50,7 +52,7 @@
                                   <th class="px-3">Sisa bayar</th>
                                 <?php endif; ?>
                                 <th class="px-3">Tanggal transaksi</th>
-                                <th class="px-3">Gambar</th>
+                                <!-- <th class="px-3">Gambar</th> -->
                                 <th class="px-3">
                                   <center>Aksi</center>
                                 </th>
@@ -72,6 +74,9 @@
                                       <?= $row['invoice_number'] ?>
                                     </td>
                                     <td class="px-3">
+                                      <?= $row['deliv_fullname'] ?>
+                                    </td>
+                                    <td class="px-3">
                                       <?= $row['deliv_address'] ?>
                                     </td>
                                     <td class="px-3">
@@ -89,9 +94,9 @@
                                       <?php $d = date_create($row['created_at']);
                                       echo date_format($d, "d-M-Y") ?>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                       <img src="<?= base_url(); ?>/assets/img/strukpembayaran/<?= $row['payment_img']; ?>" width="100px" alt="">
-                                    </td>
+                                    </td> -->
 
                                     <td class="">
                                       <div class="form-button-action">

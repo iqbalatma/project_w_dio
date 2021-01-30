@@ -99,3 +99,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 defined('DEV_VERSION')  OR define('DEV_VERSION', 'v0.01');
 defined('VERSION')      OR define('VERSION', 'v1.00');
+defined('SITE_NAME')    OR define('SITE_NAME', 'Sabun Aryanz');

@@ -244,6 +244,7 @@ class Customer_model extends CI_Model
     }
     return FALSE;
   }
+
   public function get_by_name($name, $select = '*')
   {
     // get from table
@@ -257,6 +258,7 @@ class Customer_model extends CI_Model
     }
     return FALSE;
   }
+
   public function get_toko_cabang($select = '*', $enableGudang = NULL)
   {
     // get from table
@@ -264,10 +266,11 @@ class Customer_model extends CI_Model
     $this->db->select($select);
     $this->db->from($this->table);
     $this->db->where('is_deleted', 0);
-    $this->db->where('full_name', 'Toko Cicalengka');
-    $this->db->or_where('full_name', 'Toko Ujung Berung');
+    $this->db->where('is_store', 1);
+    // $this->db->where('full_name', 'Toko Cicalengka');
+    // $this->db->or_where('full_name', 'Toko Ujung Berung');
 
-    if ($enableGudang == TRUE) $this->db->or_where('full_name', 'Gudang Pusat');
+    // if ($enableGudang == TRUE) $this->db->or_where('full_name', 'Gudang Pusat');
 
     $this->db->order_by('full_name', 'ASC');
     $query = $this->db->get();
@@ -277,13 +280,14 @@ class Customer_model extends CI_Model
     return FALSE;
   }
 
-  public function get_tokcab_dio ($idTokoAsCust = null, $select = 'c.full_name, s.id')
+  public function get_tokcab_dio($idTokoAsCust = null, $select = 'c.full_name, s.id')
   {
     $this->db->select($select);
     $this->db->from('store s');
     $this->db->join("customer c", 's.store_name = c.full_name');
     $this->db->where('s.is_deleted', 0);
     $this->db->where('c.is_deleted', 0);
+    $this->db->where('c.is_store', 1);
     $this->db->where('s.id !=', '1');
 
     if ($idTokoAsCust != null) {
@@ -291,7 +295,6 @@ class Customer_model extends CI_Model
     }
     
     $query = $this->db->get();
-
     if ($query->num_rows() == 1) {
       return $query->row();
     }

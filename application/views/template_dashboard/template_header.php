@@ -59,7 +59,7 @@
     <meta name="author" content="Dio Ilham Djatiadi">
     <meta name="author" content="Iqbal Atma Muliawan">
 
-    <title><?= $title; ?></title>
+    <title><?= "{$title} | " . SITE_NAME ?></title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/img/icon.ico" type="image/x-icon" />
     <!-- <link rel="icon" href="<?= base_url('assets/img/default.png') ?>" type="image/x-icon" /> -->

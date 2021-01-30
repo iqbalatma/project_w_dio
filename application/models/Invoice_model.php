@@ -27,6 +27,7 @@ class Invoice_model extends CI_Model
     $this->db->select($select);
     $this->db->from("{$this->table}");
     $this->db->order_by("id", 'DESC');
+
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
@@ -54,6 +55,7 @@ class Invoice_model extends CI_Model
     }
 
     $this->db->order_by("i.id", 'DESC')->limit($limit);
+
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();
@@ -63,10 +65,12 @@ class Invoice_model extends CI_Model
 
   public function get_all_first_inv_per_trx($select = '*', $idToko = null, $limit = 999999999)
   {
+    // ini subquery
     $this->db->select("MIN(id) AS id");
     $this->db->group_by("transaction_id");
     $subQuery = $this->db->get_compiled_select('invoice');
 
+    // ini query utama
     $this->db->select("{$select}");
     $this->db->from("{$this->table} AS i, ({$subQuery}) AS first_invoice");
     $this->db->join("{$this->tb_trx} AS t", "t.id=i.transaction_id");
@@ -74,7 +78,6 @@ class Invoice_model extends CI_Model
     $this->db->order_by("i.id", 'DESC')->limit($limit);
 
     $query = $this->db->get();
-
     if ($query->num_rows() > 0) {
       return $query->result_array();
     }
@@ -125,8 +128,8 @@ class Invoice_model extends CI_Model
     $this->db->where('inv.status', '0');
     $this->db->where('inv.is_deleted', 0);
     $this->db->where('inv.left_to_paid >', 0);
-    
     $this->db->order_by("inv.id", 'DESC')->limit($limit);
+    
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
       return $query->result_array();

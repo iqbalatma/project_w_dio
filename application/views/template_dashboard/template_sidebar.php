@@ -6,12 +6,13 @@ $_data_gudang           = 'data-gudang';
 $_data_produksi         = 'data-produksi';
 $_data_penjualan        = 'data-penjualan';
 $_data_keuangan         = 'data-keuangan';
-$_data_laporan          = 'data-laporan';
+// $_data_laporan          = 'data-laporan';
 $_data_pelanggan        = 'data-pelanggan';
 $_data_pegawai          = 'data-pegawai';
 $_informasi_perusahaan  = 'informasi-perusahaan';
+$_kasir_ke_cabang       = 'kasir-ke-cabang';
 $_kasir                 = 'kasir';
-$_kas_perusahaan        = 'kas-perusahaan';
+// $_kas_perusahaan        = 'kas-perusahaan';
 
 // Role sesuai dengan masing2 role id
 // {owner=1 ; admin=2 ; cashier=3}
@@ -264,7 +265,7 @@ $mainMenu = array(
   // ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2, $_role_3]),
-    'no'      => 7,
+    'no'      => 6,
     'name'    => 'Data Pelanggan',
     'slug'    => $_data_pelanggan,
     'url'     => $_data_pelanggan,
@@ -280,7 +281,7 @@ $mainMenu = array(
   ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_1]),
-    'no'      => 8,
+    'no'      => 7,
     'name'    => 'Data Pegawai',
     'slug'    => $_data_pegawai,
     'url'     => $_data_pegawai,
@@ -296,7 +297,7 @@ $mainMenu = array(
   ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2, $_role_3]),
-    'no'      => 10,
+    'no'      => 8,
     'name'    => 'Informasi Perusahaan',
     'slug'    => $_informasi_perusahaan,
     'url'     => $_informasi_perusahaan,
@@ -305,7 +306,16 @@ $mainMenu = array(
   ],
   [
     'hasAccess' => role_access($this->session->role_id, [$_role_2, $_role_3]),
-    'no'      => 11,
+    'no'      => 9,
+    'name'    => 'Kasir (ke cabang)',
+    'slug'    => $_kasir_ke_cabang,
+    'url'     => $_kasir_ke_cabang,
+    'icon'    => 'fas fa-address-card',
+    'submenu' => FALSE,
+  ],
+  [
+    'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2]),
+    'no'      => 10,
     'name'    => 'Kasir',
     'slug'    => $_kasir,
     'url'     => $_kasir,

@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Forms</h4>
+            <h4 class="page-title">Checkout Station</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -26,24 +26,15 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Kasir</a>
-                </li>
-                <li class="separator">
-                    <i class="flaticon-right-arrow"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="<?= current_url() ?>"><?= $title ?></a>
                 </li>
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Checkout Station</div>
-                    </div>
 
-                    <?= form_open('Kasir/konfirmasi_kasir'); ?>
+                    <?= form_open('kasir/konfirmasi-kasir'); ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
