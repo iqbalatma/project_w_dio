@@ -15,9 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-
-
-            <h4 class="page-title">Data Penjualan Toko</h4>
+            <h4 class="page-title">Data per Toko - Penjualan</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -28,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Penjualan Toko</a>
+                    <a href="<?= current_url() ?>">Data Penjualan</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Barang Masuk</a>
+                    <a href="<?= current_url() ?>">Data per Toko</a>
                 </li>
             </ul>
         </div>
@@ -42,17 +40,24 @@
             <div class="col-md-12">
                 <div class="card">
 
-
                     <div class="card-header">
-                        <div class="col-md-8 pt-3">
-                            <a class="btn btn-primary rounded" href="<?= base_url('data-penjualan/Data_penjualan_pertoko/index/1'); ?>" type="button">Gudang Pusat</a>
-                            <a class="btn btn-primary rounded ml-3" href="<?= base_url('data-penjualan/Data_penjualan_pertoko/index/2') ?>" type="button">Toko Cabang Cicalengka</a>
-                            <a class="btn btn-primary rounded ml-3" href="<?= base_url('data-penjualan/Data_penjualan_pertoko/index/3') ?>" type="button">Toko Cabang Ujung Berung</a>
+                        <div class="w-75 mx-auto">
+                            <ul class="nav nav-pills nav-fill ">
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
+                                    <a class="nav-link" href="<?= base_url('data-penjualan/data-penjualan'); ?>">Semua Lokasi</a>
+                                </li>
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
+                                    <a class="nav-link <?= (getLastSegment() == '1') ? 'active':''; ?>" href="<?= base_url('data-penjualan/data-penjualan-pertoko/index/1'); ?>">Gudang Pusat</a>
+                                </li>
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? 'visible' : 'hidden' ?>;">
+                                    <a class="nav-link <?= (getLastSegment() == '2') ? 'active':''; ?>" href="<?= base_url('data-penjualan/data-penjualan-pertoko/index/2') ?>">Toko Cabang Cicalengka</a>
+                                </li>
+                                <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? 'visible' : 'hidden' ?>;">
+                                    <a class="nav-link <?= (getLastSegment() == '3') ? 'active':''; ?>" href="<?= base_url('data-penjualan/data-penjualan-pertoko/index/3') ?>">Toko Cabang Ujung Berung</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-
-
-
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -68,7 +73,6 @@
                                         <th class="px-3">Jenis Transaksi</th>
                                         <th class="px-3">Tanggal Transaksi</th>
                                         <th class="px-3">Transaksi Oleh</th>
-
                                     </tr>
                                 </thead>
                                 <tfoot class="thead-light">
@@ -85,9 +89,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
                                     <?php
-
                                     $i = 1;
                                     foreach ($data_master_penjualan as $row) : ?>
                                         <tr>
@@ -125,9 +127,6 @@
                         </div>
 
                     </div>
-
-
-
 
                 </div>
             </div>

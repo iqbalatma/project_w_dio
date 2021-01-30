@@ -25,7 +25,7 @@
                         <div class="w-75 mx-auto">
                           <ul class="nav nav-pills nav-fill ">
                             <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
-                              <a class="nav-link <?= ($uniqid == 'all') ? 'active':''; ?>" href="?uniqid=all">Semua cabang</a>
+                              <a class="nav-link <?= ($uniqid == 'all') ? 'active':''; ?>" href="?uniqid=all">Semua Lokasi</a>
                             </li>
                             <li class="nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
                               <a class="nav-link <?= ($uniqid == '1') ? 'active':''; ?>" href="?uniqid=1">Gudang Pusat</a>
