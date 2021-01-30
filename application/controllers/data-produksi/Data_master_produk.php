@@ -59,15 +59,15 @@ class Data_master_produk extends CI_Controller
     }else {
       // insert data to db
       $post  = $this->input->post();
-      $query = $this->product_m->set_new_product($post);
+      $lastId = $this->product_m->set_new_product($post);
 
-      if ($query) {
+      if ($lastId) {
         // flashdata untuk sweetalert
         $this->session->set_flashdata('success_message', 1);
         $this->session->set_flashdata('title', "Penambahan sukses!");
-        $this->session->set_flashdata('text', 'Data produk telah berhasil ditambah!');
-        // kembali ke laman sebelumnya sesuai hirarki controller
-        redirect(base_url( getBeforeLastSegment($this->modules) ));
+        $this->session->set_flashdata('text', 'Silakan isi detail produk!');
+        // masuk ke halaman detail produknya
+        redirect(base_url( getBeforeLastSegment($this->modules) . "/detail/{$lastId}" ));
 
       }else {
         // flashdata untuk sweetalert
@@ -76,7 +76,7 @@ class Data_master_produk extends CI_Controller
         $this->session->set_flashdata('text', 'Mohon cek kembali data produk.');
         // kembali ke laman sebelumnya sesuai hirarki controller
         redirect(base_url( getBeforeLastSegment($this->modules) ));
-      } // end if($query): success or failed
+      } // end if($lastId): success or failed
     } // end form_validation->run()
   }
 
@@ -285,13 +285,18 @@ class Data_master_produk extends CI_Controller
     {
       redirect(base_url( getBeforeLastSegment($this->modules) ));
     }
+
+    $products = $this->product_m->get_by_id($id);
+    // redirect keluar kalo id yg masuk ternyata gada datanya
+    if (! $products) redirect(base_url( getBeforeLastSegment('', 3) . '/' . getBeforeLastSegment('', 2) ));
+
     // set data untuk digunakan pada view
     $data = [
       'title'             => 'Detail produk',
       'content'           => 'data-produksi/v_data_master_produk_detail.php',
       'menuActive'        => $this->modules, // harus selalu ada, buat indikator sidebar menu yg aktif
       'submenuActive'     => $this->controller, // harus selalu ada, buat indikator sidebar menu yg aktif
-      'product'           => $this->product_m->get_by_id($id),
+      'product'           => $products,
       'composition'       => $this->product_m->get_all_composition_by_id($id, 'm.full_name, m.material_code, m.price_base, pc.volume'),
     ];
     $this->load->view('template_dashboard/template_wrapper', $data);

@@ -26,6 +26,8 @@ class Product_model extends CI_Model
    */
   public function set_new_product($data)
   {
+    $this->db->trans_start();
+
     $createdAt = unix_to_human(now(), true, 'europe');
     $data = array(
       "product_code"  => $data['add-kodeproduk'],
@@ -34,7 +36,13 @@ class Product_model extends CI_Model
       "volume"        => $data['add-volume'],
       "created_at"    => $createdAt,
     );
-    return $this->db->insert($this->table, $data);
+
+    $this->db->insert($this->table, $data);
+
+    $lastId = $this->db->insert_id();
+
+    $this->db->trans_complete();
+    return ($this->db->trans_status() === FALSE) ? FALSE : $lastId;
   }
 
   /**

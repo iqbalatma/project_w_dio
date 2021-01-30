@@ -38,7 +38,7 @@ class Data_inventory_produk extends CI_Controller
       if ($uniqid == 'all') {
         // hanya untuk pemilik dan gudang
         role_validation($sess['role_id'], ['0', '1', '2']);
-        $productInventory = $this->pi_m->get_all("pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
+        $productInventory = $this->pi_m->get_all("pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by", 'pi.quantity');
       }
       else {
         // cek data store pada db
@@ -50,7 +50,7 @@ class Data_inventory_produk extends CI_Controller
 
         // jika storeid diisi dengan id yg sesuai dengan id di db, maka tampil data per id tersebut
         if ($storeId != FALSE) {
-          $productInventory = $this->pi_m->get_all_by_store_id($storeId, "pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by");
+          $productInventory = $this->pi_m->get_all_by_store_id($storeId, "pi.id, p.product_code, p.full_name, pi.quantity, s.store_name, pi.updated_at, pi.updated_by", 'pi.quantity');
         } 
         // jika isinya gajelas ya arahin ke default
         else {

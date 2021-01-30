@@ -46,8 +46,9 @@
                                         <?php
                                         $jsArray = "var prdName = new Array();\n";
                                         foreach ($data_customer as $row) {
-                                        ?>
-                                            <option name="id_customer" value="<?= $row['id']; ?>"><?= "{$row['full_name']} - {$row['cust_type']}"; ?></option>
+                                            $row['is_store'] == 1 ? $isOfficial = '(Toko Resmi)': $isOfficial = '(WARNING: BUKAN TOKO RESMI! Hubungi developer.)';
+                                            ?>
+                                            <option name="id_customer" value="<?= $row['id']; ?>"><?= "{$isOfficial} {$row['full_name']} - {$row['cust_type']}" ?></option>
                                             <?php
                                             $jsArray .= "prdName['{$row['id']}'] = {alamat_pelanggan:'" . addslashes($row['address']) . "',phone:'" . addslashes($row['phone']) . "'};\n";
                                             ?>
@@ -65,7 +66,7 @@
                                         </label>
                                     </div>
                                     <div class="form-group mt--2">
-                                        <label for="alamat_pelanggan">Alamat Pelanggan</label>
+                                        <label for="alamat_pelanggan">Alamat Pengiriman</label>
                                         <input type="text" class="form-control" id="alamat_pelanggan" name="alamat_pelanggan" maxlength=250 readonly>
                                     </div>
                                     <div class="form-group">
