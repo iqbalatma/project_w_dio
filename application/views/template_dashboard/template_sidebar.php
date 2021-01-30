@@ -305,7 +305,7 @@ $mainMenu = array(
     'submenu' => FALSE
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_2, $_role_3]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_2]),
     'no'      => 9,
     'name'    => 'Kasir (ke cabang)',
     'slug'    => $_kasir_ke_cabang,
@@ -314,7 +314,7 @@ $mainMenu = array(
     'submenu' => FALSE,
   ],
   [
-    'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2]),
+    'hasAccess' => role_access($this->session->role_id, [$_role_2, $_role_3]),
     'no'      => 10,
     'name'    => 'Kasir',
     'slug'    => $_kasir,

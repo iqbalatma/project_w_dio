@@ -18,7 +18,7 @@
             <h4 class="page-title">Forms</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
-                    <a href="<?= base_url(); ?>">
+                    <a href="<?= base_url() ?>">
                         <i class="flaticon-home"></i>
                     </a>
                 </li>
@@ -26,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Kasir</a>
+                    <a href="<?= current_url() ?>">Kasir</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Kasir'); ?>">Checkout Kasir</a>
+                    <a href="<?= current_url() ?>">Checkout Kasir</a>
                 </li>
             </ul>
         </div>
@@ -43,7 +43,7 @@
                         <div class="card-title">Konfirmasi Checkout</div>
                     </div>
 
-                    <?= form_open('Kasir/insert-dio'); ?>
+                    <?= form_open('kasir/insert-dio'); ?>
                     <div class="card-body">
                         <div class="row">
 
@@ -165,11 +165,9 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a href="<?= base_url("Kasir"); ?>" class="btn btn-outline-danger px-5">Batal</a>
+                        <a href="<?= base_url("kasir"); ?>" class="btn btn-outline-danger px-5">Batal</a>
                         <!-- <a href="#modal_kasir" class="btn btn-danger">Keluar</a> -->
                         <!-- Button trigger modal -->
-
-
                         <button type="button" class="btn btn-primary px-5 open-modal-kasir" data-toggle="modal" data-target="#modal"> Konfirmasi </button>
                         <!-- <button type="submit" class="btn btn-primary">Checkout</button> -->
                     </div>

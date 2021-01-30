@@ -103,12 +103,13 @@
               <td class="title" width="25%">
                 <img src="<?= $logo ?>" style="width: 100%; max-width: 150px;" />
               </td>
-              <td style="text-align:left; font-size:8px;" width="45%">
+              <td style="text-align:left; font-size:10px;" width="45%">
                 &nbsp; <br>
                 <?= $metaData->fullname ?> <br>
                 <?= $metaData->address ?> <br>
-                <?= 'Telp. 1: ' . $metaData->contact_1 ?> <br>
-                <?= 'Telp. 2: ' . $metaData->contact_2 ?>
+                <?= 'Telp. 1 : ' . $metaData->contact_1 ?>
+                /
+                <?= 'Telp. 2 : ' . $metaData->contact_2 ?>
               </td>
               <td style="text-align:right;" width="30%">
                 <span style="font-size:16px;"><strong><u>SURAT JALAN</u></strong></span><br />
@@ -125,7 +126,7 @@
             <tr>
               <td style="font-size:12px;">
                 Kepada Yth.: <?= $custName ?><br />
-                <?= $custLocation ?><br />
+                di <?= $custLocation ?><br />
                 Telp.: <?= $custPhone ?>
               </td>
               <td style="font-size:12px; text-align:right;">

@@ -14,8 +14,6 @@ class Auth extends CI_Controller
         $this->load->model("Users_model");
         $this->load->model("Store_model");
         $this->load->model("Role_model");
-
-
         // Ketika user sudah melakukan login maka akan redirect ke dashboard
     }
     public function index()
@@ -23,8 +21,8 @@ class Auth extends CI_Controller
         must_not_login();
 
         $data = [
-            'title' => 'Login',
-            'content' => 'auth/v_login.php'
+            'title'     => 'Login',
+            'content'   => 'auth/v_login.php'
         ];
 
         $this->load->view('template_dashboard/template_wrapper_login.php', $data);
@@ -63,16 +61,16 @@ class Auth extends CI_Controller
                 $is_password_valid = password_verify($password, $password_on_db);
                 if ($is_password_valid) {
                     $session_array = [
-                        'id'    => $data_user->id,
-                        'username' => $data_user->username,
-                        'email' => $data_user->email,
+                        'id'         => $data_user->id,
+                        'username'   => $data_user->username,
+                        'email'      => $data_user->email,
                         'first_name' => $data_user->first_name,
-                        'last_name' => $data_user->last_name,
-                        'phone' => $data_user->phone,
-                        'role_id' => $data_user->role_id,
-                        'avatar' => $data_user->avatar,
-                        'isLogin' => 1,
-                        'store_id' => $data_user->store_id
+                        'last_name'  => $data_user->last_name,
+                        'phone'      => $data_user->phone,
+                        'role_id'    => $data_user->role_id,
+                        'avatar'     => $data_user->avatar,
+                        'isLogin'    => 1,
+                        'store_id'   => $data_user->store_id
                     ];
                     $this->session->set_userdata($session_array);
 
@@ -88,7 +86,7 @@ class Auth extends CI_Controller
                 } else { //else ketika password salah
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                     Username or Password is incorrect</div>');
-                    redirect(base_url('Auth/login'));
+                    redirect(base_url('auth/login'));
                     // echo 'error';
                 }
             } else { //else ketika username tidak ada atau tidak valid
@@ -96,7 +94,7 @@ class Auth extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 Username or Password is incorrect</div>');
                 // echo 'error 2';
-                redirect(base_url('Auth/login'));
+                redirect(base_url('auth/login'));
             }
         }
     }

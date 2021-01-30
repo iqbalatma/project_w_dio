@@ -13,14 +13,14 @@
     //     <meta name="author" content="Iqbal Atma Muliawan">
 
     //     <title>$title;</title>
-    //     <link rel="icon" href="base_url('assets/Atlantis-Lite-master/assets/img/icon.ico')" type="image/x-icon" />
+    //     <link rel="icon" href="base_url('assets/atlantis-lite-master/assets/img/icon.ico')" type="image/x-icon" />
 
     //     <!-- CSS Files -->
-    //     <link rel="stylesheet" href="base_url(); /../assets/Atlantis-Lite-master/assets/css/bootstrap.min.css" media="print" onload="this.media='all'; this.onload=null;">
-    //     <link rel="stylesheet" href="base_url(); /../assets/Atlantis-Lite-master/assets/css/atlantis.min.css" media="print" onload="this.media='all'; this.onload=null;">
+    //     <link rel="stylesheet" href="base_url() /../assets/atlantis-lite-master/assets/css/bootstrap.min.css" media="print" onload="this.media='all'; this.onload=null;">
+    //     <link rel="stylesheet" href="base_url() /../assets/atlantis-lite-master/assets/css/atlantis.min.css" media="print" onload="this.media='all'; this.onload=null;">
 
     //     <!-- Fonts and icons -->
-    //     <script src="base_url(); /../assets/Atlantis-Lite-master/assets/js/plugin/webfont/webfont.min.js"></script>
+    //     <script src="base_url() /../assets/atlantis-lite-master/assets/js/plugin/webfont/webfont.min.js"></script>
     //     <script>
     //         WebFont.load({
     //             google: {
@@ -28,7 +28,7 @@
     //             },
     //             custom: {
     //                 "families": ["Font Awesome 5 Solid"],
-    //                 urls: ['base_url(); /../assets/Atlantis-Lite-master/assets/css/fonts.min.css']
+    //                 urls: ['base_url() /../assets/atlantis-lite-master/assets/css/fonts.min.css']
     //             },
     //             active: function() {
     //                 sessionStorage.fonts = true;
@@ -47,7 +47,7 @@
 
 <?php 
 // start_time(microtime(TRUE), 'kasir_limit_10000');
-// $start_memory = memory_get_usage(); 
+// $start_memory = memory_get_usage() 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,11 +61,11 @@
 
     <title><?= "{$title} | " . SITE_NAME ?></title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/img/icon.ico" type="image/x-icon" />
-    <!-- <link rel="icon" href="<?= base_url('assets/img/default.png') ?>" type="image/x-icon" /> -->
+    <!-- <link rel="icon" href="<?= base_url() ?>/../assets/atlantis-lite-master/assets/img/icon.ico" type="image/x-icon" /> -->
+    <link rel="icon" href="<?= base_url('assets/img/icon.png') ?>" type="image/x-icon" />
 
     <!-- Fonts and icons -->
-    <script src="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script src="<?= base_url() ?>/../assets/atlantis-lite-master/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
             google: {
@@ -73,7 +73,7 @@
             },
             custom: {
                 "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
-                urls: ['<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/fonts.min.css']
+                urls: ['<?= base_url() ?>/../assets/atlantis-lite-master/assets/css/fonts.min.css']
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -82,8 +82,8 @@
     </script>
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>/../assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/../assets/atlantis-lite-master/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/../assets/atlantis-lite-master/assets/css/atlantis.min.css">
 
     <?php if (isset($datatables)) { ?>
         <!-- Datatables -->

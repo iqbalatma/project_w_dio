@@ -8,6 +8,10 @@ class Kasir_ke_cabang extends CI_Controller
     {
         parent::__construct();
         must_login();
+
+        // hanya untuk gudang
+        role_validation($this->session->role_id, ['2']);
+
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
         $this->load->model("Store_model");
