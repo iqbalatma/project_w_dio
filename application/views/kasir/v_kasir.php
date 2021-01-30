@@ -163,7 +163,14 @@
                                             endforeach;
                                             echo "<input type='hidden' id='counter' value='{$i}'>";
                                         else :
-                                            echo "<label class='form-label text-danger'>Terjadi kesalahan. Cek komposisi pada masing-masing produk.</label>";
+                                            if (role_access($this->session->role_id, ['1']))
+                                            {
+                                                echo "<label class='form-label text-danger'>Terjadi kesalahan. Cek stok produk dan/atau cek komposisi produk.</label>";
+                                            }
+                                            else
+                                            {
+                                                echo "<label class='form-label text-danger'>Terjadi kesalahan. Hubungi admin atau pemilik jika masih berlanjut.</label>";
+                                            }
                                         endif; ?>
 
                                     </div>
