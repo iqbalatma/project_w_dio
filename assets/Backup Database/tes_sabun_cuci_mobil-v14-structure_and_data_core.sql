@@ -106,7 +106,7 @@ TRUNCATE TABLE `customer`;
 
 INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `cust_type`, `store_id`, `created_at`, `is_store`, `is_deleted`) VALUES
 (1, 'Toko Cicalengka', 'Cicalengka, Jawa Barat, ID', '086969696969', 'reseller', 1, '2021-02-01 02:33:53', 1, 0),
-(2, 'Toko Ujung Berung', 'Ujung Berung, Jawa Barat, ID', '086969696969', 'reseller', 1, '2021-02-01 02:33:53', 1, 0),
+(2, 'Toko Ujung Berung', 'Ujung Berung, Jawa Barat, ID', '086969696969', 'reseller', 1, '2021-02-01 02:33:53', 1, 0);
 
 -- --------------------------------------------------------
 
