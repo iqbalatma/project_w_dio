@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Gudang</h4>
+            <h4 class="page-title">Perbarui Stok - Bahan Baku</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -26,30 +26,25 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Gudang</a>
+                    <a href="<?= base_url(getBeforeLastSegment('', 2) . '/' . getBeforeLastSegment('', 1)) ?>">Data Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-inventory-barang-mentah'); ?>">Inventory Bahan Baku</a>
+                    <a href="<?= base_url(getBeforeLastSegment('', 2) . '/' . getBeforeLastSegment('', 1)) ?>">Data Inventory</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-insert'); ?>">Perbarui Kuantitas Inventory Bahan Baku</a>
+                    <a href="<?= current_url() ?>">Perbarui Stok</a>
                 </li>
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-
-
-                    <div class="card-header">
-                        <div class="card-title">Form Perbarui Data</div>
-                    </div>
                     <div class="card-body">
 
                         <?php

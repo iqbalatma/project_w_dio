@@ -161,16 +161,18 @@ class Kasir_ke_cabang extends CI_Controller
 
 
         $data = [
-            'title'             => 'Kasir (ke cabang) - Konfirmasi Pembelian',
-            'content'           => slug_prep(__CLASS__) . '/v_konfirmasi.php',
-            'menuActive'        => slug_prep(__CLASS__) , // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => slug_prep(__CLASS__), // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_customer'     => (object)$data_customer,
-            'data_product'      => $data_product,
-            'checkbox_value'    => $checkbox_value,
-            'address'           => $address,
-            'phone'             => $phone,
-            'datatables'        => 1
+            'className'       => slug_prep(__CLASS__),
+            'methodName'      => slug_prep(__FUNCTION__),
+            'title'           => 'Kasir (ke cabang) - Konfirmasi Pembelian',
+            'content'         => slug_prep(__CLASS__) . '/v_konfirmasi.php',
+            'menuActive'      => slug_prep(__CLASS__) , // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'   => slug_prep(__CLASS__), // harus selalu ada, buat indikator sidebar menu yg aktif
+            'data_customer'   => (object)$data_customer,
+            'data_product'    => $data_product,
+            'checkbox_value'  => $checkbox_value,
+            'address'         => $address,
+            'phone'           => $phone,
+            'datatables'      => 1
         ];
 
         // pprintd($data);

@@ -90,10 +90,39 @@
                                 <a href="<?= base_url('data-keuangan/data-kas-perusahaan') ?>" class="btn btn-outline-secondary col-5 mx-1">
                                   Batal
                                 </a>
-                                <button type="submit" class="btn btn-success col-5 mx-1">
-                                  Simpan
-                                </button>
+                                <button type="button" class="btn btn-success px-5" data-toggle="modal" data-target="#modal"> Konfirmasi </button>
                               </div>
+
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+
+                                    <div class="modal-header">
+                                      <h3 class="modal-title font-weight-bold h2" id="exampleModalLongTitle">Konfirmasi Data Uang Kas</h3>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+
+                                    <div class="modal-body" id="modal-body">
+                                      <h5>
+                                        Data yang sudah disimpan tidak dapat dirubah atau dihapus. <br>
+                                        <span class="font-weight-bold">Sudah yakin?</span>
+                                      </h5>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-danger px-3" data-dismiss="modal">Cek Kembali</button>
+                                      <button type="submit" class="btn btn-outline-success px-3">Yakin dan simpan</button>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+
+
                             </form>
 
                           </div>

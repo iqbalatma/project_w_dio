@@ -157,7 +157,9 @@ class Data_master_pelanggan extends CI_Controller
       ];
       // pprintd($data);
       $this->load->view('template_dashboard/template_wrapper', $data);
-    } else {
+    } 
+    else 
+    {
       // insert data to db
       $post   = $this->input->post();
       $query  = $this->customer_m->set_new_customer_price_by_id($id, $post);

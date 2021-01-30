@@ -15,9 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-
-
-            <h4 class="page-title">Data Gudang</h4>
+            <h4 class="page-title">Urutan Terjual - Produk</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -28,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Gudang</a>
+                    <a href="<?= current_url() ?>">Data Produk</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-barang-laku'); ?>">Data Produk Laku</a>
+                    <a href="<?= current_url() ?>">Data Urutan Terjual</a>
                 </li>
             </ul>
         </div>

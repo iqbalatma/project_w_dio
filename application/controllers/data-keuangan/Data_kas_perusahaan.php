@@ -17,6 +17,9 @@ class Data_kas_perusahaan extends CI_Controller
 
   public function index()
   {
+    // hanya untuk pemilik dan gudang
+    role_validation($this->session->role_id, ['1', '2']);
+
     $data = [
       'title'           => 'Data Master Kas Perusahaan',
       'content'         => "{$this->modules}/v_{$this->controller}.php",
@@ -28,7 +31,7 @@ class Data_kas_perusahaan extends CI_Controller
     $this->load->view('template_dashboard/template_wrapper', $data);
   }
 
-  public function _______________________________hapus()
+  private function _______________________________hapus()
   {
     $id  = $this->input->post('id');
     if ($id === NULL)
@@ -58,6 +61,9 @@ class Data_kas_perusahaan extends CI_Controller
 
   public function pengeluaran()
   {
+    // hanya untuk pemilik dan gudang
+    role_validation($this->session->role_id, ['1', '2']);
+
     // set form rules
     $this->form_validation->set_rules('add-perihal', 'perihal',	  'required|trim|min_length[3]|max_length[200]');
     $this->form_validation->set_rules('add-nominal', 'nominal',   'required|trim|min_length[1]|callback_regex');
@@ -103,6 +109,9 @@ class Data_kas_perusahaan extends CI_Controller
 
   public function pemasukan()
   {
+    // hanya untuk pemilik
+    role_validation($this->session->role_id, ['1']);
+
     // set form rules
     $this->form_validation->set_rules('add-perihal', 'perihal',	  'required|trim|min_length[3]|max_length[200]');
     $this->form_validation->set_rules('add-nominal', 'nominal',   'required|trim|min_length[1]|callback_regex');

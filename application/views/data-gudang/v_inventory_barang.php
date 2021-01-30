@@ -15,9 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-
-
-            <h4 class="page-title">Data Gudang</h4>
+            <h4 class="page-title">Inventory - Bahan Baku</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -28,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Gudang</a>
+                    <a href="<?= current_url() ?>">Data Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-inventory-barang-mentah'); ?>">Inventory Bahan Baku</a>
+                    <a href="<?= current_url() ?>">Data Inventory</a>
                 </li>
             </ul>
         </div>
@@ -43,7 +41,7 @@
                 <div class="card">
 
                     <div class="card-header py-4">
-                        <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-insert'); ?>" type="button">Tambah Data</a>
+                        <a class="btn btn-default rounded" href="<?= base_url('data-gudang/data-inventory-barang-mentah/v-insert'); ?>" type="button">Perbarui Data Stok</a>
                         <!-- <div class="w-25 mr-auto">
                             <ul class="nav nav-pills nav-fill ">
                                 <li class="nav-item">

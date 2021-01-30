@@ -1,7 +1,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Gudang</h4>
+            <h4 class="page-title">Perbarui Titik Kritis - Bahan Baku</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -12,19 +12,19 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Gudang</a>
+                    <a href="<?= base_url(getBeforeLastSegment('', 3) . '/' . getBeforeLastSegment('', 2)) ?>">Data Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_inventory_barang_mentah'); ?>">Inventory Bahan Baku</a>
+                    <a href="<?= base_url(getBeforeLastSegment('', 3) . '/' . getBeforeLastSegment('', 2)) ?>">Data Inventory</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Ubah Titik Kritis</a>
+                    <a href="<?= current_url() ?>">Perbarui Titik Kritis</a>
                 </li>
             </ul>
         </div>
@@ -34,9 +34,6 @@
                     <?php
                     $attributes = ['id' => 'form_barang_kimia'];
                     echo form_open_multipart('data-gudang/Data_inventory_barang_mentah/update', $attributes); ?>
-                    <div class="card-header">
-                        <div class="card-title">Form Ubah Data</div>
-                    </div>
 
                     <div class="card-body">
                         <div class="row">

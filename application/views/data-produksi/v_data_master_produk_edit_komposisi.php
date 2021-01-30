@@ -95,7 +95,7 @@
                               <!-- button -->
                               <div class="form-group row justify-content-center mb-4">
                                 <a href="<?= base_url('data-produksi/'.getBeforeLastSegment('', 2))."/detail/{$product->id}" ?>" class="btn btn-outline-secondary col-5 mx-1">
-                                  Kembali
+                                  Batal
                                 </a>
                                 <button type="submit" class="btn btn-success col-5 mx-1">
                                   Simpan

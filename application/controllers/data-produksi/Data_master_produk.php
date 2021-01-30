@@ -301,7 +301,7 @@ class Data_master_produk extends CI_Controller
   // ============================================== UPDATE HPP =======================================
   public function update_hpp()
   {
-    // hanya untuk pemilik dan gudang
+    // hanya untuk pemilik
     role_validation($this->session->role_id, ['1']);
 
     $allComposition = $this->product_m->get_all_composition('p.id AS prod_id, p.product_code AS prod_code, p.price_base AS prod_hpp, pc.volume AS comp_volume, m.id AS mat_id, m.material_code AS mat_code, m.price_base AS mat_hpp');
@@ -315,7 +315,8 @@ class Data_master_produk extends CI_Controller
        */
       $currentProdId = 0;
       $newProdHpp = 0;
-      $container = [];
+      $container  = [];
+      $updatedAt  = unix_to_human(now(), true, 'europe');
       foreach ($allComposition as $row) {
         // assign prod_id dari indeks selanjutnya, bila yg skrg sudah beda dgn yg sebelumnya
         if ($row['prod_id'] != $currentProdId) {
@@ -329,9 +330,11 @@ class Data_master_produk extends CI_Controller
         // assign ke array baru untuk ditampung
         $container[$row['prod_id']]['id'] = $row['prod_id'];
         $container[$row['prod_id']]['price_base'] = $newProdHpp;
+        $container[$row['prod_id']]['updated_at'] = $updatedAt;
       }
       // pindahkan dari $container ke $data
       $data = $container;
+      // pprintd($data);
 
       // insert ke db
       $update = $this->product_m->set_update_all_hpp($data);

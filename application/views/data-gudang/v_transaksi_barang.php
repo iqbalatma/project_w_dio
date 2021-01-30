@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Gudang</h4>
+            <h4 class="page-title">Mutasi Transaksi - Bahan Baku</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -26,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Gudang</a>
+                    <a href="<?= current_url() ?>">Data Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-transaksi-barang'); ?>">Data Mutasi Bahan Baku</a>
+                    <a href="<?= current_url() ?>">Data Mutasi Transaksi</a>
                 </li>
             </ul>
         </div>
@@ -44,9 +44,6 @@
                     <div class="card-header">
                         <div class="w-100 mx-auto">
                             <ul class="nav nav-pills nav-fill ">
-                                <li class="nav-item">
-                                    <a class="nav-link border-dark btn-default" href="<?= base_url('data-gudang/data-transaksi-barang/v-mutasi-ke-cabang'); ?>">Checkout Ke Cabang</a>
-                                </li>
                                 <li class="ml-4 nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
                                     <a class="nav-link <?= (getLastSegment() == 'data-transaksi-barang') ? 'active':'' ?>" href="<?= base_url('data-gudang/data-transaksi-barang/'); ?>">Semua Data Mutasi</a>
                                 </li>

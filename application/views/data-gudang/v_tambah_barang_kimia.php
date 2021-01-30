@@ -1,7 +1,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Gudang</h4>
+            <h4 class="page-title">Tambah Data - Bahan Baku</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -12,19 +12,19 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Gudang</a>
+                    <a href="<?= base_url(getBeforeLastSegment('', 2) . '/' . getBeforeLastSegment('', 1)) ?>">Data Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-barang-mentah'); ?>">Data Bahan Baku</a>
+                    <a href="<?= base_url(getBeforeLastSegment('', 2) . '/' . getBeforeLastSegment('', 1)) ?>">Data Master</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/data-barang-mentah/v-insert'); ?>">Tambah Bahan Baku</a>
+                    <a href="<?= current_url() ?>">Tambah Data Baru</a>
                 </li>
             </ul>
         </div>
@@ -34,9 +34,7 @@
                     <?php
                     $attributes = ['id' => 'form_barang_kimia'];
                     echo form_open_multipart('data-gudang/data-barang-mentah/insert', $attributes); ?>
-                    <div class="card-header">
-                        <div class="card-title">Form Tambah Data</div>
-                    </div>
+                    
                     <div class="card-body">
 
                         <div class="row">

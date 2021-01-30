@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data Gudang</h4>
+            <h4 class="page-title">Data Master - Bahan Baku</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -26,13 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Data Gudang</a>
+                    <a href="<?= current_url() ?>">Data Bahan Baku</a>
                 </li>
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('data-gudang/Data_barang_mentah'); ?>">Data Master Bahan Baku</a>
+                    <a href="<?= current_url() ?>">Data Master</a>
                 </li>
             </ul>
         </div>
@@ -42,7 +42,7 @@
 
 
                     <div class="card-header py-4">
-                        <a class="btn btn-primary rounded" href="<?= base_url('data-gudang/Data_barang_mentah/v_insert'); ?>" type="button">Tambah Data</a>
+                        <a class="btn btn-default rounded" href="<?= base_url('data-gudang/data-barang-mentah/v-insert'); ?>" type="button">Tambah Data</a>
 
                         <div class="mt-1 btn-group dropleft float-right" data-toggle="tooltip" title="Opsi">
                             <button type="button" class="btn btn-sm btn-light ml-1 mr-2 px-3 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,7 +108,7 @@
                                             </td>
                                             <td class="px-3">
                                                 <div class="form-button-action">
-                                                    <a href="<?= base_url('data-gudang/Data_barang_mentah/v_update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?= base_url('data-gudang/data-barang-mentah/v-update/' . $row->id); ?>" class="btn btn-link btn-edit" data-toggle="tooltip" title="Ubah" data-original-title="Ubah"><i class="fa fa-edit"></i></a>
                                                     <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="btn btn-link btn-danger btn-delete" data-id="<?= $row->id; ?>"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </td>
@@ -131,21 +131,24 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi Hapus Data</h5>
+                <h3 class="modal-title font-weight-bold h2" id="exampleModalLongTitle">Konfirmasi Hapus Data Master Bahan Baku</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <div class="modal-body">
-                <h4>Yakin Ingin Menghapus Data ?</h4>
+            <div class="modal-body" id="modal-body">
+                <h5>
+                    Data yang sudah dihapus tidak dapat dirubah atau dikembalikan. <br>
+                    <span class="font-weight-bold">Sudah yakin?</span>
+                </h5>
             </div>
 
             <form action="<?= base_url('data-gudang/Data_barang_mentah/delete'); ?>" method="POST">
                 <div class="modal-footer">
                     <input type="hidden" name="id" class="id"></input>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                    <button class="btn btn-outline-warning">Hapus Data</button>
+                    <button type="button" class="btn btn-default px-3" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-outline-danger px-3">Yakin dan hapus</button>
                 </div>
             </form>
 

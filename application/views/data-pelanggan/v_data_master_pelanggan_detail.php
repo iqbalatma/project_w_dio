@@ -99,7 +99,7 @@
                             <!-- button -->
                             <div class="form-group row justify-content-center mt-5">
                               <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-3 mx-1">
-                                Batal
+                                Keluar
                               </a>
                               <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-harga/" . getLastSegment() ) ?>" class="btn btn-outline-primary col-3 mx-1">
                                 Setting Harga Kustom

@@ -82,7 +82,7 @@
                             <form action="<?= base_url("{$menuActive}/{$submenuActive}/edit-pass") ?>" method="post">
                               <div class="form-group row justify-content-center mt-5">
                                 <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-3 mx-1">
-                                  Kembali
+                                  Keluar
                                 </a>
                                 <button type="submit" class="btn btn-outline-danger col-4 mx-1">
                                   Ubah password

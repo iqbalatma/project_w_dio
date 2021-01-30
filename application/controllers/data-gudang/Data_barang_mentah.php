@@ -48,7 +48,7 @@ class Data_barang_mentah extends CI_Controller
     public function v_update($id)
     {
         $data = [
-            'title'             => 'Ubah Barang Kimia',
+            'title'             => 'Perbarui Data Bahan Baku',
             'content'           => 'data-gudang/v_ubah_barang_kimia.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif

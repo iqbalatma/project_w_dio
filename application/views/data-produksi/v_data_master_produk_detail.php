@@ -109,7 +109,7 @@
                             <!-- button -->
                             <div class="form-group row justify-content-center mb-4">
                               <a href="<?= base_url( "{$menuActive}/" . getBeforeLastSegment('', 2) ) ?>" class="btn btn-outline-secondary col-3 mx-1">
-                                Batal
+                                Keluar
                               </a>
                               <a href="<?= base_url( "{$menuActive}/{$submenuActive}/edit-komposisi/" . getLastSegment() ) ?>" class="btn btn-outline-primary col-3 mx-1">
                                 Setting komposisi
