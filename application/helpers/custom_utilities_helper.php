@@ -84,7 +84,6 @@ if ( ! function_exists('role_access'))
     // jika tidak ada, maka tidak cocok dan buang keluar
     if ( ! in_array($role, $hasAccess)) 
     {
-      // pprintd($hasAccess);
       return 0;
     }
     return 1;
@@ -318,8 +317,23 @@ if ( ! function_exists('set_swal'))
   {
     $ci=&get_instance();
 
-    if ($swal[0] == 'success') $ci->session->set_flashdata('success_message', 1);
-    if ($swal[0] == 'failed') $ci->session->set_flashdata('failed_message', 1);
+    switch ($swal[0]) {
+      case 'success':
+        $ci->session->set_flashdata('success_message', 1);
+        break;
+
+      case 'failed':
+        $ci->session->set_flashdata('failed_message', 1);
+        break;
+
+      case ('confirmation' || 'conf'):
+        $ci->session->set_flashdata('confirmation_message', 1);
+        break;
+
+      default:
+        return;
+        break;
+    }
     $ci->session->set_flashdata('title', $swal[1]);
     $ci->session->set_flashdata('text', $swal[2]);
   }
