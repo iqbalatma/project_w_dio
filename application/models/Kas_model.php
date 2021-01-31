@@ -121,8 +121,8 @@ class Kas_model extends CI_Model
 
     $query = $this->db->get();
 
-    if ($query->num_rows() == 1) return $query->row_array();
-    elseif ($query->num_rows() > 1) return $query->result_array();
+    if ($query->num_rows() > 0) return $query->result_array();
+    // elseif ($query->num_rows() > 1) return $query->result_array();
     else return FALSE;
   }
 

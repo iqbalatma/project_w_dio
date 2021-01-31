@@ -41,7 +41,7 @@
             <div class="col-md-12">
                 <div class="card">
 
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <div class="w-100 mx-auto">
                             <ul class="nav nav-pills nav-fill ">
                                 <li class="ml-4 nav-item" style="visibility:<?= ($this->session->store_id == '1') ? '' : 'hidden' ?>;">
@@ -58,7 +58,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div class="card-head">
                         <div class="col-md-12 pt-3">

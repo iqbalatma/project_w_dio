@@ -58,7 +58,7 @@ class Data_master_produk extends CI_Controller
 
     }else {
       // insert data to db
-      $post  = $this->input->post();
+      $post   = $this->input->post();
       $lastId = $this->product_m->set_new_product($post);
 
       if ($lastId) {

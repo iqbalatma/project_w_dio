@@ -532,7 +532,7 @@
         <script>
             // Add dot(s) automagically to input text
             $('#add-nominal').on("keyup", function(event) {
-                let maxLength = 9;
+                let maxLength = 12;
                 var selection = window.getSelection().toString();
 
                 // kalo buat pilihan atau pencet panah, maka keluar

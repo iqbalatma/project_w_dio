@@ -30,7 +30,7 @@ class Product_model extends CI_Model
 
     $createdAt = unix_to_human(now(), true, 'europe');
     $data = array(
-      "product_code"  => $data['add-kodeproduk'],
+      "product_code"  => strtoupper($data['add-kodeproduk']),
       "full_name"     => $data['add-fullname'],
       "unit"          => $data['add-unit'],
       "volume"        => $data['add-volume'],

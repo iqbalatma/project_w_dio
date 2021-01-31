@@ -103,23 +103,15 @@ class Data_barang_mentah extends CI_Controller
             )
         );
 
-
-
-
-
-
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('message_gagal', validation_errors());
             redirect(base_url('data-gudang/Data_barang_mentah'));
         } else {
-
-
-            $material = $this->input->post('material');
+            $material = strtoupper( $this->input->post('material') );
             $fullname = $this->input->post('fullname');
             $unit = $this->input->post('unitbahan');
             $volume = $this->input->post('volumeinput');
             $pricebase = $this->input->post('pricebase');
-
 
             // proses upload image
             $config['upload_path']          = './assets/img/material';
