@@ -113,7 +113,6 @@ class Invoice extends CI_Controller
 			// masukin variabel sendiri2, bukan ke array yg udah ada
 			$totLiter 	 = $totLiter + $row['totLiterItem'];
 			// jika tipe = float, format untuk angka yg ada koma2an, else format menjadi ada titik tanpa ada 0 di belakang koma
-			// if ($row['totLiterItem'] )
 			if ( is_float($row['totLiterItem']) ) $row['totLiterItem'] = number_format($row['totLiterItem'], 2, ',', '.');
 			else $row['totLiterItem'] = number_format($row['totLiterItem'], 0, ',', '.');
 			// masukin array di $row ke dalem $container

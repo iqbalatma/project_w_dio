@@ -172,18 +172,10 @@
       <tr class="total" style="background: #eee;">
         <td></td>
         <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 5LTR&nbsp;&nbsp;&nbsp;<?= $tot5Liter ?> pcs</strong></td>
+        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= $tot1Liter ?> pcs</strong></td>
         <td style="font-size:10px;"><strong><?= $totLiter ?> Ltr</strong></td>
         <td colspan="2" style="font-size:10px; margin-top:10px; text-align:right;">
           <strong>Total: <?= price_format($total_harga) ?></strong>
-        </td>
-      </tr>
-
-      <tr class="total" style="background: #eee;">
-        <td></td>
-        <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= $tot1Liter ?> pcs</strong></td>
-        <td colspan="3">
         </td>
       </tr>
       
@@ -192,8 +184,7 @@
           <td></td>
           <td></td>
           <td colspan="2" style="font-size:10px;"><strong>JUMLAH Galon&nbsp;&nbsp;&nbsp;<?= $totGalon ?> pcs</strong></td>
-          <td colspan="3">
-          </td>
+          <td colspan="3"></td>
         </tr>
       <?php endif; ?>
       
@@ -202,8 +193,7 @@
           <td></td>
           <td></td>
           <td colspan="2" style="font-size:10px;"><strong>JUMLAH Pail&nbsp;&nbsp;&nbsp;<?= $totPail ?> pcs</strong></td>
-          <td colspan="3">
-          </td>
+          <td colspan="3"></td>
         </tr>
       <?php endif; ?>
       
@@ -212,8 +202,7 @@
           <td></td>
           <td></td>
           <td colspan="2" style="font-size:10px;"><strong>JUMLAH Drum&nbsp;&nbsp;&nbsp;<?= $totDrum ?> pcs</strong></td>
-          <td colspan="3">
-          </td>
+          <td colspan="3"></td>
         </tr>
       <?php endif; ?>
       
@@ -222,8 +211,7 @@
           <td></td>
           <td></td>
           <td colspan="2" style="font-size:10px;"><strong>JUMLAH Pcs&nbsp;&nbsp;&nbsp;<?= $totPcs ?> pcs</strong></td>
-          <td colspan="3">
-          </td>
+          <td colspan="3"></td>
         </tr>
       <?php endif; ?>
       
@@ -232,8 +220,7 @@
           <td></td>
           <td></td>
           <td colspan="2" style="font-size:10px;"><strong>JUMLAH Sachet&nbsp;&nbsp;&nbsp;<?= $totSachet ?> pcs</strong></td>
-          <td colspan="3">
-          </td>
+          <td colspan="3"></td>
         </tr>
       <?php endif; ?>
     </table>

@@ -44,10 +44,15 @@ class Surat_jalan extends CI_Controller
 		$__drum				= 200; // dalam liter
 
 		// inisiasi array kosong dan nilai awal
-		$container = [];
-		$totLiter  = 0;
-		$tot1Liter = 0;
-		$tot5Liter = 0;
+		$container 	= [];
+		$totLiter  	= 0;
+		$tot1Liter 	= 0;
+		$tot5Liter 	= 0;
+		$totGalon 	= 0;
+		$totPail 		= 0;
+		$totDrum 		= 0;
+		$totPcs 		= 0;
+		$totSachet 	= 0;
 		// untuk lakukan perkalian dan semua diconvert menjadi satuan liter dan masuk ke array.
 		foreach ($data_invoice_item as $row) {
 			// perhitungan liter tergantung unit dari masing2 produk
@@ -64,24 +69,40 @@ class Surat_jalan extends CI_Controller
 
 				case 'galon':
 					$row['totLiterItem'] 	= $row['quantity'] * ($__galon * $row['volume']);
+
 					$row['tot5Liter'] 		= $row['quantity'];
 					$tot5Liter 	 					= $tot5Liter + $row['tot5Liter'];
+
+					$row['totGalon']	 		= $row['quantity'];
+					$totGalon 	 					= $totGalon + $row['totGalon'];
 					break;
 
 				case 'pail':
 					$row['totLiterItem'] 	= $row['quantity'] * ($__pail * $row['volume']);
+
+					$row['totPail']	 			= $row['quantity'];
+					$totPail 	 						= $totPail + $row['totPail'];
 					break;
 
 				case 'drum':
 					$row['totLiterItem'] 	= $row['quantity'] * ($__drum * $row['volume']);
+
+					$row['totDrum']	 			= $row['quantity'];
+					$totDrum 	 						= $totDrum + $row['totDrum'];
 					break;
 
 				case 'pcs':
 					$row['totLiterItem'] 	= $row['quantity'] * ($__mililiter * $row['volume']); // itungannya mililiter
+
+					$row['totPcs']	 			= $row['quantity'];
+					$totPcs 	 						= $totPcs + $row['totPcs'];
 					break;
 					
 				case 'sachet':
 					$row['totLiterItem'] 	= $row['quantity'] * ($__mililiter * $row['volume']); // itungannya mililiter
+
+					$row['totSachet']	 		= $row['quantity'];
+					$totSachet 	 					= $totSachet + $row['totSachet'];
 					break;
 				
 				default:
@@ -134,6 +155,11 @@ class Surat_jalan extends CI_Controller
 			'totLiter'			=> $totLiter,
 			'tot1Liter' 		=> $tot1Liter,
 			'tot5Liter' 		=> $tot5Liter,
+			'totGalon' 			=> $totGalon,
+			'totPail' 			=> $totPail,
+			'totDrum' 			=> $totDrum,
+			'totPcs' 				=> $totPcs,
+			'totSachet' 		=> $totSachet,
 			'metaData'			=> $metaData,
 		);
 		// $this->load->view('generate-report/v_surat_jalan', $data);
