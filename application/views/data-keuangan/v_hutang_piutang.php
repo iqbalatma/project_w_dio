@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table id="add-row" class="display table table-sm  table-hover">
+                            <table id="add-row" class="display table table-sm table-hover">
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="px-3">No</th>
@@ -97,7 +97,7 @@
                                             <td class="px-3">
                                                 <?= $row['phone'] ?>
                                             </td>
-                                            <td class="px-3">
+                                            <td class="px-3 font-weight-bold">
                                                 <?= $row['trans_number'] ?>
                                             </td>
                                             <td class="px-3">
@@ -166,6 +166,7 @@
                                     <div class="mx-4 my-4">
                                         <h5>
                                             Mohon pastikan nominal pembayaran sudah benar dan sesuai. <br>
+                                            <span class="text-danger">Setelah dibayar tidak dapat diubah.</span> <br>
                                             <span class="font-weight-bold">Sudah yakin?</span>
                                         </h5>
                                     </div>

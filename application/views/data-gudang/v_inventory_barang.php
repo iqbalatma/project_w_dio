@@ -111,7 +111,7 @@
                                             </td>
 
                                             <td class="px-3 <?= ($row->quantity > $row->critical_point) ? '' : 'text-danger' ?>">
-                                                <?= number_format($row->quantity, 0, '','.') ?>
+                                                <?= number_format($row->quantity, 0, '',',') ?>
                                             </td>
                                             <td class="px-3 <?= ($row->quantity > $row->critical_point) ? '' : 'text-danger' ?>">
                                                 <?= $row->critical_point ?>

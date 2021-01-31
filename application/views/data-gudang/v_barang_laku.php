@@ -121,7 +121,7 @@
                                                     <?= $row['full_name'] ?>
                                                 </td>
                                                 <td class="px-3">
-                                                    <?= number_format($row['freq'], 0, '', '.') ?>
+                                                    <?= number_format($row['freq'], 0, '', ',') ?>
                                                 </td>
                                             </tr>
                                         <?php

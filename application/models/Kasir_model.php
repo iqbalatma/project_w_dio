@@ -731,7 +731,7 @@ class Kasir_model extends CI_Model
 
 
         // ============================================================ SELESAI PERSIAPAN DATA MUTASI PRODUK ===================
-        // ============================================================ [5] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY MATERIAL ===================
+        // ============================================================ [5] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY PRODUK ===================
 
 
         $container = [];
@@ -1018,7 +1018,7 @@ class Kasir_model extends CI_Model
         // ============================================================ [6] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY PRODUCT ===================
 
 
-        // pprintd($data);
+        pprintd($data);
         
         $container = [];
         $i = 0;
@@ -1046,7 +1046,7 @@ class Kasir_model extends CI_Model
             $this->db->set("updated_at", "{$createdAt}");
             $this->db->set("updated_by", "{$data['username']}");
             $this->db->where('product_id', "{$row['id']}");
-            $this->db->where('store_id', "{$data['data_customer']['id_as_store']}"); // ini gudang pusat (harusnya akan selalu 1 = id gudang pusat)
+            $this->db->where('store_id', "{$data['data_customer']['id_as_store']}"); // ini toko cabang
             $this->db->update();
 
             // pprintd($data_product_inventory);

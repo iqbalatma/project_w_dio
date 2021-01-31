@@ -153,8 +153,15 @@ class Data_inventory_produk extends CI_Controller
     $post['product_id']   = $product[0];
     // $post['product_name'] = $product[1];
     $post['add-qty']      = $qty;
+    // pprintd($post);
     $productComposition   = $this->p_m->get_by_id_with_compostition($post['product_id']);
-    // pprintd($productComposition);
+
+    // kalo belom ada komposisi buang keluar
+    if ($productComposition == FALSE) 
+    {
+      set_swal(['failed', 'Komposisi tidak ada!', 'Mohon cek data komposisi untuk produk ini!']);
+      redirect(base_url( getBeforeLastSegment($this->modules).'?uniqid=1' ));
+    }
 
     // MULAI : reset kembali $container agar kosong untuk digunakan
     // proses di bawah sama seperti di atas, bedanya ini untuk quantity ketika cekout
