@@ -815,6 +815,24 @@ class Kasir_model extends CI_Model
 
 
 
+
+
+
+    private function __check_product_inventory($prodId, $storeId, $select = '*')
+    {
+      // get from table
+      $this->db->select($select);
+      $this->db->from('product_inventory');
+      $this->db->where('product_id', $prodId);
+      $this->db->where('store_id', $storeId);
+      $query = $this->db->get();
+      // pprintd($where);
+      if ($query->num_rows() == 1) {
+        return $query->row();
+      }
+      return FALSE;
+    }
+
     public function set_new_checkout_mutation($data)
     {
         // ============================================================ [0] MULAI INISIASI AWAL YANG DIBUTUHKAN ===================
@@ -1018,7 +1036,7 @@ class Kasir_model extends CI_Model
         // ============================================================ [6] MULAI SIAPKAN DATA-DATA UNTUK INVENTORY PRODUCT ===================
 
 
-        pprintd($data);
+        // pprintd($data);
         
         $container = [];
         $i = 0;
@@ -1028,11 +1046,17 @@ class Kasir_model extends CI_Model
                 'product_id'    => $row['id'],
                 'store_id'      => $id_toko,
                 'quantity'      => $row['kasir_qty'],
+                'created_at'    => $createdAt,
                 'updated_at'    => $createdAt,
+                'created_by'    => $data['username'],
                 'updated_by'    => $data['username'],
             ];
-            // pprintd($data_product_inventory);
 
+            // cek row inventory produk, ada apa engga
+            $isAvailable = $this->__check_product_inventory($row['id'], $data['data_customer']['id_as_store'], 'id');
+            // pprint($isAvailable);
+
+            // input/update data di gudang pusat
             $this->db->from($tb_product_inventory);
             $this->db->set("quantity", "quantity - {$row['kasir_qty']}", FALSE);
             $this->db->set("updated_at", "{$createdAt}");
@@ -1041,16 +1065,29 @@ class Kasir_model extends CI_Model
             $this->db->where('store_id', "{$data['store_id']}"); // ini gudang pusat (harusnya akan selalu 1 = id gudang pusat)
             $this->db->update();
 
-            $this->db->from($tb_product_inventory);
-            $this->db->set("quantity", "quantity + {$row['kasir_qty']}", FALSE);
-            $this->db->set("updated_at", "{$createdAt}");
-            $this->db->set("updated_by", "{$data['username']}");
-            $this->db->where('product_id', "{$row['id']}");
-            $this->db->where('store_id', "{$data['data_customer']['id_as_store']}"); // ini toko cabang
-            $this->db->update();
+            // bikin data inventory baru kalo di db belom ada row di tb produk inventory untuk tokcab tujuan
+            if ($isAvailable == null)
+            {
+                $isProductInvSuccess = $this->db->insert($tb_product_inventory, $data_product_inventory);
+                // $this->db->trans_rollback();
+                // return FALSE;
+            }
+            else
+            {
+                // input/update data di toko cabang tujuan
+                $this->db->from($tb_product_inventory);
+                $this->db->set("quantity", "quantity + {$row['kasir_qty']}", FALSE);
+                $this->db->set("updated_at", "{$createdAt}");
+                $this->db->set("updated_by", "{$data['username']}");
+                $this->db->where('product_id', "{$row['id']}");
+                $this->db->where('store_id', "{$data['data_customer']['id_as_store']}"); // ini toko cabang
+                $this->db->update();
+            }
+
 
             // pprintd($data_product_inventory);
         }
+        // pprintd($isAvailable);
 
 
         // ============================================================ SELESAI PERSIAPAN DATA INVENTORY PRODUCT ===================
@@ -1094,7 +1131,7 @@ class Kasir_model extends CI_Model
 
 
         // pprintd($data);
-
+        
         $this->db->trans_complete();
 
         // return value untuk dipake setelah ini
@@ -1106,5 +1143,16 @@ class Kasir_model extends CI_Model
         ];
 
         return ($this->db->trans_status() === FALSE) ? FALSE : $returnVal;
+
+        // if ($this->db->trans_status() === FALSE)
+        // {
+        //     $this->db->trans_rollback();
+        //     return FALSE;
+        // }
+        // else
+        // {
+        //     $this->db->trans_commit();
+        //     return $returnVal;
+        // }
     }
 }

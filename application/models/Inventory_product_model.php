@@ -767,6 +767,7 @@ class Inventory_product_model extends CI_Model
         'product_id'    => $row['prod_id'],
         'store_id'      => $data['store_id'], // pasti dari gudang
         'quantity'      => $data['add-qty'],
+        'created_at'    => $createdAt,
         'updated_at'    => $createdAt,
         'created_by'    => $data['username'],
         'updated_by'    => $data['username'],
