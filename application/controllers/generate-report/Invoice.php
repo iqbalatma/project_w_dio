@@ -46,8 +46,8 @@ class Invoice extends CI_Controller
 		// inisiasi array kosong dan nilai awal
 		$container 	= [];
 		$totLiter  	= 0;
+		$totMl 			= 0;
 		$tot1Liter 	= 0;
-		$tot5Liter 	= 0;
 		$totGalon 	= 0;
 		$totPail 		= 0;
 		$totDrum 		= 0;
@@ -59,6 +59,9 @@ class Invoice extends CI_Controller
 			switch ($row['unit']) {
 				case 'mililiter':
 					$row['totLiterItem'] 	= $row['quantity'] * ($__mililiter * $row['volume']);
+					
+					$row['totMl'] 				= $row['quantity'];
+					$totMl 	 							= $totMl + $row['totMl'];
 					break;
 
 				case 'liter':
@@ -69,9 +72,6 @@ class Invoice extends CI_Controller
 
 				case 'galon':
 					$row['totLiterItem'] 	= $row['quantity'] * ($__galon * $row['volume']);
-
-					$row['tot5Liter'] 		= $row['quantity'];
-					$tot5Liter 	 					= $tot5Liter + $row['tot5Liter'];
 
 					$row['totGalon']	 		= $row['quantity'];
 					$totGalon 	 					= $totGalon + $row['totGalon'];
@@ -153,8 +153,8 @@ class Invoice extends CI_Controller
 			'date' 					=> date_format($date, "d M Y"),
 			'rows'					=> $data_invoice_item,
 			'totLiter'			=> $totLiter,
+			'totMl'			 		=> $totMl,
 			'tot1Liter' 		=> $tot1Liter,
-			'tot5Liter' 		=> $tot5Liter,
 			'totGalon' 			=> $totGalon,
 			'totPail' 			=> $totPail,
 			'totDrum' 			=> $totDrum,

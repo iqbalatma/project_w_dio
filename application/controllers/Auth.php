@@ -72,6 +72,7 @@ class Auth extends CI_Controller
                         'isLogin'    => 1,
                         'store_id'   => $data_user->store_id
                     ];
+                    // pprintd($session_array);
                     $this->session->set_userdata($session_array);
 
                     switch ($session_array['role_id']) {
@@ -102,18 +103,18 @@ class Auth extends CI_Controller
 
 
 
-    public function registration()
+    private function registration()
     {
         $store_data = $this->Store_model->getAll();
         $role_data = $this->Role_model->getAll();
         $data = [
-            'title' => 'Registration',
-            'content' => 'auth/v_registration.php',
+            'title'     => 'Registration',
+            'content'   => 'auth/v_registration.php',
 
-            'menuActive'        => '', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => '', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'store_data' => $store_data,
-            'role_data' => $role_data,
+            'menuActive'    => '', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive' => '', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'store_data'    => $store_data,
+            'role_data'     => $role_data,
         ];
 
         // $this->load->view('template_dashboard/template_wrapper_login.php', $data);
@@ -243,7 +244,7 @@ class Auth extends CI_Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('Auth');
+        redirect('auth');
     }
 
 

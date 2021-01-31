@@ -75,6 +75,12 @@ class Invoice_model extends CI_Model
     $this->db->from("{$this->table} AS i, ({$subQuery}) AS first_invoice");
     $this->db->join("{$this->tb_trx} AS t", "t.id=i.transaction_id");
     $this->db->where('i.id = first_invoice.id');
+
+    if ($idToko)
+    {
+      $this->db->where('t.store_id', $idToko);
+    }
+    
     $this->db->order_by("i.id", 'DESC')->limit($limit);
 
     $query = $this->db->get();

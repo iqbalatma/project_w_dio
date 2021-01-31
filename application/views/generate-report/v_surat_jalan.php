@@ -166,9 +166,45 @@
       <tr class="total" style="background: #eee;">
         <td></td>
         <td></td>
-        <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= $tot1Liter ?> pcs</strong></td>
+        <td colspan="2" style="font-size:10px;"></td>
         <td style="font-size:10px; margin-top:10px; text-align:right;"><strong><?= $totLiter ?> Ltr</strong></td>
       </tr>
+      
+      <?php if ($totPcs > 0) : ?>
+        <tr class="total" style="background: #eee;">
+          <td></td>
+          <td></td>
+          <td colspan="2" style="font-size:10px;"><strong>JUMLAH Pcs&nbsp;&nbsp;&nbsp;<?= $totPcs ?> pcs</strong></td>
+          <td></td>
+        </tr>
+      <?php endif; ?>
+      
+      <?php if ($totSachet > 0) : ?>
+        <tr class="total" style="background: #eee;">
+          <td></td>
+          <td></td>
+          <td colspan="2" style="font-size:10px;"><strong>JUMLAH Sachet&nbsp;&nbsp;&nbsp;<?= $totSachet ?> pcs</strong></td>
+          <td></td>
+        </tr>
+      <?php endif; ?>
+      
+      <?php if ($totMl > 0) : ?>
+        <tr class="total" style="background: #eee;">
+          <td></td>
+          <td></td>
+          <td colspan="2" style="font-size:10px;"><strong>JUMLAH Mililiter&nbsp;&nbsp;&nbsp;<?= $totMl ?> pcs</strong></td>
+          <td></td>
+        </tr>
+      <?php endif; ?>
+      
+      <?php if ($tot1Liter > 0) : ?>
+        <tr class="total" style="background: #eee;">
+          <td></td>
+          <td></td>
+          <td colspan="2" style="font-size:10px;"><strong>JUMLAH 1LTR&nbsp;&nbsp;&nbsp;<?= $tot1Liter ?> pcs</strong></td>
+          <td></td>
+        </tr>
+      <?php endif; ?>
       
       <?php if ($totGalon > 0) : ?>
         <tr class="total" style="background: #eee;">
@@ -193,24 +229,6 @@
           <td></td>
           <td></td>
           <td colspan="2" style="font-size:10px;"><strong>JUMLAH Drum&nbsp;&nbsp;&nbsp;<?= $totDrum ?> pcs</strong></td>
-          <td></td>
-        </tr>
-      <?php endif; ?>
-      
-      <?php if ($totPcs > 0) : ?>
-        <tr class="total" style="background: #eee;">
-          <td></td>
-          <td></td>
-          <td colspan="2" style="font-size:10px;"><strong>JUMLAH Pcs&nbsp;&nbsp;&nbsp;<?= $totPcs ?> pcs</strong></td>
-          <td></td>
-        </tr>
-      <?php endif; ?>
-      
-      <?php if ($totSachet > 0) : ?>
-        <tr class="total" style="background: #eee;">
-          <td></td>
-          <td></td>
-          <td colspan="2" style="font-size:10px;"><strong>JUMLAH Sachet&nbsp;&nbsp;&nbsp;<?= $totSachet ?> pcs</strong></td>
           <td></td>
         </tr>
       <?php endif; ?>
