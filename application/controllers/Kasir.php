@@ -10,7 +10,7 @@ class Kasir extends CI_Controller
         must_login();
 
         // hanya untuk gudang
-        role_validation($this->session->role_id, ['2']);
+        role_validation($this->session->role_id, ['2', '3']);
 
         $this->load->model("Inventory_material_model");
         $this->load->model("Material_model");
