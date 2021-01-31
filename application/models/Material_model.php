@@ -51,6 +51,7 @@ class Material_model extends CI_Model
     {
         return $this->db->get_where($this->table, array('id' => $id))->result();
     }
+    
     public function insert($data, $insertInven = FALSE, $dataInven = NULL)
     {
         // $post = $this->input->post();

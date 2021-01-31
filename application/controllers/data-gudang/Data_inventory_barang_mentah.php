@@ -17,6 +17,7 @@ class Data_inventory_barang_mentah extends CI_Controller
         $this->load->model("Store_model");
         $this->load->model("Kasir_model");
         $this->load->model("Product_mutation_model");
+        $this->load->model("Kas_model");
     }
 
     public function index()
@@ -32,6 +33,7 @@ class Data_inventory_barang_mentah extends CI_Controller
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
+
     public function v_data_by_store($store_id)
     {
         $data = [
@@ -46,8 +48,6 @@ class Data_inventory_barang_mentah extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
-
-
     public function v_insert()
     {
         $data = [
@@ -57,15 +57,15 @@ class Data_inventory_barang_mentah extends CI_Controller
             'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
             'data_barang_kimia' => $this->Material_model->getAll(),
-            'data_store' => $this->Store_model->getAll(),
+            'data_store'        => $this->Store_model->getAll(),
 
-            'datatables' => 1
+            'datatables'        => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
+    
     public function insert()
     {
-
         $this->form_validation->set_rules(
             'quantity',
             'Jumlah',
@@ -78,8 +78,6 @@ class Data_inventory_barang_mentah extends CI_Controller
             )
         );
 
-
-
         $this->form_validation->set_rules(
             'status',
             'Status',
@@ -90,27 +88,35 @@ class Data_inventory_barang_mentah extends CI_Controller
         );
 
 
-
-        if ($this->form_validation->run() == FALSE) {
-
+        if ($this->form_validation->run() == FALSE) 
+        {
             $this->session->set_flashdata('message_gagal', validation_errors());
-            redirect(base_url('data-gudang/Data_inventory_barang_mentah/v_insert'));
-        } else {
+            redirect(base_url('data-gudang/data-inventory-barang-mentah/v-insert'));
+        } 
+        else 
+        {
+            $now = now();
+            $createdAt = unix_to_human($now, true, 'europe');
 
-            $material_id = $this->input->post('material_id');
-            $store_id = 1;
-            $quantity = $this->input->post('quantity');
-            $updated_by = $_SESSION['username'];
-            $date = new DateTime(null, new DateTimeZone('Asia/Jakarta'));
+            $this->db->trans_start();
+
+            // ================================= DI BAWAH PROSES INVENTORY MATERIAL================
+
+            $material_id    = $this->input->post('material_id');
+            $store_id       = 1;
+            $quantity       = $this->input->post('quantity');
+            $updated_by     = $_SESSION['username'];
+            $date           = new DateTime(null, new DateTimeZone('Asia/Jakarta'));
+
             $data = [
-                'id' => '',
-                'material_id' => $material_id,
-                'created_by' => $updated_by,
-                'store_id' => $store_id,
-                'quantity' => $quantity,
-                'updated_at' => $date->format('Y-m-d H:i:s'),
-                'updated_by' => $updated_by,
-                'is_deleted' => 0
+                'id'            => '',
+                'material_id'   => $material_id,
+                'created_by'    => $updated_by,
+                'store_id'      => $store_id,
+                'quantity'      => $quantity,
+                'updated_at'    => $date->format('Y-m-d H:i:s'),
+                'updated_by'    => $updated_by,
+                'is_deleted'    => 0
             ];
 
             $status = $this->input->post('status');
@@ -118,9 +124,9 @@ class Data_inventory_barang_mentah extends CI_Controller
             $insert = $this->Inventory_material_model->insert($data, $status);
             // $update = $this->Inventory_material_model->update($data);
 
+            // ================================= DI BAWAH PROSES MUTASI MATERIAL ================
 
             // prep untuk generate mutation code
-            $now = now();
             $arr = [
                 'item_type' => 'material', // PRO=Product ; MAT=Material ;
                 'mutation_type' => 'masuk', // KEL=Keluar ; MSK=Masuk ;
@@ -128,30 +134,50 @@ class Data_inventory_barang_mentah extends CI_Controller
             $materialMutationCode = $this->Product_mutation_model->generate_new_mutation_code($now, $arr);
 
             $data = [
-                'id' => '',
-                'material_id' => $material_id,
-                'store_id' => $store_id,
+                'id'            => '',
+                'material_id'   => $material_id,
+                'store_id'      => $store_id,
                 'mutation_code' => $materialMutationCode,
-                'quantity' => $quantity,
+                'quantity'      => $quantity,
                 'mutation_type' => 'masuk',
-                'created_by' => $_SESSION['username'],
-                'is_deleted' => 0
+                'created_by'    => $_SESSION['username'],
+                'is_deleted'    => 0
             ];
 
             $this->Kasir_model->insert_material_mutation($data);
 
+            // ================================= DI BAWAH PROSES INPUT KAS ================
+
+            $matData    = (array)$this->Material_model->getById($material_id)[0];
+            $priceTotal = $matData['price_base'] * $quantity;
+
+            $username  = $this->session->username;
+
+            $kasArr = [
+                'add-type'          => 'kredit',
+                'add-nominal'       => $priceTotal,
+                'add-perihal'       => "(+) Stok bahan baku: {$matData['material_code']} - {$matData['full_name']}",
+                'add-keterangan'    => "HPP:{$matData['price_base']} ; Qty:{$quantity} ; Harga total:{$priceTotal} ; Oleh:{$username}",
+                'add-date'          => $createdAt,
+                'created_by'        => $username,
+            ];
+
+            $this->Kas_model->set_new_kas($kasArr);
+
+            $this->db->trans_complete();
 
             if ($insert == 1) {
                 $this->session->set_flashdata('message_berhasil', 'Berhasil Mengubah Kuantitas');
-                redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
+                redirect(base_url('data-gudang/data-inventory-barang-mentah'));
                 // echo 'berhasil';
             } else {
                 $this->session->set_flashdata('message_gagal', 'Gagal Mengubah Kuantitas');
-                redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
+                redirect(base_url('data-gudang/data-inventory-barang-mentah'));
                 // echo 'gagal';
             }
         }
     }
+
     public function v_update_critical_point($id)
     {
         // $id_material = $id;
@@ -162,9 +188,9 @@ class Data_inventory_barang_mentah extends CI_Controller
             'content'           => 'data-gudang/v_ubah_titik_kritis.php',
             'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'data_form' => $this->Inventory_material_model->getMaterialInventoryById($id_inventory),
+            'data_form'         => $this->Inventory_material_model->getMaterialInventoryById($id_inventory),
 
-            'datatables' => 1
+            'datatables'        => 1
         ];
 
         $this->load->view('template_dashboard/template_wrapper', $data);
@@ -180,7 +206,7 @@ class Data_inventory_barang_mentah extends CI_Controller
         $update = $this->Inventory_material_model->ubah_critical_point($_POST);
         if ($update == 1) {
             $this->session->set_flashdata('message_berhasil', 'Berhasil Mengubah data');
-            redirect(base_url('data-gudang/Data_inventory_barang_mentah'));
+            redirect(base_url('data-gudang/data-inventory-barang-mentah'));
         }
     }
 }

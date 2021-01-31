@@ -15,7 +15,7 @@ class Kas_model extends CI_Model
    * 
    * Insert new row to the database. ['add-type] ['add-nominal] ['add-perihal] ['add-keterangan] ['add-date] ['created_by]
    * 
-   * @param array $data [10 data]
+   * @param array $data [6 data]
    * The key and value in the array that will be inserted into the database.
    * 
    */
@@ -51,8 +51,6 @@ class Kas_model extends CI_Model
     // kemudian masukan kembali ke string $code, dan kas_code selesai
     $codeNum   = ($codeMonth !== $currMonth) ? '000001' : $codeNum;
     $code     .= str_pad($codeNum, 6, "0", STR_PAD_LEFT);
-
-
 
     $price_akhir = $data['add-nominal'];
     // set value untuk debet dan kredit dan set final_balance
@@ -108,16 +106,39 @@ class Kas_model extends CI_Model
    * to select some table(s) name of your choice.
    * 
    */
-  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
+  public function get_all($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000, $group_by = null)
   {
     $this->db->select($select);
     $this->db->from("{$this->table}");
+
+    if ($group_by != null)
+    {
+      $this->db->group_by($group_by);
+    }
+
     $this->db->order_by($order_by, $asc_desc);
     $this->db->limit($limit);
 
     $query = $this->db->get();
-    if ($query->num_rows() > 0) {
-      return $query->result_array();
+
+    if ($query->num_rows() == 1) return $query->row_array();
+    elseif ($query->num_rows() > 1) return $query->result_array();
+    else return FALSE;
+  }
+
+  public function get_where($where, $select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000)
+  {
+    $this->db->select($select);
+    $this->db->from("{$this->table}");
+
+    $this->db->where($where);
+
+    $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+
+    $query = $this->db->get();
+    if ($query->num_rows() == 1) {
+      return $query->row_array();
     }
     return FALSE;
   }

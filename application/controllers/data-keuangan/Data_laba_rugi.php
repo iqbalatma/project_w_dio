@@ -242,12 +242,66 @@ class Data_laba_rugi extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
-
     public function perminggu()
     {
+        $now        = now();
+        $lastWeek   = $now - 518400;
+
+        $createdAt  = unix_to_human($now, true, 'europe');
+
+        $data['last_week']  = mdate("%Y-%m-%d", $lastWeek);
+        $data['today']      = mdate("%Y-%m-%d", $now);
+
+        // $kasPerWeek = $this->Kas_model->get_where("date > '{$data['last_week']}' AND date < '{$data['today']}'", "SUM(debet) AS tot_debet, SUM(kredit) AS tot_kredit");
+        $kasPerWeek = $this->Kas_model->get_all("id, date, SUM(debet) AS tot_debet, SUM(kredit) AS tot_kredit, DATE_FORMAT(date, '%b-%Y') AS per_month_year, WEEK(date) - WEEK(DATE_FORMAT(date, '%Y-%m-01')) + 1 AS per_week, CONCAT(WEEK(date), '||' ,YEAR(date)) AS week_per_year", 'DESC', 'date', 20000, 'week_per_year');
+
+        // pprintd($kasPerWeek);
+
+        $i = 0;
+        $container = [];
+        foreach ($kasPerWeek as $row) {
+            // jika dapat laba
+            if ($row['tot_debet'] > $row['tot_kredit'])
+            {
+                $row['status'] = 'laba';
+                $row['finalAmount']    = $row['tot_debet'] - $row['tot_kredit'];
+            }
+            // jika rugi
+            else
+            {
+                $row['status'] = 'rugi';
+                $row['finalAmount']    = '-' . ($row['tot_kredit'] - $row['tot_debet']);
+            }
+            $container[] = $row;
+        }
+        $kasPerWeek = $container;
+        
+        // pprintd($container);
+
+        $data = [
+            'title'             => 'Data Laba Rugi - Per Minggu',
+            'content'           => 'data-keuangan/v_laba_rugi_perminggu.php',
+            'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+            // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
+            'kasPerWeek'        => $kasPerWeek,
+            'datatables'        => 1
+        ];
+
+        // pprintd($data);
+
+        $this->load->view('template_dashboard/template_wrapper', $data);
+
+
+        // pprintd($data);
+    }
+
+
+    public function perminggu2()
+    {
         $date = new DateTime();
-        $tanggal_hari_ini = $date->getTimestamp();
-        $tanggal_pertama = $date->getTimestamp() - (386400 * 10);
+        $tanggal_hari_ini   = $date->getTimestamp();
+        $tanggal_pertama    = $date->getTimestamp() - (386400 * 10);
         // $tanggal_pertama = "1607898800";
         $x = 0;
         $nilai_final_array = array();
@@ -275,7 +329,6 @@ class Data_laba_rugi extends CI_Controller
                 }
 
                 $invoice_item = $this->Kas_model->get_data_terjual($row['id']);
-
 
                 foreach ($invoice_item as $row2) {
                     $data_produk = $this->Kasir_model->get_code_product($row2['product_id']);

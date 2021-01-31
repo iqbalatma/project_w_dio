@@ -65,7 +65,7 @@
                                         <th class="px-3" width="40px">Tanggal per Hari</th>
                                         <th class="px-3" width="30px">Modal</th>
                                         <th class="px-3" width="30px">Pemasukan</th>
-                                        <th class="px-3" width="30px">Hutang</th>
+                                        <!-- <th class="px-3" width="30px">Hutang</th> -->
                                         <th class="px-3">Untung/Rugi</th>
 
                                     </tr>
@@ -76,7 +76,7 @@
                                         <th class="px-3" width="40px">Tanggal per Hari</th>
                                         <th class="px-3" width="30px">Modal</th>
                                         <th class="px-3" width="30px">Pemasukan</th>
-                                        <th class="px-3" width="30px">Hutang</th>
+                                        <!-- <th class="px-3" width="30px">Hutang</th> -->
                                         <th class="px-3">Untung/Rugi</th>
                                     </tr>
                                 </tfoot>
@@ -92,7 +92,7 @@
                                             <td class="px-3" width="40px"><?= date("d-M-Y", $tanggal_hari_ini[$i]); ?></td>
                                             <td class="px-3" width="30px"><?= price_format($total_modal[$i]); ?></td>
                                             <td class="px-3" width="30px"> <?= price_format($total_pemasukan[$i]); ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($hutang_array[$i]); ?></td>
+                                            <!-- <td class="px-3" width="30px"><?= price_format($hutang_array[$i]); ?></td> -->
                                             <td class="px-3" width="30px"><?= price_format($nilai_final[$i]); ?></td>
                                         </tr>
                                     <?php

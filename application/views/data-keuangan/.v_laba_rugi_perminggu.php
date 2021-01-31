@@ -15,7 +15,7 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Data per Bulan - Laba & Rugi</h4>
+            <h4 class="page-title">Data per Minggu - Laba & Rugi</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
                     <a href="<?= base_url(); ?>">
@@ -32,7 +32,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= current_url() ?>">Data per Bulan</a>
+                    <a href="<?= current_url() ?>">Data per Minggu</a>
                 </li>
             </ul>
         </div>
@@ -62,7 +62,7 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="100px">Tanggal per Bulan</th>
+                                        <th class="px-3" width="100%">Range Tanggal per Minggu</th>
                                         <th class="px-3" width="30px">Modal</th>
                                         <th class="px-3" width="30px">Pemasukan</th>
                                         <!-- <th class="px-3" width="30px">Hutang</th> -->
@@ -72,7 +72,7 @@
                                 <tfoot class="thead-light">
                                     <tr>
                                         <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="100px">Tanggal per Bulan</th>
+                                        <th class="px-3" width="100%">Range Tanggal per Minggu</th>
                                         <th class="px-3" width="30px">Modal</th>
                                         <th class="px-3" width="30px">Pemasukan</th>
                                         <!-- <th class="px-3" width="30px">Hutang</th> -->
@@ -81,61 +81,54 @@
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    // echo "<pre>";
-                                    // echo (date("m-Y", $tanggal_hari_ini[0]));
-                                    // echo "<br>";
-                                    // echo (date("m-Y", $tanggal_hari_ini[8]));
-                                    // echo "</pre>";
-                                    $counter = count($tanggal_hari_ini);
-                                    $j = 0;
-                                    $bulan = array();
-
-                                    while ($j < $counter) {
-                                        if (array_search(date("m-Y", $tanggal_hari_ini[$j]), $bulan) === false) {
-                                            array_push($bulan, date("m-Y", $tanggal_hari_ini[$j]));
-                                        }
-                                        $j++;
-                                    }
-
-                                    $x = 0;
-
-                                    // if (date("m-Y", $tanggal_hari_ini[2]) == $bulan[0]) {
-                                    //     echo "BETUL";
-                                    // }
-                                    $status = false;
+                                    $data_master_tanggal = $tanggal_hari_ini;
+                                    $tanggal_pertama = $data_master_tanggal[0];
+                                    $tanggal_terakhir = $data_master_tanggal[count($data_master_tanggal) - 1];
                                     $counter = 1;
-                                    while ($x < count($bulan)) {
-
-                                        // echo count($bulan);
-                                        $tes = $bulan[$x];
-                                        $total_modalx = 0;
-                                        $total_pemasukanx = 0;
-                                        $hutang_arrayx = 0;
-                                        $nilai_finalx = 0;
+                                    while ($tanggal_pertama < $tanggal_terakhir) {
                                         $i = 0;
-                                        while ($i < count($total_modal)) {
-                                            if (date("m-Y", $tanggal_hari_ini[$i]) == $tes) {
-                                                $total_modalx += $total_modal[$i];
-                                                $total_pemasukanx += $total_pemasukan[$i];
-                                                $hutang_arrayx += $hutang_array[$i];
-                                                $nilai_finalx += $nilai_final[$i];
+                                        $total_modal_perminggu = 0;
+                                        $total_pemasukan_perminggu = 0;
+                                        $total_hutang_perminggu = 0;
+                                        $total_nilai_perminggu = 0;
+                                        $tanggal_perminggu = $tanggal_pertama;
+                                        $tanggal_tabel = "";
+                                        while ($i < 8) {
+
+                                            if ($i == 0 || $i == 7) {
+
+                                                $tanggal_tabel .= date("d-M-Y", $tanggal_perminggu) . " / ";
                                             }
+
+                                            $key = array_search($tanggal_perminggu, $data_master_tanggal);
+                                            if ($key !== false) {
+
+                                                $total_modal_perminggu += $total_modal[$key];
+                                                $total_pemasukan_perminggu += $total_pemasukan[$key];
+                                                $total_hutang_perminggu += $hutang_array[$key];
+                                                $total_nilai_perminggu += $nilai_final[$key];
+                                            }
+
+                                            $tanggal_perminggu = $tanggal_perminggu + 86400;
+
                                             $i++;
-                                        }; ?>
+                                        }
+                                    ?>
 
                                         <tr>
                                             <td class="px-3" width="5%px"><?= $counter; ?></td>
-                                            <td class="px-3" width="40px"><?= $tes ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($total_modalx); ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($total_pemasukanx); ?></td>
-                                            <!-- <td class="px-3" width="30px"><?= price_format($hutang_arrayx); ?></td> -->
-                                            <td class="px-3" width="30px"><?= price_format($nilai_finalx); ?></td>
+                                            <td class="px-3" width="40px"><?= substr($tanggal_tabel, 0, -2); ?></td>
+                                            <td class="px-3" width="30px"><?= price_format($total_modal_perminggu); ?></td>
+                                            <td class="px-3" width="30px"> <?= price_format($total_pemasukan_perminggu); ?></td>
+                                            <!-- <td class="px-3" width="30px"><?= price_format($total_hutang_perminggu); ?></td> -->
+                                            <td class="px-3" width="30px"><?= price_format($total_nilai_perminggu); ?></td>
                                         </tr>
 
                                     <?php
-                                        $x++;
+                                        $tanggal_pertama = $tanggal_pertama + 86400 * 8;
                                         $counter++;
-                                    }; ?>
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
