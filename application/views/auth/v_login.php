@@ -16,7 +16,7 @@
                             </div>
 
 
-                            <form action="<?= base_url('Auth/login'); ?>" method="POST">
+                            <form action="<?= base_url('auth/login'); ?>" method="POST">
                                 <div class="card-body">
                                     <div class="row center">
                                         <div class="col-md-2"></div>

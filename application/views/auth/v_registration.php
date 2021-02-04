@@ -4,7 +4,7 @@
             <h4 class="page-title">Forms Registration</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
-                    <a href="<?= base_url('Dashboard'); ?>">
+                    <a href="<?= base_url('dashboard'); ?>">
                         <i class="flaticon-home"></i>
                     </a>
                 </li>
@@ -12,14 +12,14 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Auth/registration'); ?>">Forms Registration</a>
+                    <a href="<?= base_url('auth/registration'); ?>">Forms Registration</a>
                 </li>
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form action="<?= base_url('Auth/registration'); ?>" method="POST">
+                    <form action="<?= base_url('auth/registration'); ?>" method="POST">
                         <div class="card-header">
                             <div class="card-title">Form Registration</div>
                         </div>
