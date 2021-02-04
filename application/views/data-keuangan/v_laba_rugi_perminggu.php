@@ -81,17 +81,21 @@
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    $i = 1;
-                                    foreach ($labarugi as $row) : ?>
-                                        <tr>
-                                            <td class="px-3"><?= $i; ?></td>
-                                            <td class="px-3"><?= "Minggu ke {$row['week_per_month']}, {$row['month_per_year']}" ?></td>
-                                            <td class="px-3"><?= price_format($row['penjualan']) ?></td>
-                                            <td class="px-3"><?= price_format($row['modal']) ?></td>
-                                            <td class="px-3"><?= price_format($row['pengeluaran']) ?></td>
-                                            <td class="px-3 font-weight-bold <?= ($row['total'] > 0) ? 'text-primary' : 'text-danger' ?>"><?= price_format($row['total']) ?></td>
-                                        </tr>
-                                    <?php $i++; endforeach; ?>
+                                    if ($labarugi != FALSE) :
+                                        $i = 1;
+                                        foreach ($labarugi as $row) : ?>
+                                            <tr>
+                                                <td class="px-3"><?= $i; ?></td>
+                                                <td class="px-3"><?= "Minggu ke {$row['week_per_month']}, {$row['month_per_year']}" ?></td>
+                                                <td class="px-3"><?= price_format($row['penjualan']) ?></td>
+                                                <td class="px-3"><?= price_format($row['modal']) ?></td>
+                                                <td class="px-3"><?= price_format($row['pengeluaran']) ?></td>
+                                                <td class="px-3 font-weight-bold <?= ($row['total'] > 0) ? 'text-primary' : 'text-danger' ?>"><?= price_format($row['total']) ?></td>
+                                            </tr>
+                                            <?php 
+                                            $i++; 
+                                        endforeach; 
+                                    endif; ?>
                                 </tbody>
                             </table>
                         </div>

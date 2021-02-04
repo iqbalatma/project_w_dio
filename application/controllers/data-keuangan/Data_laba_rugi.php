@@ -1,8 +1,5 @@
 <?php
-
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
 
 
 
@@ -84,11 +81,16 @@ class Data_laba_rugi extends CI_Controller
 
     private function getLabaRugi($param = null)
     {
+        // harus masukin $param
         if ($param == null) return FALSE;
 
+        // set kebutuhan untuk masing2 environment
         if ($param == 'perhari') $master = $this->Transaction_model->get_laba_rugi('perhari');
         elseif ($param == 'perminggu') $master = $this->Transaction_model->get_laba_rugi('perminggu');
         elseif ($param == 'perbulan') $master = $this->Transaction_model->get_laba_rugi('perbulan');
+
+        // kalo gaada data sama sekali, atau ada eror
+        if ($master == FALSE) return FALSE;
 
         // pprintd($master);
 
@@ -125,7 +127,7 @@ class Data_laba_rugi extends CI_Controller
                 $temp[$k]['total'] = 0;
             }
 
-            // +++++++
+            // siapin kebutuhan untuk masing2 environment
             if ($param == 'perhari') 
             {
                 $temp[$k]['day_per_month_year'] = $row['day_per_month_year'];

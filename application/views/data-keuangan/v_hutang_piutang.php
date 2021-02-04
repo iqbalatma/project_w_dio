@@ -82,44 +82,48 @@
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    $i = 1;
-                                    foreach ($data_hutang_piutang    as $row) : ?>
-                                        <tr>
-                                            <td class="px-3">
-                                                <?= $i++ ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= $row['full_name'] ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= $row['address'] ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= $row['phone'] ?>
-                                            </td>
-                                            <td class="px-3 font-weight-bold">
-                                                <?= $row['trans_number'] ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= $row['invoice_number'] ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?= price_format($row['left_to_paid']) ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <?php $dt = explode(' ', $row['paid_at']);
-                                                $d = date_create($dt[0]);
-                                                echo date_format($d, "d-M-Y") ?>
-                                            </td>
-                                            <td class="px-3">
-                                                <div class="form-button-action">
-                                                    <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="px-2 btn btn-default py-1 btn-delete" data-id="<?= $row['id']; ?> <?= $row['transaction_id']; ?> <?= $row['invoice_number'] ?> <?= $row['left_to_paid'] ?>" data-transaction="<?= $row['transaction_id']; ?>" data-xaja="<?= $row['invoice_number'] ?>">
-                                                        Bayar
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                    if ($data_hutang_piutang != FALSE) :
+                                        $i = 1;
+                                        foreach ($data_hutang_piutang as $row) : ?>
+                                            <tr>
+                                                <td class="px-3">
+                                                    <?= $i++ ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= $row['full_name'] ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= $row['address'] ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= $row['phone'] ?>
+                                                </td>
+                                                <td class="px-3 font-weight-bold">
+                                                    <?= $row['trans_number'] ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= $row['invoice_number'] ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?= price_format($row['left_to_paid']) ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <?php $dt = explode(' ', $row['paid_at']);
+                                                    $d = date_create($dt[0]);
+                                                    echo date_format($d, "d-M-Y") ?>
+                                                </td>
+                                                <td class="px-3">
+                                                    <div class="form-button-action">
+                                                        <a href="#modalKonfirmasi" type="button" data-toggle="modal" data-target="#modalKonfirmasi" class="px-2 btn btn-default py-1 btn-delete" data-id="<?= $row['id']; ?> <?= $row['transaction_id']; ?> <?= $row['invoice_number'] ?> <?= $row['left_to_paid'] ?>" data-transaction="<?= $row['transaction_id']; ?>" data-xaja="<?= $row['invoice_number'] ?>">
+                                                            Bayar
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php 
+                                            $i++; 
+                                        endforeach; 
+                                    endif; ?>
                                 </tbody>
                             </table>
                         </div>
