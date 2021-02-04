@@ -23,9 +23,162 @@ class Data_laba_rugi extends CI_Controller
         $this->load->model("Kas_model");
         $this->load->model("Invoice_model");
         $this->load->model("Kasir_model");
+        $this->load->model("Transaction_model");
+    }
+
+    public function index()
+    {
+        redirect(current_url() . '/perhari');
     }
 
     public function perhari()
+    {
+        $labarugi = $this->getLabaRugi('perhari');
+
+        $data = [
+            'title'          => 'Data Laba Rugi - Per Hari',
+            'content'        => 'data-keuangan/v_laba_rugi_perhari.php',
+            'menuActive'     => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'  => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'labarugi'       => $labarugi,
+            'datatables'     => 1
+        ];
+        // pprintd($data);
+
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+    public function perminggu()
+    {
+        $labarugi = $this->getLabaRugi('perminggu');
+
+        $data = [
+            'title'          => 'Data Laba Rugi - Per Minggu',
+            'content'        => 'data-keuangan/v_laba_rugi_perminggu.php',
+            'menuActive'     => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'  => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'labarugi'       => $labarugi,
+            'datatables'     => 1
+        ];
+        // pprintd($data);
+
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+    public function perbulan()
+    {
+        $labarugi = $this->getLabaRugi('perbulan');
+
+        $data = [
+            'title'          => 'Data Laba Rugi - Per Bulan',
+            'content'        => 'data-keuangan/v_laba_rugi_perbulan.php',
+            'menuActive'     => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'  => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'labarugi'       => $labarugi,
+            'datatables'     => 1
+        ];
+        // pprintd($data);
+
+        $this->load->view('template_dashboard/template_wrapper', $data);
+    }
+
+    private function getLabaRugi($param = null)
+    {
+        if ($param == null) return FALSE;
+
+        if ($param == 'perhari') $master = $this->Transaction_model->get_laba_rugi('perhari');
+        elseif ($param == 'perminggu') $master = $this->Transaction_model->get_laba_rugi('perminggu');
+        elseif ($param == 'perbulan') $master = $this->Transaction_model->get_laba_rugi('perbulan');
+
+        // pprintd($master);
+
+        $i = 0;
+        $k = 0;
+        $container = [];
+        $temp = [];
+        foreach ($master as $row)
+        {
+            // inisiasi untuk looping pertama
+            if ($i == 0) 
+            {
+                // bikin variabel untuk ngecek proses looping di iterasi pertama
+                $loopChecker = $row['unique_value'];
+                // set total di awal = 0
+                $temp[$k]['modal'] = 0;
+                $temp[$k]['penjualan'] = 0;
+                $temp[$k]['pengeluaran'] = 0;
+                $temp[$k]['total'] = 0;
+            }
+
+            // cek key 'unique_value' dengan $loopChecker yg sudah dibuat di pertama kali atau ketika keynya udah beda
+            // isi dari key adalah format { tahun||bulan||minggu ke-n dalam tiap bulannya }
+            if ($row['unique_value'] != $loopChecker) 
+            {
+                // bikin variabel untuk ngecek proses looping ketika key yg dicek udah beda
+                $loopChecker = $row['unique_value'];
+                // assign $k yg baru sesuai dengan $i pada looping sekarang
+                $k = $i;
+                // reset value total = 0
+                $temp[$k]['modal'] = 0;
+                $temp[$k]['penjualan'] = 0;
+                $temp[$k]['pengeluaran'] = 0;
+                $temp[$k]['total'] = 0;
+            }
+
+            // +++++++
+            if ($param == 'perhari') 
+            {
+                $temp[$k]['day_per_month_year'] = $row['day_per_month_year'];
+            }
+            elseif ($param == 'perminggu') 
+            {
+                $temp[$k]['week_per_month'] = $row['week_per_month'];
+                $temp[$k]['month_per_year'] = $row['month_per_year'];
+            }
+            elseif ($param == 'perbulan') 
+            {
+                $temp[$k]['month_per_year'] = $row['month_per_year'];
+            }
+
+            // jika penjualan maka ditambahkan
+            // jika pengeluaran maka dikurangkan
+            if ($row['col_type'] == 'penjualan')
+            {
+                // assign modal per minggu
+                $temp[$k]['modal']      = $temp[$k]['modal'] + $row['modal'];
+                // assign penjualan per minggu
+                $temp[$k]['penjualan']  = $temp[$k]['penjualan'] + $row['money'];
+                // assign penjualan - modal
+                $temp[$k]['total']      = $temp[$k]['total'] + ($temp[$k]['penjualan'] - $temp[$k]['modal']);
+            } 
+            else 
+            {
+                // assign pengeluaran per minggu
+                $temp[$k]['pengeluaran'] = $temp[$k]['pengeluaran'] + $row['money'];
+                // assign penjualan(sudah dikurang hpp) - pengeluaran per minggu
+                $temp[$k]['total']       = $temp[$k]['total'] - $row['money'];
+            }
+            
+            $i++;
+            // pindahin ke $container, agar $temp tetap unique di setiap looping
+            $container = $temp;
+        }
+        // pindahin ke $master, agar $container bisa dipakai di tempat lain
+        $master = $container;
+
+        return $master;
+    }
+
+
+
+
+
+
+
+
+
+
+    private function _________________perhari()
     {    
         $date = new DateTime();
         $tanggal_hari_ini = $date->getTimestamp() + (86400 * 100);
@@ -242,62 +395,7 @@ class Data_laba_rugi extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
-    public function perminggu()
-    {
-        $now        = now();
-        $lastWeek   = $now - 518400;
-
-        $createdAt  = unix_to_human($now, true, 'europe');
-
-        $data['last_week']  = mdate("%Y-%m-%d", $lastWeek);
-        $data['today']      = mdate("%Y-%m-%d", $now);
-
-        // $kasPerWeek = $this->Kas_model->get_where("date > '{$data['last_week']}' AND date < '{$data['today']}'", "SUM(debet) AS tot_debet, SUM(kredit) AS tot_kredit");
-        $kasPerWeek = $this->Kas_model->get_all("id, date, SUM(debet) AS tot_debet, SUM(kredit) AS tot_kredit, DATE_FORMAT(date, '%b-%Y') AS per_month_year, WEEK(date) - WEEK(DATE_FORMAT(date, '%Y-%m-01')) + 1 AS per_week, CONCAT(WEEK(date), '||' ,YEAR(date)) AS week_per_year", 'DESC', 'date', 20000, 'week_per_year');
-
-        // pprintd($kasPerWeek);
-
-        $i = 0;
-        $container = [];
-        foreach ($kasPerWeek as $row) {
-            // jika dapat laba
-            if ($row['tot_debet'] > $row['tot_kredit'])
-            {
-                $row['status'] = 'laba';
-                $row['finalAmount']    = $row['tot_debet'] - $row['tot_kredit'];
-            }
-            // jika rugi
-            else
-            {
-                $row['status'] = 'rugi';
-                $row['finalAmount']    = '-' . ($row['tot_kredit'] - $row['tot_debet']);
-            }
-            $container[] = $row;
-        }
-        $kasPerWeek = $container;
-        
-        // pprintd($container);
-
-        $data = [
-            'title'             => 'Data Laba Rugi - Per Minggu',
-            'content'           => 'data-keuangan/v_laba_rugi_perminggu.php',
-            'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
-            // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
-            'kasPerWeek'        => $kasPerWeek,
-            'datatables'        => 1
-        ];
-
-        // pprintd($data);
-
-        $this->load->view('template_dashboard/template_wrapper', $data);
-
-
-        // pprintd($data);
-    }
-
-
-    public function perminggu2()
+    private function _________________perminggu2()
     {
         $date = new DateTime();
         $tanggal_hari_ini   = $date->getTimestamp();
@@ -469,8 +567,7 @@ class Data_laba_rugi extends CI_Controller
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
 
-
-    public function perbulan()
+    private function _________________perbulan()
     {
         $date = new DateTime();
         $tanggal_hari_ini = $date->getTimestamp() + (86400 * 100);
@@ -682,24 +779,4 @@ class Data_laba_rugi extends CI_Controller
 
         $this->load->view('template_dashboard/template_wrapper', $data);
     }
-
-    // public function index()
-        // {
-        //     $data = [
-        //         'title'             => 'Data Laba Rugi',
-        //         'content'           => 'data-keuangan/v_laba_rugi.php',
-        //         'menuActive'        => 'data-keuangan', // harus selalu ada, buat indikator sidebar menu yg aktif
-        //         'submenuActive'     => 'data-laba-rugi', // harus selalu ada, buat indikator sidebar menu yg aktif
-        //         // 'data_barang_kritis' => $this->Inventory_material_model->getKritis(),
-        //         // 'total_modal' => $total_modal_array,
-        //         // // 'total_pemasukan' => $total_pemasukan_array,
-        //         // 'total_pemasukan' => $total_pemasukan_array,
-        //         // 'nilai_final' => $nilai_final_array,
-        //         // 'tanggal_hari_ini' => $tanggal_array,
-        //         // 'hutang_array' => $hutang_array,
-        //         'datatables' => 1
-        //     ];
-
-        //     $this->load->view('template_dashboard/template_wrapper', $data);
-    // }
 }

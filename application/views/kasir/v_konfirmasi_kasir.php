@@ -89,8 +89,9 @@
                                             <?php
 
                                             $i = 1;
-                                            $harga_jumlah = 0;
-                                            $harga_total = 0;
+                                            $harga_jumlah   = 0;
+                                            $harga_total    = 0;
+                                            $hpp_total      = 0;
                                             foreach ($data_product as $row) :
                                                 // $harga_produk = 0;
                                                 // $harga_produk = $this->Product_model->get_by_id($row)->selling_price;
@@ -108,7 +109,8 @@
                                                 // }
 
                                                 // pprintd($row);
-
+                                                $harga_jumlah   = $row['kasir_price'] * $row['kasir_qty'];
+                                                $hpp_jumlah     = $row['price_base'] * $row['kasir_qty'];
                                             ?>
                                                 <tr>
                                                     <th scope="row"><?= $i; ?></th>
@@ -116,7 +118,6 @@
                                                     <td><?= $row['full_name'] ?></td>
                                                     <td><?= $row['kasir_qty'] ?></td>
                                                     <td><?= price_format($row['kasir_price']) ?></td>
-                                                    <?php $harga_jumlah = $row['kasir_price'] * $row['kasir_qty']; ?>
                                                     <td><?= price_format($harga_jumlah) ?></td>
                                                 </tr>
                                             <?php
@@ -124,6 +125,7 @@
                                                 echo '<input type="hidden" name="custom_harga[' . $row['id'] . ']" value="' . $row['id'] . '">';
 
                                                 $harga_total += $harga_jumlah;
+                                                $hpp_total += $hpp_jumlah;
                                                 $i++;
                                             endforeach;
 
@@ -139,6 +141,7 @@
                                     <input type="text" class="form-control" id="harga_total" name="harga_total" value="<?= price_format($harga_total) ?>" readonly>
                                     </input>
                                     <input type="hidden" name="total_harga" id="total_harga" value="<?= $harga_total; ?>">
+                                    <input type="hidden" name="total_hpp" id="total_hpp" value="<?= $hpp_total; ?>">
                                 </div>
 
                                 <?php

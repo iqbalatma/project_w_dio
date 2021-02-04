@@ -136,10 +136,10 @@
                                                                 <option value="0" selected>0</option>
                                                                 <?php
                                                                 $j = 1;
-                                                                $maxShowNumber = 5000;
+                                                                $maxShowNumber = 1000 * 1000;
                                                                 while ($j <= $row['quantity']) {
-                                                                    // maksimal tampil jumlah produk sekali cekout 200/produk/cekout. 
-                                                                    // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya sampe ribuan
+                                                                    // maksimal tampil jumlah produk sekali cekout 1juta/produk/cekout. 
+                                                                    // Biar ngga exceeds memory kalo jumlah yg bisa dibelinya > jutaan
                                                                     if ($j > $maxShowNumber) break;
                                                                 ?>
                                                                     <option value="<?= $j; ?>"><?= ($j == $maxShowNumber) ? 'Max.' : '' ?> <?= $j; ?></option>

@@ -633,6 +633,7 @@ class Kasir_model extends CI_Model
             'deliv_address' => $data['deliv_address'],
             'deliv_phone'   => $data['phone_custom'],
             'price_total'   => $data['total_harga'],
+            'hpp_total'     => $data['total_hpp'],
             'store_id'      => $data['store_id'],
             'customer_id'   => $data['data_customer']['id'],
             'employee_id'   => $data['employee_id'],

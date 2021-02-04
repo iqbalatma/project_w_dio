@@ -9,7 +9,7 @@ class Kasir extends CI_Controller
         parent::__construct();
         must_login();
 
-        // hanya untuk gudang
+        // hanya untuk gudang dan kasir
         role_validation($this->session->role_id, ['2', '3']);
 
         $this->load->model("Inventory_material_model");
@@ -28,7 +28,7 @@ class Kasir extends CI_Controller
             'menuActive'        => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'submenuActive'     => 'kasir', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_customer'     => $this->Customer_model->get_all_by_store_id_sort_by_name("*", $this->session->store_id),
-            'data_product'      => $this->Product_model->get_all_inventory('p.id, p.product_code, p.full_name, p.unit, p.volume, p.selling_price, p.reseller_price, pi.quantity, pi.critical_point', $this->session->store_id),
+            'data_product'      => $this->Product_model->get_all_inventory('p.id, p.product_code, p.full_name, p.unit, p.volume, p.price_base, p.selling_price, p.reseller_price, pi.quantity, pi.critical_point', $this->session->store_id),
             'select2'           => 1,
         ];
         // pprintd($data['data_product']);
@@ -49,8 +49,7 @@ class Kasir extends CI_Controller
         }
         // pprintd($post);
 
-        // sort array quantity produk dari kecil ke terbesar ambil indek pertama dan terakhir, kemudian cek
-        // jika
+        // sort array quantity produk dari kecil ke terbesar ambil indeks pertama dan terakhir, kemudian cek
         $__qty   = $post['quantity'];
         $isZero = array_search(0, $__qty);
         // cek apakah array pertama yg udh disort bernilai 0, jika iya keluar karena ada produk yg qty == 0
@@ -83,8 +82,8 @@ class Kasir extends CI_Controller
 
         // get data dari db yg dibutuhkan, dari tabel customer dan produk yg relevan dengan environment ketika cekout
         $data_customer      = $this->Customer_model->get_by_id($customer_id, 'id, full_name, address, phone, cust_type');
-        $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price, reseller_price');
-        // pprintd($data_product[0]['reseller_price']);
+        $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, price_base, selling_price, reseller_price');
+        // pprintd($data_product);
 
         // build array yg isinya hanya kode product untuk keperluan where clause di db ketika get harga custom
         foreach ($data_product as $row) {
@@ -127,6 +126,8 @@ class Kasir extends CI_Controller
         // SELESAI : kembalikan dari $container ke variabel awal
         $data_product = $container;
 
+        // pprintd($data_product);
+
         // MULAI : reset kembali $container agar kosong untuk digunakan
         // proses di bawah sama seperti di atas, bedanya ini untuk quantity ketika cekout
         $container = [];
@@ -143,17 +144,21 @@ class Kasir extends CI_Controller
         // SELESAI : kembalikan dari $container ke variabel awal
         $data_product = $container;
 
+        // pprintd($data_product);
+
         // MULAI : reset kembali $container agar kosong untuk digunakan
         // proses di bawah sama seperti di atas, bedanya ini untuk total harga per item
         $container = [];
         foreach ($data_product as $row) {
             $row['kasir_total_per_item'] = $row['kasir_price'] * $row['kasir_qty'];
+            $row['total_hpp_per_item']   = $row['price_base'] * $row['kasir_qty'];
             // himpun kembali dalam array dengan bentuk yg sama seperti $data_product
             $container[] = $row;
         }
         // SELESAI : kembalikan dari $container ke variabel awal
         $data_product = $container;
 
+        // pprintd($data_product);
 
         $data = [
             'title'             => 'Kasir',
@@ -167,8 +172,6 @@ class Kasir extends CI_Controller
             'phone'             => $phone,
             'datatables'        => 1
         ];
-
-        // pprintd($data);
 
         $sessionTest['data_customer']   = (array)$data['data_customer'];
         $sessionTest['data_product']    = $data['data_product'];
@@ -204,6 +207,7 @@ class Kasir extends CI_Controller
 
         $cekoutData['paid_amount']  = $post['paid_amount'];
         $cekoutData['total_harga']  = $post['total_harga'];
+        $cekoutData['total_hpp']    = $post['total_hpp'];
 
         $cekoutData['paid_type']    = $post['payment_type'];
 

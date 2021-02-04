@@ -62,31 +62,34 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="px-3" width="">No</th>
-                                        <th class="px-3" width="">Bulan-Tahun</th>
+                                        <th class="px-3" width="">Minggu ke-n, Bulan - Tahun</th>
+                                        <th class="px-3" width="">Penjualan</th>
                                         <th class="px-3" width="">Modal</th>
-                                        <th class="px-3" width="">Pemasukan</th>
-                                        <th class="px-3" width="">Untung/Rugi</th>
+                                        <th class="px-3" width="">Pengeluaran</th>
+                                        <th class="px-3" width="">Laba Rugi</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="thead-light">
                                     <tr>
                                         <th class="px-3">No</th>
-                                        <th class="px-3">Bulan-Tahun</th>
+                                        <th class="px-3">Minggu ke-n, Bulan - Tahun</th>
+                                        <th class="px-3">Penjualan</th>
                                         <th class="px-3">Modal</th>
-                                        <th class="px-3">Pemasukan</th>
-                                        <th class="px-3">Untung/Rugi</th>
+                                        <th class="px-3">Pengeluaran</th>
+                                        <th class="px-3">Laba Rugi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php
                                     $i = 1;
-                                    foreach ($kasPerWeek as $row) : ?>
+                                    foreach ($labarugi as $row) : ?>
                                         <tr>
                                             <td class="px-3"><?= $i; ?></td>
-                                            <td class="px-3"><?= "Minggu ke {$row['per_week']}, {$row['per_month_year']}" ?></td>
-                                            <td class="px-3"><?= price_format($row['tot_kredit']) ?></td>
-                                            <td class="px-3"> <?= price_format($row['tot_debet']) ?></td>
-                                            <td class="px-3 <?= ($row['status'] == 'laba') ? 'text-primary' : 'text-danger' ?>"><?= price_format($row['finalAmount']) ?></td>
+                                            <td class="px-3"><?= "Minggu ke {$row['week_per_month']}, {$row['month_per_year']}" ?></td>
+                                            <td class="px-3"><?= price_format($row['penjualan']) ?></td>
+                                            <td class="px-3"><?= price_format($row['modal']) ?></td>
+                                            <td class="px-3"><?= price_format($row['pengeluaran']) ?></td>
+                                            <td class="px-3 font-weight-bold <?= ($row['total'] > 0) ? 'text-primary' : 'text-danger' ?>"><?= price_format($row['total']) ?></td>
                                         </tr>
                                     <?php $i++; endforeach; ?>
                                 </tbody>

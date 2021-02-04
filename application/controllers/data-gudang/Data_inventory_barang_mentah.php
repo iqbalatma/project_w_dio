@@ -23,10 +23,10 @@ class Data_inventory_barang_mentah extends CI_Controller
     public function index()
     {
         $data = [
-            'title'             => 'Data Barang Mentah',
-            'content'           => 'data-gudang/v_inventory_barang.php',
-            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'title'                 => 'Data Barang Mentah',
+            'content'               => 'data-gudang/v_inventory_barang.php',
+            'menuActive'            => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'         => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_inventory_barang' => $this->Inventory_material_model->getAll(),
 
             'datatables' => 1
@@ -37,10 +37,10 @@ class Data_inventory_barang_mentah extends CI_Controller
     public function v_data_by_store($store_id)
     {
         $data = [
-            'title'             => 'Data Barang Mentah',
-            'content'           => 'data-gudang/v_inventory_barang.php',
-            'menuActive'        => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
-            'submenuActive'     => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'title'                 => 'Data Barang Mentah',
+            'content'               => 'data-gudang/v_inventory_barang.php',
+            'menuActive'            => 'data-gudang', // harus selalu ada, buat indikator sidebar menu yg aktif
+            'submenuActive'         => 'data-inventory-barang-mentah', // harus selalu ada, buat indikator sidebar menu yg aktif
             'data_inventory_barang' => $this->Inventory_material_model->get_inventory_by_store_id($store_id),
 
             'datatables' => 1
@@ -58,7 +58,6 @@ class Data_inventory_barang_mentah extends CI_Controller
             'data_barang_masuk' => $this->Inventory_material_model->getAll(),
             'data_barang_kimia' => $this->Material_model->getAll(),
             'data_store'        => $this->Store_model->getAll(),
-
             'datatables'        => 1
         ];
         $this->load->view('template_dashboard/template_wrapper', $data);
@@ -71,10 +70,10 @@ class Data_inventory_barang_mentah extends CI_Controller
             'Jumlah',
             'trim|required|max_length[11]|numeric|greater_than[0]',
             array(
-                'required' => 'Jumlah Bahan tidak boleh kosong',
-                'max_length'     => 'Jumlah Bahan maksimal 11 karakter',
-                'numeric'         => 'Jumlah hanya terdiri dari angka',
-                'greater_than' => 'Jumlah tidak boleh 0'
+                'required'      => 'Jumlah Bahan tidak boleh kosong',
+                'max_length'    => 'Jumlah Bahan maksimal 11 karakter',
+                'numeric'       => 'Jumlah hanya terdiri dari angka',
+                'greater_than'  => 'Jumlah tidak boleh 0'
             )
         );
 
@@ -148,21 +147,21 @@ class Data_inventory_barang_mentah extends CI_Controller
 
             // ================================= DI BAWAH PROSES INPUT KAS ================
 
-            $matData    = (array)$this->Material_model->getById($material_id)[0];
-            $priceTotal = $matData['price_base'] * $quantity;
+            // $matData    = (array)$this->Material_model->getById($material_id)[0];
+            // $priceTotal = $matData['price_base'] * $quantity;
 
-            $username  = $this->session->username;
+            // $username  = $this->session->username;
 
-            $kasArr = [
-                'add-type'          => 'kredit',
-                'add-nominal'       => $priceTotal,
-                'add-perihal'       => "(+) Stok bahan baku: {$matData['material_code']} - {$matData['full_name']}",
-                'add-keterangan'    => "HPP:{$matData['price_base']} ; Qty:{$quantity} ; Harga total:{$priceTotal} ; Oleh:{$username}",
-                'add-date'          => $createdAt,
-                'created_by'        => $username,
-            ];
+            // $kasArr = [
+            //     'add-type'          => 'kredit',
+            //     'add-nominal'       => $priceTotal,
+            //     'add-perihal'       => "(+) Stok bahan baku: {$matData['material_code']} - {$matData['full_name']}",
+            //     'add-keterangan'    => "HPP:{$matData['price_base']} ; Qty:{$quantity} ; Harga total:{$priceTotal} ; Oleh:{$username}",
+            //     'add-date'          => $createdAt,
+            //     'created_by'        => $username,
+            // ];
 
-            $this->Kas_model->set_new_kas($kasArr);
+            // $this->Kas_model->set_new_kas($kasArr);
 
             $this->db->trans_complete();
 

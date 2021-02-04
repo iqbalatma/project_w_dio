@@ -94,6 +94,159 @@ class Transaction_model extends CI_Model
     return FALSE;
   }
 
+  public function get_laba_rugi($filter)
+  {
+    if ($filter == 'perhari')
+    {
+      $query = $this->db->query("
+        (
+          SELECT 
+            'penjualan' AS col_type,
+            id, 
+            created_at, 
+            SUM(price_total) AS money,
+            SUM(hpp_total) AS modal,
+            DATE_FORMAT(created_at, '%d-%b-%Y') AS day_per_month_year,
+            CONCAT(YEAR(created_at), '||', MONTH(created_at), '||', DAY(created_at)) AS unique_value
+          FROM transaction
+          GROUP BY unique_value
+          ORDER BY created_at
+          DESC
+          LIMIT 2000000
+        )
+        UNION ALL
+        (
+          SELECT 
+            'pengeluaran' AS col_type,
+            id, 
+            date, 
+            SUM(kredit) AS total_kredit, 
+            0 AS modal,
+            DATE_FORMAT(created_at, '%d-%b-%Y') AS day_per_month_year,
+            CONCAT(YEAR(date), '||', MONTH(date), '||', DAY(date)) AS unique_value
+          FROM kas
+          GROUP BY unique_value
+          ORDER BY date
+          DESC 
+          LIMIT 2000000
+        )
+        ORDER BY unique_value DESC
+      ");
+    }
+    elseif ($filter == 'perminggu')
+    {
+      $query = $this->db->query("
+        (
+          SELECT 
+            'penjualan' AS col_type,
+            id, 
+            created_at, 
+            SUM(price_total) AS money,
+            SUM(hpp_total) AS modal,
+            WEEK(created_at) - WEEK(DATE_FORMAT(created_at, '%Y-%m-01')) + 1 AS week_per_month, 
+            DATE_FORMAT(created_at, '%b-%Y') AS month_per_year, 
+            CONCAT(YEAR(created_at), '||', MONTH(created_at), '||', WEEK(created_at) + 1) AS unique_value
+          FROM transaction
+          GROUP BY unique_value
+          ORDER BY created_at
+          DESC
+          LIMIT 2000000
+        )
+        UNION ALL
+        (
+          SELECT 
+            'pengeluaran' AS col_type,
+            id, 
+            date, 
+            SUM(kredit) AS total_kredit, 
+            0 AS modal,
+            WEEK(date) - WEEK(DATE_FORMAT(date, '%Y-%m-01')) + 1 AS week_per_month, 
+            DATE_FORMAT(date, '%b-%Y') AS month_per_year, 
+            CONCAT(YEAR(date), '||', MONTH(date), '||', WEEK(date) + 1) AS unique_value
+          FROM kas
+          GROUP BY unique_value
+          ORDER BY date
+          DESC 
+          LIMIT 2000000
+        )
+        ORDER BY unique_value DESC
+      ");
+    }
+    elseif ($filter == 'perbulan')
+    {
+      $query = $this->db->query("
+        (
+          SELECT 
+            'penjualan' AS col_type,
+            id, 
+            created_at, 
+            SUM(price_total) AS money,
+            SUM(hpp_total) AS modal,
+            DATE_FORMAT(created_at, '%b-%Y') AS month_per_year, 
+            CONCAT(YEAR(created_at), '||', MONTH(created_at)) AS unique_value
+          FROM transaction
+          GROUP BY unique_value
+          ORDER BY created_at
+          DESC
+          LIMIT 2000000
+        )
+        UNION ALL
+        (
+          SELECT 
+            'pengeluaran' AS col_type,
+            id, 
+            date, 
+            SUM(kredit) AS total_kredit, 
+            0 AS modal,
+            DATE_FORMAT(date, '%b-%Y') AS month_per_year, 
+            CONCAT(YEAR(date), '||', MONTH(date)) AS unique_value
+          FROM kas
+          GROUP BY unique_value
+          ORDER BY date
+          DESC 
+          LIMIT 2000000
+        )
+        ORDER BY unique_value DESC
+      ");
+    }
+    else
+    {
+      return FALSE;
+    }
+
+    if ($query->num_rows() > 1) return $query->result_array();
+    else return FALSE;
+  }
+  
+  /**
+   * 
+   * Get all rows from certain table
+   * 
+   * @param string $select 
+   * Default value is '*', but you can input some string
+   * to select some table(s) name of your choice.
+   * 
+   */
+  public function get_all_penjualan_xxx($select = '*', $asc_desc = 'DESC', $order_by = 'id', $limit = 20000, $group_by = null)
+  {
+    $this->db->select($select);
+    $this->db->from("{$this->table}");
+
+    if ($group_by != null)
+    {
+      $this->db->group_by($group_by);
+    }
+
+    $this->db->order_by($order_by, $asc_desc);
+    $this->db->limit($limit);
+
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) return $query->result_array();
+    // elseif ($query->num_rows() > 1) return $query->result_array();
+    else return FALSE;
+  }
+
   public function get_some_last_invoice($n = 10)
   {
     $query = $this->db->query("

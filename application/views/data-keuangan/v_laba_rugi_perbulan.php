@@ -61,81 +61,37 @@
                             <table id="add-row" class="display table table-sm  table-hover">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="100px">Tanggal per Bulan</th>
-                                        <th class="px-3" width="30px">Modal</th>
-                                        <th class="px-3" width="30px">Pemasukan</th>
-                                        <!-- <th class="px-3" width="30px">Hutang</th> -->
-                                        <th class="px-3">Untung/Rugi</th>
+                                        <th class="px-3" width="">No</th>
+                                        <th class="px-3" width="">Bulan - Tahun</th>
+                                        <th class="px-3" width="">Penjualan</th>
+                                        <th class="px-3" width="">Modal</th>
+                                        <th class="px-3" width="">Pengeluaran</th>
+                                        <th class="px-3" width="">Laba Rugi</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="thead-light">
                                     <tr>
-                                        <th class="px-3" width="20px">No</th>
-                                        <th class="px-3" width="100px">Tanggal per Bulan</th>
-                                        <th class="px-3" width="30px">Modal</th>
-                                        <th class="px-3" width="30px">Pemasukan</th>
-                                        <!-- <th class="px-3" width="30px">Hutang</th> -->
-                                        <th class="px-3">Untung/Rugi</th>
+                                        <th class="px-3">No</th>
+                                        <th class="px-3">Bulan - Tahun</th>
+                                        <th class="px-3">Penjualan</th>
+                                        <th class="px-3">Modal</th>
+                                        <th class="px-3">Pengeluaran</th>
+                                        <th class="px-3">Laba Rugi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    // echo "<pre>";
-                                    // echo (date("m-Y", $tanggal_hari_ini[0]));
-                                    // echo "<br>";
-                                    // echo (date("m-Y", $tanggal_hari_ini[8]));
-                                    // echo "</pre>";
-                                    $counter = count($tanggal_hari_ini);
-                                    $j = 0;
-                                    $bulan = array();
-
-                                    while ($j < $counter) {
-                                        if (array_search(date("m-Y", $tanggal_hari_ini[$j]), $bulan) === false) {
-                                            array_push($bulan, date("m-Y", $tanggal_hari_ini[$j]));
-                                        }
-                                        $j++;
-                                    }
-
-                                    $x = 0;
-
-                                    // if (date("m-Y", $tanggal_hari_ini[2]) == $bulan[0]) {
-                                    //     echo "BETUL";
-                                    // }
-                                    $status = false;
-                                    $counter = 1;
-                                    while ($x < count($bulan)) {
-
-                                        // echo count($bulan);
-                                        $tes = $bulan[$x];
-                                        $total_modalx = 0;
-                                        $total_pemasukanx = 0;
-                                        $hutang_arrayx = 0;
-                                        $nilai_finalx = 0;
-                                        $i = 0;
-                                        while ($i < count($total_modal)) {
-                                            if (date("m-Y", $tanggal_hari_ini[$i]) == $tes) {
-                                                $total_modalx += $total_modal[$i];
-                                                $total_pemasukanx += $total_pemasukan[$i];
-                                                $hutang_arrayx += $hutang_array[$i];
-                                                $nilai_finalx += $nilai_final[$i];
-                                            }
-                                            $i++;
-                                        }; ?>
-
+                                    $i = 1;
+                                    foreach ($labarugi as $row) : ?>
                                         <tr>
-                                            <td class="px-3" width="5%px"><?= $counter; ?></td>
-                                            <td class="px-3" width="40px"><?= $tes ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($total_modalx); ?></td>
-                                            <td class="px-3" width="30px"><?= price_format($total_pemasukanx); ?></td>
-                                            <!-- <td class="px-3" width="30px"><?= price_format($hutang_arrayx); ?></td> -->
-                                            <td class="px-3" width="30px"><?= price_format($nilai_finalx); ?></td>
+                                            <td class="px-3"><?= $i; ?></td>
+                                            <td class="px-3"><?= $row['month_per_year'] ?></td>
+                                            <td class="px-3"><?= price_format($row['penjualan']) ?></td>
+                                            <td class="px-3"><?= price_format($row['modal']) ?></td>
+                                            <td class="px-3"><?= price_format($row['pengeluaran']) ?></td>
+                                            <td class="px-3 font-weight-bold <?= ($row['total'] > 0) ? 'text-primary' : 'text-danger' ?>"><?= price_format($row['total']) ?></td>
                                         </tr>
-
-                                    <?php
-                                        $x++;
-                                        $counter++;
-                                    }; ?>
+                                    <?php $i++; endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
