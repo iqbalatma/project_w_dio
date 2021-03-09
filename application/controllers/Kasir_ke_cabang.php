@@ -90,13 +90,15 @@ class Kasir_ke_cabang extends CI_Controller
             $data_customer['full_name']     = $tokcab->full_name;
             $data_customer['id_as_cust']    = $customer_id;
             $data_customer['id_as_store']   = $tokcab->id;
+            $data_customer['cust_type']     = 'reseller';
         } else {
             set_swal(['failed', 'Toko Cabang Tidak Ditemukan', 'Mohon periksa kembali orderan anda. Bila masih berlanjut hubungi developer segera.']);
             redirect(getBeforeLastSegment(base_url()));
         }
         // pprintd(getBeforeLastSegment(base_url()));
 
-        $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, selling_price');
+        $data_product       = $this->Product_model->get_by_where($productQuery, 'id, product_code, full_name, image, price_base, selling_price, reseller_price');
+        // pprintd($data_product);
 
         // build array yg isinya hanya kode product untuk keperluan where clause di db ketika get harga custom
         foreach ($data_product as $row) {
@@ -111,7 +113,7 @@ class Kasir_ke_cabang extends CI_Controller
                 $customer_harga[$row['product_id']] = $row['custom_price'];
             }
         }
-        // pprintd($data_custom_price);
+        // pprintd($data_product[0]);
 
 
         // inisiasi $container untuk menyimpan hasil iterasi di bawah
@@ -127,6 +129,8 @@ class Kasir_ke_cabang extends CI_Controller
                 $row['kasir_price'] = $custom_harga[$row['id']];
             } elseif (isset($customer_harga[$row['id']])) {
                 $row['kasir_price'] = $customer_harga[$row['id']];
+            } elseif ( ($data_product[0]['reseller_price'] > 0) && ($data_customer['cust_type'] == 'reseller') ) {
+                $row['kasir_price'] = $row['reseller_price'];
             } else {
                 $row['kasir_price'] = $row['selling_price'];
             }

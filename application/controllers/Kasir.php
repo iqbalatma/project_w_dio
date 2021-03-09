@@ -62,12 +62,12 @@ class Kasir extends CI_Controller
         }
         // pprintd($post);
 
-        $checkbox_value     = $this->input->post('product');
-        $customer_id        = $this->input->post('nama_pelanggan');
-        $address            = $this->input->post('alamat_pelanggan');
-        $phone              = $this->input->post('phone');
-        $quantity           = $this->input->post('quantity');
-        $custom_harga       = $this->input->post('custom_harga');
+        $checkbox_value     = $post['product'];
+        $customer_id        = $post['nama_pelanggan'];
+        $address            = $post['alamat_pelanggan'];
+        $phone              = $post['phone'];
+        $quantity           = $post['quantity'];
+        $custom_harga       = $post['custom_harga'];
 
         // set variabel untuk nanti menjadi where query, supaya get hanya produk2 yg dicekout
         // kemudian looping setiap data dan bangun querynya dengan operator OR, agar semua ter-get

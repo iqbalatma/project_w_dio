@@ -37,9 +37,6 @@ class Dashboard extends CI_Controller
       $lastInvoices2  = FALSE;
     }
 
-
-
-
     $date = new DateTime();
     $tanggal_hari_ini = $date->getTimestamp() + (86400 * 100);
     $tanggal_pertama = 1606656147;
@@ -74,8 +71,6 @@ class Dashboard extends CI_Controller
         if (array_search($row['transaction_id'], $tidak_digunakan) === false) {
           $data_row = $this->invoice_m->get_hutang($row['transaction_id']);
 
-
-
           // echo "<pre>";
           // var_dump($data_row);
           // echo "<pre>";
@@ -84,7 +79,7 @@ class Dashboard extends CI_Controller
           if ($data_row->left_to_paid > 0) {
             $total_hutang += $data_row->left_to_paid;
             // echo "<br>";
-            echo "COK1";
+            // echo "COK1";
             array_push($tidak_digunakan, $row['transaction_id']);
             // echo $data_row->left_to_paid;
             // echo "<br>";
@@ -118,13 +113,6 @@ class Dashboard extends CI_Controller
     }
 
 
-
-
-
-
-
-
-
     $total_modal_final = 0;
     $total_pemasukan_final = 0;
     $total_hutang_final = 0;
@@ -135,11 +123,7 @@ class Dashboard extends CI_Controller
       $tanggal_pertama = $tanggal_pertama + (86400 * 1);
       $data_invoice = $this->kas_m->get_invoice_perhari(date("Y-m-d", $tanggal_pertama));
 
-
-
       if (count($data_invoice) > 1) {
-
-
 
         foreach ($data_invoice as $row) {
           // INI KETIKA INVOICE LEBIH DARI 1 lakukan perulangan
@@ -160,10 +144,6 @@ class Dashboard extends CI_Controller
           // echo "<br>";
 
           // echo array_search(20, $tidak_digunakan);
-
-
-
-
 
 
           // $total_hutang = $this->invoice_m->get_total_debt2();
@@ -218,8 +198,8 @@ class Dashboard extends CI_Controller
             if ($data_row->left_to_paid > 0) {
               $total_hutang += $data_row->left_to_paid;
               array_push($tidak_digunakan, $row['transaction_id']);
-              echo "COK2";
-              echo "<br>";
+              // echo "COK2";
+              // echo "<br>";
               // array_push($tidak_digunakan, $row['transaction_id']);
               // echo $data_row->left_to_paid;
               // echo "<br>";

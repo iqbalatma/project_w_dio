@@ -95,7 +95,7 @@ $mainMenu = array(
         'slug'  => 'data-barang-mentah',
         'url'   => "{$_data_gudang}/data-barang-mentah",
       ], [
-        'hasAccess' => role_access($this->session->role_id, [$_role_1]),
+        'hasAccess' => role_access($this->session->role_id, [$_role_1, $_role_2]),
         'name'  => 'Data Inventory Bahan Baku',
         'slug'  => 'data-inventory-barang-mentah',
         'url'   => "{$_data_gudang}/data-inventory-barang-mentah",

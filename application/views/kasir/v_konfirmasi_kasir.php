@@ -15,10 +15,10 @@
     }; ?>
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Forms</h4>
+            <h4 class="page-title">Konfirmasi Cekout</h4>
             <ul class="breadcrumbs">
                 <li class="nav-home">
-                    <a href="<?= base_url() ?>">
+                    <a href="<?= base_url(); ?>">
                         <i class="flaticon-home"></i>
                     </a>
                 </li>
@@ -26,22 +26,13 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= current_url() ?>">Kasir</a>
-                </li>
-                <li class="separator">
-                    <i class="flaticon-right-arrow"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= current_url() ?>">Checkout Kasir</a>
+                    <a href="<?= current_url() ?>"><?= $title ?></a>
                 </li>
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Konfirmasi Checkout</div>
-                    </div>
 
                     <?= form_open('kasir/insert-dio'); ?>
                     <div class="card-body">

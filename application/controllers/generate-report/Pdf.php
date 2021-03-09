@@ -256,6 +256,16 @@ class Pdf extends CI_Controller
 			redirect();
 		}
 
+		// special case untuk di kolom tabel paling bawah
+		if ($data['menu'] == 'laporan_penjualan')
+		{
+			$price_total = 0;
+			foreach ($resultSet['db_res'] as $row) {
+				$price_total = $price_total + $row['price_total'];
+			}
+			$resultSet['db_res'][] = ['','','','<b>TOTAL OMSET (Rp.)</b>',"<b>{$price_total}</b>",'','','',''];
+		}
+
 		// pprintd($resultSet);
 
 		$createdAt	= date('H:i:s, d-M-Y', $now);
