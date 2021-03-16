@@ -276,6 +276,12 @@ class Kasir_model extends CI_Model
         return $query;
     }
 
+    public function bayar_utang($idInvoice, $paid_amount)
+    {
+        $query = $this->db->query("UPDATE invoice SET left_to_paid = left_to_paid - {$paid_amount}, paid_amount = paid_amount + {$paid_amount} WHERE id = {$idInvoice}");
+        return $query;
+    }
+
 
 
     /**
@@ -413,7 +419,7 @@ class Kasir_model extends CI_Model
         return $transNumber;
     }
 
-    private function __generate_new_invoice_number_gudang($timestamp)
+    private function __generate_new_invoice_number_gudang($timestamp, $storeId)
     {
         $table = 'invoice';
 
@@ -423,7 +429,7 @@ class Kasir_model extends CI_Model
         $custAndDateCode  .= mdate('%m/%Y', $timestamp); // tambah string kode untuk bulan tahun
 
         // get last invoice_number from table row
-        $lastRow           = $this->db->select('invoice_number')->order_by('id', "desc")->limit(1)->get($table);
+        $lastRow           = $this->db->select('invoice_number')->where('store_id', $storeId)->order_by('id', "desc")->limit(1)->get($table);
         // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
         if ($lastRow->num_rows() > 0) $lastCode = $lastRow->row()->invoice_number;
         else $lastCode = "0/{$custAndDateCode}"; // panjang nomor kode ada (bebas) angka
@@ -445,7 +451,7 @@ class Kasir_model extends CI_Model
         return $invoiceNumber;
     }
 
-    private function __generate_new_invoice_number($timestamp, $customerType)
+    private function __generate_new_invoice_number($timestamp, $customerType, $storeId)
     {
         $table = 'invoice';
 
@@ -460,7 +466,7 @@ class Kasir_model extends CI_Model
         $custAndDateCode  .= mdate('%m/%Y', $timestamp); // tambah string kode untuk bulan tahun
 
         // get last invoice_number from table row
-        $lastRow           = $this->db->select('invoice_number')->order_by('id', "desc")->limit(1)->get($table);
+        $lastRow           = $this->db->select('invoice_number')->where('store_id', $storeId)->order_by('id', "desc")->limit(1)->get($table);
         // else jika belum ada sama sekali data di db (cuma kepake sekali seumur hidup harusnya)
         if ($lastRow->num_rows() > 0) $lastCode = $lastRow->row()->invoice_number;
         else $lastCode = "0/{$custAndDateCode}"; // panjang nomor kode ada (bebas) angka
@@ -649,7 +655,8 @@ class Kasir_model extends CI_Model
         // ============================================================ [2] MULAI SIAPKAN DATA-DATA UNTUK INVOICE ===================
 
 
-        $invoiceNumber = $this->__generate_new_invoice_number($now, $data['data_customer']['cust_type']);
+        $invoiceNumber = $this->__generate_new_invoice_number($now, $data['data_customer']['cust_type'], $data['store_id']);
+        // pprintd($invoiceNumber);
 
         $leftToPaid = $data['total_harga'] - $data['paid_amount'];
         if ($leftToPaid <= 0) {
@@ -664,6 +671,7 @@ class Kasir_model extends CI_Model
             'paid_type'         => $data['paid_type'],
             // 'payment_img'       => ,
             'transaction_id'    => $lastTrxId,
+            'store_id'          => $data['store_id'],
             'created_at'        => $createdAt,
             'status'            => '0',
         ];
@@ -915,7 +923,8 @@ class Kasir_model extends CI_Model
 
 
         // pprintd($data);
-        $invoiceNumber = $this->__generate_new_invoice_number_gudang($now);
+        $invoiceNumber = $this->__generate_new_invoice_number_gudang($now, $data['store_id']);
+        // pprintd($invoiceNumber);
 
         $leftToPaid = $data['total_harga'] - $data['paid_amount'];
         if ($leftToPaid <= 0) {
@@ -929,6 +938,7 @@ class Kasir_model extends CI_Model
             'paid_at'           => $createdAt,
             'paid_type'         => 'kontrabon', // defaultnya hanya bisa kontrabon
             'transaction_id'    => $lastTrxId,
+            'store_id'          => $data['store_id'],
             'created_at'        => $createdAt,
             'status'            => '0',
         ];

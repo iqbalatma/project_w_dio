@@ -210,6 +210,7 @@ class Kasir extends CI_Controller
         $cekoutData['total_hpp']    = $post['total_hpp'];
 
         $cekoutData['paid_type']    = $post['payment_type'];
+        // pprintd($cekoutData);
 
         // seluruh proses checkout di satu baris ini, termasuk interaksi dengan 7 tabel di database
         // return array yg (hanya) berisi invoice id, nomor invoice terbaru, dan due_at
