@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2021 at 05:17 AM
+-- Generation Time: Mar 16, 2021 at 04:18 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -60,7 +60,7 @@ CREATE TABLE `basic_info_meta` (
 -- Table structure for table `customer`
 --
 -- Creation: Jan 29, 2021 at 01:53 PM
--- Last update: Feb 04, 2021 at 04:16 AM
+-- Last update: Mar 16, 2021 at 03:12 AM
 --
 
 DROP TABLE IF EXISTS `customer`;
@@ -114,7 +114,6 @@ CREATE TABLE `custom_price` (
 -- Table structure for table `employee`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Feb 04, 2021 at 04:13 AM
 --
 
 DROP TABLE IF EXISTS `employee`;
@@ -147,8 +146,8 @@ CREATE TABLE `employee` (
 --
 -- Table structure for table `invoice`
 --
--- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Feb 04, 2021 at 02:13 AM
+-- Creation: Mar 16, 2021 at 01:53 AM
+-- Last update: Mar 16, 2021 at 03:13 AM
 --
 
 DROP TABLE IF EXISTS `invoice`;
@@ -161,6 +160,7 @@ CREATE TABLE `invoice` (
   `paid_type` enum('cash','transfer','kontrabon') NOT NULL COMMENT 'paid_amount ; cash=normal ; transfer=0 ; kontrabon=0 ;',
   `payment_img` varchar(250) DEFAULT NULL COMMENT 'Nama img.ext dari bukti bayar invoice ini',
   `transaction_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `status` enum('0','1') NOT NULL DEFAULT '0',
   `is_deleted` tinyint(2) NOT NULL DEFAULT 0
@@ -170,6 +170,8 @@ CREATE TABLE `invoice` (
 -- RELATIONSHIPS FOR TABLE `invoice`:
 --   `transaction_id`
 --       `transaction` -> `id`
+--   `store_id`
+--       `store` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -178,7 +180,7 @@ CREATE TABLE `invoice` (
 -- Table structure for table `invoice_item`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Feb 04, 2021 at 02:13 AM
+-- Last update: Mar 16, 2021 at 03:13 AM
 --
 
 DROP TABLE IF EXISTS `invoice_item`;
@@ -204,7 +206,7 @@ CREATE TABLE `invoice_item` (
 -- Table structure for table `kas`
 --
 -- Creation: Feb 03, 2021 at 03:18 PM
--- Last update: Feb 04, 2021 at 03:19 AM
+-- Last update: Mar 16, 2021 at 03:12 AM
 --
 
 DROP TABLE IF EXISTS `kas`;
@@ -372,7 +374,7 @@ CREATE TABLE `product_composition` (
 -- Table structure for table `product_inventory`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Feb 04, 2021 at 02:13 AM
+-- Last update: Mar 16, 2021 at 03:13 AM
 --
 
 DROP TABLE IF EXISTS `product_inventory`;
@@ -403,7 +405,7 @@ CREATE TABLE `product_inventory` (
 -- Table structure for table `product_mutation`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Feb 04, 2021 at 02:13 AM
+-- Last update: Mar 16, 2021 at 03:13 AM
 --
 
 DROP TABLE IF EXISTS `product_mutation`;
@@ -473,8 +475,8 @@ CREATE TABLE `store` (
 --
 -- Table structure for table `transaction`
 --
--- Creation: Feb 02, 2021 at 10:50 PM
--- Last update: Feb 04, 2021 at 02:13 AM
+-- Creation: Mar 16, 2021 at 01:49 AM
+-- Last update: Mar 16, 2021 at 03:13 AM
 --
 
 DROP TABLE IF EXISTS `transaction`;
@@ -546,10 +548,11 @@ ALTER TABLE `employee`
 -- Indexes for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD PRIMARY KEY (`invoice_number`),
-  ADD UNIQUE KEY `id` (`id`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `transaction_id` (`transaction_id`),
-  ADD KEY `left_to_paid` (`left_to_paid`);
+  ADD KEY `left_to_paid` (`left_to_paid`),
+  ADD KEY `invoice_number` (`invoice_number`),
+  ADD KEY `store_id` (`store_id`);
 
 --
 -- Indexes for table `invoice_item`
@@ -638,11 +641,11 @@ ALTER TABLE `store`
 -- Indexes for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`trans_number`),
-  ADD UNIQUE KEY `id` (`id`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `store_id` (`store_id`),
   ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `employee_id` (`employee_id`);
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `trans_number` (`trans_number`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -784,7 +787,8 @@ ALTER TABLE `employee`
 -- Constraints for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `invoice_ibfk_3` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `invoice_item`

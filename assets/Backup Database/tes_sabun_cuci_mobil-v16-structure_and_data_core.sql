@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2021 at 04:18 AM
+-- Generation Time: Feb 04, 2021 at 05:17 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -74,7 +74,7 @@ INSERT INTO `basic_info_meta` (`id`, `fullname`, `address`, `contact_1`, `contac
 -- Table structure for table `customer`
 --
 -- Creation: Jan 29, 2021 at 01:53 PM
--- Last update: Mar 16, 2021 at 03:12 AM
+-- Last update: Feb 04, 2021 at 04:16 AM
 --
 
 DROP TABLE IF EXISTS `customer`;
@@ -107,10 +107,7 @@ TRUNCATE TABLE `customer`;
 
 INSERT INTO `customer` (`id`, `full_name`, `address`, `phone`, `cust_type`, `store_id`, `created_at`, `is_store`, `is_deleted`) VALUES
 (1, 'Toko Cicalengka', 'Cicalengka, Jawa Barat, ID', '086969696969', 'reseller', 1, '2021-02-01 02:33:53', 1, 0),
-(2, 'Toko Ujung Berung', 'Ujung Berung, Jawa Barat, ID', '086969696969', 'reseller', 1, '2021-02-01 02:33:53', 1, 0),
-(12, 'dio', 'jalanan', '081232131231', 'reseller', 1, '2021-03-09 18:05:23', 0, 0),
-(13, 'Yaha', 'jalanann', '08465456145612', 'reseller', 2, '2021-03-16 10:07:16', 0, 0),
-(14, 'Metallica', 'asdasdasasdsa', '0844456456456', 'retail', 3, '2021-03-16 10:12:32', 0, 0);
+(2, 'Toko Ujung Berung', 'Ujung Berung, Jawa Barat, ID', '086969696969', 'reseller', 1, '2021-02-01 02:33:53', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -144,6 +141,7 @@ CREATE TABLE `custom_price` (
 -- Table structure for table `employee`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
+-- Last update: Feb 04, 2021 at 04:13 AM
 --
 
 DROP TABLE IF EXISTS `employee`;
@@ -195,8 +193,8 @@ INSERT INTO `employee` (`id`, `username`, `email`, `password`, `first_name`, `la
 --
 -- Table structure for table `invoice`
 --
--- Creation: Mar 16, 2021 at 01:53 AM
--- Last update: Mar 16, 2021 at 03:13 AM
+-- Creation: Jan 28, 2021 at 02:08 PM
+-- Last update: Feb 04, 2021 at 02:13 AM
 --
 
 DROP TABLE IF EXISTS `invoice`;
@@ -209,7 +207,6 @@ CREATE TABLE `invoice` (
   `paid_type` enum('cash','transfer','kontrabon') NOT NULL COMMENT 'paid_amount ; cash=normal ; transfer=0 ; kontrabon=0 ;',
   `payment_img` varchar(250) DEFAULT NULL COMMENT 'Nama img.ext dari bukti bayar invoice ini',
   `transaction_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `status` enum('0','1') NOT NULL DEFAULT '0',
   `is_deleted` tinyint(2) NOT NULL DEFAULT 0
@@ -219,8 +216,6 @@ CREATE TABLE `invoice` (
 -- RELATIONSHIPS FOR TABLE `invoice`:
 --   `transaction_id`
 --       `transaction` -> `id`
---   `store_id`
---       `store` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -229,7 +224,7 @@ CREATE TABLE `invoice` (
 -- Table structure for table `invoice_item`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Mar 16, 2021 at 03:13 AM
+-- Last update: Feb 04, 2021 at 02:13 AM
 --
 
 DROP TABLE IF EXISTS `invoice_item`;
@@ -255,7 +250,7 @@ CREATE TABLE `invoice_item` (
 -- Table structure for table `kas`
 --
 -- Creation: Feb 03, 2021 at 03:18 PM
--- Last update: Mar 16, 2021 at 03:12 AM
+-- Last update: Feb 04, 2021 at 03:19 AM
 --
 
 DROP TABLE IF EXISTS `kas`;
@@ -423,7 +418,7 @@ CREATE TABLE `product_composition` (
 -- Table structure for table `product_inventory`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Mar 16, 2021 at 03:13 AM
+-- Last update: Feb 04, 2021 at 02:13 AM
 --
 
 DROP TABLE IF EXISTS `product_inventory`;
@@ -454,7 +449,7 @@ CREATE TABLE `product_inventory` (
 -- Table structure for table `product_mutation`
 --
 -- Creation: Jan 28, 2021 at 02:08 PM
--- Last update: Mar 16, 2021 at 03:13 AM
+-- Last update: Feb 04, 2021 at 02:13 AM
 --
 
 DROP TABLE IF EXISTS `product_mutation`;
@@ -553,8 +548,8 @@ INSERT INTO `store` (`id`, `store_name`, `address`, `created_at`, `is_deleted`) 
 --
 -- Table structure for table `transaction`
 --
--- Creation: Mar 16, 2021 at 01:49 AM
--- Last update: Mar 16, 2021 at 03:13 AM
+-- Creation: Feb 02, 2021 at 10:50 PM
+-- Last update: Feb 04, 2021 at 02:13 AM
 --
 
 DROP TABLE IF EXISTS `transaction`;
@@ -626,11 +621,10 @@ ALTER TABLE `employee`
 -- Indexes for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`invoice_number`),
+  ADD UNIQUE KEY `id` (`id`),
   ADD KEY `transaction_id` (`transaction_id`),
-  ADD KEY `left_to_paid` (`left_to_paid`),
-  ADD KEY `invoice_number` (`invoice_number`),
-  ADD KEY `store_id` (`store_id`);
+  ADD KEY `left_to_paid` (`left_to_paid`);
 
 --
 -- Indexes for table `invoice_item`
@@ -719,11 +713,11 @@ ALTER TABLE `store`
 -- Indexes for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`trans_number`),
+  ADD UNIQUE KEY `id` (`id`),
   ADD KEY `store_id` (`store_id`),
   ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `employee_id` (`employee_id`),
-  ADD KEY `trans_number` (`trans_number`);
+  ADD KEY `employee_id` (`employee_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -739,7 +733,7 @@ ALTER TABLE `basic_info_meta`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `custom_price`
@@ -865,8 +859,7 @@ ALTER TABLE `employee`
 -- Constraints for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `invoice_ibfk_3` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `invoice_item`
